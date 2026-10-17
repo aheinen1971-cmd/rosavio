@@ -55,6 +55,7 @@ $rosavioPython = 'C:/mozilla-build/python3/python3.exe'
 Invoke-Checked { & $rosavioPython -m pip install -r "$rosavioProject/requirements.txt" }
 $rosavioConfig = Get-Content "$rosavioProject/rosavio.config.json" -Raw | ConvertFrom-Json
 $rosavioConfig.upstreamVersion = $rosavioVersion
+$rosavioConfig.hosting.repository = 'aheinen1971-cmd/rosavio'
 $rosavioConfig | ConvertTo-Json -Depth 8 | Set-Content "$rosavioProject/rosavio.config.json" -Encoding utf8NoBOM
 @{version=$rosavioVersion;url="$rosavioBase/$rosavioSourceName";sha512=$rosavioMatch.Groups[1].Value;verified=$true} | ConvertTo-Json | Set-Content "$rosavioProject/upstream.json" -Encoding utf8NoBOM
 Invoke-Checked { & $rosavioPython "$rosavioProject/scripts/prepare-source.py" $rosavioSource --github-repo aheinen1971-cmd/rosavio }
@@ -121,6 +122,18 @@ Invoke-WebRequest $rosavioPreviousZip[0].browser_download_url -OutFile "$rosavio
 Invoke-Checked { tar -xf "$rosavioRoot/previous.zip" -C $rosavioRoot }
 $env:ROSAVIO_PREVIOUS_BINARY = "$rosavioRoot/rosavio/rosavio.exe"
 Invoke-Checked { node "$rosavioProject/scripts/cloud-update-test.cjs" }
+$rosavioSourceExport="$rosavioRoot/source-project"
+New-Item -ItemType Directory -Path $rosavioSourceExport -Force | Out-Null
+$rosavioTrackedFiles=@(git -C $rosavioProject ls-files)
+if ($LASTEXITCODE -ne 0) { throw 'Cannot enumerate public project sources' }
+foreach($rosavioTrackedFile in $rosavioTrackedFiles) {
+    if($rosavioTrackedFile -match '(^|/)(\.\.|\.git)(/|$)' -or [IO.Path]::IsPathRooted($rosavioTrackedFile)) { throw 'Unsafe source export path' }
+    $rosavioExportFile=Join-Path $rosavioSourceExport $rosavioTrackedFile
+    New-Item -ItemType Directory -Path (Split-Path $rosavioExportFile -Parent) -Force | Out-Null
+    Copy-Item -LiteralPath (Join-Path $rosavioProject $rosavioTrackedFile) -Destination $rosavioExportFile
+}
+@{locale='de';repository='https://github.com/mozilla-l10n/firefox-l10n';revision=(Get-Content "$rosavioSource/browser/locales/l10n-changesets.json" -Raw | ConvertFrom-Json).de.revision;upstreamVersion=$rosavioVersion;branding='Rosavio';packaging='native-single-locale-repack'} | ConvertTo-Json | Set-Content "$rosavioSourceExport/localization.json" -Encoding utf8NoBOM
+Invoke-Checked { tar -a -cf "$rosavioReleaseDir/Rosavio-Browser-Quellprojekt.zip" -C $rosavioSourceExport . }
 Get-ChildItem $rosavioReleaseDir -File | Where-Object Extension -in '.exe','.zip','.mar' | Where-Object Name -notlike '*.unsigned.mar' | ForEach-Object { $rosavioHash=Get-FileHash $_.FullName -Algorithm SHA256; "$($rosavioHash.Hash.ToLower())  $($_.Name)" } | Set-Content "$rosavioReleaseDir/Rosavio-SHA256SUMS.txt"
 "built=true`ntag=$rosavioTag`nreleaseDir=$rosavioReleaseDir" | Out-File $env:GITHUB_OUTPUT -Append
 'Native build, signing, German startup and local update tests passed.' | Out-File $env:GITHUB_STEP_SUMMARY -Append
