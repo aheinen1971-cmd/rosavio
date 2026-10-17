@@ -1,5 +1,6 @@
 param([switch]$Force, [ValidateSet('Build','Package')][string]$Phase='Build')
 $ErrorActionPreference = 'Stop'
+$ProgressPreference = 'SilentlyContinue'
 function Invoke-Checked([scriptblock]$Command) {
     & $Command
     if ($LASTEXITCODE -ne 0) { throw "Build command failed with exit code $LASTEXITCODE" }
@@ -8,11 +9,12 @@ if ($env:GITHUB_ACTIONS -ne 'true' -or $env:GITHUB_REPOSITORY -ne 'aheinen1971-c
 $rosavioProject = (Get-Location).Path.Replace('\','/')
 $rosavioRoot = 'D:/rv'
 if ($Phase -eq 'Build') {
-$rosavioVersions = Invoke-RestMethod 'https://product-details.mozilla.org/1.0/firefox_versions.json'
+Write-Output 'Phase: check official Firefox release and previous Rosavio release'
+$rosavioVersions = Invoke-RestMethod 'https://product-details.mozilla.org/1.0/firefox_versions.json' -TimeoutSec 60
 $rosavioVersion = $rosavioVersions.LATEST_FIREFOX_VERSION
 if ($rosavioVersion -notmatch '^\d+\.\d+(\.\d+)?$') { throw 'Invalid stable version' }
-$rosavioPublished = Invoke-RestMethod 'https://api.github.com/repos/aheinen1971-cmd/rosavio/releases/latest'
-$rosavioFeedResponse = Invoke-WebRequest 'https://github.com/aheinen1971-cmd/rosavio/releases/latest/download/rosavio-win64-update.xml'
+$rosavioPublished = Invoke-RestMethod 'https://api.github.com/repos/aheinen1971-cmd/rosavio/releases/latest' -TimeoutSec 60
+$rosavioFeedResponse = Invoke-WebRequest 'https://github.com/aheinen1971-cmd/rosavio/releases/latest/download/rosavio-win64-update.xml' -TimeoutSec 60
 $rosavioFeedText = if ($rosavioFeedResponse.Content -is [byte[]]) { [Text.Encoding]::UTF8.GetString($rosavioFeedResponse.Content) } else { $rosavioFeedResponse.Content }
 [xml]$rosavioFeed = $rosavioFeedText
 $rosavioPreviousVersion = [string]$rosavioFeed.updates.update.appVersion
@@ -25,21 +27,26 @@ $rosavioRoot = 'D:/rv'
 New-Item -ItemType Directory -Path $rosavioRoot -Force | Out-Null
 if ((Get-PSDrive D).Free -lt 40GB) { throw 'Not enough disk space for Firefox' }
 $rosavioBase = "https://archive.mozilla.org/pub/firefox/releases/$rosavioVersion"
-$rosavioManifest = (Invoke-WebRequest "$rosavioBase/SHA512SUMS").Content
+$rosavioManifest = (Invoke-WebRequest "$rosavioBase/SHA512SUMS" -TimeoutSec 60).Content
 if ($rosavioManifest -is [byte[]]) { $rosavioManifest = [Text.Encoding]::UTF8.GetString($rosavioManifest) }
 $rosavioSourceName = "source/firefox-$rosavioVersion.source.tar.xz"
 $rosavioMatch = [regex]::Match($rosavioManifest, '(?m)^([a-fA-F0-9]{128})\s+\*?' + [regex]::Escape($rosavioSourceName) + '\r?$')
 if (-not $rosavioMatch.Success) { throw 'Source SHA-512 missing from official Mozilla manifest' }
 $rosavioArchive = "$rosavioRoot/source.tar.xz"
-Invoke-WebRequest "$rosavioBase/$rosavioSourceName" -OutFile $rosavioArchive
+Write-Output "Phase: download Firefox $rosavioVersion source (15 minute limit per attempt)"
+Invoke-Checked { curl.exe --fail --location --retry 2 --connect-timeout 30 --max-time 900 --output $rosavioArchive "$rosavioBase/$rosavioSourceName" }
+Write-Output 'Phase: verify SHA-512 and extract source'
 if ((Get-FileHash $rosavioArchive -Algorithm SHA512).Hash -ne $rosavioMatch.Groups[1].Value) { throw 'Mozilla source checksum mismatch' }
 Invoke-Checked { tar -xf $rosavioArchive -C $rosavioRoot }
 $rosavioSource = "$rosavioRoot/firefox-$rosavioVersion"
 if (-not (Test-Path "$rosavioSource/mach")) { throw 'Unexpected Mozilla archive layout' }
 $rosavioInstaller = "$rosavioRoot/mozillabuild.exe"
-Invoke-WebRequest 'https://ftp.mozilla.org/pub/mozilla/libraries/win32/MozillaBuildSetup-4.2.1.exe' -OutFile $rosavioInstaller
+Write-Output 'Phase: download and verify MozillaBuild installer'
+Invoke-Checked { curl.exe --fail --location --retry 2 --connect-timeout 30 --max-time 300 --output $rosavioInstaller 'https://ftp.mozilla.org/pub/mozilla/libraries/win32/MozillaBuildSetup-4.2.1.exe' }
 if ((Get-AuthenticodeSignature $rosavioInstaller).Status -ne 'Valid') { throw 'MozillaBuild installer signature invalid' }
-$rosavioSetup = Start-Process -FilePath $rosavioInstaller -ArgumentList '/S' -Wait -PassThru -WindowStyle Hidden
+Write-Output 'Phase: install MozillaBuild (10 minute limit)'
+$rosavioSetup = Start-Process -FilePath $rosavioInstaller -ArgumentList '/S' -PassThru -WindowStyle Hidden
+if (-not $rosavioSetup.WaitForExit(600000)) { Stop-Process -Id $rosavioSetup.Id -Force; throw 'MozillaBuild installer timed out' }
 if ($rosavioSetup.ExitCode -ne 0) { throw 'MozillaBuild installation failed' }
 $env:MOZILLABUILD = 'C:\mozilla-build\'
 $env:CHERE_INVOKING = '1'
@@ -70,7 +77,9 @@ Invoke-Checked { git -C "$rosavioRoot/l10n" sparse-checkout set de }
 Invoke-Checked { git -C "$rosavioRoot/l10n" checkout --detach $rosavioL10nRevision }
 Invoke-Checked { & $rosavioPython "$rosavioProject/scripts/prepare-german.py" $rosavioSource "$rosavioRoot/l10n" }
 $rosavioBash = 'C:/mozilla-build/msys2/usr/bin/bash.exe'
+Write-Output 'Phase: bootstrap compiler and build dependencies'
 Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive bootstrap --application-choice browser --no-system-changes' }
+Write-Output 'Phase: compile native Rosavio'
 Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive build' }
 Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive package && ./mach --no-interactive build installers-de' }
 @{version=$rosavioVersion;source=$rosavioSource;previous=$rosavioPublished;buildID=$env:MOZ_BUILD_DATE} | ConvertTo-Json -Depth 20 | Set-Content "$rosavioRoot/build-state.json" -Encoding utf8NoBOM
