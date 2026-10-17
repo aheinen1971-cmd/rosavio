@@ -118,7 +118,7 @@ $env:ROSAVIO_EXPECT_LOCALE = 'de'
 $env:ROSAVIO_PYTHON = $rosavioPython
 $env:ROSAVIO_NODE = (Get-Command node).Source.Replace('\','/')
 $env:ROSAVIO_RELEASE_DIR = $rosavioReleaseDir
-Invoke-Checked { node --test "$rosavioProject/tests/"*.test.mjs }
+Invoke-Checked { node --test "$rosavioProject/tests/*.test.mjs" }
 Invoke-Checked { & $rosavioPython "$rosavioProject/tests/test_signing.py" }
 if (-not $env:ROSAVIO_UPDATE_KEY -or -not $env:ROSAVIO_SIGNING_PASSWORD) { throw 'Signing secrets missing' }
 $rosavioKeyPath = "$rosavioRoot/update-key.pem"
