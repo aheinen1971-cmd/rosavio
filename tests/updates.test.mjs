@@ -5,8 +5,18 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
 import { compareVersions, updateXml, validateRelease, createUpdateServer } from '../updates/server.mjs';
+import { parseAppIni, validateNativeIdentity } from '../updates/native-identity.mjs';
 const release = { product: 'Rosavio', channel: 'rosavio-release', target: 'WINNT_x86_64-msvc-x64', locale: 'en-US', appVersion: '158.0', buildID: '20261017090000', file: 'rosavio-158.0.complete.mar', size: 3, hashValue: 'a'.repeat(128), signatureVerified: true };
 const request = { product: 'Rosavio', channel: 'rosavio-release', target: 'WINNT_x86_64-msvc-x64', locale: 'en-US', version: '157.0', buildID: '20261010090000' };
+test('rejects stale package metadata even when the native browser starts', () => {
+  const values = parseAppIni('[App]\r\nName=Rosavio\r\nVersion=158.0\r\nBuildID=20261017175200\r\n[Gecko]\r\nBuildID=ignored\r\n');
+  const native = { passed: true, name: 'Rosavio', vendor: 'Rosavio', version: '158.0', buildID: '20261017184503', locale: 'de', updateUrl: 'https://github.com/aheinen1971-cmd/rose/releases/latest/download/rosavio-win64-update.xml' };
+  assert.throws(() => validateNativeIdentity(values, native, 'de'), /disagrees/);
+  const current = { ...values, BuildID: native.buildID };
+  assert.equal(validateNativeIdentity(current, native, 'de').BuildID, native.buildID);
+  assert.throws(() => validateNativeIdentity(current, { ...native, updateUrl: 'https://aus5.mozilla.org/update.xml' }, 'de'), /own public update/);
+  assert.throws(() => validateNativeIdentity(current, native, 'en-US'), /locale/);
+});
 test('offers newer versions and rebuilds, never repeats or downgrades', () => {
   assert.equal(compareVersions('158.10', '158.2'), 1);
   assert.match(updateXml(release, request, 'https://updates.example.org'), /<patch type="complete"/);
