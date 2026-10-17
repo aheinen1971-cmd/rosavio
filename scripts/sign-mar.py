@@ -1,4 +1,4 @@
-"""Sign an unsigned Rose MAR using Mozilla's build-mar library and an encrypted key.
+"""Sign an unsigned Rosavio MAR using Mozilla's build-mar library and an encrypted key.
 
 The decrypted private key stays in process memory. Native signmar verification is
 still required by package-update.sh before release metadata is generated.
@@ -29,18 +29,18 @@ def sign_mar(source, destination, private_key, certificate, password):
     with source.open('rb') as src:
         reader = MarReader(src)
         version, channel = reader.productinfo or (None, None)
-        if channel != 'rose-release' or not version or not re.fullmatch(r'\d+(?:\.\d+){0,3}', version):
-            raise ValueError('MAR is not a stable Rose release')
+        if channel != 'rosavio-release' or not version or not re.fullmatch(r'\d+(?:\.\d+){0,3}', version):
+            raise ValueError('MAR is not a stable Rosavio release')
         entries = reader.mardata.index.entries
         names = [entry.name for entry in entries]
         if len(set(names)) != len(names) or any('..' in pathlib.PurePosixPath(name).parts or name.startswith(('/', '\\')) or ':' in name for name in names):
             raise ValueError('Unsafe or duplicate MAR paths')
-        if not {'rose.exe', 'application.ini', 'updatev3.manifest'}.issubset(names):
-            raise ValueError('MAR is missing required Rose package entries')
+        if not {'rosavio.exe', 'application.ini', 'updatev3.manifest'}.issubset(names):
+            raise ValueError('MAR is missing required Rosavio package entries')
         ini_entry = next(entry for entry in entries if entry.name == 'application.ini')
         ini = configparser.ConfigParser()
         ini.read_string(b''.join(reader.extract_entry(ini_entry)).decode())
-        if ini.get('App', 'Name') != 'Rose' or ini.get('App', 'Version') != version:
+        if ini.get('App', 'Name') != 'Rosavio' or ini.get('App', 'Version') != version:
             raise ValueError('MAR application identity or version does not match')
         manifest = next(entry for entry in entries if entry.name == 'updatev3.manifest')
         if not b''.join(reader.extract_entry(manifest)).startswith(b'type "complete"'):
@@ -60,6 +60,6 @@ if __name__ == '__main__':
     parser.add_argument('private_key', type=pathlib.Path)
     parser.add_argument('certificate', type=pathlib.Path)
     args = parser.parse_args()
-    password = (os.environ.get('ROSE_SIGNING_PASSWORD') or getpass.getpass('Signing-key password: ')).encode()
+    password = (os.environ.get('ROSAVIO_SIGNING_PASSWORD') or getpass.getpass('Signing-key password: ')).encode()
     sign_mar(args.source, args.destination, args.private_key, args.certificate, password)
-    print('Rose MAR signed with RSA-4096 / SHA-384 and verified with the public certificate.')
+    print('Rosavio MAR signed with RSA-4096 / SHA-384 and verified with the public certificate.')

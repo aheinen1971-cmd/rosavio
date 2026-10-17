@@ -1,4 +1,4 @@
-"""Generate simple original Rose artwork for Windows branding resources."""
+"""Generate simple original Rosavio artwork for Windows branding resources."""
 import math
 import pathlib
 import sys
@@ -29,7 +29,7 @@ for file in root.rglob('*'):
         if width == height:
             icon(width).save(file)
         else:
-            # Installer/header art: center the Rose mark on an original background.
+            # Installer/header art: center the Rosavio mark on an original background.
             canvas = Image.new('RGBA', (width, height), '#111b30')
             mark = icon(min(width, height))
             canvas.alpha_composite(mark, ((width-mark.width)//2, (height-mark.height)//2))
@@ -40,10 +40,10 @@ for file in root.rglob('*'):
         count += 1
     elif file.suffix.lower() == '.svg':
         if 'wordmark' in file.name:
-            artwork = '<svg xmlns="http://www.w3.org/2000/svg" width="180" height="60" viewBox="0 0 180 60"><text x="0" y="46" fill="#ea557e" font-family="Segoe UI, sans-serif" font-size="52" font-weight="700">Rose</text></svg>'
+            artwork = '<svg xmlns="http://www.w3.org/2000/svg" width="180" height="60" viewBox="0 0 180 60"><text x="0" y="46" fill="#ea557e" font-family="Segoe UI, sans-serif" font-size="52" font-weight="700">Rosavio</text></svg>'
         else:
             petals = ''.join(f'<circle cx="{256+97*math.cos(i*math.tau/7-math.pi/2):.2f}" cy="{256+97*math.sin(i*math.tau/7-math.pi/2):.2f}" r="90" fill="{("#f582a2" if i%2 else "#ea557e")}"/>' for i in range(7))
             artwork = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="118" fill="#111b30"/>{petals}<circle cx="256" cy="256" r="61" fill="#ffd4a5"/></svg>'
         file.write_text(artwork, encoding='utf-8')
         count += 1
-print(f'Generated {count} Rose Windows branding images')
+print(f'Generated {count} Rosavio Windows branding images')

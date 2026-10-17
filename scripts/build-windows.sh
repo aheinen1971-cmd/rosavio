@@ -5,14 +5,14 @@ if [[ $# -ne 1 ]]; then
   exit 2
 fi
 cd "$1"
-test -f rose-build.json || { echo 'Run prepare-source.py first' >&2; exit 1; }
+test -f rosavio-build.json || { echo 'Run prepare-source.py first' >&2; exit 1; }
 if grep -q -- '--enable-unverified-updates' mozconfig; then
-  echo 'Refusing to build a Rose browser with unverified updates' >&2
+  echo 'Refusing to build a Rosavio browser with unverified updates' >&2
   exit 1
 fi
 export MOZCONFIG="$PWD/mozconfig"
 ./mach build
 ./mach package
-test -f obj-rose/dist/rose/rose.exe
-echo 'Rose binary: obj-rose/dist/rose/rose.exe'
+test -f obj-rose/dist/rosavio/rosavio.exe
+echo 'Rosavio binary: obj-rose/dist/rosavio/rosavio.exe'
 echo 'Package built. Publish only after the signed native-update integration test.'

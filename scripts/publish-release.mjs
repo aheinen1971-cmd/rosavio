@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import { resolve, dirname, basename } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { validateRelease } from '../updates/server.mjs';
-const [marArg, iniArg, signmarArg, certArg] = process.argv.slice(2);
+const [marArg, iniArg, signmarArg, certArg, locale = 'en-US'] = process.argv.slice(2);
 if (![marArg, iniArg, signmarArg, certArg].every(Boolean)) throw Error('Usage: node scripts/publish-release.mjs SIGNED_MAR APPLICATION_INI SIGNMAR PUBLIC_CERT');
 const mar = resolve(marArg);
 execFileSync(resolve(signmarArg), ['-D', resolve(certArg), '-v', mar], { stdio: 'inherit' });
@@ -16,10 +16,10 @@ for (const line of ini.split(/\r?\n/)) {
   const pair = /^([^=]+)=(.*)$/.exec(line);
   if (pair && section === 'App') values[pair[1].trim()] = pair[2].trim();
 }
-if (values.Name !== 'Rose') throw Error('Refusing to publish a non-Rose application');
+if (values.Name !== 'Rosavio') throw Error('Refusing to publish a non-Rosavio application');
 const hash = createHash('sha512');
 for await (const chunk of createReadStream(mar)) hash.update(chunk);
-const release = validateRelease({ product: 'Rose', channel: 'rose-release', target: 'WINNT_x86_64-msvc-x64', locale: 'en-US', appVersion: values.Version, buildID: values.BuildID, file: basename(mar), hashValue: hash.digest('hex'), size: (await stat(mar)).size, signatureVerified: true });
+const release = validateRelease({ product: 'Rosavio', channel: 'rosavio-release', target: 'WINNT_x86_64-msvc-x64', locale, appVersion: values.Version, buildID: values.BuildID, file: basename(mar), hashValue: hash.digest('hex'), size: (await stat(mar)).size, signatureVerified: true });
 const output = resolve(dirname(mar), 'release.json');
 const temp = output + '.tmp';
 await writeFile(temp, JSON.stringify(release, null, 2) + '\n');
