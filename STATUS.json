@@ -10,12 +10,14 @@
   "updateServerTestsPassed": 6,
   "syntheticMarSigningTestsPassed": 2,
   "githubRepository": "https://github.com/aheinen1971-cmd/rose",
-  "publicUpdateReleasePublished": false,
+  "publicUpdateReleasePublished": true,
   "paidServicesEnabled": false,
   "wolkivoModified": false,
   "nativeStartTestPassed": true,
   "nativeTamperedMarRejected": true,
   "germanNativeInterfacePassed": true,
   "buildID": "20261017184503",
-  "nativeUpdateUrlVerified": true
+  "nativeUpdateUrlVerified": true,
+  "publicNativeUpdateIntegrationPassed": true,
+  "publicReleaseUrl": "https://github.com/aheinen1971-cmd/rose/releases/tag/v158.0-rosavio.3"
 }

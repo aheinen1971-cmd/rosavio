@@ -48,6 +48,11 @@ Release-Update-Datei `releases/latest/download/rosavio-win64-update.xml`.
 Ein nativer Integrationstest hat den Wechsel von der englischen Build-ID
 20261017161130 zur deutschen Build-ID 20261017175200 mit aktivierter
 MAR-Signaturpruefung erfolgreich durchgefuehrt.
+Auch der oeffentliche Update-Test ohne lokale URL-Richtlinie hat bestanden:
+Der native Updater hat Build 20261017184503 ueber GitHub heruntergeladen,
+mit aktivierter Signaturpruefung angewendet und nach dem Neustart Deutsch
+und die eigene native GitHub-Update-Adresse bestaetigt. Die Veroeffentlichung
+traegt den Tag `v158.0-rosavio.3`.
 
 Kostenrahmen: ausschliesslich kostenlose GitHub-Funktionen, oeffentliches
 Rosavio-Repository und GitHub Releases. Keine kostenpflichtigen Runner, kein
