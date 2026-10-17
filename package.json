@@ -1,8 +1,8 @@
 {
-  "name": "rose-browser-build",
+  "name": "rosavio-browser-build",
   "version": "0.1.0",
   "private": true,
-  "description": "Rose Firefox fork: branding, native signed MAR updates and local update service",
+  "description": "Rosavio Firefox fork: branding, native signed MAR updates and local update service",
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.mjs",

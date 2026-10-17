@@ -1,10 +1,10 @@
 {
-  "product": "Rose",
+  "product": "Rosavio",
   "upstream": "Firefox 158.0",
   "sourceArchiveVerified": true,
   "sourceOverlayApplied": true,
-  "toolchain": "being-prepared",
-  "nativeBrowserBuildPassed": false,
+  "toolchain": "ready",
+  "nativeBrowserBuildPassed": true,
   "nativeMarSignatureVerificationPassed": false,
   "browserUpdateIntegrationPassed": false,
   "updateServerTestsPassed": 4,
@@ -12,5 +12,6 @@
   "githubRepository": "https://github.com/aheinen1971-cmd/rose",
   "publicUpdateReleasePublished": false,
   "paidServicesEnabled": false,
-  "wolkivoModified": false
+  "wolkivoModified": false,
+  "nativeStartTestPassed": true
 }

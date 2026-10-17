@@ -1,0 +1,8 @@
+{
+  "locale": "de",
+  "repository": "https://github.com/mozilla-l10n/firefox-l10n",
+  "revision": "0da379c064af4968c17feca6128a1290adfb3009",
+  "upstreamVersion": "158.0",
+  "branding": "Rosavio",
+  "packaging": "native-single-locale-repack"
+}
