@@ -1,0 +1,46 @@
+name: Rosavio automatic Windows release
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Rebuild current stable Firefox for an integration test
+        type: boolean
+        default: false
+  schedule:
+    - cron: '41 */6 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: rosavio-production-release
+  cancel-in-progress: false
+jobs:
+  release:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    runs-on: windows-2022
+    timeout-minutes: 350
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Build German Rosavio from verified stable Firefox source
+        id: compile
+        shell: pwsh
+        env:
+          ROSAVIO_FORCE_BUILD: ${{ inputs.force }}
+        run: ./scripts/cloud-build.ps1 -Force:($env:ROSAVIO_FORCE_BUILD -eq 'true')
+      - name: Verify, sign and test native update
+        if: steps.compile.outputs.built == 'true'
+        id: package
+        shell: pwsh
+        env:
+          ROSAVIO_UPDATE_KEY: ${{ secrets.ROSAVIO_UPDATE_KEY }}
+          ROSAVIO_SIGNING_PASSWORD: ${{ secrets.ROSAVIO_SIGNING_PASSWORD }}
+        run: ./scripts/cloud-build.ps1 -Phase Package
+      - name: Publish and test public update with rollback on failure
+        if: steps.package.outputs.built == 'true'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./scripts/cloud-publish.ps1
