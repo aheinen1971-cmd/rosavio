@@ -5,6 +5,15 @@ function Invoke-Checked([scriptblock]$Command) {
     & $Command
     if ($LASTEXITCODE -ne 0) { throw "Build command failed with exit code $LASTEXITCODE" }
 }
+function Expand-SourceArchive([string]$Archive, [string]$Destination) {
+    $rosavio7Zip=(Get-Command 7z.exe -ErrorAction Stop).Source
+    $rosavioExtractor=Start-Process -FilePath $rosavio7Zip -ArgumentList @('x',$Archive,"-o$Destination",'-y','-bd','-bso0') -PassThru -NoNewWindow
+    if (-not $rosavioExtractor.WaitForExit(900000)) {
+        Stop-Process -Id $rosavioExtractor.Id -Force
+        throw "Source extraction exceeded 15 minutes: $Archive"
+    }
+    if ($rosavioExtractor.ExitCode -ne 0) { throw "7-Zip source extraction failed: $Archive (exit $($rosavioExtractor.ExitCode))" }
+}
 if ($env:GITHUB_ACTIONS -ne 'true' -or $env:GITHUB_REPOSITORY -ne 'aheinen1971-cmd/rosavio') { throw 'Run only on the Rosavio GitHub runner' }
 $rosavioProject = (Get-Location).Path.Replace('\','/')
 $rosavioRoot = 'D:/rv'
@@ -37,7 +46,10 @@ Write-Output "Phase: download Firefox $rosavioVersion source (15 minute limit pe
 Invoke-Checked { curl.exe --fail --location --retry 2 --connect-timeout 30 --max-time 900 --output $rosavioArchive "$rosavioBase/$rosavioSourceName" }
 Write-Output 'Phase: verify SHA-512 and extract source'
 if ((Get-FileHash $rosavioArchive -Algorithm SHA512).Hash -ne $rosavioMatch.Groups[1].Value) { throw 'Mozilla source checksum mismatch' }
-Invoke-Checked { tar -xf $rosavioArchive -C $rosavioRoot }
+Write-Output 'Phase: decompress XZ using 7-Zip (15 minute limit)'
+Expand-SourceArchive $rosavioArchive $rosavioRoot
+Write-Output 'Phase: extract TAR using 7-Zip (15 minute limit)'
+Expand-SourceArchive "$rosavioRoot/source.tar" $rosavioRoot
 $rosavioSource = "$rosavioRoot/firefox-$rosavioVersion"
 if (-not (Test-Path "$rosavioSource/mach")) { throw 'Unexpected Mozilla archive layout' }
 $rosavioInstaller = "$rosavioRoot/mozillabuild.exe"
