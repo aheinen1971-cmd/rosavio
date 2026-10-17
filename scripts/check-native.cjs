@@ -26,7 +26,7 @@ const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
  await command('Marionette:SetContext',{value:'chrome'});
  const identity=(await command('WebDriver:ExecuteAsyncScript',{script:'const done=arguments[arguments.length-1]; document.l10n.ready.then(async()=>{const {UpdateUtils}=ChromeUtils.importESModule("resource://gre/modules/UpdateUtils.sys.mjs"); const items=[...document.querySelectorAll("[data-l10n-id*=about]")].map(el=>({id:el.id,label:el.getAttribute("label"),l10n:el.getAttribute("data-l10n-id")})); done({name:Services.appinfo.name,vendor:Services.appinfo.vendor,locale:Services.locale.appLocaleAsBCP47,version:Services.appinfo.version,buildID:Services.appinfo.appBuildID,platformVersion:Services.appinfo.platformVersion,updateUrl:await Cc["@mozilla.org/updates/update-checker;1"].getService(Ci.nsIUpdateChecker).wrappedJSObject.getUpdateURL(Ci.nsIUpdateChecker.BACKGROUND_CHECK),aboutItems:items});}).catch(error=>done({error:String(error)}));',args:[]})).value;
  if(identity.name!=='Rosavio'||identity.vendor!=='Rosavio')throw Error('Native Rosavio product identity is incorrect: '+JSON.stringify(identity));
- if(!identity.updateUrl.includes('github.com/aheinen1971-cmd/rose/'))throw Error('Wrong native update destination');
+ if(!/^https:\/\/github\.com\/aheinen1971-cmd\/(rose|rosavio)\/releases\/latest\/download\/rosavio-win64-update\.xml$/.test(identity.updateUrl))throw Error('Wrong native update destination');
  if(!identity.aboutItems.some(item=>item.label&&item.label.includes('Rosavio')))throw Error('Rosavio name not found in About menu');
  await command('Marionette:SetContext',{value:'content'});
  await command('WebDriver:Navigate',{url:'https://example.com/'});
