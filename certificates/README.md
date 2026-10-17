@@ -1,7 +1,7 @@
-# Rose update verification certificate
+# Rosavio update verification certificate
 
-rose-update.der is the public RSA-4096 certificate embedded into Rose's native
-updater. It verifies Rose MAR packages signed with SHA-384. The corresponding
+rosavio-update.der is the public RSA-4096 certificate embedded into Rosavio's native
+updater. It verifies Rosavio MAR packages signed with SHA-384. The corresponding
 encrypted private key is stored separately and must never be committed or
 included in a browser download.
 
