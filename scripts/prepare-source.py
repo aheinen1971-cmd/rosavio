@@ -101,6 +101,13 @@ pref("browser.newtabpage.activity-stream.showSponsored", false);
     + f'pref("app.update.url.manual", {json.dumps(info_url)});\n'
     + f'pref("app.update.url.details", {json.dumps(info_url)});\n', newline='\n')
 
+app_ini = source / 'build/application.ini.in'
+text = app_ini.read_text()
+text, count = re.subn(r'(?m)(\[AppUpdate\]\n)URL=[^\n]+', lambda match: match.group(1) + 'URL=' + update_url, text)
+if count != 1:
+    raise SystemExit('Native application update URL template changed; refusing an incomplete updater configuration')
+app_ini.write_text(text, newline='\n')
+
 # Full compilation is mandatory: artifact builds would retain upstream binaries.
 mozconfig = '''mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj-rose
 mk_add_options MOZ_MAKE_FLAGS=-j8

@@ -28,5 +28,5 @@ MAR="$mar" MOZ_PRODUCT_VERSION="$version" MAR_CHANNEL_ID=rosavio-release \
   bash tools/update-packaging/make_full_update.sh "$unsigned" "$package" rosavio
 "${ROSAVIO_PYTHON:-python3}" "$project/scripts/sign-mar.py" "$unsigned" "$signed" "$private_key" "$project/certificates/rosavio-update.der"
 "$signmar" -D "$project/certificates/rosavio-update.der" -v "$signed"
-node "$project/scripts/publish-release.mjs" "$signed" "$package/application.ini" "$signmar" "$project/certificates/rosavio-update.der" "$locale"
+"${ROSAVIO_NODE:-node}" "$project/scripts/publish-release.mjs" "$signed" "$package/application.ini" "$signmar" "$project/certificates/rosavio-update.der" "$locale"
 echo 'Signed MAR and release.json are ready in the release directory.'
