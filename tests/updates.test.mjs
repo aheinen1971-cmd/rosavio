@@ -5,8 +5,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
 import { compareVersions, updateXml, validateRelease, createUpdateServer } from '../updates/server.mjs';
-const release = { product: 'Rose', channel: 'rose-release', target: 'WINNT_x86_64-msvc-x64', locale: 'en-US', appVersion: '158.0', buildID: '20261017090000', file: 'rose-158.0.complete.mar', size: 3, hashValue: 'a'.repeat(128), signatureVerified: true };
-const request = { product: 'Rose', channel: 'rose-release', target: 'WINNT_x86_64-msvc-x64', locale: 'en-US', version: '157.0', buildID: '20261010090000' };
+const release = { product: 'Rosavio', channel: 'rosavio-release', target: 'WINNT_x86_64-msvc-x64', locale: 'en-US', appVersion: '158.0', buildID: '20261017090000', file: 'rosavio-158.0.complete.mar', size: 3, hashValue: 'a'.repeat(128), signatureVerified: true };
+const request = { product: 'Rosavio', channel: 'rosavio-release', target: 'WINNT_x86_64-msvc-x64', locale: 'en-US', version: '157.0', buildID: '20261010090000' };
 test('offers newer versions and rebuilds, never repeats or downgrades', () => {
   assert.equal(compareVersions('158.10', '158.2'), 1);
   assert.match(updateXml(release, request, 'https://updates.example.org'), /<patch type="complete"/);
@@ -16,16 +16,21 @@ test('offers newer versions and rebuilds, never repeats or downgrades', () => {
 test('does not cross product, locale, architecture or channel boundaries', () => {
   for (const changes of [{ product: 'Firefox' }, { channel: 'release' }, { target: 'WINNT_aarch64-msvc' }, { locale: 'de' }]) assert.match(updateXml(release, { ...request, ...changes }, 'https://updates.example.org'), /<updates\/>/);
 });
+test('offers a signed German release to German clients', () => {
+  const german = { ...release, locale: 'de' };
+  assert.match(updateXml(german, { ...request, locale: 'de' }, 'https://updates.example.org'), /<patch type="complete"/);
+  assert.match(updateXml(german, request, 'https://updates.example.org'), /<updates\/>/);
+});
 test('rejects missing verification, unsafe paths, bad hashes and unencrypted remote origins', () => {
   for (const changes of [{ signatureVerified: false }, { file: '../evil.mar' }, { hashValue: '0' }, { size: -1 }]) assert.throws(() => validateRelease({ ...release, ...changes }));
   assert.throws(() => createUpdateServer({ releaseDir: '.', origin: 'http://updates.example.org', allowLocalHttp: true }));
 });
 test('serves update XML and package bytes; empty release state is safe', async () => {
-  const dir = await mkdtemp(join(tmpdir(), 'rose-update-'));
+  const dir = await mkdtemp(join(tmpdir(), 'rosavio-update-'));
   const server = createUpdateServer({ releaseDir: dir, origin: 'http://127.0.0.1:8877', allowLocalHttp: true });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const base = `http://127.0.0.1:${server.address().port}`;
-  const url = base + '/update/1/Rose/157.0/20261010090000/WINNT_x86_64-msvc-x64/en-US/rose-release/update.xml';
+  const url = base + '/update/1/Rosavio/157.0/20261010090000/WINNT_x86_64-msvc-x64/en-US/rosavio-release/update.xml';
   try {
     assert.match(await (await fetch(url)).text(), /<updates\/>/);
     const bytes = Buffer.from('MAR');

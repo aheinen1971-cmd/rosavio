@@ -12,14 +12,14 @@ from mardor.reader import MarReader
 from mardor.writer import MarWriter
 
 script = pathlib.Path(__file__).resolve().parent.parent / 'scripts/sign-mar.py'
-spec = importlib.util.spec_from_file_location('rose_sign_mar', script)
+spec = importlib.util.spec_from_file_location('rosavio_sign_mar', script)
 signer = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(signer)
 
 class SigningTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.temp = tempfile.TemporaryDirectory(prefix='rose-signing-')
+        cls.temp = tempfile.TemporaryDirectory(prefix='rosavio-signing-')
         cls.root = pathlib.Path(cls.temp.name)
         cls.password = b'test-password-only-not-used-for-releases'
         key = rsa.generate_private_key(public_exponent=65537, key_size=4096)
@@ -38,11 +38,11 @@ class SigningTest(unittest.TestCase):
     def tearDownClass(cls):
         cls.temp.cleanup()
 
-    def make_unsigned(self, name, channel='rose-release', app='Rose'):
+    def make_unsigned(self, name, channel='rosavio-release', app='Rosavio'):
         target = self.root / name
         with target.open('w+b') as file:
             with MarWriter(file, productversion='158.0', channel=channel) as writer:
-                payload = {'rose.exe': b'MZ-synthetic-test-fixture', 'application.ini': f'[App]\nName={app}\nVersion=158.0\n'.encode(), 'updatev3.manifest': b'type "complete"\r\nadd "rose.exe"\r\n'}
+                payload = {'rosavio.exe': b'MZ-synthetic-test-fixture', 'application.ini': f'[App]\nName={app}\nVersion=158.0\n'.encode(), 'updatev3.manifest': b'type "complete"\r\nadd "rosavio.exe"\r\n'}
                 for name, data in payload.items():
                     writer.add_fileobj(io.BytesIO(data), name, compress='xz', flags=0o644)
         return target
@@ -56,7 +56,7 @@ class SigningTest(unittest.TestCase):
             self.assertFalse(left.verify(self.public))
             self.assertTrue(right.verify(self.public))
             self.assertEqual(right.signature_type, 'sha384')
-            self.assertEqual(right.productinfo, ('158.0', 'rose-release'))
+            self.assertEqual(right.productinfo, ('158.0', 'rosavio-release'))
             for a, b in zip(left.mardata.index.entries, right.mardata.index.entries):
                 self.assertEqual(a.name, b.name)
                 self.assertEqual(b''.join(left.extract_entry(a, decompress=None)), b''.join(right.extract_entry(b, decompress=None)))
