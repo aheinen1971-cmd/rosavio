@@ -79,7 +79,7 @@ $rosavioConfig | ConvertTo-Json -Depth 8 | Set-Content "$rosavioProject/rosavio.
 @{version=$rosavioVersion;url="$rosavioBase/$rosavioSourceName";sha512=$rosavioMatch.Groups[1].Value;verified=$true} | ConvertTo-Json | Set-Content "$rosavioProject/upstream.json" -Encoding utf8NoBOM
 Invoke-Checked { & $rosavioPython "$rosavioProject/scripts/prepare-source.py" $rosavioSource --github-repo aheinen1971-cmd/rosavio }
 $rosavioMozconfig = [IO.File]::ReadAllText("$rosavioSource/mozconfig").Replace('MOZ_MAKE_FLAGS=-j8','MOZ_MAKE_FLAGS=-j3')
-$rosavioMozconfig += "ac_add_options --disable-debug-symbols`n"
+$rosavioMozconfig += "ac_add_options --disable-debug-symbols`nac_add_options --enable-bootstrap`n"
 [IO.File]::WriteAllText("$rosavioSource/mozconfig",$rosavioMozconfig,[Text.UTF8Encoding]::new($false))
 Invoke-Checked { git -C $rosavioSource init --quiet }
 Invoke-Checked { git -C $rosavioSource -c user.name=Rosavio -c user.email=build@rosavio.invalid commit --allow-empty -m 'Source archive metadata' --quiet }
@@ -90,7 +90,13 @@ Invoke-Checked { git -C "$rosavioRoot/l10n" checkout --detach $rosavioL10nRevisi
 Invoke-Checked { & $rosavioPython "$rosavioProject/scripts/prepare-german.py" $rosavioSource "$rosavioRoot/l10n" }
 $rosavioBash = 'C:/mozilla-build/msys2/usr/bin/bash.exe'
 Write-Output 'Phase: bootstrap compiler and build dependencies'
+Invoke-Checked { rustup update stable --no-self-update }
+Invoke-Checked { rustup default stable }
+$env:RUSTC=(Get-Command rustc.exe -ErrorAction Stop).Source.Replace('\','/')
+$env:CARGO=(Get-Command cargo.exe -ErrorAction Stop).Source.Replace('\','/')
 Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive bootstrap --application-choice browser --no-system-changes' }
+Write-Output 'Phase: configure with explicit Mozilla toolchain bootstrap'
+Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive configure' }
 Write-Output 'Phase: compile native Rosavio'
 Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive build' }
 Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive package && ./mach --no-interactive build installers-de' }
