@@ -1,0 +1,12 @@
+import { readFile, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { updateXml, validateRelease } from '../updates/server.mjs';
+const [repo, tag, directory] = process.argv.slice(2);
+if (!repo || !tag || !directory) throw Error('Usage: node scripts/write-github-feed.mjs OWNER/REPO RELEASE_TAG RELEASE_DIR');
+if (!/^[A-Za-z0-9][A-Za-z0-9-]*\/[A-Za-z0-9._-]+$/.test(repo)) throw Error('Invalid repository');
+if (!/^[A-Za-z0-9._-]+$/.test(tag)) throw Error('Unsafe release tag');
+const release = validateRelease(JSON.parse(await readFile(resolve(directory, 'release.json'), 'utf8')));
+const packageUrl = `https://github.com/${repo}/releases/download/${encodeURIComponent(tag)}/${encodeURIComponent(release.file)}`;
+const xml = updateXml(release, { product: 'Rose', channel: release.channel, target: release.target, locale: release.locale, version: '0', buildID: '00000000000000' }, 'https://github.com', packageUrl);
+await writeFile(resolve(directory, 'rose-win64-update.xml'), xml);
+console.log('GitHub Releases update feed generated. Upload the XML and signed MAR together in a Rose release.');
