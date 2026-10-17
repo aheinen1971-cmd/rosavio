@@ -11,3 +11,4 @@ private/
 *.key
 !certificates/*.der
 !certificates/*.json
+native-check/

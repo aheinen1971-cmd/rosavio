@@ -5,13 +5,16 @@
   "sourceOverlayApplied": true,
   "toolchain": "ready",
   "nativeBrowserBuildPassed": true,
-  "nativeMarSignatureVerificationPassed": false,
-  "browserUpdateIntegrationPassed": false,
-  "updateServerTestsPassed": 4,
+  "nativeMarSignatureVerificationPassed": true,
+  "browserUpdateIntegrationPassed": true,
+  "updateServerTestsPassed": 5,
   "syntheticMarSigningTestsPassed": 2,
   "githubRepository": "https://github.com/aheinen1971-cmd/rose",
   "publicUpdateReleasePublished": false,
   "paidServicesEnabled": false,
   "wolkivoModified": false,
-  "nativeStartTestPassed": true
+  "nativeStartTestPassed": true,
+  "nativeTamperedMarRejected": true,
+  "germanNativeInterfacePassed": true,
+  "buildID": "20261017175200"
 }
