@@ -22,11 +22,13 @@ test -f "$package/rosavio.exe"
 test -f "$package/precomplete"
 test -f "$signmar"
 test -f "$mar"
+ROSAVIO_EXPECT_LOCALE="$locale" "${ROSAVIO_NODE:-node}" "$project/scripts/check-native.cjs" "$package/rosavio.exe" "$release_dir/native-check"
+"${ROSAVIO_NODE:-node}" "$project/scripts/check-package-identity.mjs" "$package/application.ini" "$release_dir/native-check/report.json" "$locale"
 unsigned="$release_dir/rosavio-$version-$build_id-$locale.unsigned.mar"
 signed="$release_dir/rosavio-$version-$build_id-$locale.complete.mar"
 MAR="$mar" MOZ_PRODUCT_VERSION="$version" MAR_CHANNEL_ID=rosavio-release \
   bash tools/update-packaging/make_full_update.sh "$unsigned" "$package" rosavio
 "${ROSAVIO_PYTHON:-python3}" "$project/scripts/sign-mar.py" "$unsigned" "$signed" "$private_key" "$project/certificates/rosavio-update.der"
 "$signmar" -D "$project/certificates/rosavio-update.der" -v "$signed"
-"${ROSAVIO_NODE:-node}" "$project/scripts/publish-release.mjs" "$signed" "$package/application.ini" "$signmar" "$project/certificates/rosavio-update.der" "$locale"
+"${ROSAVIO_NODE:-node}" "$project/scripts/publish-release.mjs" "$signed" "$package/application.ini" "$signmar" "$project/certificates/rosavio-update.der" "$locale" "$release_dir/native-check/report.json"
 echo 'Signed MAR and release.json are ready in the release directory.'

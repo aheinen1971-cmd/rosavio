@@ -9,7 +9,9 @@ fs.writeFileSync(path.join(profile,'user.js'),[
  'user_pref("app.update.background.enabled", false);',
  'user_pref("browser.startup.page", 0);'
 ].join('\n'));
-const proc=spawn(binary,['-headless','-no-remote','-profile',profile,'--marionette','--remote-allow-system-access'],{stdio:['ignore','ignore','pipe']});
+const browserEnv={...process.env};
+delete browserEnv.ROSAVIO_SIGNING_PASSWORD;
+const proc=spawn(binary,['-headless','-no-remote','-profile',profile,'--marionette','--remote-allow-system-access'],{env:browserEnv,stdio:['ignore','ignore','pipe']});
 let sock,buffer=Buffer.alloc(0),queue=[],waiters=[],sequence=0;
 proc.stderr.on('data',data=>fs.appendFileSync(path.join(base,'native-smoke-browser.log'),data));
 function parse(data){buffer=Buffer.concat([buffer,data]);while(true){const colon=buffer.indexOf(58);if(colon<0)return;const size=Number(buffer.subarray(0,colon).toString());if(buffer.length<colon+1+size)return;const message=JSON.parse(buffer.subarray(colon+1,colon+1+size));buffer=buffer.subarray(colon+1+size);if(waiters.length)waiters.shift()(message);else queue.push(message);}}
