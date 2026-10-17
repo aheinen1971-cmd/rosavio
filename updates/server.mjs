@@ -17,7 +17,7 @@ export function compareVersions(a, b) {
   return 0;
 }
 export function validateRelease(release) {
-  if (release.product !== 'Rose' || release.channel !== 'rose-release' || release.target !== 'WINNT_x86_64-msvc-x64') throw Error('Wrong product, channel or target');
+  if (release.product !== 'Rosavio' || release.channel !== 'rosavio-release' || release.target !== 'WINNT_x86_64-msvc-x64') throw Error('Wrong product, channel or target');
   if (!versionPattern.test(release.appVersion) || !/^\d{14}$/.test(release.buildID)) throw Error('Invalid version or build ID');
   if (!['en-US', 'de'].includes(release.locale)) throw Error('Unsupported locale');
   if (!/^[a-zA-Z0-9][a-zA-Z0-9._-]*\.mar$/.test(release.file) || basename(release.file) !== release.file) throw Error('Unsafe MAR filename');
@@ -46,7 +46,7 @@ export function createUpdateServer({ releaseDir, origin, allowLocalHttp = false 
     if (!['GET', 'HEAD'].includes(req.method)) { res.writeHead(405, { Allow: 'GET, HEAD' }).end(); return; }
     try {
       const url = new URL(req.url, origin);
-      if (url.pathname === '/health') { res.writeHead(200, { 'Content-Type': 'application/json' }).end(req.method === 'HEAD' ? undefined : '{"service":"rose-updates","ok":true}'); return; }
+      if (url.pathname === '/health') { res.writeHead(200, { 'Content-Type': 'application/json' }).end(req.method === 'HEAD' ? undefined : '{"service":"rosavio-updates","ok":true}'); return; }
       const match = /^\/update\/1\/([^/]+)\/([^/]+)\/(\d{14})\/([^/]+)\/([^/]+)\/([^/]+)\/update\.xml$/.exec(url.pathname);
       if (match) {
         const [, product, version, buildID, target, locale, channel] = match.map(decodeURIComponent);
@@ -76,7 +76,7 @@ export function createUpdateServer({ releaseDir, origin, allowLocalHttp = false 
       }
       res.writeHead(404).end();
     } catch (error) {
-      console.error('Rose update request failed:', error.message);
+      console.error('Rosavio update request failed:', error.message);
       if (!res.headersSent) res.writeHead(error.code === 'ENOENT' ? 404 : 503).end();
       else res.destroy();
     }
@@ -84,7 +84,7 @@ export function createUpdateServer({ releaseDir, origin, allowLocalHttp = false 
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const port = Number(process.env.PORT || 8877);
-  const origin = process.env.ROSE_UPDATE_ORIGIN || `http://127.0.0.1:${port}`;
-  const server = createUpdateServer({ releaseDir: process.env.ROSE_RELEASE_DIR || resolve(here, '../releases'), origin, allowLocalHttp: process.env.ROSE_LOCAL_TEST === '1' });
-  server.listen(port, '127.0.0.1', () => console.log(`Rose update service: ${origin} (local listener; use an HTTPS reverse proxy for publication)`));
+  const origin = process.env.ROSAVIO_UPDATE_ORIGIN || `http://127.0.0.1:${port}`;
+  const server = createUpdateServer({ releaseDir: process.env.ROSAVIO_RELEASE_DIR || resolve(here, '../releases'), origin, allowLocalHttp: process.env.ROSAVIO_LOCAL_TEST === '1' });
+  server.listen(port, '127.0.0.1', () => console.log(`Rosavio update service: ${origin} (local listener; use an HTTPS reverse proxy for publication)`));
 }
