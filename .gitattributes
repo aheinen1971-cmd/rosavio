@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.der -text
+*.png -text
+*.ico -text

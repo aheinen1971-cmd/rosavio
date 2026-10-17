@@ -1,0 +1,16 @@
+{
+  "name": "Rose",
+  "executable": "rose",
+  "extensionCompatibilityId": "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}",
+  "upstreamVersion": "158.0",
+  "channel": "rose-release",
+  "marChannelId": "rose-release",
+  "updateOrigin": null,
+  "hosting": {
+    "provider": "github-releases",
+    "publicRepositoryRequired": true,
+    "paidServicesAllowed": false,
+    "repository": "aheinen1971-cmd/rose"
+  },
+  "status": "source-project-not-yet-built"
+}
