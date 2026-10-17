@@ -1,0 +1,28 @@
+name: Rosavio cloud readiness
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 */6 * * *'
+  push:
+    paths:
+      - '.github/workflows/rosavio-cloud.yml'
+      - 'scripts/github-cloud-check.ps1'
+permissions:
+  contents: read
+concurrency:
+  group: rosavio-cloud-readiness
+  cancel-in-progress: false
+jobs:
+  check:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Check stable Firefox and runner capacity
+        shell: pwsh
+        env:
+          ROSAVIO_SIGNING_CONFIGURED: ${{ secrets.ROSAVIO_UPDATE_KEY != '' }}
+        run: ./scripts/github-cloud-check.ps1
