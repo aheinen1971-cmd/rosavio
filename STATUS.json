@@ -7,7 +7,7 @@
   "nativeBrowserBuildPassed": true,
   "nativeMarSignatureVerificationPassed": true,
   "browserUpdateIntegrationPassed": true,
-  "updateServerTestsPassed": 5,
+  "updateServerTestsPassed": 6,
   "syntheticMarSigningTestsPassed": 2,
   "githubRepository": "https://github.com/aheinen1971-cmd/rose",
   "publicUpdateReleasePublished": false,
@@ -16,5 +16,6 @@
   "nativeStartTestPassed": true,
   "nativeTamperedMarRejected": true,
   "germanNativeInterfacePassed": true,
-  "buildID": "20261017175200"
+  "buildID": "20261017184503",
+  "nativeUpdateUrlVerified": true
 }
