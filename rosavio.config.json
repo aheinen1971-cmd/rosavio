@@ -10,7 +10,7 @@
     "provider": "github-releases",
     "publicRepositoryRequired": true,
     "paidServicesAllowed": false,
-    "repository": "aheinen1971-cmd/rose"
+    "repository": "aheinen1971-cmd/rosavio"
   },
   "status": "native-built-german-signed-update-tested"
 }

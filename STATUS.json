@@ -9,7 +9,7 @@
   "browserUpdateIntegrationPassed": true,
   "updateServerTestsPassed": 6,
   "syntheticMarSigningTestsPassed": 2,
-  "githubRepository": "https://github.com/aheinen1971-cmd/rose",
+  "githubRepository": "https://github.com/aheinen1971-cmd/rosavio",
   "publicUpdateReleasePublished": true,
   "paidServicesEnabled": false,
   "wolkivoModified": false,
@@ -19,5 +19,9 @@
   "buildID": "20261017184503",
   "nativeUpdateUrlVerified": true,
   "publicNativeUpdateIntegrationPassed": true,
-  "publicReleaseUrl": "https://github.com/aheinen1971-cmd/rose/releases/tag/v158.0-rosavio.3"
+  "publicReleaseUrl": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v158.0-rosavio.39081253629",
+  "cloudBuildPassed": true,
+  "cloudPublicNativeUpdatePassed": true,
+  "cloudBuildID": "20261018000553",
+  "cloudWorkflowRun": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/39081253629"
 }

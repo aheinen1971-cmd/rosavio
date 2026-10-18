@@ -1,9 +1,27 @@
 # Rosavio Browser
+## Automatischer GitHub-Bau
+
+Der vollstaendige kostenlose Windows-Cloud-Bau hat am 18.10.2026 bestanden:
+https://github.com/aheinen1971-cmd/rosavio/actions/runs/39081253629.
+Die deutsche Version wurde signiert, lokal und anschliessend ueber das
+veroeffentlichte native Autoupdate installiert und neu gestartet. Die
+Signaturpruefung blieb aktiv und die Videoeinstellung blieb erhalten.
+Der aktuelle gepruefte Cloud-Release ist v158.0-rosavio.39081253629,
+Build-ID 20261018000553. Die folgenden lokalen Build-IDs dokumentieren
+zusaetzlich die vorherigen Tests.
+
+GitHub prueft alle sechs Stunden neue stabile Firefox-Versionen und baut
+neue Versionen auf kostenlosen Standard-Runnern. Das funktioniert auch,
+wenn der eigene PC ausgeschaltet ist. Die Installation auf dem eigenen PC
+kann erst erfolgen, sobald er wieder eingeschaltet ist und Rosavio Updates
+pruefen kann. Bei Fehlern wird keine ungepruefte Version freigegeben;
+nach fehlgeschlagenem oeffentlichem Update-Test wird das vorherige Latest
+wiederhergestellt. Details: MAINTENANCE.md und .github/workflows/rosavio-build.yml.
 
 Eigenstaendiger Windows-Browser auf Firefox-Basis mit deutscher Oberflaeche.
 Dieses Verzeichnis enthaelt die Quellcode-Anpassungen und den Update-Dienst.
 Fertige Windows-Pakete gibt es unter
-https://github.com/aheinen1971-cmd/rose/releases/latest.
+https://github.com/aheinen1971-cmd/rosavio/releases/latest.
 Den geprueften Stand dokumentiert STATUS.json.
 
 Rosavio und Wolkivo bleiben getrennte Projekte. Wolkivo verwendet Chromium und
@@ -43,7 +61,7 @@ Eine eigene Domain ist optional: Ein separates GitHub-Repository kann
 `rosavio-win64-update.xml` und die signierten MARs ueber GitHub Releases anbieten.
 Der lokale Node-Dienst dient alternativ als Entwicklungs-Update-Server.
 Das separate oeffentliche Repository liegt unter
-https://github.com/aheinen1971-cmd/rose. Der Browser verwendet die dortige
+https://github.com/aheinen1971-cmd/rosavio. Der Browser verwendet die dortige
 Release-Update-Datei `releases/latest/download/rosavio-win64-update.xml`.
 Ein nativer Integrationstest hat den Wechsel von der englischen Build-ID
 20261017161130 zur deutschen Build-ID 20261017175200 mit aktivierter
