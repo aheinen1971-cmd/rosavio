@@ -82,7 +82,9 @@ $rosavioMozconfig = [IO.File]::ReadAllText("$rosavioSource/mozconfig").Replace('
 $rosavioMozconfig += "ac_add_options --disable-debug-symbols`nac_add_options --enable-bootstrap`n"
 [IO.File]::WriteAllText("$rosavioSource/mozconfig",$rosavioMozconfig,[Text.UTF8Encoding]::new($false))
 Invoke-Checked { git -C $rosavioSource init --quiet }
-Invoke-Checked { git -C $rosavioSource -c user.name=Rosavio -c user.email=build@rosavio.invalid commit --allow-empty -m 'Source archive metadata' --quiet }
+Write-Output 'Phase: index source files for Mozilla toolchain resource hashing'
+Invoke-Checked { git -C $rosavioSource -c core.autocrlf=false -c core.longpaths=true add --all }
+Invoke-Checked { git -C $rosavioSource -c user.name=Rosavio -c user.email=build@rosavio.invalid commit -m 'Verified Mozilla source archive with Rosavio overlay' --quiet }
 $rosavioL10nRevision = (Get-Content "$rosavioSource/browser/locales/l10n-changesets.json" -Raw | ConvertFrom-Json).de.revision
 Invoke-Checked { git clone --filter=blob:none --no-checkout https://github.com/mozilla-l10n/firefox-l10n "$rosavioRoot/l10n" }
 Invoke-Checked { git -C "$rosavioRoot/l10n" sparse-checkout set de }
