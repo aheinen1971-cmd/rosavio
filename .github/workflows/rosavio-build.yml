@@ -7,7 +7,8 @@ on:
         type: boolean
         default: false
   schedule:
-    - cron: '41 */6 * * *'
+    - cron: '0 18 * * *'
+      timezone: 'Europe/Berlin'
 permissions:
   contents: read
 concurrency:
@@ -44,3 +45,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: ./scripts/cloud-publish.ps1
+
