@@ -25,6 +25,26 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
+      - name: Reserve release tag before the long build
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ROSAVIO_FORCE_BUILD: ${{ inputs.force }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $version = (Invoke-RestMethod 'https://product-details.mozilla.org/1.0/firefox_versions.json').LATEST_FIREFOX_VERSION
+          if ($version -notmatch '^\d+\.\d+(\.\d+)?$') { throw 'Invalid stable Firefox version' }
+          $latest = gh release view --repo aheinen1971-cmd/rosavio --json tagName | ConvertFrom-Json
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot read current release' }
+          if ($env:ROSAVIO_FORCE_BUILD -ne 'true' -and $latest.tagName -like "v$version-rosavio.*") { exit 0 }
+          $tag = "v$version-rosavio.$env:GITHUB_RUN_ID"
+          $existing = gh api "repos/$env:GITHUB_REPOSITORY/git/ref/tags/$tag" 2>$null | ConvertFrom-Json
+          if ($LASTEXITCODE -eq 0) {
+            if ($existing.object.sha -ne $env:GITHUB_SHA) { throw 'Reserved tag points to a different source commit' }
+          } else {
+            gh api --method POST "repos/$env:GITHUB_REPOSITORY/git/refs" -f "ref=refs/tags/$tag" -f "sha=$env:GITHUB_SHA"
+            if ($LASTEXITCODE -ne 0) { throw 'Cannot reserve source tag; stop before building' }
+          }
       - name: Build German Rosavio from verified stable Firefox source
         id: compile
         shell: pwsh
@@ -45,4 +65,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: ./scripts/cloud-publish.ps1
+
 
