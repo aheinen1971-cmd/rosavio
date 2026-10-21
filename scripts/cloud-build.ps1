@@ -87,9 +87,10 @@ Invoke-Checked { git -C $rosavioSource -c core.autocrlf=false -c core.longpaths=
 Invoke-Checked { git -C $rosavioSource -c user.name=Rosavio -c user.email=build@rosavio.invalid commit -m 'Verified Mozilla source archive with Rosavio overlay' --quiet }
 $rosavioL10nRevision = (Get-Content "$rosavioSource/browser/locales/l10n-changesets.json" -Raw | ConvertFrom-Json).de.revision
 Invoke-Checked { git clone --filter=blob:none --no-checkout https://github.com/mozilla-l10n/firefox-l10n "$rosavioRoot/l10n" }
-Invoke-Checked { git -C "$rosavioRoot/l10n" sparse-checkout set de }
+Invoke-Checked { git -C "$rosavioRoot/l10n" sparse-checkout set de fr es-ES nl }
 Invoke-Checked { git -C "$rosavioRoot/l10n" checkout --detach $rosavioL10nRevision }
 Invoke-Checked { & $rosavioPython "$rosavioProject/scripts/prepare-german.py" $rosavioSource "$rosavioRoot/l10n" }
+Invoke-Checked { & $rosavioPython "$rosavioProject/scripts/prepare-multilocale.py" $rosavioSource "$rosavioRoot/l10n" }
 $rosavioBash = 'C:/mozilla-build/msys2/usr/bin/bash.exe'
 Write-Output 'Phase: bootstrap compiler and build dependencies'
 Invoke-Checked { rustup update stable --no-self-update }
@@ -101,7 +102,7 @@ Write-Output 'Phase: configure with explicit Mozilla toolchain bootstrap'
 Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive configure' }
 Write-Output 'Phase: compile native Rosavio'
 Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive build' }
-Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive package && ./mach --no-interactive build installers-de' }
+Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive package && ./mach --no-interactive package-multi-locale --locales de fr es-ES nl && ./mach --no-interactive build installer' }
 @{version=$rosavioVersion;source=$rosavioSource;previous=$rosavioPublished;buildID=$env:MOZ_BUILD_DATE} | ConvertTo-Json -Depth 20 | Set-Content "$rosavioRoot/build-state.json" -Encoding utf8NoBOM
 'built=true' | Out-File $env:GITHUB_OUTPUT -Append
 exit 0
@@ -119,13 +120,14 @@ $rosavioBash = 'C:/mozilla-build/msys2/usr/bin/bash.exe'
 $rosavioPython = 'C:/mozilla-build/python3/python3.exe'
 $rosavioReleaseDir = "$rosavioRoot/release"
 New-Item -ItemType Directory -Path $rosavioReleaseDir -Force | Out-Null
-$rosavioPackage = "$rosavioSource/obj-rose/dist/l10n-stage/rosavio"
+$rosavioPackage = "$rosavioSource/obj-rose/dist/rosavio"
 $env:ROSAVIO_PACKAGE_DIR = $rosavioPackage
 $env:ROSAVIO_LOCALE = 'de'
 $env:ROSAVIO_EXPECT_LOCALE = 'de'
 $env:ROSAVIO_PYTHON = $rosavioPython
 $env:ROSAVIO_NODE = (Get-Command node).Source.Replace('\','/')
 $env:ROSAVIO_RELEASE_DIR = $rosavioReleaseDir
+Invoke-Checked { node "$rosavioProject/scripts/check-locales.cjs" "$rosavioPackage/rosavio.exe" "$rosavioReleaseDir/locale-check" }
 Invoke-Checked { node --test "$rosavioProject/tests/*.test.mjs" }
 Invoke-Checked { & $rosavioPython "$rosavioProject/tests/test_signing.py" }
 if (-not $env:ROSAVIO_UPDATE_KEY -or -not $env:ROSAVIO_SIGNING_PASSWORD) { throw 'Signing secrets missing' }
@@ -141,7 +143,7 @@ try {
 }
 $rosavioTag = "v$rosavioVersion-rosavio.$env:GITHUB_RUN_ID"
 Invoke-Checked { node "$rosavioProject/scripts/write-github-feed.mjs" aheinen1971-cmd/rosavio $rosavioTag $rosavioReleaseDir }
-$rosavioInstallerOutput = @(Get-ChildItem "$rosavioSource/obj-rose/dist" -Filter '*.de.win64.installer.exe')
+$rosavioInstallerOutput = @(Get-ChildItem "$rosavioSource/obj-rose/dist" -Filter '*.win64.installer.exe')
 if ($rosavioInstallerOutput.Count -ne 1) { throw 'Expected exactly one German installer' }
 Copy-Item $rosavioInstallerOutput[0].FullName "$rosavioReleaseDir/Rosavio-Setup-Deutsch.exe"
 Invoke-Checked { tar -a -cf "$rosavioReleaseDir/Rosavio-Deutsch-Windows.zip" -C (Split-Path $rosavioPackage -Parent) rosavio }
@@ -166,3 +168,5 @@ Invoke-Checked { tar -a -cf "$rosavioReleaseDir/Rosavio-Browser-Quellprojekt.zip
 Get-ChildItem $rosavioReleaseDir -File | Where-Object Extension -in '.exe','.zip','.mar' | Where-Object Name -notlike '*.unsigned.mar' | ForEach-Object { $rosavioHash=Get-FileHash $_.FullName -Algorithm SHA256; "$($rosavioHash.Hash.ToLower())  $($_.Name)" } | Set-Content "$rosavioReleaseDir/Rosavio-SHA256SUMS.txt"
 "built=true`ntag=$rosavioTag`nreleaseDir=$rosavioReleaseDir" | Out-File $env:GITHUB_OUTPUT -Append
 'Native build, signing, German startup and local update tests passed.' | Out-File $env:GITHUB_STEP_SUMMARY -Append
+
+
