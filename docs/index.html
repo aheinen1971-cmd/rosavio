@@ -14,6 +14,11 @@
     body{overflow-x:clip}.visual{overflow:clip;padding-left:12px;padding-right:12px}
     @media(max-width:380px){.wrap{padding:0 20px}nav a:nth-child(2){display:none}h1{font-size:44px;letter-spacing:-2px}.download-block .button{font-size:13px;padding:14px 18px;gap:10px;max-width:100%}.edition{gap:14px}.edition span:last-child{min-width:0;flex-shrink:0;max-width:135px}.eyebrow{font-size:10px;letter-spacing:1.7px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button{transition:none}.button:hover{transform:none}}
+    /* Compact layout: preserve content, branding and readable type. */
+    header{height:76px}.brand img{width:34px;height:34px}.hero{padding:32px 0;gap:30px;grid-template-columns:1.15fr 1fr}h1{font-size:clamp(42px,4.2vw,56px);margin:16px 0;letter-spacing:-2.3px}.intro{font-size:16px;line-height:1.65;margin:12px 0 18px;max-width:460px}.button{padding:12px 21px}.download-note{margin:9px 0}.visual{padding-top:10px;padding-bottom:10px}.browser-content{height:190px}.browser-content>img{width:48px;height:48px}.browser-content>strong{font-size:24px}.shortcuts{margin-top:12px}.visual figcaption{margin-top:12px}.edition{padding:12px 0}.features{padding:32px 0}.section-head{margin-bottom:22px;gap:22px}.section-head h2{font-size:30px}.feature-grid{gap:25px}.feature{padding-top:12px}.feature h3{font-size:18px;margin:9px 0 6px}.download-block{padding:26px 30px;gap:20px}.download-block h2{font-size:31px;margin:9px 0}.faq{padding:32px 0;gap:35px}.faq h2{font-size:29px;margin:9px 0}details{padding:12px 0}footer{padding:18px 0;gap:18px}.legal{margin-bottom:18px}
+    @media(max-width:850px){.hero{gap:22px}.browser-content{height:180px}.download-block{padding:24px}.download-block h2{font-size:28px}}
+    @media(max-width:650px){header{height:70px}.hero{grid-template-columns:1fr;padding:25px 0 18px;gap:12px}h1{font-size:46px;margin:14px 0}.intro{font-size:16px}.visual{display:none}.edition{flex-wrap:wrap;gap:6px}.edition>span:first-child{max-width:none}.features{padding:25px 0}.section-head h2{font-size:28px}.section-head p{margin-top:12px}.feature-grid{gap:18px}.download-block{grid-template-columns:1fr;padding:24px;gap:16px}.faq{padding:26px 0;gap:5px}.faq h2{font-size:28px}footer{gap:10px}}
+    @media(max-width:380px){h1{font-size:40px}.download-block{padding:21px}.download-block .button{padding:12px 14px;font-size:13px}.edition span:last-child{max-width:none}}
   </style>
 </head>
 <body>
@@ -71,3 +76,4 @@
 </div>
 </body>
 </html>
+
