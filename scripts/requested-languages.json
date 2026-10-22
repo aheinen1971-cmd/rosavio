@@ -1,0 +1,29 @@
+{
+  "locales": [
+    "de",
+    "en-US",
+    "fr",
+    "es-ES",
+    "nl",
+    "it",
+    "pt-PT",
+    "pl",
+    "cs",
+    "da",
+    "sv-SE",
+    "nb-NO",
+    "fi",
+    "tr",
+    "uk",
+    "el",
+    "ja",
+    "ko",
+    "ar",
+    "he"
+  ],
+  "rtl": [
+    "ar",
+    "he"
+  ],
+  "default": "de"
+}

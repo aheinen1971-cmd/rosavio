@@ -1,8 +1,8 @@
-"""Prepare pinned translations and native five-language Rosavio packaging."""
+"""Prepare pinned translations and native twenty-language Rosavio packaging."""
 import json,pathlib,re,subprocess,sys
 source=pathlib.Path(sys.argv[1]).resolve(); l10n=pathlib.Path(sys.argv[2]).resolve()
 pins=json.loads((source/'browser/locales/l10n-changesets.json').read_text())
-for locale in ('fr','es-ES','nl'):
+for locale in ('fr', 'es-ES', 'nl', 'it', 'pt-PT', 'pl', 'cs', 'da', 'sv-SE', 'nb-NO', 'fi', 'tr', 'uk', 'el', 'ja', 'ko', 'ar', 'he'):
  revision=pins[locale]['revision']
  subprocess.run(['git','-C',str(l10n),'fetch','--depth=1','origin',revision],check=True)
  subprocess.run(['git','-C',str(l10n),'restore','--source',revision,'--staged','--worktree','--',locale],check=True)
@@ -16,4 +16,4 @@ for locale in ('fr','es-ES','nl'):
 # Default remains German; users can select any packaged language in Settings.
 prefs=source/'browser/app/profile/firefox.js'
 with prefs.open('a',encoding='utf-8') as f:f.write('\npref("intl.locale.requested", "de");\n')
-print('Pinned de, fr, es-ES, nl plus built-in en-US prepared; no signature checks weakened')
+print('Twenty pinned native languages prepared; no signature checks weakened')

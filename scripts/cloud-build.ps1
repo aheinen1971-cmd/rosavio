@@ -87,7 +87,7 @@ Invoke-Checked { git -C $rosavioSource -c core.autocrlf=false -c core.longpaths=
 Invoke-Checked { git -C $rosavioSource -c user.name=Rosavio -c user.email=build@rosavio.invalid commit -m 'Verified Mozilla source archive with Rosavio overlay' --quiet }
 $rosavioL10nRevision = (Get-Content "$rosavioSource/browser/locales/l10n-changesets.json" -Raw | ConvertFrom-Json).de.revision
 Invoke-Checked { git clone --filter=blob:none --no-checkout https://github.com/mozilla-l10n/firefox-l10n "$rosavioRoot/l10n" }
-Invoke-Checked { git -C "$rosavioRoot/l10n" sparse-checkout set de fr es-ES nl }
+Invoke-Checked { git -C "$rosavioRoot/l10n" sparse-checkout set de fr es-ES nl it pt-PT pl cs da sv-SE nb-NO fi tr uk el ja ko ar he }
 Invoke-Checked { git -C "$rosavioRoot/l10n" checkout --detach $rosavioL10nRevision }
 Invoke-Checked { & $rosavioPython "$rosavioProject/scripts/prepare-german.py" $rosavioSource "$rosavioRoot/l10n" }
 Invoke-Checked { & $rosavioPython "$rosavioProject/scripts/prepare-multilocale.py" $rosavioSource "$rosavioRoot/l10n" }
@@ -102,7 +102,7 @@ Write-Output 'Phase: configure with explicit Mozilla toolchain bootstrap'
 Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive configure' }
 Write-Output 'Phase: compile native Rosavio'
 Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive build' }
-Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive package && ./mach --no-interactive package-multi-locale --locales de fr es-ES nl' }
+Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive package && ./mach --no-interactive package-multi-locale --locales de fr es-ES nl it pt-PT pl cs da sv-SE nb-NO fi tr uk el ja ko ar he' }
 @{version=$rosavioVersion;source=$rosavioSource;previous=$rosavioPublished;buildID=$env:MOZ_BUILD_DATE} | ConvertTo-Json -Depth 20 | Set-Content "$rosavioRoot/build-state.json" -Encoding utf8NoBOM
 'built=true' | Out-File $env:GITHUB_OUTPUT -Append
 exit 0
