@@ -102,7 +102,7 @@ Write-Output 'Phase: configure with explicit Mozilla toolchain bootstrap'
 Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive configure' }
 Write-Output 'Phase: compile native Rosavio'
 Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive build' }
-Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive package && ./mach --no-interactive package-multi-locale --locales de fr es-ES nl && ./mach --no-interactive build installer' }
+Invoke-Checked { & $rosavioBash -lc 'cd "$ROSAVIO_SOURCE" && ./mach --no-interactive package && ./mach --no-interactive package-multi-locale --locales de fr es-ES nl' }
 @{version=$rosavioVersion;source=$rosavioSource;previous=$rosavioPublished;buildID=$env:MOZ_BUILD_DATE} | ConvertTo-Json -Depth 20 | Set-Content "$rosavioRoot/build-state.json" -Encoding utf8NoBOM
 'built=true' | Out-File $env:GITHUB_OUTPUT -Append
 exit 0
@@ -168,5 +168,6 @@ Invoke-Checked { tar -a -cf "$rosavioReleaseDir/Rosavio-Browser-Quellprojekt.zip
 Get-ChildItem $rosavioReleaseDir -File | Where-Object Extension -in '.exe','.zip','.mar' | Where-Object Name -notlike '*.unsigned.mar' | ForEach-Object { $rosavioHash=Get-FileHash $_.FullName -Algorithm SHA256; "$($rosavioHash.Hash.ToLower())  $($_.Name)" } | Set-Content "$rosavioReleaseDir/Rosavio-SHA256SUMS.txt"
 "built=true`ntag=$rosavioTag`nreleaseDir=$rosavioReleaseDir" | Out-File $env:GITHUB_OUTPUT -Append
 'Native build, signing, German startup and local update tests passed.' | Out-File $env:GITHUB_STEP_SUMMARY -Append
+
 
 
