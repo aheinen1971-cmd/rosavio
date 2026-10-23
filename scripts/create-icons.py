@@ -12,11 +12,11 @@ def icon(size):
     draw.rounded_rectangle((0, 0, n - 1, n - 1), radius=n * .23, fill='#111b30')
     for index in range(7):
         angle = index * math.tau / 7 - math.pi / 2
-        cx = n * (.5 + .19 * math.cos(angle))
-        cy = n * (.5 + .19 * math.sin(angle))
-        r = n * .175
+        cx = n * (.5 + .24 * math.cos(angle))
+        cy = n * (.5 + .24 * math.sin(angle))
+        r = n * .225
         draw.ellipse((cx-r, cy-r, cx+r, cy+r), fill=('#f582a2' if index % 2 else '#ea557e'))
-    r = n * .12
+    r = n * .15
     draw.ellipse((n*.5-r, n*.5-r, n*.5+r, n*.5+r), fill='#ffd4a5')
     return im.resize((size, size), Image.Resampling.LANCZOS)
 
@@ -42,8 +42,8 @@ for file in root.rglob('*'):
         if 'wordmark' in file.name:
             artwork = '<svg xmlns="http://www.w3.org/2000/svg" width="180" height="60" viewBox="0 0 180 60"><text x="0" y="46" fill="#ea557e" font-family="Segoe UI, sans-serif" font-size="52" font-weight="700">Rosavio</text></svg>'
         else:
-            petals = ''.join(f'<circle cx="{256+97*math.cos(i*math.tau/7-math.pi/2):.2f}" cy="{256+97*math.sin(i*math.tau/7-math.pi/2):.2f}" r="90" fill="{("#f582a2" if i%2 else "#ea557e")}"/>' for i in range(7))
-            artwork = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="118" fill="#111b30"/>{petals}<circle cx="256" cy="256" r="61" fill="#ffd4a5"/></svg>'
+            petals = ''.join(f'<circle cx="{256+122.88*math.cos(i*math.tau/7-math.pi/2):.2f}" cy="{256+122.88*math.sin(i*math.tau/7-math.pi/2):.2f}" r="115.2" fill="{("#f582a2" if i%2 else "#ea557e")}"/>' for i in range(7))
+            artwork = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="118" fill="#111b30"/>{petals}<circle cx="256" cy="256" r="76.8" fill="#ffd4a5"/></svg>'
         file.write_text(artwork, encoding='utf-8')
         count += 1
 print(f'Generated {count} Rosavio Windows branding images')
