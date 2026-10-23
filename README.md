@@ -1,3 +1,11 @@
+## Aktuelle Version
+
+Rosavio 158.0.1 steht mit 20 integrierten Oberflaechensprachen bereit; Deutsch bleibt die Voreinstellung. Der vollstaendige Cloudlauf [39833487343](https://github.com/aheinen1971-cmd/rosavio/actions/runs/39833487343) und die zusaetzlichen isolierten Tests vom 23.10.2026 haben bestanden: Sprachauswahl, aktive Sprache nach Neustart, signiertes oeffentliches Autoupdate, Start ueber eine echte Windows-Testverknuepfung und Erhalt der sichtbaren Lesezeichenleiste mit Unterordnern und Reihenfolge.
+
+[Webseite und Sprachwahl](https://aheinen1971-cmd.github.io/rosavio/) · [Aktueller Download](https://github.com/aheinen1971-cmd/rosavio/releases/latest)
+
+GitHub prueft taeglich gegen 18:00 Uhr Europe/Berlin neue stabile Firefox-Versionen. Bau und Veroeffentlichung laufen auf kostenlosen Standard-Runnern unabhaengig vom eigenen PC. Details und Testgrenzen stehen am Anfang von MAINTENANCE.md; die aelteren Angaben darunter dokumentieren die Entwicklung.
+
 # Rosavio Browser
 ## Automatischer GitHub-Bau
 
