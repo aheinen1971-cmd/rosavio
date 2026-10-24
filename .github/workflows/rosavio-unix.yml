@@ -1,24 +1,23 @@
 name: Rosavio Linux and macOS native bring-up
 on:
   workflow_dispatch:
+    inputs:
+      platform:
+        description: Platform to build (all only when no platform builds are active)
+        type: choice
+        default: all
+        options: [all, linux-x64, macos-arm64, macos-x64]
 permissions:
   contents: read
 concurrency:
-  group: rosavio-unix-bringup
+  group: rosavio-unix-${{ inputs.platform || 'all' }}
   cancel-in-progress: false
 jobs:
   native:
     if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - platform: linux-x64
-            runner: ubuntu-24.04
-          - platform: macos-arm64
-            runner: macos-15
-          - platform: macos-x64
-            runner: macos-15-intel
+      matrix: ${{ fromJSON(inputs.platform == 'linux-x64' && '{"include":[{"platform":"linux-x64","runner":"ubuntu-24.04"}]}' || inputs.platform == 'macos-arm64' && '{"include":[{"platform":"macos-arm64","runner":"macos-15"}]}' || inputs.platform == 'macos-x64' && '{"include":[{"platform":"macos-x64","runner":"macos-15-intel"}]}' || '{"include":[{"platform":"linux-x64","runner":"ubuntu-24.04"},{"platform":"macos-arm64","runner":"macos-15"},{"platform":"macos-x64","runner":"macos-15-intel"}]}') }}
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 350
     steps:
