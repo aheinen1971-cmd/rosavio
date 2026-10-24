@@ -14,7 +14,7 @@ from cryptography.hazmat.primitives import serialization
 from mardor.reader import MarReader
 from mardor.writer import MarWriter
 
-def sign_mar(source, destination, private_key, certificate, password):
+def sign_mar(source, destination, private_key, certificate, password, platform="win64"):
     if source.resolve() == destination.resolve():
         raise ValueError('Input and output must differ')
     key = serialization.load_pem_private_key(private_key.read_bytes(), password=password)
@@ -35,9 +35,21 @@ def sign_mar(source, destination, private_key, certificate, password):
         names = [entry.name for entry in entries]
         if len(set(names)) != len(names) or any('..' in pathlib.PurePosixPath(name).parts or name.startswith(('/', '\\')) or ':' in name for name in names):
             raise ValueError('Unsafe or duplicate MAR paths')
-        if not {'rosavio.exe', 'application.ini', 'updatev3.manifest'}.issubset(names):
+        layouts = {
+            'win64': ('rosavio.exe', 'application.ini', 'precomplete'),
+            'linux-x64': ('rosavio', 'application.ini', 'precomplete'),
+            'macos-x64': ('Contents/MacOS/rosavio', 'Contents/Resources/application.ini', 'Contents/Resources/precomplete'),
+            'macos-arm64': ('Contents/MacOS/rosavio', 'Contents/Resources/application.ini', 'Contents/Resources/precomplete'),
+        }
+        if platform not in layouts:
+            raise ValueError('Unsupported update platform')
+        executable, ini_path, precomplete = layouts[platform]
+        required = {executable, ini_path, 'updatev3.manifest'}
+        if platform != 'win64':
+            required.add(precomplete)
+        if not required.issubset(names):
             raise ValueError('MAR is missing required Rosavio package entries')
-        ini_entry = next(entry for entry in entries if entry.name == 'application.ini')
+        ini_entry = next(entry for entry in entries if entry.name == ini_path)
         ini = configparser.ConfigParser()
         ini.read_string(b''.join(reader.extract_entry(ini_entry)).decode())
         if ini.get('App', 'Name') != 'Rosavio' or ini.get('App', 'Version') != version:
@@ -59,7 +71,8 @@ if __name__ == '__main__':
     parser.add_argument('destination', type=pathlib.Path)
     parser.add_argument('private_key', type=pathlib.Path)
     parser.add_argument('certificate', type=pathlib.Path)
+    parser.add_argument('--platform', choices=['win64','linux-x64','macos-x64','macos-arm64'], default='win64')
     args = parser.parse_args()
     password = (os.environ.get('ROSAVIO_SIGNING_PASSWORD') or getpass.getpass('Signing-key password: ')).encode()
-    sign_mar(args.source, args.destination, args.private_key, args.certificate, password)
+    sign_mar(args.source, args.destination, args.private_key, args.certificate, password, args.platform)
     print('Rosavio MAR signed with RSA-4096 / SHA-384 and verified with the public certificate.')

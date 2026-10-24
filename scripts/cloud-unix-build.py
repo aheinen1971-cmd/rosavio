@@ -1,4 +1,4 @@
-"""Native Linux/macOS bring-up. No release publication or signing secrets here."""
+"""Native Linux/macOS builds and isolated update baselines; no publication here."""
 import argparse, datetime, hashlib, json, os, pathlib, platform, shutil, subprocess, tarfile, urllib.request
 
 p=argparse.ArgumentParser();p.add_argument('--platform',choices=['linux-x64','macos-x64','macos-arm64'],required=True);a=p.parse_args()
@@ -50,6 +50,20 @@ else:package=dist/'rosavio';binary=package/'rosavio'
 if not binary.is_file():raise SystemExit(f'Native binary missing: {binary}')
 run('node',project/'scripts/check-locales.cjs',binary,out/'locale-check')
 run('node',project/'scripts/check-unix-native.cjs',binary,out/'native-check',a.platform)
+# Keep a genuine older application in a separate writable test installation.
+baseline=root/'baseline'/package.name
+baseline.parent.mkdir(parents=True,exist_ok=True)
+shutil.copytree(package,baseline,symlinks=True)
+old_build=os.environ['MOZ_BUILD_DATE']
+new_build=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%d%H%M%S')
+if new_build<=old_build:raise SystemExit('Second genuine build needs a later BuildID')
+os.environ['MOZ_BUILD_DATE']=new_build
+for command in ['configure','build','package']:run(python,'mach','--no-interactive',command,cwd=source)
+run(python,'mach','--no-interactive','package-multi-locale','--locales',*translations,cwd=source)
+run('node',project/'scripts/check-locales.cjs',binary,out/'updated-locale-check')
+run('node',project/'scripts/check-unix-native.cjs',binary,out/'native-check',a.platform)
+(out/'paths.json').write_text(json.dumps({'source':str(source),'package':str(package),'baseline':str(baseline),'platform':a.platform},indent=2))
+
 for pattern in ('*.dmg','*.tar.xz','*.tar.bz2'):
     for file in dist.glob(pattern):shutil.copy2(file,out/file.name)
 if not any(x.suffix in ('.dmg','.xz','.bz2') for x in out.iterdir()):
