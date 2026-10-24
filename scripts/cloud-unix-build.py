@@ -51,6 +51,7 @@ if not binary.is_file():raise SystemExit(f'Native binary missing: {binary}')
 run('node',project/'scripts/check-locales.cjs',binary,out/'locale-check')
 run('node',project/'scripts/check-unix-native.cjs',binary,out/'native-check',a.platform)
 run('node',project/'scripts/check-extensions.cjs',binary,out/'extensions-check')
+run('node',project/'scripts/check-translations.cjs',binary,out/'translations-check')
 # Keep a genuine older application in a separate writable test installation.
 baseline=root/'baseline'/package.name
 baseline.parent.mkdir(parents=True,exist_ok=True)
