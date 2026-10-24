@@ -20,5 +20,5 @@ module.exports = async function start(binary, profile, port=2844) {
   await receive();
   await command('WebDriver:NewSession',{capabilities:{alwaysMatch:{acceptInsecureCerts:false}}});
   await command('Marionette:SetContext',{value:'chrome'});
-  return {proc,command,async script(script){return (await command('WebDriver:ExecuteAsyncScript',{script:`const done=arguments[arguments.length-1];(async()=>{${script}})().then(done,error=>done({error:String(error)}));`,args:[]})).value;},async close(){try{await command('Marionette:Quit',{flags:['eForceQuit']});}catch{}socket.destroy();if(proc.exitCode===null)proc.kill();}};
+  return {proc,command,async script(script){return (await command('WebDriver:ExecuteAsyncScript',{script:`const done=arguments[arguments.length-1];(async()=>{${script}})().then(done,error=>done({error:String(error)}));`,args:[]})).value;},async close(){try{await command('Marionette:Quit',{flags:['eForceQuit']});}catch{}socket.destroy();if(proc.exitCode===null)await new Promise(resolve=>{const timer=setTimeout(()=>{if(proc.exitCode===null)proc.kill();resolve();},10000);proc.once('exit',()=>{clearTimeout(timer);resolve();});});}};
 };
