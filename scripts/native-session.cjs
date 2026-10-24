@@ -3,7 +3,7 @@ const {spawn} = require('child_process');
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 module.exports = async function start(binary, profile, port=2844) {
   fs.mkdirSync(profile,{recursive:true});
-  fs.writeFileSync(path.join(profile,'user.js'), `user_pref("marionette.port", ${port});\nuser_pref("marionette.prefs.recommended", false);\nuser_pref("app.update.disabledForTesting", false);\nuser_pref("browser.shell.checkDefaultBrowser", false);\nuser_pref("app.update.background.enabled", false);\nuser_pref("app.update.log", true);\nuser_pref("app.update.staging.enabled", ${process.env.ROSAVIO_PRODUCTION_TEST === "1"});\n`);
+  fs.writeFileSync(path.join(profile,'user.js'), `user_pref("marionette.port", ${port});\nuser_pref("marionette.prefs.recommended", false);\nuser_pref("remote.prefs.recommended", false);\nuser_pref("app.update.disabledForTesting", false);\nuser_pref("browser.shell.checkDefaultBrowser", false);\nuser_pref("app.update.background.enabled", false);\nuser_pref("app.update.log", true);\nuser_pref("app.update.staging.enabled", ${process.env.ROSAVIO_PRODUCTION_TEST === "1"});\n`);
   const browserEnv={...process.env};
   for(const key of ['ROSAVIO_SIGNING_PASSWORD','ROSAVIO_UPDATE_KEY','GH_TOKEN','GITHUB_TOKEN'])delete browserEnv[key];
   const proc=spawn(binary,['-headless','-no-remote','-profile',profile,'--marionette','--remote-allow-system-access'],{env:browserEnv,stdio:['ignore','ignore','pipe']});

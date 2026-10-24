@@ -2,8 +2,10 @@ const fs=require('fs'),path=require('path'),start=require('./native-session.cjs'
 const [binary,root]=process.argv.slice(2),pause=ms=>new Promise(r=>setTimeout(r,ms));
 (async()=>{let session;try{
  session=await start(path.resolve(binary),path.resolve(root),2871);
- const menu=await session.script(`return {present:!!document.getElementById('appMenu-rosavio-extensions'),label:document.getElementById('appMenu-rosavio-extensions')?.getAttribute('label')};`);
+ const menu=await session.script(`await PanelUI.ensureReady();return {present:!!document.getElementById('appMenu-rosavio-extensions'),label:document.getElementById('appMenu-rosavio-extensions')?.getAttribute('label')};`);
  if(!menu.present)throw Error('Rosavio catalogue menu is missing');
+ await session.script(`document.getElementById('appMenu-rosavio-extensions').doCommand();return true;`);
+ await pause(1000);
  await session.command('Marionette:SetContext',{value:'content'});
  await session.command('WebDriver:Navigate',{url:'about:rosavio-addons'});
  const initial=await session.script(`return {url:location.href,title:document.title,form:!!document.getElementById('search'),manager:document.getElementById('manage')?.getAttribute('href')};`);
