@@ -38,11 +38,17 @@ jobs:
       - name: Install artwork dependencies and inspect disk space
         shell: bash
         run: |
-          python -m pip install Pillow
+          python -m pip install -r requirements.txt
           df -h
       - name: Full native build and twenty-language startup tests
         shell: bash
         run: python scripts/cloud-unix-build.py --platform '${{ matrix.platform }}'
+      - name: Sign native MAR and test real update with restart
+        shell: bash
+        env:
+          ROSAVIO_UPDATE_KEY: ${{ secrets.ROSAVIO_UPDATE_KEY }}
+          ROSAVIO_SIGNING_PASSWORD: ${{ secrets.ROSAVIO_SIGNING_PASSWORD }}
+        run: python scripts/cloud-unix-sign-test.py '${{ matrix.platform }}'
       - name: Retain platform test packages and reports
         if: always()
         uses: actions/upload-artifact@v4
