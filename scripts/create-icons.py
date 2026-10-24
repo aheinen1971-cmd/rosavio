@@ -35,6 +35,9 @@ for file in root.rglob('*'):
             canvas.alpha_composite(mark, ((width-mark.width)//2, (height-mark.height)//2))
             canvas.save(file)
         count += 1
+    elif file.suffix.lower() == '.icns':
+        icon(1024).save(file, format='ICNS')
+        count += 1
     elif file.suffix.lower() == '.ico':
         icon(256).save(file, format='ICO', sizes=[(n,n) for n in (16,24,32,48,64,128,256)])
         count += 1

@@ -15,6 +15,7 @@ parser.add_argument('source', type=pathlib.Path)
 parser.add_argument('--update-origin')
 parser.add_argument('--github-repo', help='OWNER/REPOSITORY for GitHub Releases hosting without a separate server')
 parser.add_argument('--local-test', action='store_true')
+parser.add_argument('--platform', choices=('win64', 'linux-x64', 'macos-x64', 'macos-arm64'), default='win64')
 args = parser.parse_args()
 source = args.source.resolve()
 if os.name == 'nt' and len(str(source)) > 62:
@@ -85,6 +86,8 @@ shutil.copyfile(cert, updater / 'rosavio-update.der')
 update_url = origin.rstrip('/') + '/update/1/%PRODUCT%/%VERSION%/%BUILD_ID%/%BUILD_TARGET%/%LOCALE%/%CHANNEL%/update.xml'
 if args.github_repo:
     update_url = f'https://github.com/{args.github_repo}/releases/latest/download/rosavio-win64-update.xml'
+    if args.platform != 'win64':
+        update_url = f'https://github.com/{args.github_repo}/releases/download/rosavio-{args.platform}-latest/rosavio-{args.platform}-update.xml'
 prefs = branding / 'pref/firefox-branding.js'
 prefs.write_text('''/* Rosavio branding defaults. Based on MPL-2.0 Firefox source. */
 pref("startup.homepage_override_url", "");
