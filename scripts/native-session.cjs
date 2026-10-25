@@ -1,11 +1,11 @@
 const fs = require('fs'), net = require('net'), path = require('path');
-const {spawn} = require('child_process');
+const {spawn,execFileSync} = require('child_process');
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 module.exports = async function start(binary, profile, port=2844, options={}) {
   fs.mkdirSync(profile,{recursive:true});
   fs.writeFileSync(path.join(profile,'user.js'), `user_pref("marionette.port", ${port});\nuser_pref("marionette.prefs.recommended", false);\nuser_pref("remote.prefs.recommended", false);\nuser_pref("app.update.disabledForTesting", false);\nuser_pref("browser.shell.checkDefaultBrowser", false);\nuser_pref("app.update.background.enabled", false);\nuser_pref("app.update.log", true);\nuser_pref("app.update.staging.enabled", ${process.env.ROSAVIO_PRODUCTION_TEST === "1"});\n`);
   const browserEnv={...process.env};
-  for(const key of ['ROSAVIO_SIGNING_PASSWORD','ROSAVIO_UPDATE_KEY','GH_TOKEN','GITHUB_TOKEN'])delete browserEnv[key];
+  for(const key of ['ROSAVIO_SIGNING_PASSWORD','ROSAVIO_UPDATE_KEY','ROSAVIO_FLATPAK_SIGNING_KEY','ROSAVIO_FLATPAK_SIGNING_PASSWORD','GH_TOKEN','GITHUB_TOKEN'])delete browserEnv[key];
   if(options.desktopEntry){if(process.platform!=='linux')throw Error('Desktop launch is Linux-only');delete browserEnv.MOZ_HEADLESS;}
   const proc=spawn(options.desktopEntry?'gio':binary,options.desktopEntry?['launch',options.desktopEntry]:['-headless','-no-remote','-profile',profile,'--marionette','--remote-allow-system-access'],{env:browserEnv,stdio:['ignore','ignore','pipe']});
   let launchError;proc.on('error',error=>{launchError=error;});
@@ -22,6 +22,8 @@ module.exports = async function start(binary, profile, port=2844, options={}) {
   await receive();
   await command('WebDriver:NewSession',{capabilities:{alwaysMatch:{acceptInsecureCerts:false}}});
   await command('Marionette:SetContext',{value:'chrome'});
-  const desktopPID=options.desktopEntry?(await command('WebDriver:ExecuteScript',{script:'return Services.appinfo.processID;',args:[]})).value:null;
+  // A Flatpak PID belongs to its private namespace, not the host /proc tree.
+  let desktopPID=options.desktopEntry&&!options.pidNamespace?(await command('WebDriver:ExecuteScript',{script:'return Services.appinfo.processID;',args:[]})).value:null;
+  if(options.desktopEntry&&options.pidNamespace){const rows=execFileSync('flatpak',['ps','--columns=application,pid'],{encoding:'utf8'}).trim().split('\n').map(x=>x.trim().split(/\s+/)).filter(x=>x[0]==='io.github.aheinen1971_cmd.Rosavio');if(rows.length!==1||!/^\d+$/.test(rows[0][1]))throw Error('Cannot identify isolated Flatpak host process');desktopPID=Number(rows[0][1]);}
   return {proc,command,async script(script){return (await command('WebDriver:ExecuteAsyncScript',{script:`const done=arguments[arguments.length-1];(async()=>{${script}})().then(done,error=>done({error:String(error)}));`,args:[]})).value;},async close(){try{await command('Marionette:Quit',{flags:['eForceQuit']});}catch{}socket.destroy();if(proc.exitCode===null)await new Promise(resolve=>{const timer=setTimeout(()=>{if(proc.exitCode===null)proc.kill();resolve();},10000);proc.once('exit',()=>{clearTimeout(timer);resolve();});});if(desktopPID){const alive=()=>{try{return fs.readFileSync('/proc/'+desktopPID+'/stat','utf8').split(') ')[1][0]!=='Z';}catch{return false;}};for(let i=0;i<100&&alive();i++)await pause(100);if(alive())throw Error('Desktop browser did not exit cleanly');}}};
 };

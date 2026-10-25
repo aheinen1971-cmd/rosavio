@@ -1,5 +1,5 @@
 """Install/update from the actual public HTTPS Flatpak ref; retain only test data."""
-import base64,configparser,json,pathlib,subprocess,sys,time,urllib.request
+import base64,configparser,hashlib,json,os,pathlib,shlex,subprocess,sys,time,urllib.request
 ROOT=pathlib.Path.cwd();DATA=ROOT/'flatpak-public-profiles';DATA.mkdir(exist_ok=True)
 APP='io.github.aheinen1971_cmd.Rosavio';mode=sys.argv[1];candidate=pathlib.Path(sys.argv[2]);r=json.loads((candidate/'report.json').read_text())
 if mode not in ['seed','verify']:raise SystemExit('Invalid mode')
@@ -28,7 +28,32 @@ remotes=output('flatpak','remotes','--user','--show-details')
 if 'https://aheinen1971-cmd.github.io/rosavio/flatpak/' not in remotes:raise SystemExit('Public repository was not used')
 if any('aheinen1971-cmd.github.io/rosavio/flatpak/' in line and 'no-gpg-verify' in line for line in remotes.splitlines()):raise SystemExit('Public GPG verification disabled')
 wrapper=ROOT/'flatpak-public-launcher';wrapper.write_text('#!/bin/sh\nexec flatpak run --user --filesystem="'+str(DATA)+'" '+APP+' "$@"\n');wrapper.chmod(0o755)
-run('node','scripts/check-flatpak.cjs',wrapper,DATA,mode,r['oldBuildID'] if mode=='seed' else r['newBuildID'])
+extra={}
+if os.environ.get('ROSAVIO_FLATPAK_EXTRA_CHECKS')=='1':
+ location=pathlib.Path(output('flatpak','info','--user','--show-location',APP))
+ native=location/'files/lib/rosavio'
+ run(sys.executable,'scripts/check-linux-icons.py',native,DATA/(mode+'-icons'))
+ exported=pathlib.Path.home()/'.local/share/flatpak/exports/share/applications'/ (APP+'.desktop')
+ if not exported.is_file():raise SystemExit('Actual exported Flatpak desktop launcher missing')
+ run('desktop-file-validate',exported)
+ text=exported.read_text()
+ if 'Icon='+APP not in text or APP not in text:raise SystemExit('Incorrect exported launcher identity')
+ for size in [16,32,48,64,128]:
+  icon=pathlib.Path.home()/f'.local/share/flatpak/exports/share/icons/hicolor/{size}x{size}/apps'/ (APP+'.png')
+  original=native/f'browser/chrome/icons/default/default{size}.png'
+  if not icon.is_file() or icon.read_bytes()!=original.read_bytes():raise SystemExit('Exported icon mismatch: '+str(size))
+ # Use the exported desktop file as the template, adding test-only profile args.
+ desktop=ROOT/('Rosavio-Flatpak-'+mode+'.desktop')
+ command=shlex.quote(str(wrapper))+' -no-remote -profile '+shlex.quote(str(DATA/'preserved-profile'))+' --marionette --remote-allow-system-access'
+ desktop.write_text('\n'.join('Exec='+command if line.startswith('Exec=') else line for line in text.splitlines())+'\n')
+ run('desktop-file-validate',desktop)
+ with urllib.request.urlopen('https://addons.mozilla.org/api/v5/addons/addon/multi-account-containers/',timeout=60) as response:addon=json.load(response)
+ xpi=addon['current_version']['file']['url']
+ if not xpi.startswith('https://addons.mozilla.org/firefox/downloads/file/') or not xpi.endswith('.xpi'):raise SystemExit('Official signed extension download required')
+ extra={'ROSAVIO_FLATPAK_DESKTOP_ENTRY':str(desktop),'ROSAVIO_FLATPAK_EXTENSION_XPI':xpi}
+run('node','scripts/check-flatpak.cjs',wrapper,DATA,mode,r['oldBuildID'] if mode=='seed' else r['newBuildID'],env={**os.environ,**extra})
 if mode=='verify':
  run('node','scripts/check-locales.cjs',wrapper,DATA/'locales')
- (DATA/'public-update-report.json').write_text(json.dumps({'passed':True,'publicInstallationPassed':True,'publicUpdateTestPassed':True,'gpgVerificationRequired':True,'oldCommit':r['oldCommit'],'newCommit':r['newCommit'],'signingFingerprint':r['signingFingerprint'],'languages':20,'profilePreservationPassed':True,'desktopIconAndExtensionTestsPending':True},indent=2))
+ verified=json.loads((DATA/'verify-report.json').read_text())
+ extras=bool(extra) and bool(verified.get('desktopTest',{}).get('passed')) and bool(verified.get('extensionTest',{}).get('passed'))
+ (DATA/'public-update-report.json').write_text(json.dumps({'passed':True,'publicInstallationPassed':True,'publicUpdateTestPassed':True,'gpgVerificationRequired':True,'oldCommit':r['oldCommit'],'newCommit':r['newCommit'],'oldBuildID':r['oldBuildID'],'newBuildID':r['newBuildID'],'newNativeRelease':r.get('newNativeRelease','v158.0.1-rosavio-linux-x64.40179413346'),'signingFingerprint':r['signingFingerprint'],'languages':20,'profilePreservationPassed':True,'desktopIconAndExtensionTestsPending':not extras,'ownDesktopTestBasedOnExportedLauncher':bool(extra),'extensionFunctionAndSettingsPreserved':extras},indent=2))

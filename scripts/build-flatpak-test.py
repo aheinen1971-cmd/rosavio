@@ -3,7 +3,7 @@
 The disposable CI signing identity is used only for this isolated test repository.
 It is never published as Rosavio's production trust root.
 """
-import configparser, hashlib, json, os, pathlib, shutil, subprocess, tarfile, tempfile, urllib.request
+import configparser, hashlib, json, os, pathlib, re, shutil, subprocess, tarfile, tempfile, urllib.request
 
 if os.environ.get('GITHUB_ACTIONS')!='true' or os.environ.get('GITHUB_REPOSITORY')!='aheinen1971-cmd/rosavio':
     raise SystemExit('Only the authorized Rosavio test runner may run this script')
@@ -38,8 +38,12 @@ def source(tag,label):
 
 run('flatpak','remote-add','--user','--if-not-exists','flathub','https://flathub.org/repo/flathub.flatpakrepo')
 run('flatpak','install','--user','--noninteractive','flathub','org.freedesktop.Platform//'+RUNTIME,'org.freedesktop.Sdk//'+RUNTIME)
-baseline,oldid,oldhash=source('v158.0.1-rosavio-linux-x64.40178990988','flatpak-old-native')
-candidate,newid,newhash=source('v158.0.1-rosavio-linux-x64.40179413346','flatpak-new-native')
+oldtag=os.environ.get('ROSAVIO_FLATPAK_OLD_TAG') or 'v158.0.1-rosavio-linux-x64.40178990988'
+newtag=os.environ.get('ROSAVIO_FLATPAK_NEW_TAG') or 'v158.0.1-rosavio-linux-x64.40179413346'
+for tag in [oldtag,newtag]:
+ if not re.fullmatch(r'v\d+(?:\.\d+){1,3}-rosavio-linux-x64\.\d+',tag):raise SystemExit('Invalid tested Linux release tag')
+baseline,oldid,oldhash=source(oldtag,'flatpak-old-native')
+candidate,newid,newhash=source(newtag,'flatpak-new-native')
 if oldid>=newid:raise SystemExit('Two distinct genuine builds are required')
 
 with tempfile.TemporaryDirectory(prefix='rosavio-flatpak-test-key-') as keydir:
@@ -103,5 +107,5 @@ with tempfile.TemporaryDirectory(prefix='rosavio-flatpak-test-key-') as keydir:
         run('tar','-cJf',OUT/'repository-candidate.tar.xz','-C',REPO,'.')
         run(os.sys.executable,'scripts/prepare-flatpak-distribution.py',REPO,public,fingerprint,OUT/'installation')
     # Never export private test keys, test profiles or an untrusted production installer.
-    (OUT/'report.json').write_text(json.dumps({'passed':True,'candidateOnly':True,'publicRepositoryTestPassed':False,'productionSigningConfigured':PRODUCTION,'signingFingerprint':fingerprint,'appID':APP,'languages':20,'oldBuildID':oldid,'newBuildID':newid,'oldCommit':oldcommit,'newCommit':newcommit,'sourcesSHA256':[oldhash,newhash],'signedLocalFlatpakUpdatePassed':True,'permissions':output('flatpak','info','--user','--show-permissions',APP)},indent=2))
+    (OUT/'report.json').write_text(json.dumps({'passed':True,'candidateOnly':True,'publicRepositoryTestPassed':False,'productionSigningConfigured':PRODUCTION,'signingFingerprint':fingerprint,'appID':APP,'languages':20,'oldNativeRelease':oldtag,'newNativeRelease':newtag,'oldBuildID':oldid,'newBuildID':newid,'oldCommit':oldcommit,'newCommit':newcommit,'sourcesSHA256':[oldhash,newhash],'signedLocalFlatpakUpdatePassed':True,'permissions':output('flatpak','info','--user','--show-permissions',APP)},indent=2))
 print('Isolated signed Flatpak installation/update and twenty languages passed; public distribution remains gated.')
