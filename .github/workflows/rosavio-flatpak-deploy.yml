@@ -45,6 +45,13 @@ jobs:
           run-id: ${{ inputs.source_run }}
           github-token: ${{ github.token }}
           path: production-candidate
+      - name: Reserve the Flatpak repository tag before long public tests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh api repos/aheinen1971-cmd/rosavio/git/ref/tags/rosavio-flatpak-repository >/dev/null 2>&1; then
+            gh api repos/aheinen1971-cmd/rosavio/git/refs -f ref=refs/tags/rosavio-flatpak-repository -f "sha=${GITHUB_SHA}"
+          fi
       - name: Prepare native Flatpak test runtime
         run: |
           sudo apt-get update -qq
@@ -90,7 +97,6 @@ jobs:
           repo='aheinen1971-cmd/rosavio';tag='rosavio-flatpak-repository'
           call=lambda *a:subprocess.run(['gh',*a],check=True)
           if subprocess.run(['gh','release','view',tag,'--repo',repo],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode:
-              call('api',f'repos/{repo}/git/refs','-f',f'ref=refs/tags/{tag}','-f','sha='+os.environ['GITHUB_SHA'])
               call('release','create',tag,'--repo',repo,'--verify-tag','--prerelease','--latest=false','--title','Rosavio signed Flatpak repository','--notes','Signed repository with successful public installation/update test; additional desktop and extension checks remain pending.')
           call('release','upload',tag,'--repo',repo,'--clobber','production-candidate/flatpak-results/repository-candidate.tar.xz','production-candidate/flatpak-results/installation/Rosavio.flatpakref','production-candidate/flatpak-results/installation/Rosavio.flatpakrepo','flatpak-public-profiles/public-update-report.json')
           PY
