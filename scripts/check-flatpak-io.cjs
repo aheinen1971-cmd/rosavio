@@ -20,7 +20,6 @@ module.exports=async function(b,root,mode){
   await exec('xdotool',['key','--window',id,'Return']);
   await new Promise(resolve=>setTimeout(resolve,700));
   await exec('python3',['-c','from PIL import ImageGrab; ImageGrab.grab().save('+JSON.stringify(path.join(root,mode+'-chooser-desktop.png'))+')']);
-  await exec('xdotool',['key','--window',id,'Return']);
   const read=await selected;
   if(read?.text!=='Rosavio portal test file')throw Error('Selected host file could not be read: '+JSON.stringify(read));
  }catch(e){selected.catch(()=>{});throw e;}
