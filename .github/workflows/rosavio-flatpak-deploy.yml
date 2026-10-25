@@ -94,7 +94,7 @@ jobs:
       - name: Install from real public Flatpak ref and seed isolated profile
         env:
           ROSAVIO_FLATPAK_EXTRA_CHECKS: '1'
-        run: dbus-run-session -- xvfb-run -a python3 scripts/check-flatpak-public.py seed production-candidate/flatpak-results
+        run: xvfb-run -a dbus-run-session -- python3 scripts/check-flatpak-public.py seed production-candidate/flatpak-results
       - name: Deploy signed public candidate
         uses: actions/deploy-pages@v4
         with:
@@ -102,7 +102,7 @@ jobs:
       - name: Verify actual public update and all twenty languages
         env:
           ROSAVIO_FLATPAK_EXTRA_CHECKS: '1'
-        run: dbus-run-session -- xvfb-run -a python3 scripts/check-flatpak-public.py verify production-candidate/flatpak-results
+        run: xvfb-run -a dbus-run-session -- python3 scripts/check-flatpak-public.py verify production-candidate/flatpak-results
       - name: Preserve the publicly verified repository for future website deployments
         env:
           GH_TOKEN: ${{ github.token }}
