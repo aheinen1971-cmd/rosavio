@@ -1,0 +1,41 @@
+name: Rosavio automatic Flatpak release
+on:
+  workflow_dispatch:
+    inputs:
+      reuse_preparation:
+        description: Optional successful production preparation to replay the complete public checks
+        type: string
+        default: ''
+  workflow_run:
+    workflows: [Rosavio automatic Linux release]
+    types: [completed]
+  schedule:
+    - cron: '30 18 * * *'
+      timezone: Europe/Berlin
+permissions:
+  contents: read
+  actions: write
+concurrency:
+  group: rosavio-flatpak-controller
+  cancel-in-progress: false
+jobs:
+  update:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false && (github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 200
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Build only newer tested Linux versions and verify full public Flatpak delivery
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REUSE_PREPARATION: ${{ inputs.reuse_preparation }}
+        run: python3 scripts/flatpak-automatic.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rosavio-flatpak-automatic-report-${{ github.run_id }}
+          path: flatpak-automatic-report.json
+          retention-days: 7
+          if-no-files-found: warn

@@ -1,6 +1,17 @@
 name: Rosavio production-signed Flatpak preparation
+run-name: Rosavio signed Flatpak preparation ${{ inputs.request_id || github.run_id }}
 on:
   workflow_dispatch:
+    inputs:
+      old_tag:
+        type: string
+        default: ''
+      new_tag:
+        type: string
+        default: ''
+      request_id:
+        type: string
+        default: ''
 permissions:
   contents: read
 concurrency:
@@ -22,6 +33,8 @@ jobs:
       - name: Verify protected production identity and signed installation/update
         env:
           ROSAVIO_FLATPAK_PRODUCTION: '1'
+          ROSAVIO_FLATPAK_OLD_TAG: ${{ inputs.old_tag }}
+          ROSAVIO_FLATPAK_NEW_TAG: ${{ inputs.new_tag }}
           ROSAVIO_FLATPAK_SIGNING_KEY: ${{ secrets.ROSAVIO_FLATPAK_SIGNING_KEY }}
           ROSAVIO_FLATPAK_SIGNING_PASSWORD: ${{ secrets.ROSAVIO_FLATPAK_SIGNING_PASSWORD }}
         run: dbus-run-session -- xvfb-run -a python3 scripts/build-flatpak-test.py

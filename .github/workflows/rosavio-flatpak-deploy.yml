@@ -1,4 +1,5 @@
 name: Rosavio public Flatpak installation and update trial
+run-name: Rosavio public Flatpak trial ${{ inputs.request_id || github.run_id }}
 on:
   workflow_dispatch:
     inputs:
@@ -7,6 +8,9 @@ on:
         type: string
         required: true
         default: '40191195380'
+      request_id:
+        type: string
+        default: ''
 permissions:
   contents: write
   actions: read
@@ -60,7 +64,11 @@ jobs:
       - name: Prepare native Flatpak test runtime
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y flatpak gnupg dbus-x11 xvfb
+          sudo apt-get install -y flatpak gnupg dbus-x11 xvfb desktop-file-utils
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==12.3.0
       - name: Assemble unchanged website with baseline and candidate repositories
         run: |
           python3 scripts/prepare-flatpak-pages.py production-candidate/flatpak-results baseline site-baseline
@@ -84,12 +92,16 @@ jobs:
         with:
           artifact_name: rosavio-pages-baseline
       - name: Install from real public Flatpak ref and seed isolated profile
+        env:
+          ROSAVIO_FLATPAK_EXTRA_CHECKS: '1'
         run: dbus-run-session -- xvfb-run -a python3 scripts/check-flatpak-public.py seed production-candidate/flatpak-results
       - name: Deploy signed public candidate
         uses: actions/deploy-pages@v4
         with:
           artifact_name: rosavio-pages-candidate
       - name: Verify actual public update and all twenty languages
+        env:
+          ROSAVIO_FLATPAK_EXTRA_CHECKS: '1'
         run: dbus-run-session -- xvfb-run -a python3 scripts/check-flatpak-public.py verify production-candidate/flatpak-results
       - name: Preserve the publicly verified repository for future website deployments
         env:
@@ -118,5 +130,7 @@ jobs:
           path: |
             flatpak-public-profiles/*-report.json
             flatpak-public-profiles/locales/report.json
+            flatpak-public-profiles/*-desktop.png
+            flatpak-public-profiles/*-icons/*
           retention-days: 7
           if-no-files-found: warn
