@@ -1,0 +1,39 @@
+name: Rosavio reviewed old failure cleanup
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Preview only; do not delete runs
+        type: boolean
+        default: true
+  schedule:
+    - cron: '30 18 * * *'
+      timezone: Europe/Berlin
+permissions:
+  contents: read
+  actions: write
+concurrency:
+  group: rosavio-reviewed-cleanup
+  cancel-in-progress: false
+jobs:
+  cleanup:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Verify deletion safeguards with isolated fixtures
+        run: python3 scripts/test-cleanup-runs.py
+      - name: Clean only reviewed resolved failures after retention
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DRY_RUN: ${{ github.event_name == 'schedule' && 'false' || inputs.dry_run && 'true' || 'false' }}
+        run: python3 scripts/cleanup-resolved-runs.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rosavio-cleanup-report-${{ github.run_id }}
+          path: cleanup-report.json
+          retention-days: 30
