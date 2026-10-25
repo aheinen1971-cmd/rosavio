@@ -1,0 +1,6 @@
+{
+  "appID": "io.github.aheinen1971_cmd.Rosavio",
+  "fingerprint": "2E0679F4ADFCA8549DAF597810F7B311F9B1C264",
+  "publicKey": "certificates/rosavio-flatpak.asc",
+  "repositoryURL": "https://aheinen1971-cmd.github.io/rosavio/flatpak/"
+}
