@@ -33,10 +33,15 @@ jobs:
           SOURCE_RUN: ${{ inputs.source_run }}
         run: |
           python3 - <<'PY'
-          import os,re,json,subprocess
+          import os,re,json,subprocess,time
           run=os.environ['SOURCE_RUN']
           if not re.fullmatch(r'[0-9]+',run):raise SystemExit('Invalid run ID')
-          r=json.loads(subprocess.check_output(['gh','api','repos/aheinen1971-cmd/rosavio/actions/runs/'+run]))
+          for attempt in range(180):
+              r=json.loads(subprocess.check_output(['gh','api','repos/aheinen1971-cmd/rosavio/actions/runs/'+run]))
+              if r['status']=='completed':break
+              if r['path']!='.github/workflows/rosavio-flatpak-public.yml':raise SystemExit('Wrong source workflow')
+              time.sleep(20)
+          else:raise SystemExit('Production preparation did not finish in time')
           if r['conclusion']!='success' or r['path']!='.github/workflows/rosavio-flatpak-public.yml':raise SystemExit('Successful production signing workflow required')
           PY
       - uses: actions/download-artifact@v4
