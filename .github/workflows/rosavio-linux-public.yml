@@ -1,0 +1,50 @@
+name: Rosavio Linux public update verification
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: rosavio-linux-public
+  cancel-in-progress: false
+jobs:
+  public-update:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: rosavio-native-linux-x64-40147244949
+          run-id: 40147244949
+          github-token: ${{ github.token }}
+          path: linux-candidate
+      - uses: actions/download-artifact@v4
+        with:
+          name: rosavio-native-linux-x64-40104224055
+          run-id: 40104224055
+          github-token: ${{ github.token }}
+          path: linux-baseline
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare native runtime dependencies
+        run: sudo apt-get update -qq && sudo apt-get install -y libasound2t64 libdbus-glib-1-2 libgtk-3-0t64 libx11-xcb1 libxt6 xz-utils
+      - name: Publish isolated Linux feed and test public native update
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/publish-linux-test.py
+      - name: Retain public verification reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rosavio-linux-public-reports-${{ github.run_id }}
+          path: |
+            linux-candidate/release/*test.json
+            candidate-languages/report.json
+            candidate-extensions/report.json
+            candidate-translations/report.json
+          retention-days: 7
