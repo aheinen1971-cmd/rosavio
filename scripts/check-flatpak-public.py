@@ -61,7 +61,10 @@ if os.environ.get('ROSAVIO_FLATPAK_EXTRA_CHECKS')=='1':
  with urllib.request.urlopen('https://addons.mozilla.org/api/v5/addons/addon/multi-account-containers/',timeout=60) as response:addon=json.load(response)
  xpi=addon['current_version']['file']['url']
  if not xpi.startswith('https://addons.mozilla.org/firefox/downloads/file/') or not xpi.endswith('.xpi'):raise SystemExit('Official signed extension download required')
- extra={'ROSAVIO_FLATPAK_DESKTOP_ENTRY':str(desktop),'ROSAVIO_FLATPAK_EXTENSION_XPI':xpi}
+ pickerfile=pathlib.Path.home()/('rosavio-flatpak-chooser-'+mode+'.txt')
+ pickerfile.write_text('Rosavio portal test file')
+ (pathlib.Path.home()/'Downloads').mkdir(exist_ok=True)
+ extra={'ROSAVIO_FLATPAK_DESKTOP_ENTRY':str(desktop),'ROSAVIO_FLATPAK_EXTENSION_XPI':xpi,'ROSAVIO_FLATPAK_PICKER_FILE':str(pickerfile)}
 run('node','scripts/check-flatpak.cjs',wrapper,DATA,mode,r['oldBuildID'] if mode=='seed' else r['newBuildID'],env={**os.environ,**extra})
 if mode=='verify':
  run('node','scripts/check-locales.cjs',wrapper,DATA/'locales')

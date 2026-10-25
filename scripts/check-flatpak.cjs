@@ -6,6 +6,7 @@ const profile=path.join(root,'preserved-profile'),report=path.join(root,'before.
  if(identity.name!=='Rosavio'||identity.buildID!==buildID||identity.signatureDisabled||identity.flatpak!=='io.github.aheinen1971_cmd.Rosavio'||!identity.updatesDisabled)throw Error('Wrong Flatpak identity/update owner: '+JSON.stringify(identity));
  const sandbox=await b.script(`const settings=Cc['@mozilla.org/sandbox/sandbox-settings;1'].getService(Ci.mozISandboxSettings);return {effectiveLevel:settings.effectiveContentSandboxLevel,seccomp:Services.sysinfo.getPropertyAsBool('hasSeccompBPF'),canSandboxContent:Services.sysinfo.getPropertyAsBool('canSandboxContent')};`);
  if(!(sandbox.effectiveLevel>0)||!sandbox.seccomp||!sandbox.canSandboxContent)throw Error('Native content sandbox unavailable: '+JSON.stringify(sandbox));
+ const fileIOTest=await require('./check-flatpak-io.cjs')(b,root,mode);
  let extensionTest=null;
  if(process.env.ROSAVIO_FLATPAK_EXTENSION_XPI){
   const xpi=JSON.stringify(process.env.ROSAVIO_FLATPAK_EXTENSION_XPI);
@@ -24,5 +25,5 @@ const profile=path.join(root,'preserved-profile'),report=path.join(root,'before.
  if(mode==='seed')fs.writeFileSync(report,JSON.stringify(state));else if(stable(state)!==stable(JSON.parse(fs.readFileSync(report)))||state.video!==false||state.toolbar!=='always'||!state.protection.every(Boolean))throw Error('Flatpak update lost profile state');
  let desktopTest=null;
  if(desktopEntry){desktopTest=await b.script(`await window.delayedStartupPromise;const bar=document.getElementById('PersonalToolbar');return {passed:!bar.hidden&&!bar.collapsed,hidden:bar.hidden,collapsed:bar.collapsed,processDir:Services.dirsvc.get('CurProcD',Ci.nsIFile).path};`);if(!desktopTest?.passed)throw Error('Flatpak desktop toolbar is not visible: '+JSON.stringify(desktopTest));if(mode==='seed')fs.writeFileSync(path.join(root,'desktop-before.json'),JSON.stringify(desktopTest));else if(desktopTest.processDir!==JSON.parse(fs.readFileSync(path.join(root,'desktop-before.json'))).processDir)throw Error('Flatpak browser process path changed');const shot=(await b.command('WebDriver:TakeScreenshot',{id:null,highlights:[],full:false})).value;fs.writeFileSync(path.join(root,mode+'-desktop.png'),Buffer.from(shot,'base64'));}
- fs.writeFileSync(path.join(root,mode+'-report.json'),JSON.stringify({passed:true,identity,state,sandbox,extensionTest,desktopTest},null,2));
+ fs.writeFileSync(path.join(root,mode+'-report.json'),JSON.stringify({passed:true,identity,state,sandbox,fileIOTest,extensionTest,desktopTest},null,2));
  }finally{if(b)await b.close();}})().catch(e=>{console.error(e);process.exitCode=1});
