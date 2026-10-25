@@ -1,0 +1,82 @@
+name: Rosavio macOS sealed package and update test
+on:
+  workflow_dispatch:
+    inputs:
+      source_run:
+        description: Successful native macOS source run
+        type: string
+        required: true
+      platform:
+        description: Native platform
+        type: choice
+        options: [macos-arm64, macos-x64]
+        required: true
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: rosavio-macos-repack-${{ inputs.platform }}
+  cancel-in-progress: false
+jobs:
+  repack:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    runs-on: ${{ inputs.platform == 'macos-arm64' && 'macos-15' || 'macos-15-intel' }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Require successful candidate and matching successful baseline job
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN: ${{ inputs.source_run }}
+          PLATFORM: ${{ inputs.platform }}
+        run: |
+          python3 - <<'PY'
+          import json,os,subprocess
+          source=os.environ['SOURCE_RUN'];platform=os.environ['PLATFORM']
+          if not source.isdecimal():raise SystemExit('Invalid source run')
+          def get(route):return json.loads(subprocess.check_output(['gh','api','repos/aheinen1971-cmd/rosavio/'+route]))
+          r=get('actions/runs/'+source)
+          if r['status']!='completed' or r['conclusion']!='success' or r['path']!='.github/workflows/rosavio-unix.yml' or r['head_branch']!='main':raise SystemExit('Successful native main candidate required')
+          jobs=get('actions/runs/40093789054/jobs')['jobs']
+          if not any(platform in j['name'] and j['conclusion']=='success' for j in jobs):raise SystemExit('Successful matching genuine baseline job required')
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          name: rosavio-native-${{ inputs.platform }}-${{ inputs.source_run }}
+          path: candidate
+          run-id: ${{ inputs.source_run }}
+          github-token: ${{ github.token }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: rosavio-native-${{ inputs.platform }}-40093789054
+          path: baseline
+          run-id: 40093789054
+          github-token: ${{ github.token }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install free native packaging dependencies
+        run: |
+          brew list nss >/dev/null 2>&1 || brew install nss
+          brew list xz >/dev/null 2>&1 || brew install xz
+          python -m pip install -r requirements.txt
+      - name: Seal existing apps and test newly signed MAR without recompiling browser
+        env:
+          ROSAVIO_UPDATE_KEY: ${{ secrets.ROSAVIO_UPDATE_KEY }}
+          ROSAVIO_SIGNING_PASSWORD: ${{ secrets.ROSAVIO_SIGNING_PASSWORD }}
+        run: python scripts/repack-macos-test.py candidate baseline '${{ inputs.platform }}'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rosavio-macos-repack-${{ inputs.platform }}-${{ github.run_id }}
+          path: |
+            macos-repack/*.json
+            macos-repack/*.dmg
+            macos-repack/*.tar.xz
+            macos-repack/*-check/report.json
+            macos-repack/release/*.mar
+            macos-repack/release/*.json
+          retention-days: 7
+          if-no-files-found: warn
