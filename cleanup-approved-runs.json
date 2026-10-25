@@ -1,4 +1,17 @@
 {
   "minimumAgeDays": 7,
-  "runs": []
+  "runs": [
+    {
+      "id": 40176815549,
+      "reviewedAt": "2026-10-25T12:32:18Z",
+      "replacement": 40178990988,
+      "reason": "Linux public-test executable path fixed; later public update, restart, desktop and icon verification passed. No workflow consumes this failed run's artifacts."
+    },
+    {
+      "id": 40177271592,
+      "reviewedAt": "2026-10-25T12:32:18Z",
+      "replacement": 40178990988,
+      "reason": "Superseded Linux public-test path repair attempt; successful replacement verified update, restart, desktop and icons. No remaining artifact dependency."
+    }
+  ]
 }
