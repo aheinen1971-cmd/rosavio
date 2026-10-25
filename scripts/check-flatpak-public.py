@@ -15,7 +15,13 @@ if mode=='seed':
  key=DATA/'pinned-public-key.gpg';key.write_bytes(base64.b64decode(ref['Flatpak Ref']['GPGKey'],validate=True))
  publickeys=output('gpg','--batch','--with-colons','--show-keys',key)
  if not any(line.startswith('fpr:') and line.split(':')[9]==config['fingerprint'] for line in publickeys.splitlines()):raise SystemExit('Public Flatpak signing identity mismatch')
- run('flatpak','install','--user','--noninteractive',URL)
+ for attempt in range(3):
+  try:
+   run('flatpak','install','--user','--noninteractive',URL)
+   break
+  except subprocess.CalledProcessError:
+   if attempt==2:raise
+   time.sleep(10)
 else:
  for attempt in range(30):
   run('flatpak','update','--user','--noninteractive',APP)
