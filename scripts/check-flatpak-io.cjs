@@ -12,7 +12,11 @@ module.exports=async function(b,root,mode){
   const id=windows[0];
   await exec('xdotool',['windowfocus','--sync',id],{timeout:10000});
   await exec('xdotool',['key','--window',id,'ctrl+l']);
-  await exec('xdotool',['type','--window',id,'--clearmodifiers','--delay','10',input]);
+  // GTK creates and focuses the location entry asynchronously after Ctrl+L.
+  await new Promise(resolve=>setTimeout(resolve,500));
+  await exec('xdotool',['key','--window',id,'ctrl+a']);
+  await exec('xdotool',['type','--window',id,'--clearmodifiers','--delay','35',input]);
+  await new Promise(resolve=>setTimeout(resolve,300));
   await exec('xdotool',['key','--window',id,'Return']);
   await new Promise(resolve=>setTimeout(resolve,700));
   await exec('python3',['-c','from PIL import ImageGrab; ImageGrab.grab().save('+JSON.stringify(path.join(root,mode+'-chooser-desktop.png'))+')']);
