@@ -46,6 +46,7 @@ if b['buildID']>=r['buildID']:raise SystemExit('Public update needs an older gen
 run('node','scripts/check-locales.cjs',package/'rosavio',root/'candidate-languages')
 run('node','scripts/check-extensions.cjs',package/'rosavio',root/'candidate-extensions')
 run('node','scripts/check-translations.cjs',package/'rosavio',root/'candidate-translations')
+run(os.sys.executable,'scripts/check-linux-icons.py',package,root/'candidate-icons')
 archive=release/'Rosavio-Linux-x64.tar.xz'
 run('tar','-cJf',archive,'-C',package.parent,package.name)
 repo='aheinen1971-cmd/rosavio';stable='rosavio-linux-x64-latest'
@@ -68,9 +69,12 @@ feed=release/feedname;feed.write_text('<?xml version="1.0"?><updates><update '+f
 try:
     gh('release','upload',stable,feed,'--repo',repo,'--clobber')
     run('node','scripts/test-unix-update.cjs',baseline,release,'linux-x64',env={**os.environ,'ROSAVIO_PUBLIC_TEST':'1'})
-    gh('release','upload',tag,release/'public-update-test.json','--repo',repo)
-    # Keep as a prerelease until desktop launch/icon verification is also complete.
-    gh('release','edit',tag,'--repo',repo,'--latest=false','--notes','Signiertes Linux-Autoupdate einschliesslich oeffentlichem Download, Installation und Neustart bestanden. Desktop-/Symbolpruefung noch ausstehend; Testversion.')
+    run(os.sys.executable,'scripts/check-linux-icons.py',release/'public-update/rosavio',root/'updated-icons')
+    public=json.loads((release/'public-update-test.json').read_text())
+    if not public.get('desktopLaunchTestPassed'):raise SystemExit('Real desktop launch before/after update is required')
+    gh('release','upload',tag,release/'public-update-test.json',release/'linux-desktop-toolbar.png',root/'updated-icons/report.json','--repo',repo)
+    # Promote only after public native update, actual desktop launch and icon checks.
+    gh('release','edit',tag,'--repo',repo,'--latest=false','--prerelease=false','--notes','Linux x64 mit20Sprachen: signiertes oeffentliches Autoupdate, Installation und Neustart, echter Desktop-Teststart vor/nach Update, farbige Originalsymbole und erhaltene sichtbare Lesezeichenleiste geprueft. Eigene Testverknuepfung; keine Aussage ueber automatische Systeminstallation.')
 except BaseException:
     restore=backup/feedname
     if not had_feed:restore.write_text('<?xml version="1.0"?><updates/>')
@@ -79,4 +83,4 @@ except BaseException:
 finally:
     latest_after=subprocess.check_output(['gh','api',f'repos/{repo}/releases/latest','--jq','.tag_name'],text=True).strip()
     if latest_after!=latest_before:raise SystemExit('Windows Latest changed unexpectedly')
-print('Public signed native Linux update passed; desktop/icon checks still required before final release.')
+print('Public signed Linux update, desktop launch and original colored icon checks passed.')
