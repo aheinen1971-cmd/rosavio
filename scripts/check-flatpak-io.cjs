@@ -30,8 +30,9 @@ module.exports=async function(b,root,mode){
   const url='http://127.0.0.1:'+server.address().port+'/file';
   const result=await b.script(`const {Downloads}=ChromeUtils.importESModule('resource://gre/modules/Downloads.sys.mjs');const target=PathUtils.join(await Downloads.getSystemDownloadsDirectory(),'rosavio-flatpak-${mode}.txt');const download=await Downloads.createDownload({source:${JSON.stringify(url)},target});const list=await Downloads.getList(Downloads.ALL);await list.add(download);await download.start();return {succeeded:download.succeeded,text:await IOUtils.readUTF8(target),target};`);
   if(!result?.succeeded||result.text!==body)throw Error('Real browser download failed: '+JSON.stringify(result));
+  fs.writeFileSync(path.join(root,mode+'-download-report.json'),JSON.stringify(result,null,2));
   const host=path.join(require('os').homedir(),'Downloads','rosavio-flatpak-'+mode+'.txt');
-  if(fs.readFileSync(host,'utf8')!==body)throw Error('Download did not reach the host Downloads directory');
+  if(!fs.existsSync(host)||fs.readFileSync(host,'utf8')!==body)throw Error('Download host mapping mismatch: '+JSON.stringify({browserTarget:result.target,hostTarget:host}));
   return {passed:true,nativeFilePickerAccepted:true,selectedFileReadable:true,realBrowserDownload:true,hostDownloadsVerified:true};
  }finally{await new Promise(resolve=>server.close(resolve));}
 };

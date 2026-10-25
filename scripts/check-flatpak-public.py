@@ -1,6 +1,16 @@
 """Install/update from the actual public HTTPS Flatpak ref; retain only test data."""
 import base64,configparser,hashlib,json,os,pathlib,shlex,subprocess,sys,time,urllib.request
 ROOT=pathlib.Path.cwd();DATA=ROOT/'flatpak-public-profiles';DATA.mkdir(exist_ok=True)
+if os.environ.get('GITHUB_ACTIONS')!='true':raise SystemExit('Isolated GitHub test runner required')
+# Hosted CI has no desktop user-directory configuration. Supply the same
+# Downloads mapping that a regular Linux desktop exports to Flatpak.
+downloads=pathlib.Path.home()/'Downloads';downloads.mkdir(exist_ok=True)
+config=pathlib.Path(os.environ.get('XDG_CONFIG_HOME',str(pathlib.Path.home()/'.config')))
+config.mkdir(parents=True,exist_ok=True)
+userdirs=config/'user-dirs.dirs'
+lines=userdirs.read_text().splitlines() if userdirs.exists() else []
+lines=[line for line in lines if not line.startswith('XDG_DOWNLOAD_DIR=')]
+userdirs.write_text('\n'.join(lines+['XDG_DOWNLOAD_DIR="$HOME/Downloads"'])+'\n')
 APP='io.github.aheinen1971_cmd.Rosavio';mode=sys.argv[1];candidate=pathlib.Path(sys.argv[2]);r=json.loads((candidate/'report.json').read_text())
 if mode not in ['seed','verify']:raise SystemExit('Invalid mode')
 URL='https://aheinen1971-cmd.github.io/rosavio/flatpak/Rosavio.flatpakref'
