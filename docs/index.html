@@ -53,6 +53,8 @@ body::before{left:3px}body::after{right:3px}.wrap{position:relative;z-index:1}
 @media(max-width:650px){body::before,body::after{width:14px;font-size:12px;line-height:76px;background-size:14px 76px;opacity:.6}body::before{left:0}body::after{right:0}}
 </style>
 <style id="rosavio-macos-coming-soon">.macos-coming-soon{display:inline-block;margin:0 0 14px;padding:7px 12px;border:1px solid #e5bbc7;border-radius:20px;background:#fce7ed;color:#7c1935;font-size:13px;font-weight:600}</style>
+
+<style id="rosavio-linux-download">.linux-availability{margin:13px 0 4px;font-size:14px;font-weight:700;color:#7c1935}.hero .linux-button{margin-top:4px}.linux-note{font-size:12px;line-height:1.6;max-width:470px;color:var(--muted);margin:8px 0 12px}.linux-download-details{grid-column:1/-1;border-top:1px solid #ffffff40;padding-top:18px}.linux-download-details h3{font-size:18px;margin:0 0 8px}.linux-download-details p{font-size:13px;margin:8px 0 0}.download-block .linux-button{margin:0}.macos-coming-soon{display:table!important;margin-top:8px!important}</style>
 </head>
 <body>
 <a class="skip" href="#inhalt">Zum Inhalt springen</a>
@@ -73,6 +75,7 @@ body::before{left:3px}body::after{right:3px}.wrap{position:relative;z-index:1}
         <p class="intro">Vertraute Firefox-Basis. Ein eigener Charakter. Rosavio bringt dich mit deutscher Oberfläche und eigenen automatischen Updates ins Web.</p>
         <a class="button" href="https://github.com/aheinen1971-cmd/rosavio/releases/latest/download/Rosavio-Setup-Deutsch.exe" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 15v5h16v-5"/></svg>Rosavio für Windows laden</a>
         <p class="download-note">Kostenlos · Windows 64-Bit · Deutsch</p>
+        <!-- linux-hero --><p class="linux-availability">Jetzt auch für Linux verfügbar</p><a class="button linux-button" href="https://github.com/aheinen1971-cmd/rosavio/releases/download/v158.0.1-rosavio-linux-x64.40179413346/Rosavio-Linux-x64.tar.xz" target="_blank" rel="noopener noreferrer">Rosavio für Linux laden <span aria-hidden="true">↓</span></a><p class="linux-note">Linux x64 · 20 Sprachen · Eigene automatische Updates. TAR.XZ entpacken und „rosavio“ im entpackten Ordner starten.</p><!-- /linux-hero -->
         <p class="macos-coming-soon" role="note">macOS – demnächst verfügbar</p>
         <a class="hero-link" href="https://github.com/aheinen1971-cmd/rosavio/releases/latest">Zur aktuellen Veröffentlichung <span aria-hidden="true">↗</span></a>
       </div>
@@ -97,13 +100,15 @@ body::before{left:3px}body::after{right:3px}.wrap{position:relative;z-index:1}
     <section class="download-block" id="download" aria-labelledby="download-title">
       <div><div class="eyebrow">Bereit für Rosavio?</div><h2 id="download-title">Dein nächstes Fenster ins Web.</h2><p>Lade die aktuelle deutsche Version für Windows herunter. Öffne die Setup-Datei und folge den Installationsschritten.</p></div>
       <div class="download-actions"><a class="button" href="https://github.com/aheinen1971-cmd/rosavio/releases/latest/download/Rosavio-Setup-Deutsch.exe" target="_blank" rel="noopener noreferrer">Setup-EXE herunterladen <span class="arrow" aria-hidden="true">↓</span></a><a href="https://github.com/aheinen1971-cmd/rosavio/releases/latest">Alle Downloads &amp; Versionshinweise <span aria-hidden="true">↗</span></a></div>
-    </section>
+
+      <!-- linux-details --><div class="linux-download-details"><h3>Jetzt auch für Linux verfügbar</h3><a class="button linux-button" href="https://github.com/aheinen1971-cmd/rosavio/releases/download/v158.0.1-rosavio-linux-x64.40179413346/Rosavio-Linux-x64.tar.xz" target="_blank" rel="noopener noreferrer">Rosavio für Linux laden <span aria-hidden="true">↓</span></a><p>Linux x64 · 20 Sprachen · Eigene automatische Updates. TAR.XZ entpacken und „rosavio“ im entpackten Ordner starten.</p></div><!-- /linux-details -->
+</section>
     <section class="faq" aria-labelledby="faq-title">
       <div><div class="eyebrow">Gut zu wissen</div><h2 id="faq-title">Noch eine Frage?</h2></div>
       <div class="faq-list">
         <details><summary>Muss ich die alte Version vorher deinstallieren?</summary><p>Nein. Schließe Rosavio vollständig und installiere die neue Version im selben Ordner. Dein bisheriges Browserprofil mit Lesezeichen und Einstellungen bleibt dabei erhalten.</p></details>
         <details><summary>Was passiert, wenn mein PC ausgeschaltet ist?</summary><p>GitHub kann neue Versionen auch dann vorbereiten. Herunterladen und installieren kann dein Rosavio ein Update erst, wenn dein PC wieder eingeschaltet ist und der Browser nach Updates suchen kann.</p></details>
-        <details><summary>Für welche Geräte gibt es Rosavio?</summary><p>Aktuell gibt es eine deutsche Version für Windows mit 64-Bit-Prozessor. Die Setup-EXE findest du über die Download-Knöpfe auf dieser Seite.</p></details>
+        <details><summary>Für welche Geräte gibt es Rosavio?</summary><p>Aktuell gibt es eine deutsche Version für Windows mit 64-Bit-Prozessor. Die Setup-EXE findest du über die Download-Knöpfe auf dieser Seite. Linux x64 · 20 Sprachen · Eigene automatische Updates. TAR.XZ entpacken und „rosavio“ im entpackten Ordner starten.</p></details>
         <details><summary>Ist Rosavio ein Angebot von Mozilla?</summary><p>Rosavio ist ein eigenständiges Projekt auf Firefox-Basis und kein offizielles Mozilla-Produkt. Den Quellcode, die Anpassungen und Lizenzinformationen findest du im <a href="https://github.com/aheinen1971-cmd/rosavio">GitHub-Projekt</a>.</p></details>
         <details><summary>Wo kann ich einen Fehler melden?</summary><p>Über die <a href="https://github.com/aheinen1971-cmd/rosavio/issues">GitHub-Projektseite für Fehlermeldungen</a>. Beschreibe möglichst genau, was passiert ist und welche Rosavio-Version du verwendest. Veröffentliche dabei keine Passwörter oder anderen privaten Daten.</p></details>
       </div>
