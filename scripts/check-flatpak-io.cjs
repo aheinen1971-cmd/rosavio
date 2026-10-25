@@ -28,7 +28,7 @@ module.exports=async function(b,root,mode){
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  try{
   const url='http://127.0.0.1:'+server.address().port+'/file';
-  const result=await b.script(`const {Downloads}=ChromeUtils.importESModule('resource://gre/modules/Downloads.sys.mjs');const target=PathUtils.join(PathUtils.homeDir,'Downloads','rosavio-flatpak-${mode}.txt');const download=await Downloads.createDownload({source:${JSON.stringify(url)},target});const list=await Downloads.getList(Downloads.ALL);await list.add(download);await download.start();return {succeeded:download.succeeded,text:await IOUtils.readUTF8(target),target};`);
+  const result=await b.script(`const {Downloads}=ChromeUtils.importESModule('resource://gre/modules/Downloads.sys.mjs');const target=PathUtils.join(await Downloads.getSystemDownloadsDirectory(),'rosavio-flatpak-${mode}.txt');const download=await Downloads.createDownload({source:${JSON.stringify(url)},target});const list=await Downloads.getList(Downloads.ALL);await list.add(download);await download.start();return {succeeded:download.succeeded,text:await IOUtils.readUTF8(target),target};`);
   if(!result?.succeeded||result.text!==body)throw Error('Real browser download failed: '+JSON.stringify(result));
   const host=path.join(require('os').homedir(),'Downloads','rosavio-flatpak-'+mode+'.txt');
   if(fs.readFileSync(host,'utf8')!==body)throw Error('Download did not reach the host Downloads directory');
