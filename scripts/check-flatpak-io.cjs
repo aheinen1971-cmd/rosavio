@@ -3,6 +3,7 @@ const exec=require('util').promisify(require('child_process').execFile);
 module.exports=async function(b,root,mode){
  const input=process.env.ROSAVIO_FLATPAK_PICKER_FILE;
  if(!input)return null;
+ await b.command('WebDriver:SetTimeouts',{script:120000});
  const title='Rosavio Flatpak file test';
  const selected=b.script(`const picker=Cc['@mozilla.org/filepicker;1'].createInstance(Ci.nsIFilePicker);picker.init(window.browsingContext,${JSON.stringify(title)},Ci.nsIFilePicker.modeOpen);const result=await new Promise(resolve=>picker.open(resolve));if(result!==Ci.nsIFilePicker.returnOK)throw Error('File selection was not accepted');return {path:picker.file.path,text:await IOUtils.readUTF8(picker.file.path)};`);
  try{
@@ -12,6 +13,9 @@ module.exports=async function(b,root,mode){
   await exec('xdotool',['windowfocus','--sync',id],{timeout:10000});
   await exec('xdotool',['key','--window',id,'ctrl+l']);
   await exec('xdotool',['type','--window',id,'--clearmodifiers','--delay','10',input]);
+  await exec('xdotool',['key','--window',id,'Return']);
+  await new Promise(resolve=>setTimeout(resolve,700));
+  await exec('python3',['-c','from PIL import ImageGrab; ImageGrab.grab().save('+JSON.stringify(path.join(root,mode+'-chooser-desktop.png'))+')']);
   await exec('xdotool',['key','--window',id,'Return']);
   const read=await selected;
   if(read?.text!=='Rosavio portal test file')throw Error('Selected host file could not be read: '+JSON.stringify(read));
