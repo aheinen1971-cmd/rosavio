@@ -33,7 +33,9 @@ with tarfile.open(archives[0]) as tf:tf.extractall(extract,filter='data')
 baselines=[x.parent for x in extract.rglob('rosavio') if x.is_file() and (x.parent/'application.ini').is_file()]
 if len(baselines)!=1:raise SystemExit('Older native application missing')
 baseline=baselines[0]
-run('node','scripts/check-unix-native.cjs',baseline,root/'baseline-report','linux-x64')
+baseline_binary=baseline/'rosavio'
+if not baseline_binary.is_file() or not os.access(baseline_binary,os.X_OK):raise SystemExit('Older baseline executable is missing or not executable')
+run('node','scripts/check-unix-native.cjs',baseline_binary,root/'baseline-report','linux-x64')
 b=json.loads((root/'baseline-report/report.json').read_text())
 if b['buildID']>=r['buildID']:raise SystemExit('Public update needs an older genuine build')
 run('node','scripts/check-locales.cjs',package,root/'candidate-languages')
