@@ -33,16 +33,20 @@ subprocess.run(['bash',str(source/'tools/update-packaging/make_full_update.sh'),
 key=os.environ.get('ROSAVIO_KEY_PATH')
 if not key or not os.environ.get('ROSAVIO_SIGNING_PASSWORD'):raise SystemExit('Signing secrets missing')
 subprocess.run([os.sys.executable,str(project/'scripts/sign-mar.py'),str(unsigned),str(signed),key,str(project/'certificates/rosavio-update.der'),'--platform',a.platform],check=True)
-# Unix signmar uses NSS certificate databases; -D is Windows-only.
-certutil=shutil.which('certutil')
-if not certutil:
-    for candidate in ['/opt/homebrew/opt/nss/bin/certutil','/usr/local/opt/nss/bin/certutil']:
-        if pathlib.Path(candidate).is_file():certutil=candidate;break
-if not certutil:raise SystemExit('NSS certutil required for native signature verification')
-database=tempfile.TemporaryDirectory(prefix='rosavio-public-cert-')
-subprocess.run([certutil,'-N','--empty-password','-d','sql:'+database.name],check=True)
-subprocess.run([certutil,'-A','-d','sql:'+database.name,'-n','Rosavio Update','-t',',,','-i',str(project/'certificates/rosavio-update.der')],check=True)
-verify=[str(signmar),'-d','sql:'+database.name,'-n','Rosavio Update','-v']
+# macOS uses its native non-NSS verifier; Linux uses MAR_NSS.
+database=None
+if a.platform.startswith('macos'):
+    verify=[str(signmar),'-D',str(project/'certificates/rosavio-update.der'),'-v']
+else:
+    certutil=shutil.which('certutil')
+    if not certutil:
+        for candidate in ['/opt/homebrew/opt/nss/bin/certutil','/usr/local/opt/nss/bin/certutil']:
+            if pathlib.Path(candidate).is_file():certutil=candidate;break
+    if not certutil:raise SystemExit('NSS certutil required for native signature verification')
+    database=tempfile.TemporaryDirectory(prefix='rosavio-public-cert-')
+    subprocess.run([certutil,'-N','--empty-password','-d','sql:'+database.name],check=True)
+    subprocess.run([certutil,'-A','-d','sql:'+database.name,'-n','Rosavio Update','-t',',,','-i',str(project/'certificates/rosavio-update.der')],check=True)
+    verify=[str(signmar),'-d','sql:'+database.name,'-n','Rosavio Update','-v']
 subprocess.run([*verify,str(signed)],check=True)
 tampered=out/'tampered.mar'
 try:
@@ -53,7 +57,8 @@ try:
     if subprocess.run([*verify,str(tampered)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode==0:
         raise SystemExit('Tampered MAR unexpectedly verified')
 finally:
-    tampered.unlink(missing_ok=True);unsigned.unlink(missing_ok=True);database.cleanup()
+    tampered.unlink(missing_ok=True);unsigned.unlink(missing_ok=True)
+    if database:database.cleanup()
 with signed.open('rb') as f:digest=hashlib.file_digest(f,'sha512').hexdigest()
 (out/'release.json').write_text(json.dumps({'product':'Rosavio','platform':a.platform,'appVersion':version,'buildID':build,'file':signed.name,'size':signed.stat().st_size,'hashValue':digest,'signatureVerified':True,'tamperNegativeTestPassed':True,'published':False},indent=2))
 print('Native Unix MAR signature and tamper rejection passed; publication is still gated.')
