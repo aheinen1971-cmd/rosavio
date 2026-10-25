@@ -10,6 +10,10 @@ if os.environ.get('GITHUB_ACTIONS')!='true' or os.environ.get('GITHUB_REPOSITORY
 ROOT=pathlib.Path.cwd(); OUT=ROOT/'flatpak-results'; OUT.mkdir(exist_ok=True)
 APP='io.github.aheinen1971_cmd.Rosavio'; BRANCH='stable'; RUNTIME='25.08'
 REPO=ROOT/'flatpak-test-repo'; PROFILE=ROOT/'flatpak-profile-tests'; PROFILE.mkdir()
+PRODUCTION=os.environ.get('ROSAVIO_FLATPAK_PRODUCTION')=='1'
+private_identity=os.environ.pop('ROSAVIO_FLATPAK_SIGNING_KEY','')
+identity_password=os.environ.pop('ROSAVIO_FLATPAK_SIGNING_PASSWORD','')
+if PRODUCTION and (not private_identity or not identity_password):raise SystemExit('Approved production signing secrets required')
 def run(*args,**kw):return subprocess.run([str(a) for a in args],check=True,**kw)
 def output(*args):return subprocess.check_output([str(a) for a in args],text=True).strip()
 def getjson(url):
@@ -40,8 +44,19 @@ if oldid>=newid:raise SystemExit('Two distinct genuine builds are required')
 
 with tempfile.TemporaryDirectory(prefix='rosavio-flatpak-test-key-') as keydir:
     os.chmod(keydir,0o700)
-    run('gpg','--homedir',keydir,'--batch','--passphrase','','--quick-generate-key','Rosavio disposable CI test key','rsa3072','sign','1d',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    if PRODUCTION:
+        config=json.loads((ROOT/'flatpak-signing.json').read_text())
+        run('gpg','--homedir',keydir,'--batch','--import',input=private_identity.encode(),stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        private_identity=''
+        (pathlib.Path(keydir)/'gpg-agent.conf').write_text('default-cache-ttl 3600\nmax-cache-ttl 3600\n')
+    else:
+        run('gpg','--homedir',keydir,'--batch','--passphrase','','--quick-generate-key','Rosavio disposable CI test key','rsa3072','sign','1d',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     fingerprint=next(line.split(':')[9] for line in output('gpg','--homedir',keydir,'--with-colons','--list-keys').splitlines() if line.startswith('fpr:'))
+    if PRODUCTION:
+        if fingerprint!=config['fingerprint']:raise SystemExit('Production signing fingerprint mismatch')
+        probe=pathlib.Path(keydir)/'probe.txt';probe.write_text('Rosavio production Flatpak signing verification')
+        run('gpg','--homedir',keydir,'--batch','--yes','--pinentry-mode','loopback','--passphrase-fd','0','--local-user',fingerprint,'--detach-sign',probe,input=(identity_password+'\n').encode(),stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        identity_password=''
     public=OUT/'test-repository-public-key.gpg'
     with public.open('wb') as f:run('gpg','--homedir',keydir,'--export',fingerprint,stdout=f)
     def package(native,label):
@@ -69,6 +84,8 @@ with tempfile.TemporaryDirectory(prefix='rosavio-flatpak-test-key-') as keydir:
         run('flatpak','build-export','--gpg-homedir='+keydir,'--gpg-sign='+fingerprint,REPO,build,BRANCH)
         run('flatpak','build-update-repo','--gpg-homedir='+keydir,'--gpg-sign='+fingerprint,REPO)
     package(baseline,'flatpak-old-build')
+    if PRODUCTION:
+        run('tar','-cJf',OUT/'repository-baseline.tar.xz','-C',REPO,'.')
     run('flatpak','remote-add','--user','--gpg-import='+str(public),'rosavio-isolated-test',REPO.as_uri())
     run('flatpak','install','--user','--noninteractive','rosavio-isolated-test',APP)
     # This CI-only wrapper exposes only the isolated profile-test folder for automation.
@@ -82,6 +99,9 @@ with tempfile.TemporaryDirectory(prefix='rosavio-flatpak-test-key-') as keydir:
     run('node','scripts/check-flatpak.cjs',wrapper,PROFILE,'verify',newid)
     run('node','scripts/check-locales.cjs',wrapper,PROFILE/'locales')
     run('flatpak','build-bundle',REPO,OUT/'Rosavio-Linux-x64-Test.flatpak',APP,BRANCH)
+    if PRODUCTION:
+        run('tar','-cJf',OUT/'repository-candidate.tar.xz','-C',REPO,'.')
+        run(os.sys.executable,'scripts/prepare-flatpak-distribution.py',REPO,public,fingerprint,OUT/'installation')
     # Never export private test keys, test profiles or an untrusted production installer.
-    (OUT/'report.json').write_text(json.dumps({'passed':True,'candidateOnly':True,'publicRepositoryTestPassed':False,'productionSigningConfigured':False,'appID':APP,'languages':20,'oldBuildID':oldid,'newBuildID':newid,'oldCommit':oldcommit,'newCommit':newcommit,'sourcesSHA256':[oldhash,newhash],'signedLocalFlatpakUpdatePassed':True,'permissions':output('flatpak','info','--user','--show-permissions',APP)},indent=2))
+    (OUT/'report.json').write_text(json.dumps({'passed':True,'candidateOnly':True,'publicRepositoryTestPassed':False,'productionSigningConfigured':PRODUCTION,'signingFingerprint':fingerprint,'appID':APP,'languages':20,'oldBuildID':oldid,'newBuildID':newid,'oldCommit':oldcommit,'newCommit':newcommit,'sourcesSHA256':[oldhash,newhash],'signedLocalFlatpakUpdatePassed':True,'permissions':output('flatpak','info','--user','--show-permissions',APP)},indent=2))
 print('Isolated signed Flatpak installation/update and twenty languages passed; public distribution remains gated.')
