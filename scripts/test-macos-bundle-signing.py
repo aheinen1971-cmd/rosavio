@@ -26,6 +26,16 @@ tested=json.loads(local[0].read_text())
 ini=configparser.ConfigParser();ini.read(app/'Contents/Resources/application.ini')
 if not tested.get('passed') or tested.get('platform')!=a.platform or tested.get('after',{}).get('signatureDisabled',True) or ini.get('App','BuildID')!=tested['after']['buildID']:raise SystemExit('DMG must match the signature-enforced tested build')
 magic={bytes.fromhex(x) for x in ['feedface','cefaedfe','feedfacf','cffaedfe','cafebabe','bebafeca','cafebabf','bfbafeca']}
+# Remove only codesign-forbidden Finder metadata from the isolated copy.
+# Preserve quarantine, provenance and every other security-related attribute.
+removed_metadata=[]
+for item in [app,*app.rglob('*')]:
+ if item.is_symlink():continue
+ for attribute in os.listxattr(item):
+  if attribute in ('com.apple.FinderInfo','com.apple.ResourceFork'):
+   os.removexattr(item,attribute)
+   removed_metadata.append({'path':str(item.relative_to(a.output)),'attribute':attribute})
+(a.output/'removed-finder-metadata.json').write_text(json.dumps(removed_metadata,indent=2))
 signed=[]
 def sign(target):
  subprocess.run(['codesign','--force','--sign','-','--timestamp=none','--preserve-metadata=entitlements',str(target)],check=True)
