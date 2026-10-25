@@ -11,6 +11,10 @@ on:
         type: choice
         options: [macos-arm64, macos-x64]
         required: true
+      repair_test:
+        description: Test complete ad-hoc bundle sealing on an isolated copy; no Apple approval implied
+        type: boolean
+        default: false
 permissions:
   contents: read
   actions: read
@@ -48,10 +52,26 @@ jobs:
         env:
           PLATFORM: ${{ inputs.platform }}
         run: python3 scripts/check-macos-distribution.py candidate "$PLATFORM" macos-audit/report.json
+      - name: Test complete resource seal and all native languages on isolated copy
+        if: inputs.repair_test
+        env:
+          PLATFORM: ${{ inputs.platform }}
+        run: python3 scripts/test-macos-bundle-signing.py candidate "$PLATFORM" macos-signing-test
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: rosavio-macos-audit-${{ inputs.platform }}-${{ github.run_id }}
           path: macos-audit/
+          retention-days: 7
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@v4
+        if: always() && inputs.repair_test
+        with:
+          name: rosavio-macos-signing-test-${{ inputs.platform }}-${{ github.run_id }}
+          path: |
+            macos-signing-test/signing-report.json
+            macos-signing-test/native-check/report.json
+            macos-signing-test/locale-check/report.json
+            macos-signing-test/Rosavio-signed-test.tar.xz
           retention-days: 7
           if-no-files-found: warn
