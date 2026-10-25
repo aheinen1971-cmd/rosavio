@@ -20,7 +20,12 @@ if digest!=r['hashValue'] or mar.stat().st_size!=r['size']:raise SystemExit('Sig
 package=release/'local-update/rosavio'
 ini=configparser.ConfigParser();ini.read(package/'application.ini')
 if ini.get('App','Name')!='Rosavio' or ini.get('App','BuildID')!=r['buildID']:raise SystemExit('Verified application missing')
-def run(*args,**kw):return subprocess.run([str(x) for x in args],check=True,**kw)
+def run(*args,**kw):
+    if str(args[0])=='node' and pathlib.Path(args[1]).name in ['check-unix-native.cjs','check-locales.cjs','check-extensions.cjs','check-translations.cjs']:
+        executable=pathlib.Path(args[2])
+        if not executable.is_file() or not os.access(executable,os.X_OK):
+            raise SystemExit('Native check requires an executable file: '+str(executable))
+    return subprocess.run([str(x) for x in args],check=True,**kw)
 # Artifact ZIPs do not retain executable modes; restore only native launch tools.
 for executable in ['rosavio','rosavio-bin','updater','glxtest','vaapitest','pingsender','crashhelper','minidump-analyzer']:
     file=package/executable
@@ -38,9 +43,9 @@ if not baseline_binary.is_file() or not os.access(baseline_binary,os.X_OK):raise
 run('node','scripts/check-unix-native.cjs',baseline_binary,root/'baseline-report','linux-x64')
 b=json.loads((root/'baseline-report/report.json').read_text())
 if b['buildID']>=r['buildID']:raise SystemExit('Public update needs an older genuine build')
-run('node','scripts/check-locales.cjs',package,root/'candidate-languages')
-run('node','scripts/check-extensions.cjs',package,root/'candidate-extensions')
-run('node','scripts/check-translations.cjs',package,root/'candidate-translations')
+run('node','scripts/check-locales.cjs',package/'rosavio',root/'candidate-languages')
+run('node','scripts/check-extensions.cjs',package/'rosavio',root/'candidate-extensions')
+run('node','scripts/check-translations.cjs',package/'rosavio',root/'candidate-translations')
 archive=release/'Rosavio-Linux-x64.tar.xz'
 run('tar','-cJf',archive,'-C',package.parent,package.name)
 repo='aheinen1971-cmd/rosavio';stable='rosavio-linux-x64-latest'
