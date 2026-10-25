@@ -40,8 +40,10 @@ signed=[]
 def sign(target):
  subprocess.run(['codesign','--force','--sign','-','--timestamp=none','--preserve-metadata=entitlements',str(target)],check=True)
  signed.append(str(target.relative_to(a.output)))
-for file in sorted(app.rglob('*'),key=lambda x:len(x.parts),reverse=True):
- if file.is_symlink() or not file.is_file():continue
+main_binary=app/'Contents/MacOS'/info['CFBundleExecutable']
+# codesign recognizes the main executable as the outer bundle: dependencies first.
+for file in sorted(app.rglob('*'),key=lambda x:(x!=main_binary,len(x.parts)),reverse=True):
+ if file==main_binary or file.is_symlink() or not file.is_file():continue
  with file.open('rb') as f:header=f.read(4)
  if header in magic:sign(file)
 for bundle in sorted([x for x in app.rglob('*') if x.is_dir() and not x.is_symlink() and x.suffix in ['.app','.framework','.xpc']],key=lambda x:len(x.parts),reverse=True):sign(bundle)

@@ -21,8 +21,9 @@ def seal_bundle(app, report_path):
  magic={bytes.fromhex(x) for x in ['feedface','cefaedfe','feedfacf','cffaedfe','cafebabe','bebafeca','cafebabf','bfbafeca']}
  # Little-endian Mach-O 64-bit.
  magic.add(bytes.fromhex('cffaedfe'))
- for item in sorted(app.rglob('*'),key=lambda p:len(p.parts),reverse=True):
-  if item.is_symlink() or not item.is_file():continue
+ main_binary=app/'Contents/MacOS'/info['CFBundleExecutable']
+ for item in sorted(app.rglob('*'),key=lambda p:(p!=main_binary,len(p.parts)),reverse=True):
+  if item==main_binary or item.is_symlink() or not item.is_file():continue
   with item.open('rb') as f:header=f.read(4)
   if header in magic:sign(item)
  for item in sorted([p for p in app.rglob('*') if p.is_dir() and not p.is_symlink() and p.suffix in ('.app','.framework','.xpc')],key=lambda p:len(p.parts),reverse=True):sign(item)
