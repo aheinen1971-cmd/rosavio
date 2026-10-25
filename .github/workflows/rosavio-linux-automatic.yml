@@ -1,0 +1,98 @@
+name: Rosavio automatic Linux release
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        type: boolean
+        default: false
+        description: Rebuild and verify even if the stable Firefox version is unchanged
+  schedule:
+    - cron: '0 18 * * *'
+      timezone: 'Europe/Berlin'
+permissions:
+  contents: read
+concurrency:
+  group: rosavio-linux-automatic
+  cancel-in-progress: false
+jobs:
+  check:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    outputs:
+      build: ${{ steps.version.outputs.build }}
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - id: version
+        env:
+          FORCE: ${{ inputs.force }}
+        run: |
+          python3 - <<'PY'
+          import json,os,re,urllib.request,urllib.error,xml.etree.ElementTree as ET
+          with urllib.request.urlopen('https://product-details.mozilla.org/1.0/firefox_versions.json',timeout=60) as f: version=json.load(f)['LATEST_FIREFOX_VERSION']
+          if not re.fullmatch(r'\d+(?:\.\d+){1,3}',version):raise SystemExit('Invalid upstream version')
+          current=None
+          try:
+              with urllib.request.urlopen('https://github.com/aheinen1971-cmd/rosavio/releases/download/rosavio-linux-x64-latest/rosavio-linux-x64-update.xml',timeout=60) as f: update=ET.fromstring(f.read()).find('update')
+              if update is not None:current=update.attrib['appVersion']
+          except urllib.error.HTTPError as e:
+              if e.code!=404:raise
+          if current and not re.fullmatch(r'\d+(?:\.\d+){1,3}',current):raise SystemExit('Invalid Linux feed version')
+          parts=lambda v:tuple((list(map(int,v.split('.')))+[0]*4)[:4])
+          build=os.environ.get('FORCE')=='true' or not current or parts(version)>parts(current)
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write(f'version={version}\nbuild={str(build).lower()}\n')
+          print('Stable Firefox:',version,'Public Linux:',current,'Build required:',build)
+          PY
+  release:
+    needs: check
+    if: needs.check.outputs.build == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Reserve release tag before the long build
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.check.outputs.version }}
+        run: gh api repos/aheinen1971-cmd/rosavio/git/refs -f "ref=refs/tags/v${VERSION}-rosavio-linux-x64.${GITHUB_RUN_ID}" -f "sha=${GITHUB_SHA}"
+      - name: Prepare standard Linux runner
+        run: |
+          test "$GITHUB_ACTIONS" = true && test "$GITHUB_REPOSITORY" = aheinen1971-cmd/rosavio
+          sudo rm -rf -- /usr/share/dotnet /usr/local/lib/android
+          sudo apt-get update -qq
+          sudo apt-get install -y autoconf2.13 build-essential curl git libasound2-dev libdbus-glib-1-dev libgtk-3-dev libx11-xcb-dev libxt-dev libnss3-tools nasm pkg-config python3-venv unzip zip xvfb desktop-file-utils libglib2.0-bin
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - name: Build two genuine Linux versions and verify all twenty languages
+        run: python scripts/cloud-unix-build.py --platform linux-x64
+      - name: Sign and test the local native update
+        env:
+          ROSAVIO_UPDATE_KEY: ${{ secrets.ROSAVIO_UPDATE_KEY }}
+          ROSAVIO_SIGNING_PASSWORD: ${{ secrets.ROSAVIO_SIGNING_PASSWORD }}
+        run: python scripts/cloud-unix-sign-test.py linux-x64
+      - name: Prepare the previous public Linux baseline
+        run: python scripts/prepare-linux-public-inputs.py
+      - name: Verify public update, actual desktop launch and colored icons
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ROSAVIO_DESKTOP_TEST: '1'
+        run: xvfb-run -a python scripts/publish-linux-test.py
+      - name: Retain native verification reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rosavio-linux-release-reports-${{ github.run_id }}
+          path: |
+            unix-results/linux-x64/release/*test.json
+            linux-candidate/release/linux-desktop-toolbar.png
+            candidate-icons/*
+            updated-icons/*
+            candidate-languages/report.json
+            candidate-extensions/report.json
+            candidate-translations/report.json
+          retention-days: 7

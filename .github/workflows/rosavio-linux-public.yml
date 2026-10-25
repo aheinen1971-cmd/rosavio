@@ -32,11 +32,14 @@ jobs:
         with:
           python-version: '3.12'
       - name: Prepare native runtime dependencies
-        run: sudo apt-get update -qq && sudo apt-get install -y libasound2t64 libdbus-glib-1-2 libgtk-3-0t64 libx11-xcb1 libxt6 xz-utils
+        run: sudo apt-get update -qq && sudo apt-get install -y libasound2t64 libdbus-glib-1-2 libgtk-3-0t64 libx11-xcb1 libxt6 xz-utils xvfb desktop-file-utils libglib2.0-bin
+      - name: Prepare icon verification
+        run: python -m pip install Pillow==12.3.0
       - name: Publish isolated Linux feed and test public native update
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python scripts/publish-linux-test.py
+          ROSAVIO_DESKTOP_TEST: "1"
+        run: xvfb-run -a python scripts/publish-linux-test.py
       - name: Retain public verification reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -47,4 +50,7 @@ jobs:
             candidate-languages/report.json
             candidate-extensions/report.json
             candidate-translations/report.json
+            linux-candidate/release/linux-desktop-toolbar.png
+            candidate-icons/*
+            updated-icons/*
           retention-days: 7
