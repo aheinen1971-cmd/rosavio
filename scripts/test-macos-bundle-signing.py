@@ -31,9 +31,9 @@ magic={bytes.fromhex(x) for x in ['feedface','cefaedfe','feedfacf','cffaedfe','c
 removed_metadata=[]
 for item in [app,*app.rglob('*')]:
  if item.is_symlink():continue
- for attribute in os.listxattr(item):
+ for attribute in subprocess.check_output(['/usr/bin/xattr',str(item)],text=True).splitlines():
   if attribute in ('com.apple.FinderInfo','com.apple.ResourceFork'):
-   os.removexattr(item,attribute)
+   subprocess.run(['/usr/bin/xattr','-d',attribute,str(item)],check=True)
    removed_metadata.append({'path':str(item.relative_to(a.output)),'attribute':attribute})
 (a.output/'removed-finder-metadata.json').write_text(json.dumps(removed_metadata,indent=2))
 signed=[]
