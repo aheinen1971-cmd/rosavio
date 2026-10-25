@@ -30,6 +30,17 @@ if any('aheinen1971-cmd.github.io/rosavio/flatpak/' in line and 'no-gpg-verify' 
 wrapper=ROOT/'flatpak-public-launcher';wrapper.write_text('#!/bin/sh\nexec flatpak run --user --filesystem="'+str(DATA)+'" '+APP+' "$@"\n');wrapper.chmod(0o755)
 extra={}
 if os.environ.get('ROSAVIO_FLATPAK_EXTRA_CHECKS')=='1':
+ # Probe the installed sandbox without the test-only profile filesystem grant.
+ sentinel=pathlib.Path.home()/'.rosavio-flatpak-private-probe'
+ sentinel.write_text('isolated-test-data')
+ try:
+  run('flatpak','run','--user','--command=sh',APP,'-c','test -f /.flatpak-info && ! test -r "$1"','probe',sentinel)
+ finally:sentinel.unlink(missing_ok=True)
+ metadata=output('flatpak','info','--user','--show-permissions',APP)
+ if 'filesystems=host' in metadata or 'filesystems=home' in metadata or 'session-bus;' in metadata:raise SystemExit('Unexpected broad Flatpak permission')
+ portal=output('gdbus','introspect','--session','--dest','org.freedesktop.portal.Desktop','--object-path','/org/freedesktop/portal/desktop')
+ if 'org.freedesktop.portal.FileChooser' not in portal:raise SystemExit('Native file chooser portal missing')
+ (DATA/(mode+'-isolation-report.json')).write_text(json.dumps({'passed':True,'privateHostFileBlocked':True,'fileChooserPortalAvailable':True,'permissions':metadata},indent=2))
  location=pathlib.Path(output('flatpak','info','--user','--show-location',APP))
  native=location/'files/lib/rosavio'
  run(sys.executable,'scripts/check-linux-icons.py',native,DATA/(mode+'-icons'))
