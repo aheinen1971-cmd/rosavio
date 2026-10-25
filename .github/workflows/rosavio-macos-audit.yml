@@ -1,0 +1,57 @@
+name: Rosavio macOS distribution inspection
+on:
+  workflow_dispatch:
+    inputs:
+      source_run:
+        description: Successful native macOS build and signed local update run
+        type: string
+        required: true
+      platform:
+        description: Native platform to inspect
+        type: choice
+        options: [macos-arm64, macos-x64]
+        required: true
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: rosavio-macos-audit-${{ inputs.platform }}
+  cancel-in-progress: false
+jobs:
+  inspect:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    runs-on: ${{ inputs.platform == 'macos-arm64' && 'macos-15' || 'macos-15-intel' }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Require successful native source run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN: ${{ inputs.source_run }}
+        run: |
+          python3 - <<'PY'
+          import json,os,subprocess
+          source=os.environ['SOURCE_RUN']
+          if not source.isdecimal():raise SystemExit('Invalid source run')
+          r=json.loads(subprocess.check_output(['gh','api','repos/aheinen1971-cmd/rosavio/actions/runs/'+source]))
+          if r['status']!='completed' or r['conclusion']!='success' or r['path']!='.github/workflows/rosavio-unix.yml' or r['head_branch']!='main':raise SystemExit('Successful main native build required')
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          name: rosavio-native-${{ inputs.platform }}-${{ inputs.source_run }}
+          path: candidate
+          run-id: ${{ inputs.source_run }}
+          github-token: ${{ github.token }}
+      - name: Inspect native app signature and Gatekeeper without overrides
+        env:
+          PLATFORM: ${{ inputs.platform }}
+        run: python3 scripts/check-macos-distribution.py candidate "$PLATFORM" macos-audit/report.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rosavio-macos-audit-${{ inputs.platform }}-${{ github.run_id }}
+          path: macos-audit/
+          retention-days: 7
+          if-no-files-found: warn
