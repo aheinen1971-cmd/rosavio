@@ -1,0 +1,34 @@
+name: Rosavio Flatpak candidate verification
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rosavio-flatpak
+  cancel-in-progress: false
+jobs:
+  candidate:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Prepare free standard runner
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y flatpak flatpak-builder gnupg dbus-x11 xvfb desktop-file-utils
+      - name: Build and verify signed isolated Flatpak updates
+        run: dbus-run-session -- xvfb-run -a python3 scripts/build-flatpak-test.py
+      - name: Retain candidate and verification reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rosavio-flatpak-candidate-${{ github.run_id }}
+          path: |
+            flatpak-results/
+            flatpak-profile-tests/*-report.json
+            flatpak-profile-tests/locales/report.json
+          retention-days: 7
+          if-no-files-found: warn
