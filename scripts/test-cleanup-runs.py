@@ -17,7 +17,7 @@ class CleanupSafety(unittest.TestCase):
    try:
     pathlib.Path('.github/workflows').mkdir(parents=True)
     pathlib.Path('.github/workflows/browser.yml').write_text('run-id: 100' if referenced else 'name: browser')
-    pathlib.Path('cleanup-approved-runs.json').write_text(json.dumps({'minimumAgeDays':7,'runs':[{'id':100,'replacement':200,'reason':'Resolved and retested'}]}))
+    pathlib.Path('cleanup-approved-runs.json').write_text(json.dumps({'minimumAgeDays':7,'runs':[{'id':100,'replacement':200,'reviewedAt':(now-datetime.timedelta(days=age)).isoformat(),'reason':'Resolved and retested'}]}))
     with patch.dict(os.environ,{'GITHUB_ACTIONS':'true','GITHUB_REPOSITORY':'aheinen1971-cmd/rosavio','DRY_RUN':str(dry).lower()}),patch('subprocess.run',side_effect=fake):runpy.run_path(str(SCRIPT),run_name='__main__')
     report=json.loads(pathlib.Path('cleanup-report.json').read_text())
    finally:os.chdir(previous)

@@ -24,7 +24,9 @@ for item in config['runs']:
  if before['status']!='completed' or before['conclusion']!='failure':
   report.append({'id':old,'action':'kept','reason':'Only completed failures may be deleted'});continue
  created=datetime.datetime.fromisoformat(before['created_at'].replace('Z','+00:00'))
- if (now-created).days<days:
+ reviewed=datetime.datetime.fromisoformat(item['reviewedAt'].replace('Z','+00:00'))
+ if reviewed.tzinfo is None:raise SystemExit('Review timestamp must include timezone')
+ if (now-max(created,reviewed)).days<days:
   report.append({'id':old,'action':'kept','reason':'Retention period not reached'});continue
  if not replacement or replacement['status']!='completed' or replacement['conclusion']!='success' or replacement['path']!=before['path'] or replacement['created_at']<=before['created_at']:
   report.append({'id':old,'action':'kept','reason':'Matching newer successful replacement required'});continue
