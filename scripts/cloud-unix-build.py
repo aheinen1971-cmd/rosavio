@@ -10,7 +10,18 @@ project=pathlib.Path.cwd();root=pathlib.Path(os.environ['RUNNER_TEMP'])/'rosavio
 os.environ['MOZBUILD_STATE_PATH']=str(root/'state')
 os.environ['MOZ_BUILD_DATE']=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%d%H%M%S')
 os.environ['CARGO_BUILD_JOBS']='2'
-def run(*args,cwd=None):subprocess.run([str(x) for x in args],cwd=cwd or project,check=True)
+build_jobs=2
+if a.platform=='macos-x64':
+    cpus=int(subprocess.check_output(['sysctl','-n','hw.logicalcpu'],text=True))
+    memory=int(subprocess.check_output(['sysctl','-n','hw.memsize'],text=True))
+    # Reserve 2 GiB for the OS; budget 3 GiB per native compilation worker.
+    # Use the existing standard runner, never a larger paid runner.
+    build_jobs=max(1,min(4,cpus,(memory-2*1024**3)//(3*1024**3)))
+    os.environ['CARGO_BUILD_JOBS']=str(min(2,build_jobs))
+    print(json.dumps({'platform':a.platform,'logicalCPUs':cpus,'memoryBytes':memory,'nativeBuildJobs':build_jobs,'rustBuildJobs':os.environ['CARGO_BUILD_JOBS']}),flush=True)
+def run(*args,cwd=None):
+    print(datetime.datetime.now(datetime.timezone.utc).isoformat()+' RUN '+str(args[0])+' '+' '.join(str(x) for x in args[1:]),flush=True)
+    subprocess.run([str(x) for x in args],cwd=cwd or project,check=True)
 def get(url):
     with urllib.request.urlopen(url,timeout=120) as response:return response.read()
 version=json.loads(get('https://product-details.mozilla.org/1.0/firefox_versions.json'))['LATEST_FIREFOX_VERSION']
@@ -28,10 +39,15 @@ if not (source/'mach').is_file():raise SystemExit('Unexpected source archive')
 config_file=project/'rosavio.config.json';config=json.loads(config_file.read_text());config['upstreamVersion']=version;config_file.write_text(json.dumps(config))
 python=__import__('sys').executable
 run(python,project/'scripts/prepare-source.py',source,'--github-repo','aheinen1971-cmd/rosavio','--platform',a.platform)
-mozconfig=source/'mozconfig';s=mozconfig.read_text().replace('MOZ_MAKE_FLAGS=-j8','MOZ_MAKE_FLAGS=-j2').replace('ac_add_options --disable-maintenance-service\n','')
+mozconfig=source/'mozconfig';s=mozconfig.read_text().replace('MOZ_MAKE_FLAGS=-j8',f'MOZ_MAKE_FLAGS=-j{build_jobs}').replace('ac_add_options --disable-maintenance-service\n','')
 s+='\nac_add_options --enable-bootstrap\nac_add_options --disable-debug-symbols\n'
 mozconfig.write_text(s)
-run('git','init','--quiet',cwd=source);run('git','add','--all',cwd=source)
+run('git','init','--quiet',cwd=source)
+if a.platform=='macos-x64':
+    # Source archive bytes are already hash-verified; avoid inherited global
+    # line-ending conversion while indexing this large temporary source tree.
+    run('git','config','core.autocrlf','false',cwd=source)
+run('git','add','--all',cwd=source)
 run('git','-c','user.name=Rosavio','-c','user.email=build@rosavio.invalid','commit','--quiet','-m','Verified Mozilla source with Rosavio platform overlay',cwd=source)
 l10n=root/'l10n';pins=json.loads((source/'browser/locales/l10n-changesets.json').read_text())
 locales=json.loads((project/'scripts/requested-languages.json').read_text())['locales'];translations=[x for x in locales if x!='en-US']
