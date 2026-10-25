@@ -1,0 +1,111 @@
+name: Rosavio public Flatpak installation and update trial
+on:
+  workflow_dispatch:
+    inputs:
+      source_run:
+        description: Successful production-signed Flatpak preparation run
+        type: string
+        required: true
+        default: '40191195380'
+permissions:
+  contents: write
+  actions: read
+  pages: write
+  id-token: write
+concurrency:
+  group: rosavio-pages
+  cancel-in-progress: false
+jobs:
+  public-trial:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    environment:
+      name: github-pages
+      url: https://aheinen1971-cmd.github.io/rosavio/
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Require a successful production-signed source run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN: ${{ inputs.source_run }}
+        run: |
+          python3 - <<'PY'
+          import os,re,json,subprocess
+          run=os.environ['SOURCE_RUN']
+          if not re.fullmatch(r'[0-9]+',run):raise SystemExit('Invalid run ID')
+          r=json.loads(subprocess.check_output(['gh','api','repos/aheinen1971-cmd/rosavio/actions/runs/'+run]))
+          if r['conclusion']!='success' or r['path']!='.github/workflows/rosavio-flatpak-public.yml':raise SystemExit('Successful production signing workflow required')
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          name: rosavio-flatpak-production-${{ inputs.source_run }}
+          run-id: ${{ inputs.source_run }}
+          github-token: ${{ github.token }}
+          path: production-candidate
+      - name: Prepare native Flatpak test runtime
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y flatpak gnupg dbus-x11 xvfb
+      - name: Assemble unchanged website with baseline and candidate repositories
+        run: |
+          python3 scripts/prepare-flatpak-pages.py production-candidate/flatpak-results baseline site-baseline
+          python3 scripts/prepare-flatpak-pages.py production-candidate/flatpak-results candidate site-candidate
+          python3 scripts/prepare-flatpak-rollback.py site-rollback
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          name: rosavio-pages-rollback
+          path: site-rollback
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          name: rosavio-pages-baseline
+          path: site-baseline
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          name: rosavio-pages-candidate
+          path: site-candidate
+      - name: Deploy signed public baseline
+        id: baseline
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: rosavio-pages-baseline
+      - name: Install from real public Flatpak ref and seed isolated profile
+        run: dbus-run-session -- xvfb-run -a python3 scripts/check-flatpak-public.py seed production-candidate/flatpak-results
+      - name: Deploy signed public candidate
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: rosavio-pages-candidate
+      - name: Verify actual public update and all twenty languages
+        run: dbus-run-session -- xvfb-run -a python3 scripts/check-flatpak-public.py verify production-candidate/flatpak-results
+      - name: Preserve the publicly verified repository for future website deployments
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,subprocess,os
+          report=json.loads(pathlib.Path('flatpak-public-profiles/public-update-report.json').read_text())
+          if not report.get('passed') or not report.get('publicUpdateTestPassed'):raise SystemExit('Public native update must pass')
+          repo='aheinen1971-cmd/rosavio';tag='rosavio-flatpak-repository'
+          call=lambda *a:subprocess.run(['gh',*a],check=True)
+          if subprocess.run(['gh','release','view',tag,'--repo',repo],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode:
+              call('api',f'repos/{repo}/git/refs','-f',f'ref=refs/tags/{tag}','-f','sha='+os.environ['GITHUB_SHA'])
+              call('release','create',tag,'--repo',repo,'--verify-tag','--prerelease','--latest=false','--title','Rosavio signed Flatpak repository','--notes','Signed repository with successful public installation/update test; additional desktop and extension checks remain pending.')
+          call('release','upload',tag,'--repo',repo,'--clobber','production-candidate/flatpak-results/repository-candidate.tar.xz','production-candidate/flatpak-results/installation/Rosavio.flatpakref','production-candidate/flatpak-results/installation/Rosavio.flatpakrepo','flatpak-public-profiles/public-update-report.json')
+          PY
+      - name: Restore prior public site on failed trial
+        if: failure() && steps.baseline.outcome == 'success'
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: rosavio-pages-rollback
+      - name: Retain public test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rosavio-flatpak-public-reports-${{ github.run_id }}
+          path: |
+            flatpak-public-profiles/*-report.json
+            flatpak-public-profiles/locales/report.json
+          retention-days: 7
+          if-no-files-found: warn

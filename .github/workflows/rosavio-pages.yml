@@ -1,0 +1,31 @@
+name: Rosavio website and signed Flatpak repository
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['docs/**', '.github/workflows/rosavio-pages.yml']
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: rosavio-pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: https://aheinen1971-cmd.github.io/rosavio/
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Preserve all website languages and last verified signed Flatpak repository
+        run: python3 scripts/prepare-flatpak-rollback.py site
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - uses: actions/deploy-pages@v4
