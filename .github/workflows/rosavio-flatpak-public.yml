@@ -1,0 +1,38 @@
+name: Rosavio production-signed Flatpak preparation
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: rosavio-flatpak
+  cancel-in-progress: false
+jobs:
+  prepare:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Prepare free standard runner
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y flatpak flatpak-builder ostree gnupg dbus-x11 xvfb desktop-file-utils
+      - name: Verify protected production identity and signed installation/update
+        env:
+          ROSAVIO_FLATPAK_PRODUCTION: '1'
+          ROSAVIO_FLATPAK_SIGNING_KEY: ${{ secrets.ROSAVIO_FLATPAK_SIGNING_KEY }}
+          ROSAVIO_FLATPAK_SIGNING_PASSWORD: ${{ secrets.ROSAVIO_FLATPAK_SIGNING_PASSWORD }}
+        run: dbus-run-session -- xvfb-run -a python3 scripts/build-flatpak-test.py
+      - name: Retain signed public-repository candidates and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rosavio-flatpak-production-${{ github.run_id }}
+          path: |
+            flatpak-results/
+            flatpak-profile-tests/*-report.json
+            flatpak-profile-tests/locales/report.json
+          retention-days: 7
+          if-no-files-found: warn
