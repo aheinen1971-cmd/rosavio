@@ -1,5 +1,5 @@
 """Test platform-separated public macOS updates; no Apple notarization claim."""
-import configparser,hashlib,json,os,pathlib,platform,plistlib,re,subprocess,tarfile,urllib.request
+import configparser,hashlib,json,os,pathlib,platform,plistlib,re,subprocess,tarfile,urllib.request,xml.etree.ElementTree as ET
 from xml.sax.saxutils import quoteattr
 p=os.environ.get('ROSAVIO_MAC_PLATFORM')
 if os.environ.get('GITHUB_ACTIONS')!='true' or os.environ.get('GITHUB_REPOSITORY')!='aheinen1971-cmd/rosavio' or p not in ('macos-arm64','macos-x64') or platform.system()!='Darwin' or platform.machine()!=('arm64' if p=='macos-arm64' else 'x86_64'):raise SystemExit('Authorized matching native Mac runner required')
@@ -50,6 +50,13 @@ backup=root/'feed-backup';backup.mkdir();tag_exists(tag);tag_exists(stable)
 notes='macOS test package: not notarized by Apple; first launch may be blocked or require user approval. Own MAR signature verification remains mandatory. Public update and additional UI/profile checks are still pending.'
 gh('release','create',tag,'--repo',repo,'--verify-tag','--prerelease','--latest=false','--title','Rosavio '+p+' '+r['appVersion'],'--notes',notes,mar,dmgs[0],release/'release.json',release/'local-update-test.json',candidate/'repack-report.json')
 had_feed=subprocess.run(['gh','release','download',stable,'--repo',repo,'--pattern',feedname,'--dir',str(backup)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode==0
+if had_feed:
+ previous=ET.fromstring((backup/feedname).read_bytes()).find('update')
+ if previous is not None:
+  previous_build=previous.attrib['buildID'];previous_version=previous.attrib['appVersion']
+  if not re.fullmatch(r'\d{14}',previous_build) or not re.fullmatch(r'\d+(?:\.\d+){1,3}',previous_version):raise SystemExit('Invalid previous feed identity')
+  parts=lambda value:tuple((list(map(int,value.split('.')))+[0]*4)[:4])
+  if previous_build>r['buildID'] or parts(previous_version)>parts(r['appVersion']):raise SystemExit('Public Mac feed downgrade rejected')
 if subprocess.run(['gh','release','view',stable,'--repo',repo],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode:gh('release','create',stable,'--repo',repo,'--verify-tag','--prerelease','--latest=false','--title','Rosavio '+p+' update feed','--notes','Separate macOS test update channel; unnotarized apps, own MAR signatures required.')
 attrs={'type':'minor','displayVersion':r['appVersion'],'appVersion':r['appVersion'],'platformVersion':r['appVersion'],'buildID':r['buildID']};patch={'type':'complete','URL':f'https://github.com/{repo}/releases/download/{tag}/{name}','hashFunction':'SHA512','hashValue':digest,'size':str(r['size'])};fmt=lambda d:' '.join(k+'='+quoteattr(v) for k,v in d.items())
 feed=release/feedname;feed.write_text('<?xml version="1.0"?><updates><update '+fmt(attrs)+'><patch '+fmt(patch)+'/></update></updates>')
