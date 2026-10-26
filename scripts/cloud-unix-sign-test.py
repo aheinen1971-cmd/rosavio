@@ -1,5 +1,5 @@
 """Use existing repository secrets only during signing, and erase the key afterwards."""
-import json, os, pathlib, subprocess, sys, tempfile
+import json, os, pathlib, subprocess, sys, tempfile, urllib.request
 platform=sys.argv[1]
 if os.environ.get('GITHUB_ACTIONS')!='true' or os.environ.get('GITHUB_REPOSITORY')!='aheinen1971-cmd/rosavio':
     raise SystemExit('Only the authorized Rosavio cloud runner may sign')
@@ -29,6 +29,14 @@ try:
     subprocess.run([sys.executable,str(project/'scripts/package-unix-update.py'),paths['source'],paths['package'],str(out/'release'),platform],env=env,check=True)
 finally:
     keypath.unlink(missing_ok=True);password=None;env=None
+if os.environ.get('ROSAVIO_MAC_DESKTOP_TEST')=='1' or os.environ.get('ROSAVIO_DESKTOP_TEST')=='1':
+    # Local preservation tests need the same official signed extension as public tests.
+    with urllib.request.urlopen('https://addons.mozilla.org/api/v5/addons/addon/multi-account-containers/',timeout=60) as response:
+        addon=json.load(response)
+    xpi=addon['current_version']['file']['url']
+    if addon.get('guid')!='@testpilot-containers' or not xpi.startswith('https://addons.mozilla.org/'):
+        raise SystemExit('Official Containers identity and HTTPS source required')
+    os.environ['ROSAVIO_UPDATE_EXTENSION_XPI']=xpi
 subprocess.run(['node',str(project/'scripts/test-unix-update.cjs'),paths['baseline'],str(out/'release'),platform],check=True)
 report=json.loads((out/'build.json').read_text())
 report.update(signedLocalUpdateTestPassed=True,nativeAutoupdateTestPassed=False,published=False,state='signed local update passed; public native update test and release still required')
