@@ -4,11 +4,23 @@ import { AppConstants } from 'resource://gre/modules/AppConstants.sys.mjs';
 export class RosavioDetailsParent extends JSWindowActorParent {
   receiveMessage(message) {
     const uri = this.manager.documentURI?.spec;
-    if (message.name !== 'Rosavio:Summary' ||
-        !['about:rosavio-privacy', 'about:rosavio-updates'].includes(uri) ||
+    if (!['about:rosavio-privacy', 'about:rosavio-updates'].includes(uri) ||
         this.browsingContext.parent) {
       throw new Error('Rosavio summary request denied');
     }
+    const destinations = {
+      'Rosavio:OpenPrivacy': 'about:preferences#privacy',
+      'Rosavio:OpenSecurity': Services.prefs.getBoolPref('browser.settings-redesign.enabled', false)
+        ? 'about:preferences#connectionSecurity' : 'about:preferences#privacy',
+      'Rosavio:OpenAddons': 'about:addons',
+    };
+    if (Object.hasOwn(destinations, message.name)) {
+      const win = this.browsingContext.top.embedderElement?.documentGlobal;
+      if (!win?.openTrustedLinkIn) throw new Error('Rosavio settings window unavailable');
+      win.openTrustedLinkIn(destinations[message.name], 'current');
+      return null;
+    }
+    if (message.name !== 'Rosavio:Summary') throw new Error('Rosavio summary request denied');
     const bool = name => Services.prefs.getBoolPref(name, false);
     const text = name => Services.prefs.getStringPref(name, '');
     return {
