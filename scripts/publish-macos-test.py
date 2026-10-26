@@ -1,5 +1,5 @@
 """Test platform-separated public macOS updates; no Apple notarization claim."""
-import configparser,hashlib,json,os,pathlib,platform,plistlib,re,subprocess,tarfile,urllib.request,xml.etree.ElementTree as ET
+import configparser,hashlib,json,os,pathlib,platform,plistlib,re,subprocess,tarfile,time,urllib.request,xml.etree.ElementTree as ET
 from xml.sax.saxutils import quoteattr
 p=os.environ.get('ROSAVIO_MAC_PLATFORM')
 if os.environ.get('GITHUB_ACTIONS')!='true' or os.environ.get('GITHUB_REPOSITORY')!='aheinen1971-cmd/rosavio' or p not in ('macos-arm64','macos-x64') or platform.system()!='Darwin' or platform.machine()!=('arm64' if p=='macos-arm64' else 'x86_64'):raise SystemExit('Authorized matching native Mac runner required')
@@ -62,6 +62,22 @@ attrs={'type':'minor','displayVersion':r['appVersion'],'appVersion':r['appVersio
 feed=release/feedname;feed.write_text('<?xml version="1.0"?><updates><update '+fmt(attrs)+'><patch '+fmt(patch)+'/></update></updates>')
 try:
  gh('release','upload',stable,feed,'--repo',repo,'--clobber')
+ # Check the exact new HTTPS feed and package before native browser testing.
+ feed_url=f'https://github.com/{repo}/releases/download/{stable}/{feedname}'
+ for attempt in range(12):
+  try:
+   with urllib.request.urlopen(urllib.request.Request(feed_url,headers={'Cache-Control':'no-cache'}),timeout=30) as response:published=ET.fromstring(response.read()).find('update')
+   if published is not None and published.attrib.get('buildID')==r['buildID'] and published.find('patch').attrib==patch:break
+  except Exception:
+   if attempt==11:raise
+  if attempt==11:raise SystemExit('New public Mac feed did not become visible')
+  time.sleep(5)
+ probe=release/'public-package-probe.mar'
+ try:
+  run('curl','--fail','--location','--retry','3','--retry-delay','3','--max-time','300','--output',probe,patch['URL'])
+  with probe.open('rb') as f:remote_digest=hashlib.file_digest(f,'sha512').hexdigest()
+  if remote_digest!=digest or probe.stat().st_size!=r['size']:raise SystemExit('Public Mac package hash/size mismatch')
+ finally:probe.unlink(missing_ok=True)
  run('node','scripts/test-unix-update.cjs',baseline,release,p,env={**os.environ,'ROSAVIO_PUBLIC_TEST':'1'})
  updated=release/'public-update/Rosavio.app';run('codesign','--verify','--deep','--strict',updated)
  public=json.loads((release/'public-update-test.json').read_text())
