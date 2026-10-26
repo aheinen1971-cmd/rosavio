@@ -145,6 +145,13 @@ jobs:
         with:
           name: rosavio-macos-automatic-${{ matrix.platform }}-${{ github.run_id }}
           path: |
+            unix-results/${{ matrix.platform }}/*.dmg
+            unix-results/${{ matrix.platform }}/Rosavio-sealed-baseline.tar.xz
+            unix-results/${{ matrix.platform }}/*-app-signature.json
+            unix-results/${{ matrix.platform }}/build.json
+            unix-results/${{ matrix.platform }}/browser-pages-check/report.json
+            unix-results/${{ matrix.platform }}/release/*.json
+            unix-results/${{ matrix.platform }}/release/*.mar
             macos-candidate/release/*.json
             macos-candidate/release/*.png
             macos-candidate/release/public-browser-pages-check/report.json
