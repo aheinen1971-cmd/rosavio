@@ -65,5 +65,19 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: ./scripts/cloud-publish.ps1
+      - name: Save isolated browser information-page reports
+        if: always() && steps.compile.outputs.built == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: rosavio-browser-pages-${{ github.run_id }}
+          path: |
+            D:/rv/release/browser-pages-check/report.json
+            D:/rv/release/browser-pages-check/*.png
+            D:/rv/release/local-browser-pages-check/report.json
+            D:/rv/release/local-browser-pages-check/*.png
+            D:/rv/release/public-browser-pages-check/report.json
+            D:/rv/release/public-browser-pages-check/*.png
+          retention-days: 7
+          if-no-files-found: ignore
 
 
