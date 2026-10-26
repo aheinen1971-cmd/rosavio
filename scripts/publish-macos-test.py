@@ -1,5 +1,5 @@
 """Test platform-separated public macOS updates; no Apple notarization claim."""
-import configparser,hashlib,json,os,pathlib,platform,plistlib,re,subprocess,tarfile
+import configparser,hashlib,json,os,pathlib,platform,plistlib,re,subprocess,tarfile,urllib.request
 from xml.sax.saxutils import quoteattr
 p=os.environ.get('ROSAVIO_MAC_PLATFORM')
 if os.environ.get('GITHUB_ACTIONS')!='true' or os.environ.get('GITHUB_REPOSITORY')!='aheinen1971-cmd/rosavio' or p not in ('macos-arm64','macos-x64') or platform.system()!='Darwin' or platform.machine()!=('arm64' if p=='macos-arm64' else 'x86_64'):raise SystemExit('Authorized matching native Mac runner required')
@@ -25,6 +25,14 @@ finally:
 ini=configparser.ConfigParser();ini.read(package/'Contents/Resources/application.ini')
 if ini['App']['Name']!='Rosavio' or ini['App']['BuildID']!=r['buildID']:raise SystemExit('DMG identity mismatch')
 run('codesign','--verify','--deep','--strict',package)
+desktop_test=os.environ.get('ROSAVIO_MAC_DESKTOP_TEST')=='1'
+if desktop_test:
+ run(os.sys.executable,'scripts/check-macos-icons.py',package,root/'candidate-icons')
+ with urllib.request.urlopen('https://addons.mozilla.org/api/v5/addons/addon/multi-account-containers/',timeout=60) as response:addon=json.load(response)
+ if addon.get('guid')!='@testpilot-containers':raise SystemExit('Wrong official extension identity')
+ xpi=addon['current_version']['file']['url']
+ if not xpi.startswith('https://addons.mozilla.org/'):raise SystemExit('Official extension source required')
+ os.environ['ROSAVIO_UPDATE_EXTENSION_XPI']=xpi
 baseline_parent=root/'baseline-app';baseline_parent.mkdir()
 with tarfile.open(candidate/'Rosavio-baseline.tar.xz') as tf:tf.extractall(baseline_parent,filter='data')
 baseline=baseline_parent/'Rosavio.app';run('codesign','--verify','--deep','--strict',baseline)
@@ -50,9 +58,13 @@ try:
  run('node','scripts/test-unix-update.cjs',baseline,release,p,env={**os.environ,'ROSAVIO_PUBLIC_TEST':'1'})
  updated=release/'public-update/Rosavio.app';run('codesign','--verify','--deep','--strict',updated)
  public=json.loads((release/'public-update-test.json').read_text())
- public.update(resourceSealAfterPublicUpdateVerified=True,appleNotarized=False,distributionMode='free unnotarized',finderDockIconExtensionSecurityChecksPending=True,releaseTag=tag)
+ if desktop_test:
+  run(os.sys.executable,'scripts/check-macos-icons.py',updated,root/'updated-icons')
+  if not public.get('macLaunchServicesStartPassed') or not public.get('preservationAfter',{}).get('extension',{}).get('containerTabLoaded'):raise SystemExit('Mac startup and container preservation must pass')
+ public.update(resourceSealAfterPublicUpdateVerified=True,appleNotarized=False,distributionMode='free unnotarized',finderDockIconExtensionSecurityChecksPending=not desktop_test,releaseTag=tag)
  (release/'public-update-test.json').write_text(json.dumps(public,indent=2))
  gh('release','upload',tag,release/'public-update-test.json','--repo',repo)
+ if desktop_test:gh('release','upload',tag,release/'macos-launchservices-toolbar.png',release/'macos-protection-settings.png',root/'updated-icons/report.json','--repo',repo)
  gh('release','edit',tag,'--repo',repo,'--latest=false','--notes','Unnotarized macOS test package. Public native signed update and restart, twenty languages and resource seal passed. Additional Finder/Dock, icon, extension and security UI checks remain pending. First launch may require user approval; Apple notarization is not provided.')
 except BaseException:
  restore=backup/feedname

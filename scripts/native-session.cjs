@@ -7,7 +7,9 @@ module.exports = async function start(binary, profile, port=2844, options={}) {
   const browserEnv={...process.env};
   for(const key of ['ROSAVIO_SIGNING_PASSWORD','ROSAVIO_UPDATE_KEY','ROSAVIO_FLATPAK_SIGNING_KEY','ROSAVIO_FLATPAK_SIGNING_PASSWORD','GH_TOKEN','GITHUB_TOKEN'])delete browserEnv[key];
   if(options.desktopEntry){if(process.platform!=='linux')throw Error('Desktop launch is Linux-only');delete browserEnv.MOZ_HEADLESS;}
-  const proc=spawn(options.desktopEntry?'gio':binary,options.desktopEntry?['launch',options.desktopEntry]:['-headless','-no-remote','-profile',profile,'--marionette','--remote-allow-system-access'],{env:browserEnv,stdio:['ignore','ignore','pipe']});
+  if(options.macApp){if(process.platform!=='darwin'||path.resolve(binary)!==path.join(path.resolve(options.macApp),'Contents/MacOS/rosavio'))throw Error('Matching native Mac app required');delete browserEnv.MOZ_HEADLESS;}
+  const args=['-no-remote','-profile',profile,'--marionette','--remote-allow-system-access'];
+  const proc=spawn(options.macApp?'open':options.desktopEntry?'gio':binary,options.macApp?['-n','-W','-a',options.macApp,'--args',...args]:options.desktopEntry?['launch',options.desktopEntry]:['-headless',...args],{env:browserEnv,stdio:['ignore','ignore','pipe']});
   let launchError;proc.on('error',error=>{launchError=error;});
   proc.stderr.on('data',data=>fs.appendFileSync(path.join(profile,'browser.log'),data));
   let socket, buffer=Buffer.alloc(0), sequence=0, queue=[], waiters=[];
