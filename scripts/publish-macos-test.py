@@ -78,7 +78,7 @@ try:
   with probe.open('rb') as f:remote_digest=hashlib.file_digest(f,'sha512').hexdigest()
   if remote_digest!=digest or probe.stat().st_size!=r['size']:raise SystemExit('Public Mac package hash/size mismatch')
  finally:probe.unlink(missing_ok=True)
- run('node','scripts/test-unix-update.cjs',baseline,release,p,env={**os.environ,'ROSAVIO_PUBLIC_TEST':'1'})
+ run('node','scripts/test-unix-update.cjs',baseline,release,p,env={**os.environ,'ROSAVIO_PUBLIC_TEST':'1','ROSAVIO_CHECK_BROWSER_PAGES':'1' if repack.get('browserPagesIncluded') else '0'})
  updated=release/'public-update/Rosavio.app';run('codesign','--verify','--deep','--strict',updated)
  public=json.loads((release/'public-update-test.json').read_text())
  if desktop_test:

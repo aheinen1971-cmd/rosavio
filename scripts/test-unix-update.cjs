@@ -14,6 +14,7 @@ const resources=platform.startsWith('macos')?path.join(pkg,'Contents/Resources')
 const binary=platform.startsWith('macos')?path.join(pkg,'Contents/MacOS/rosavio'):path.join(pkg,'rosavio');
 const desktop=process.env.ROSAVIO_DESKTOP_TEST==='1';
 const macDesktop=process.env.ROSAVIO_MAC_DESKTOP_TEST==='1';
+const browserPagesTest=process.env.ROSAVIO_CHECK_BROWSER_PAGES==='1';
 if(macDesktop&&!platform.startsWith('macos'))throw Error('Mac Launch Services test requires macOS');
 const profile=path.join(root,'profile'),pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 const expectedURL=`https://github.com/aheinen1971-cmd/rosavio/releases/download/rosavio-${platform}-latest/rosavio-${platform}-update.xml`;
@@ -39,7 +40,7 @@ let session,server;
  if(before.name!=='Rosavio'||before.buildID>=r.buildID||before.updateURL!==expectedURL)throw Error('Invalid baseline: '+JSON.stringify(before));
  const seed=await session.script(`const {PlacesUtils}=ChromeUtils.importESModule('resource://gre/modules/PlacesUtils.sys.mjs');Services.prefs.setBoolPref('remote.prefs.recommended',false);Services.prefs.setBoolPref('media.hardware-video-decoding.enabled',false);Services.prefs.setCharPref('browser.toolbars.bookmarks.visibility','always');await PlacesUtils.bookmarks.insert({parentGuid:PlacesUtils.bookmarks.toolbarGuid,title:'Rosavio update test',url:'https://example.com/rosavio'});const folder=await PlacesUtils.bookmarks.insert({parentGuid:PlacesUtils.bookmarks.toolbarGuid,title:'Preserved folder',type:PlacesUtils.bookmarks.TYPE_FOLDER});await PlacesUtils.bookmarks.insert({parentGuid:folder.guid,title:'Child bookmark',url:'https://example.org/rosavio'});Services.prefs.savePrefFile(null);return await PlacesUtils.promiseBookmarksTree(PlacesUtils.bookmarks.toolbarGuid);`);
  let preservationBefore=null;
- if(macDesktop){await session.script(`await window.delayedStartupPromise;window.setToolbarVisibility(document.getElementById('PersonalToolbar'),'always',true,false);Services.prefs.savePrefFile(null);return true;`);preservationBefore=await require('./check-update-profile.cjs')(session,releaseDir,'seed');}
+ if(macDesktop||desktop){await session.script(`await window.delayedStartupPromise;window.setToolbarVisibility(document.getElementById('PersonalToolbar'),'always',true,false);Services.prefs.savePrefFile(null);return true;`);preservationBefore=await require('./check-update-profile.cjs')(session,releaseDir,'seed');}
  await session.close();session=null;
  if(!production){
   fs.mkdirSync(path.join(resources,'distribution'),{recursive:true});
@@ -61,10 +62,10 @@ let session,server;
  if(after.name!=='Rosavio'||after.buildID!==r.buildID||after.version!==r.appVersion||after.locale!=='de'||after.updateURL!==expectedURL||after.signatureDisabled||after.video!==false||after.toolbar!=='always'||stable(seed)!==stable(after.bookmarks))throw Error('Updated identity/profile verification failed: '+JSON.stringify(after));
  if((desktop||macDesktop)&&(after.processDir!==before.processDir||after.toolbarUI.hidden||after.toolbarUI.collapsed))throw Error('Desktop launch or visible toolbar changed after update');
  let preservationAfter=null;
- if(macDesktop){const shot=(await session.command('WebDriver:TakeScreenshot',{id:null,highlights:[],full:false})).value;fs.writeFileSync(path.join(releaseDir,'macos-launchservices-toolbar.png'),Buffer.from(shot,'base64'));preservationAfter=await require('./check-update-profile.cjs')(session,releaseDir,'verify');const protectionShot=(await session.command('WebDriver:TakeScreenshot',{id:null,highlights:[],full:false})).value;fs.writeFileSync(path.join(releaseDir,'macos-protection-settings.png'),Buffer.from(protectionShot,'base64'));}
- if(desktop){const shot=(await session.command('WebDriver:TakeScreenshot',{id:null,highlights:[],full:false})).value;fs.writeFileSync(path.join(releaseDir,'linux-desktop-toolbar.png'),Buffer.from(shot,'base64'));}
+ if(macDesktop||desktop){const shot=(await session.command('WebDriver:TakeScreenshot',{id:null,highlights:[],full:false})).value;fs.writeFileSync(path.join(releaseDir,macDesktop?'macos-launchservices-toolbar.png':'linux-desktop-toolbar.png'),Buffer.from(shot,'base64'));preservationAfter=await require('./check-update-profile.cjs')(session,releaseDir,'verify');const protectionShot=(await session.command('WebDriver:TakeScreenshot',{id:null,highlights:[],full:false})).value;fs.writeFileSync(path.join(releaseDir,macDesktop?'macos-protection-settings.png':'linux-protection-settings.png'),Buffer.from(protectionShot,'base64'));}
+ if(browserPagesTest)await require('./check-browser-pages.cjs')(session,path.join(releaseDir,'public-browser-pages-check'));
  await session.close();session=null;
  if(!production)fs.unlinkSync(path.join(resources,'distribution/policies.json'));
- fs.writeFileSync(path.join(releaseDir,production?'public-update-test.json':'local-update-test.json'),JSON.stringify({passed:true,platform,testedAt:new Date().toISOString(),before,after,status,publicUpdateTestPassed:production,desktopLaunchTestPassed:desktop,macLaunchServicesStartPassed:macDesktop,macLaunchMethod:macDesktop?'open -n -W -a; no Finder/Dock click claimed':null,preservationBefore,preservationAfter,desktopEntry:desktop?fs.readFileSync(desktopEntry,'utf8'):null},null,2));
+ fs.writeFileSync(path.join(releaseDir,production?'public-update-test.json':'local-update-test.json'),JSON.stringify({passed:true,platform,testedAt:new Date().toISOString(),before,after,status,publicUpdateTestPassed:production,browserPagesAfterUpdatePassed:browserPagesTest,desktopLaunchTestPassed:desktop,macLaunchServicesStartPassed:macDesktop,macLaunchMethod:macDesktop?'open -n -W -a; no Finder/Dock click claimed':null,preservationBefore,preservationAfter,desktopEntry:desktop?fs.readFileSync(desktopEntry,'utf8'):null},null,2));
  console.log('Signed native Unix update, restart and bookmarks preserved. Public test still required.');
 }finally{if(session)await session.close();if(server)await new Promise(resolve=>server.close(resolve));}})().catch(e=>{console.error(e);process.exitCode=1});

@@ -2,7 +2,7 @@
 
 No private signing key is used by this workflow. Windows Latest is never changed.
 """
-import configparser, hashlib, json, os, pathlib, re, subprocess, tarfile
+import configparser, hashlib, json, os, pathlib, re, subprocess, tarfile, urllib.request
 from xml.sax.saxutils import quoteattr
 
 if os.environ.get('GITHUB_ACTIONS')!='true' or os.environ.get('GITHUB_REPOSITORY')!='aheinen1971-cmd/rosavio':
@@ -21,7 +21,7 @@ package=release/'local-update/rosavio'
 ini=configparser.ConfigParser();ini.read(package/'application.ini')
 if ini.get('App','Name')!='Rosavio' or ini.get('App','BuildID')!=r['buildID']:raise SystemExit('Verified application missing')
 def run(*args,**kw):
-    if str(args[0])=='node' and pathlib.Path(args[1]).name in ['check-unix-native.cjs','check-locales.cjs','check-extensions.cjs','check-translations.cjs']:
+    if str(args[0])=='node' and pathlib.Path(args[1]).name in ['check-unix-native.cjs','check-locales.cjs','check-extensions.cjs','check-translations.cjs','check-browser-pages.cjs']:
         executable=pathlib.Path(args[2])
         if not executable.is_file() or not os.access(executable,os.X_OK):
             raise SystemExit('Native check requires an executable file: '+str(executable))
@@ -46,6 +46,14 @@ if b['buildID']>=r['buildID']:raise SystemExit('Public update needs an older gen
 run('node','scripts/check-locales.cjs',package/'rosavio',root/'candidate-languages')
 run('node','scripts/check-extensions.cjs',package/'rosavio',root/'candidate-extensions')
 run('node','scripts/check-translations.cjs',package/'rosavio',root/'candidate-translations')
+pages_marker=new/'browser-pages-check/report.json'
+has_browser_pages=pages_marker.is_file() and json.loads(pages_marker.read_text()).get('passed') is True
+if has_browser_pages:run('node','scripts/check-browser-pages.cjs',package/'rosavio',root/'candidate-browser-pages')
+with urllib.request.urlopen('https://addons.mozilla.org/api/v5/addons/addon/multi-account-containers/',timeout=60) as response:addon=json.load(response)
+if addon.get('guid')!='@testpilot-containers':raise SystemExit('Wrong official extension identity')
+xpi=addon['current_version']['file']['url']
+if not xpi.startswith('https://addons.mozilla.org/'):raise SystemExit('Official AMO extension source required')
+os.environ['ROSAVIO_UPDATE_EXTENSION_XPI']=xpi
 run(os.sys.executable,'scripts/check-linux-icons.py',package,root/'candidate-icons')
 archive=release/'Rosavio-Linux-x64.tar.xz'
 run('tar','-cJf',archive,'-C',package.parent,package.name)
@@ -68,10 +76,12 @@ fmt=lambda d:' '.join(k+'='+quoteattr(v) for k,v in d.items())
 feed=release/feedname;feed.write_text('<?xml version="1.0"?><updates><update '+fmt(attrs)+'><patch '+fmt(patch)+'/></update></updates>')
 try:
     gh('release','upload',stable,feed,'--repo',repo,'--clobber')
-    run('node','scripts/test-unix-update.cjs',baseline,release,'linux-x64',env={**os.environ,'ROSAVIO_PUBLIC_TEST':'1'})
+    run('node','scripts/test-unix-update.cjs',baseline,release,'linux-x64',env={**os.environ,'ROSAVIO_PUBLIC_TEST':'1','ROSAVIO_CHECK_BROWSER_PAGES':'1' if has_browser_pages else '0'})
     run(os.sys.executable,'scripts/check-linux-icons.py',release/'public-update/rosavio',root/'updated-icons')
     public=json.loads((release/'public-update-test.json').read_text())
     if not public.get('desktopLaunchTestPassed'):raise SystemExit('Real desktop launch before/after update is required')
+    if not public.get('preservationAfter',{}).get('extension',{}).get('containerTabLoaded'):raise SystemExit('Real extension preservation/function test required')
+    if has_browser_pages and not public.get('browserPagesAfterUpdatePassed'):raise SystemExit('Browser information pages must pass after the public update')
     gh('release','upload',tag,release/'public-update-test.json',release/'linux-desktop-toolbar.png',root/'updated-icons/report.json','--repo',repo)
     # Promote only after public native update, actual desktop launch and icon checks.
     gh('release','edit',tag,'--repo',repo,'--latest=false','--prerelease=false','--notes','Linux x64 mit20Sprachen: signiertes oeffentliches Autoupdate, Installation und Neustart, echter Desktop-Teststart vor/nach Update, farbige Originalsymbole und erhaltene sichtbare Lesezeichenleiste geprueft. Eigene Testverknuepfung; keine Aussage ueber automatische Systeminstallation.')
