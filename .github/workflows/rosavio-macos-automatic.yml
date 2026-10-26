@@ -6,6 +6,11 @@ on:
         description: Run full verification even if upstream version is unchanged
         type: boolean
         default: false
+      platform:
+        description: Platform to verify; all for normal daily operation
+        type: choice
+        options: [all, macos-arm64, macos-x64]
+        default: all
       replay_arm_run:
         description: Optional successful Apple Silicon repack for an isolated automation trial
         type: string
@@ -35,6 +40,7 @@ jobs:
           FORCE: ${{ inputs.force }}
           REPLAY_ARM: ${{ inputs.replay_arm_run }}
           REPLAY_INTEL: ${{ inputs.replay_intel_run }}
+          SELECTED_PLATFORM: ${{ inputs.platform }}
         run: |
           python3 - <<'PY'
           import json,os,re,urllib.request,xml.etree.ElementTree as ET
@@ -44,6 +50,7 @@ jobs:
           if not valid(version):raise SystemExit('Invalid stable version')
           jobs=[]
           for platform,var in [('macos-arm64','REPLAY_ARM'),('macos-x64','REPLAY_INTEL')]:
+            if os.environ.get('SELECTED_PLATFORM') not in ('','all',platform):continue
             with urllib.request.urlopen(f'https://github.com/aheinen1971-cmd/rosavio/releases/download/rosavio-{platform}-latest/rosavio-{platform}-update.xml',timeout=60) as r:update=ET.fromstring(r.read()).find('update')
             if update is None:raise SystemExit('Proven existing public Mac feed required')
             current=update.attrib['appVersion']
@@ -145,5 +152,7 @@ jobs:
             candidate-languages/report.json
             candidate-check/report.json
             baseline-check/report.json
+            macos-candidate/release/public-update/profile/browser.log
+            macos-candidate/release/public-update/profile/user.js
           retention-days: 7
           if-no-files-found: warn
