@@ -130,6 +130,7 @@ $env:ROSAVIO_RELEASE_DIR = $rosavioReleaseDir
 Invoke-Checked { node "$rosavioProject/scripts/check-locales.cjs" "$rosavioPackage/rosavio.exe" "$rosavioReleaseDir/locale-check" }
 Invoke-Checked { node "$rosavioProject/scripts/check-extensions.cjs" "$rosavioPackage/rosavio.exe" "$rosavioReleaseDir/extensions-check" }
 Invoke-Checked { node "$rosavioProject/scripts/check-translations.cjs" "$rosavioPackage/rosavio.exe" "$rosavioReleaseDir/translations-check" }
+Invoke-Checked { node "$rosavioProject/scripts/check-browser-pages.cjs" "$rosavioPackage/rosavio.exe" "$rosavioReleaseDir/browser-pages-check" }
 Invoke-Checked { node --test "$rosavioProject/tests/*.test.mjs" }
 Invoke-Checked { & $rosavioPython "$rosavioProject/tests/test_signing.py" }
 if (-not $env:ROSAVIO_UPDATE_KEY -or -not $env:ROSAVIO_SIGNING_PASSWORD) { throw 'Signing secrets missing' }

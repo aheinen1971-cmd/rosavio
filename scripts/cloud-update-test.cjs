@@ -43,6 +43,7 @@ const binary=path.join(install,'rosavio.exe');
     const after=await session.script('return {name:Services.appinfo.name,version:Services.appinfo.version,buildID:Services.appinfo.appBuildID,locale:Services.locale.appLocaleAsBCP47,updateURL:Services.appinfo.updateURL,videoSetting:Services.prefs.getBoolPref("media.hardware-video-decoding.enabled")};');
     if(after.name!=='Rosavio'||after.version!==release.appVersion||after.buildID!==release.buildID||after.locale!=='de'||after.videoSetting!==false)throw Error('Updated browser identity or settings incorrect: '+JSON.stringify(after));
     if(after.updateURL!=='https://github.com/aheinen1971-cmd/rosavio/releases/latest/download/rosavio-win64-update.xml')throw Error('New update URL lost');
+    await require('./check-browser-pages.cjs')(session,path.join(process.env.ROSAVIO_RELEASE_DIR,production?'public-browser-pages-check':'local-browser-pages-check'));
     await session.close();session=null;
     if(!production){
       const tampered=path.join(root,'tampered.mar');
@@ -53,7 +54,7 @@ const binary=path.join(install,'rosavio.exe');
       if(verifier.error||verifier.status===0)throw Error('Tampered MAR negative test failed');
       fs.unlinkSync(tampered);
     }
-    fs.writeFileSync(path.join(process.env.ROSAVIO_RELEASE_DIR,production?'public-update-test.json':'local-update-test.json'),JSON.stringify({passed:true,testedAt:new Date().toISOString(),before,check,after,status,signatureVerificationDisabled:false},null,2));
+    fs.writeFileSync(path.join(process.env.ROSAVIO_RELEASE_DIR,production?'public-update-test.json':'local-update-test.json'),JSON.stringify({passed:true,testedAt:new Date().toISOString(),before,check,after,status,signatureVerificationDisabled:false,browserPagesAfterUpdatePassed:true},null,2));
     console.log('Native '+(production?'public':'local')+' update, restart and preference preservation passed.');
   }finally{if(session)await session.close();if(server)await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error);process.exitCode=1});
