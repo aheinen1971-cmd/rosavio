@@ -90,9 +90,15 @@ jobs:
           path: |
             unix-results/linux-x64/release/*test.json
             linux-candidate/release/linux-desktop-toolbar.png
+            linux-candidate/release/linux-protection-settings.png
+            linux-candidate/release/profile-preservation-*.json
+            linux-candidate/release/public-browser-pages-check/report.json
+            linux-candidate/release/public-browser-pages-check/*.png
             candidate-icons/*
             updated-icons/*
             candidate-languages/report.json
             candidate-extensions/report.json
             candidate-translations/report.json
+            candidate-browser-pages/report.json
+            candidate-browser-pages/*.png
           retention-days: 7

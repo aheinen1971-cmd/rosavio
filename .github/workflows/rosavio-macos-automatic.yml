@@ -147,6 +147,8 @@ jobs:
           path: |
             macos-candidate/release/*.json
             macos-candidate/release/*.png
+            macos-candidate/release/public-browser-pages-check/report.json
+            macos-candidate/release/public-browser-pages-check/*.png
             candidate-icons/*
             updated-icons/*
             candidate-languages/report.json

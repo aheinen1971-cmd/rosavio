@@ -132,5 +132,7 @@ jobs:
             flatpak-public-profiles/locales/report.json
             flatpak-public-profiles/*-desktop.png
             flatpak-public-profiles/*-icons/*
+            flatpak-public-profiles/*-browser-pages/report.json
+            flatpak-public-profiles/*-browser-pages/*.png
           retention-days: 7
           if-no-files-found: warn
