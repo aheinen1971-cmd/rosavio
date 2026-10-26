@@ -11,6 +11,10 @@ on:
         type: choice
         options: [macos-arm64, macos-x64]
         required: true
+      desktop_test:
+        description: Test Launch Services startup, original icons, Containers and protection preservation
+        type: boolean
+        default: false
 permissions:
   contents: write
   actions: read
@@ -48,7 +52,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           ROSAVIO_MAC_PLATFORM: ${{ inputs.platform }}
-        run: python3 scripts/publish-macos-test.py
+          ROSAVIO_MAC_DESKTOP_TEST: ${{ inputs.desktop_test && '1' || '0' }}
+        run: |
+          python3 -m pip install Pillow==12.3.0
+          python3 scripts/publish-macos-test.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -59,5 +66,9 @@ jobs:
             baseline-check/report.json
             candidate-check/report.json
             candidate-languages/report.json
+            candidate-icons/*
+            updated-icons/*
+            macos-candidate/release/*.png
+            macos-candidate/release/profile-preservation-*.json
           retention-days: 7
           if-no-files-found: warn
