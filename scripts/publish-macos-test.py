@@ -1,0 +1,63 @@
+"""Test platform-separated public macOS updates; no Apple notarization claim."""
+import configparser,hashlib,json,os,pathlib,platform,plistlib,re,subprocess,tarfile
+from xml.sax.saxutils import quoteattr
+p=os.environ.get('ROSAVIO_MAC_PLATFORM')
+if os.environ.get('GITHUB_ACTIONS')!='true' or os.environ.get('GITHUB_REPOSITORY')!='aheinen1971-cmd/rosavio' or p not in ('macos-arm64','macos-x64') or platform.system()!='Darwin' or platform.machine()!=('arm64' if p=='macos-arm64' else 'x86_64'):raise SystemExit('Authorized matching native Mac runner required')
+root=pathlib.Path.cwd();candidate=root/'macos-candidate';release=candidate/'release';r=json.loads((release/'release.json').read_text());local=json.loads((release/'local-update-test.json').read_text());repack=json.loads((candidate/'repack-report.json').read_text())
+if r.get('platform')!=p or not r.get('signatureVerified') or not r.get('tamperNegativeTestPassed') or not local.get('passed') or local.get('platform')!=p or local['after'].get('signatureDisabled',True) or not repack.get('passed') or not repack.get('resourceSealAfterUpdateVerified') or repack.get('platform')!=p:raise SystemExit('Sealed native signed local update test required')
+if not re.fullmatch(r'\d+(?:\.\d+){1,3}',r['appVersion']) or not re.fullmatch(r'\d{14}',r['buildID']) or local['after']['buildID']!=r['buildID'] or repack['buildID']!=r['buildID']:raise SystemExit('Invalid or mismatched release identity')
+name=r['file']
+if pathlib.Path(name).name!=name:raise SystemExit('Unsafe MAR path')
+mar=release/name
+with mar.open('rb') as f:digest=hashlib.file_digest(f,'sha512').hexdigest()
+if digest!=r['hashValue'] or mar.stat().st_size!=r['size']:raise SystemExit('Signed package hash mismatch')
+def run(*args,**kw):return subprocess.run([str(x) for x in args],check=True,**kw)
+dmgs=list(candidate.glob('*.dmg'))
+if len(dmgs)!=1:raise SystemExit('One sealed candidate DMG required')
+attached=plistlib.loads(subprocess.check_output(['hdiutil','attach','-readonly','-nobrowse','-plist',str(dmgs[0].resolve())]));mounts=[pathlib.Path(x['mount-point']) for x in attached['system-entities'] if 'mount-point' in x]
+package=root/'candidate-app/Rosavio.app';package.parent.mkdir()
+try:
+ apps=[f for m in mounts for f in m.glob('*.app')]
+ if len(apps)!=1:raise SystemExit('Exactly one sealed app required')
+ run('ditto',apps[0],package)
+finally:
+ for m in reversed(mounts):run('hdiutil','detach',m)
+ini=configparser.ConfigParser();ini.read(package/'Contents/Resources/application.ini')
+if ini['App']['Name']!='Rosavio' or ini['App']['BuildID']!=r['buildID']:raise SystemExit('DMG identity mismatch')
+run('codesign','--verify','--deep','--strict',package)
+baseline_parent=root/'baseline-app';baseline_parent.mkdir()
+with tarfile.open(candidate/'Rosavio-baseline.tar.xz') as tf:tf.extractall(baseline_parent,filter='data')
+baseline=baseline_parent/'Rosavio.app';run('codesign','--verify','--deep','--strict',baseline)
+for app,folder in [(baseline,'baseline-check'),(package,'candidate-check')]:run('node','scripts/check-unix-native.cjs',app/'Contents/MacOS/rosavio',root/folder,p)
+b=json.loads((root/'baseline-check/report.json').read_text());c=json.loads((root/'candidate-check/report.json').read_text())
+if b['buildID']>=r['buildID'] or c['buildID']!=r['buildID']:raise SystemExit('Genuine older baseline and matching candidate required')
+run('node','scripts/check-locales.cjs',package/'Contents/MacOS/rosavio',root/'candidate-languages')
+repo='aheinen1971-cmd/rosavio';stable=f'rosavio-{p}-latest';feedname=f'rosavio-{p}-update.xml';tag=f'v{r["appVersion"]}-rosavio-{p}.{os.environ["GITHUB_RUN_ID"]}'
+def gh(*args):return run('gh',*args)
+def tag_exists(t):
+ if subprocess.run(['gh','api',f'repos/{repo}/git/ref/tags/{t}'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode:gh('api',f'repos/{repo}/git/refs','-f',f'ref=refs/tags/{t}','-f','sha='+os.environ['GITHUB_SHA'])
+latest_before=subprocess.check_output(['gh','api',f'repos/{repo}/releases/latest','--jq','.tag_name'],text=True).strip()
+backup=root/'feed-backup';backup.mkdir();tag_exists(tag);tag_exists(stable)
+# Prerelease until public update and the remaining Mac UI/profile checks pass.
+notes='macOS test package: not notarized by Apple; first launch may be blocked or require user approval. Own MAR signature verification remains mandatory. Public update and additional UI/profile checks are still pending.'
+gh('release','create',tag,'--repo',repo,'--verify-tag','--prerelease','--latest=false','--title','Rosavio '+p+' '+r['appVersion'],'--notes',notes,mar,dmgs[0],release/'release.json',release/'local-update-test.json',candidate/'repack-report.json')
+had_feed=subprocess.run(['gh','release','download',stable,'--repo',repo,'--pattern',feedname,'--dir',str(backup)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode==0
+if subprocess.run(['gh','release','view',stable,'--repo',repo],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode:gh('release','create',stable,'--repo',repo,'--verify-tag','--prerelease','--latest=false','--title','Rosavio '+p+' update feed','--notes','Separate macOS test update channel; unnotarized apps, own MAR signatures required.')
+attrs={'type':'minor','displayVersion':r['appVersion'],'appVersion':r['appVersion'],'platformVersion':r['appVersion'],'buildID':r['buildID']};patch={'type':'complete','URL':f'https://github.com/{repo}/releases/download/{tag}/{name}','hashFunction':'SHA512','hashValue':digest,'size':str(r['size'])};fmt=lambda d:' '.join(k+'='+quoteattr(v) for k,v in d.items())
+feed=release/feedname;feed.write_text('<?xml version="1.0"?><updates><update '+fmt(attrs)+'><patch '+fmt(patch)+'/></update></updates>')
+try:
+ gh('release','upload',stable,feed,'--repo',repo,'--clobber')
+ run('node','scripts/test-unix-update.cjs',baseline,release,p,env={**os.environ,'ROSAVIO_PUBLIC_TEST':'1'})
+ updated=release/'public-update/Rosavio.app';run('codesign','--verify','--deep','--strict',updated)
+ public=json.loads((release/'public-update-test.json').read_text())
+ public.update(resourceSealAfterPublicUpdateVerified=True,appleNotarized=False,distributionMode='free unnotarized',finderDockIconExtensionSecurityChecksPending=True,releaseTag=tag)
+ (release/'public-update-test.json').write_text(json.dumps(public,indent=2))
+ gh('release','upload',tag,release/'public-update-test.json','--repo',repo)
+ gh('release','edit',tag,'--repo',repo,'--latest=false','--notes','Unnotarized macOS test package. Public native signed update and restart, twenty languages and resource seal passed. Additional Finder/Dock, icon, extension and security UI checks remain pending. First launch may require user approval; Apple notarization is not provided.')
+except BaseException:
+ restore=backup/feedname
+ if not had_feed:restore.write_text('<?xml version="1.0"?><updates/>')
+ gh('release','upload',stable,restore,'--repo',repo,'--clobber');raise
+finally:
+ if subprocess.check_output(['gh','api',f'repos/{repo}/releases/latest','--jq','.tag_name'],text=True).strip()!=latest_before:raise SystemExit('Windows Latest changed unexpectedly')
+print('Public native macOS update and seal passed; additional Mac UI/profile checks remain pending.')
