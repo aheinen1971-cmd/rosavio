@@ -1,0 +1,149 @@
+name: Rosavio automatic macOS release
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Run full verification even if upstream version is unchanged
+        type: boolean
+        default: false
+      replay_arm_run:
+        description: Optional successful Apple Silicon repack for an isolated automation trial
+        type: string
+        default: ''
+      replay_intel_run:
+        description: Optional successful Intel repack for an isolated automation trial
+        type: string
+        default: ''
+  schedule:
+    - cron: '0 18 * * *'
+      timezone: 'Europe/Berlin'
+permissions:
+  contents: read
+concurrency:
+  group: rosavio-macos-automatic
+  cancel-in-progress: false
+jobs:
+  check:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    outputs:
+      build: ${{ steps.version.outputs.build }}
+      matrix: ${{ steps.version.outputs.matrix }}
+    steps:
+      - id: version
+        env:
+          FORCE: ${{ inputs.force }}
+          REPLAY_ARM: ${{ inputs.replay_arm_run }}
+          REPLAY_INTEL: ${{ inputs.replay_intel_run }}
+        run: |
+          python3 - <<'PY'
+          import json,os,re,urllib.request,xml.etree.ElementTree as ET
+          with urllib.request.urlopen('https://product-details.mozilla.org/1.0/firefox_versions.json',timeout=60) as r:version=json.load(r)['LATEST_FIREFOX_VERSION']
+          valid=lambda v:bool(re.fullmatch(r'\d+(?:\.\d+){1,3}',v))
+          parts=lambda v:tuple((list(map(int,v.split('.')))+[0]*4)[:4])
+          if not valid(version):raise SystemExit('Invalid stable version')
+          jobs=[]
+          for platform,var in [('macos-arm64','REPLAY_ARM'),('macos-x64','REPLAY_INTEL')]:
+            with urllib.request.urlopen(f'https://github.com/aheinen1971-cmd/rosavio/releases/download/rosavio-{platform}-latest/rosavio-{platform}-update.xml',timeout=60) as r:update=ET.fromstring(r.read()).find('update')
+            if update is None:raise SystemExit('Proven existing public Mac feed required')
+            current=update.attrib['appVersion']
+            if not valid(current):raise SystemExit('Invalid public Mac version')
+            replay=os.environ.get(var,'')
+            if replay and (not replay.isdecimal() or os.environ.get('FORCE')!='true'):raise SystemExit('Replay requires numeric source run and explicit force')
+            if parts(version)<parts(current):raise SystemExit('Upstream downgrade rejected')
+            required=parts(version)>parts(current) or os.environ.get('FORCE')=='true'
+            print(platform,'stable',version,'public',current,'verification required',required)
+            if required:jobs.append({'platform':platform,'replay_run':replay})
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('build='+str(bool(jobs)).lower()+'\nmatrix='+json.dumps({'include':jobs})+'\n')
+          PY
+  release:
+    needs: check
+    if: needs.check.outputs.build == 'true'
+    concurrency:
+      group: rosavio-macos-public-${{ matrix.platform }}
+      cancel-in-progress: false
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.check.outputs.matrix) }}
+    runs-on: ${{ matrix.platform == 'macos-arm64' && 'macos-15' || 'macos-15-intel' }}
+    timeout-minutes: 350
+    permissions:
+      contents: write
+      actions: read
+    env:
+      ROSAVIO_MAC_PLATFORM: ${{ matrix.platform }}
+      ROSAVIO_MAC_DESKTOP_TEST: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare standard native runner
+        run: |
+          brew list nss >/dev/null 2>&1 || brew install nss
+          brew list xz >/dev/null 2>&1 || brew install xz
+          python -m pip install -r requirements.txt
+      - name: Require successful matching repack for replay
+        if: matrix.replay_run != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPLAY_RUN: ${{ matrix.replay_run }}
+        run: |
+          python - <<'PY'
+          import json,os,subprocess
+          source=os.environ['REPLAY_RUN']
+          if not source.isdecimal():raise SystemExit('Invalid replay run')
+          r=json.loads(subprocess.check_output(['gh','api','repos/aheinen1971-cmd/rosavio/actions/runs/'+source]))
+          if r['status']!='completed' or r['conclusion']!='success' or r['path']!='.github/workflows/rosavio-macos-repack.yml' or r['head_branch']!='main':raise SystemExit('Successful main repack required')
+          PY
+      - uses: actions/download-artifact@v4
+        if: matrix.replay_run != ''
+        with:
+          name: rosavio-macos-repack-${{ matrix.platform }}-${{ matrix.replay_run }}
+          path: macos-candidate
+          run-id: ${{ matrix.replay_run }}
+          github-token: ${{ github.token }}
+      - name: Build two genuine native versions and test twenty languages
+        if: matrix.replay_run == ''
+        run: python scripts/cloud-unix-build.py --platform '${{ matrix.platform }}'
+      - name: Seal applications, sign MAR and test local native update
+        if: matrix.replay_run == ''
+        env:
+          ROSAVIO_UPDATE_KEY: ${{ secrets.ROSAVIO_UPDATE_KEY }}
+          ROSAVIO_SIGNING_PASSWORD: ${{ secrets.ROSAVIO_SIGNING_PASSWORD }}
+        run: python scripts/cloud-unix-sign-test.py '${{ matrix.platform }}'
+      - name: Prepare fresh candidate and previous public baseline
+        if: matrix.replay_run == ''
+        run: python scripts/prepare-macos-public-inputs.py
+      - name: Public signed update, Launch Services, icons and preserved profile
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/publish-macos-test.py
+      - name: Promote only the fully verified unnotarized Mac release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json,pathlib,subprocess
+          r=json.loads(pathlib.Path('macos-candidate/release/public-update-test.json').read_text())
+          if not all(r.get(k) for k in ['passed','publicUpdateTestPassed','resourceSealAfterPublicUpdateVerified','macLaunchServicesStartPassed']) or r.get('finderDockIconExtensionSecurityChecksPending',True):raise SystemExit('Mac release verification incomplete')
+          if not r['preservationAfter']['extension']['containerTabLoaded'] or not all(x['value'] for x in r['preservationAfter']['protection']):raise SystemExit('Extension/protection preservation incomplete')
+          notes=pathlib.Path('macos-release-notes.txt');notes.write_text('Rosavio macOS with twenty interface languages and signed native updates. Public update/restart, Launch Services app start, original colored ICNS icons, visible bookmarks toolbar, preserved Containers extension/settings and active web/download protection tested. This app is NOT notarized by Apple; macOS may block first launch and require an informed user decision. No macOS security protection is disabled. Launch Services test does not claim a physical Finder/Dock click.')
+          subprocess.run(['gh','release','edit',r['releaseTag'],'--repo','aheinen1971-cmd/rosavio','--latest=false','--prerelease=false','--notes-file',str(notes)],check=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rosavio-macos-automatic-${{ matrix.platform }}-${{ github.run_id }}
+          path: |
+            macos-candidate/release/*.json
+            macos-candidate/release/*.png
+            candidate-icons/*
+            updated-icons/*
+            candidate-languages/report.json
+            candidate-check/report.json
+            baseline-check/report.json
+          retention-days: 7
+          if-no-files-found: warn
