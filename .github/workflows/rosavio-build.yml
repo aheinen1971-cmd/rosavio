@@ -49,6 +49,7 @@ jobs:
         id: compile
         shell: pwsh
         env:
+          GH_TOKEN: ${{ github.token }}
           ROSAVIO_FORCE_BUILD: ${{ inputs.force }}
         run: ./scripts/cloud-build.ps1 -Force:($env:ROSAVIO_FORCE_BUILD -eq 'true')
       - name: Verify, sign and test native update
