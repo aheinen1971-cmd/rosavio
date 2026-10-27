@@ -16,7 +16,8 @@ if update is None:raise SystemExit('Previous proven public Mac baseline required
 url=urlparse(update.find('patch').attrib['URL']);parts=url.path.split('/')
 if url.scheme!='https' or url.netloc!='github.com' or len(parts)!=7 or parts[1:5]!=['aheinen1971-cmd','rosavio','releases','download'] or not re.fullmatch(r'v[0-9.]+-rosavio-'+p+r'\.[0-9]+',parts[5]):raise SystemExit('Unexpected platform feed')
 tag=parts[5]
-with urllib.request.urlopen(f'https://api.github.com/repos/aheinen1971-cmd/rosavio/releases/tags/{tag}',timeout=60) as response:release=json.load(response)
+if not os.environ.get('GH_TOKEN'):raise SystemExit('Scoped GitHub token required for release metadata')
+release=json.loads(subprocess.check_output(['gh','api',f'repos/aheinen1971-cmd/rosavio/releases/tags/{tag}'],text=True))
 asset=next(x for x in release['assets'] if x['name']=='Rosavio.dmg')
 if not re.fullmatch('sha256:[0-9a-f]{64}',asset.get('digest','')):raise SystemExit('Previous DMG hash missing')
 old=root/'previous.dmg';subprocess.run(['curl','--fail','--location','--retry','2','--output',str(old),asset['browser_download_url']],check=True)

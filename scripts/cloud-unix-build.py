@@ -33,7 +33,28 @@ expected_hash=next(line.split()[0] for line in manifest.splitlines() if line.spl
 archive=root/'source.tar.xz';run('curl','--fail','--location','--retry','2','--max-time','900','--output',archive,base+'/'+filename)
 with archive.open('rb') as f:actual=hashlib.file_digest(f,'sha512').hexdigest()
 if actual!=expected_hash:raise SystemExit('Mozilla source SHA512 mismatch')
-with tarfile.open(archive) as tf:tf.extractall(root,filter='data')
+if a.platform=='macos-x64':
+    # The official archive has just passed its published SHA512 check.
+    # libarchive avoids Python's costly per-file filesystem traversal here.
+    with tarfile.open(archive) as tf:
+        for member in tf:
+            name=pathlib.PurePosixPath(member.name)
+            if name.is_absolute() or '..' in name.parts or not name.parts or name.parts[0]!=f'firefox-{version}':
+                raise SystemExit('Unsafe official source archive path')
+            if member.issym() or member.islnk():
+                target=pathlib.PurePosixPath(member.linkname)
+                if target.is_absolute():raise SystemExit('Unsafe source archive link')
+                parts=list(name.parent.parts if member.issym() else ())
+                for part in target.parts:
+                    if part=='..':
+                        if len(parts)<=1:raise SystemExit('Source link escapes source directory')
+                        parts.pop()
+                    elif part!='.':parts.append(part)
+                if not parts or parts[0]!=f'firefox-{version}':raise SystemExit('Source link escapes source directory')
+            if not (member.isfile() or member.isdir() or member.issym() or member.islnk()):raise SystemExit('Unexpected source archive file type')
+    run('tar','-xf',archive,'-C',root)
+else:
+    with tarfile.open(archive) as tf:tf.extractall(root,filter='data')
 archive.unlink();source=root/f'firefox-{version}'
 if not (source/'mach').is_file():raise SystemExit('Unexpected source archive')
 config_file=project/'rosavio.config.json';config=json.loads(config_file.read_text());config['upstreamVersion']=version;config_file.write_text(json.dumps(config))
@@ -47,6 +68,9 @@ if a.platform=='macos-x64':
     # Source archive bytes are already hash-verified; avoid inherited global
     # line-ending conversion while indexing this large temporary source tree.
     run('git','config','core.autocrlf','false',cwd=source)
+    run('git','config','core.compression','0',cwd=source)
+    run('git','config','gc.auto','0',cwd=source)
+    run('git','config','index.threads',str(build_jobs),cwd=source)
 run('git','add','--all',cwd=source)
 run('git','-c','user.name=Rosavio','-c','user.email=build@rosavio.invalid','commit','--quiet','-m','Verified Mozilla source with Rosavio platform overlay',cwd=source)
 l10n=root/'l10n';pins=json.loads((source/'browser/locales/l10n-changesets.json').read_text())
