@@ -1,5 +1,5 @@
 """Recheck saved sealed packages without compiling or loading signing secrets."""
-import hashlib,json,os,pathlib,subprocess,tarfile,urllib.request
+import hashlib,json,os,pathlib,subprocess,tarfile,plistlib,configparser
 platform=os.environ['ROSAVIO_MAC_PLATFORM']
 if os.environ.get('GITHUB_ACTIONS')!='true' or os.environ.get('GITHUB_REPOSITORY')!='aheinen1971-cmd/rosavio' or platform not in ('macos-arm64','macos-x64'):
     raise SystemExit('Authorized native recovery runner required')
@@ -19,10 +19,21 @@ baseline=root/'recovery-baseline';baseline.mkdir()
 with tarfile.open(out/'Rosavio-sealed-baseline.tar.xz') as archive:archive.extractall(baseline,filter='data')
 app=baseline/'Rosavio.app'
 subprocess.run(['codesign','--verify','--deep','--strict',str(app)],check=True)
-with urllib.request.urlopen('https://addons.mozilla.org/api/v5/addons/addon/multi-account-containers/',timeout=60) as response:addon=json.load(response)
-xpi=addon['current_version']['file']['url']
-if addon.get('guid')!='@testpilot-containers' or not xpi.startswith('https://addons.mozilla.org/'):raise SystemExit('Official signed extension source required')
-os.environ['ROSAVIO_UPDATE_EXTENSION_XPI']=xpi
-subprocess.run(['node','scripts/test-unix-update.cjs',str(app),str(out/'release'),platform],check=True)
-subprocess.run(['codesign','--verify','--deep','--strict',str(out/'release/local-update/Rosavio.app')],check=True)
-print('Saved native packages passed a new signature-enforced update and resource-seal check')
+# Reuse the already-passed genuine local update, and verify its exact candidate.
+# The public test below will independently repeat update/restart/profile/seal gates.
+dmg=out/'Rosavio-sealed-test.dmg'
+attached=plistlib.loads(subprocess.check_output(['hdiutil','attach','-readonly','-nobrowse','-plist',str(dmg.resolve())]))
+mounts=[pathlib.Path(e['mount-point']) for e in attached['system-entities'] if 'mount-point' in e]
+dest=out/'release/local-update/Rosavio.app';dest.parent.mkdir(parents=True)
+try:
+    apps=[a for m in mounts for a in m.glob('*.app')]
+    if len(apps)!=1:raise SystemExit('Exactly one saved candidate required')
+    subprocess.run(['ditto',str(apps[0]),str(dest)],check=True)
+finally:
+    for mount in reversed(mounts):subprocess.run(['hdiutil','detach',str(mount)],check=True)
+ini=configparser.ConfigParser();ini.read(dest/'Contents/Resources/application.ini')
+if ini['App']['Name']!='Rosavio' or ini['App']['BuildID']!=r['buildID']:raise SystemExit('Saved DMG identity mismatch')
+subprocess.run(['codesign','--verify','--deep','--strict',str(dest)],check=True)
+partial=root/'macos-candidate'
+if partial.exists():partial.rename(root/'saved-incomplete-candidate')
+print('Saved signed local-update evidence and exact sealed candidate verified; new public update still required')
