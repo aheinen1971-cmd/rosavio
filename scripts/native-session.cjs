@@ -6,6 +6,8 @@ module.exports = async function start(binary, profile, port=2844, options={}) {
   fs.writeFileSync(path.join(profile,'user.js'), `user_pref("marionette.port", ${port});\nuser_pref("marionette.prefs.recommended", false);\nuser_pref("remote.prefs.recommended", false);\nuser_pref("app.update.disabledForTesting", false);\nuser_pref("browser.shell.checkDefaultBrowser", false);\nuser_pref("app.update.background.enabled", false);\nuser_pref("app.update.log", true);\nuser_pref("app.update.staging.enabled", ${process.env.ROSAVIO_PRODUCTION_TEST === "1"});\n`);
   const browserEnv={...process.env};
   for(const key of ['ROSAVIO_SIGNING_PASSWORD','ROSAVIO_UPDATE_KEY','ROSAVIO_FLATPAK_SIGNING_KEY','ROSAVIO_FLATPAK_SIGNING_PASSWORD','GH_TOKEN','GITHUB_TOKEN'])delete browserEnv[key];
+  // Firefox 159 requires explicit opt-in in the isolated automation child only.
+  browserEnv.MOZ_REMOTE_ALLOW_SYSTEM_ACCESS='1';
   if(options.desktopEntry){if(process.platform!=='linux')throw Error('Desktop launch is Linux-only');delete browserEnv.MOZ_HEADLESS;}
   if(options.macApp){if(process.platform!=='darwin'||path.resolve(binary)!==path.join(path.resolve(options.macApp),'Contents/MacOS/rosavio'))throw Error('Matching native Mac app required');delete browserEnv.MOZ_HEADLESS;}
   const args=['-no-remote','-profile',profile,'--marionette','--remote-allow-system-access'];
@@ -13,6 +15,7 @@ module.exports = async function start(binary, profile, port=2844, options={}) {
   let launchError;proc.on('error',error=>{launchError=error;});
   proc.stderr.on('data',data=>fs.appendFileSync(path.join(profile,'browser.log'),data));
   let socket, buffer=Buffer.alloc(0), sequence=0, queue=[], waiters=[];
+  try {
   for(let i=0;i<200;i++){
     try{socket=await new Promise((resolve,reject)=>{const sock=net.connect(port,'127.0.0.1',()=>resolve(sock));sock.once('error',reject)});break;}
     catch{if(launchError)throw launchError;await pause(200);}
@@ -28,4 +31,10 @@ module.exports = async function start(binary, profile, port=2844, options={}) {
   let desktopPID=options.desktopEntry&&!options.pidNamespace?(await command('WebDriver:ExecuteScript',{script:'return Services.appinfo.processID;',args:[]})).value:null;
   if(options.desktopEntry&&options.pidNamespace){const rows=execFileSync('flatpak',['ps','--columns=application,pid'],{encoding:'utf8'}).trim().split('\n').map(x=>x.trim().split(/\s+/)).filter(x=>x[0]==='io.github.aheinen1971_cmd.Rosavio');if(rows.length!==1||!/^\d+$/.test(rows[0][1]))throw Error('Cannot identify isolated Flatpak host process');desktopPID=Number(rows[0][1]);}
   return {proc,command,async script(script){return (await command('WebDriver:ExecuteAsyncScript',{script:`const done=arguments[arguments.length-1];(async()=>{${script}})().then(done,error=>done({error:String(error)}));`,args:[]})).value;},async close(){try{await command('Marionette:Quit',{flags:['eForceQuit']});}catch{}socket.destroy();if(proc.exitCode===null)await new Promise(resolve=>{const timer=setTimeout(()=>{if(proc.exitCode===null)proc.kill();resolve();},10000);proc.once('exit',()=>{clearTimeout(timer);resolve();});});if(desktopPID){const alive=()=>{try{return fs.readFileSync('/proc/'+desktopPID+'/stat','utf8').split(') ')[1][0]!=='Z';}catch{return false;}};for(let i=0;i<100&&alive();i++)await pause(100);if(alive())throw Error('Desktop browser did not exit cleanly');}}};
+  } catch(error) {
+    // start() has not returned a session: callers cannot close its child/socket.
+    if(socket)socket.destroy();
+    if(proc.exitCode===null){proc.kill();await new Promise(resolve=>{const timer=setTimeout(resolve,3000);proc.once('exit',()=>{clearTimeout(timer);resolve();});});}
+    throw error;
+  }
 };
