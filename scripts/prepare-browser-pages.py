@@ -4,7 +4,7 @@ import sys,re
 
 source = Path(sys.argv[1])
 assets = Path(__file__).with_name('rosavio-pages')
-for name in ('rosavio-details.html', 'rosavio-details.css', 'rosavio-details.js'):
+for name in ('rosavio-details.html', 'rosavio-details.css', 'rosavio-l10n.js', 'rosavio-details.js'):
     (source / 'browser/base/content' / name).write_text((assets / name).read_text(encoding='utf-8'), encoding='utf-8')
 for name in ('RosavioDetailsParent.sys.mjs', 'RosavioDetailsChild.sys.mjs'):
     (source / 'browser/actors' / name).write_text((assets / name).read_text(encoding='utf-8'), encoding='utf-8')
@@ -72,15 +72,17 @@ menujs = '''document.addEventListener('command', event => {
 });
 window.addEventListener('load', async () => {
   await PanelUI.ensureReady();
-  if (!Services.locale.appLocaleAsBCP47.toLowerCase().startsWith('de')) {
-    PanelUI.mainView.querySelector('#appMenu-rosavio-privacy').setAttribute('label', 'Privacy at a glance');
-    PanelUI.mainView.querySelector('#appMenu-rosavio-updates').setAttribute('label', 'What’s new in Rosavio');
+  const strings = {};
+  Services.scriptloader.loadSubScript('chrome://browser/content/rosavio-l10n.js', strings, 'UTF-8');
+  const l10n = strings.RosavioL10n.forLocale(Services.locale.appLocaleAsBCP47);
+  for (const [id,key] of [['privacy','Privacy at a glance'],['updates','What’s new in Rosavio'],['extensions','Rosavio Extensions']]) {
+    PanelUI.mainView.querySelector('#appMenu-rosavio-'+id).setAttribute('label', l10n.text(key));
   }
 }, {once:true});'''
 (source / 'browser/base/content/rosavio-details-menu.js').write_text(menujs, encoding='utf-8')
 jar = source / 'browser/base/jar.mn'
 s = jar.read_text(encoding='utf-8')
-for name in ('rosavio-details.html', 'rosavio-details.css', 'rosavio-details.js', 'rosavio-details-menu.js'):
+for name in ('rosavio-details.html', 'rosavio-details.css', 'rosavio-l10n.js', 'rosavio-details.js', 'rosavio-details-menu.js'):
     line = f'        content/browser/{name} (content/{name})'
     if line not in s:
         s += '\n' + line + '\n'
@@ -93,5 +95,5 @@ if 'chrome://browser/content/rosavio-details-menu.js' not in s:
         raise SystemExit('Browser script anchor changed')
     s = s.replace(anchor, anchor + '\n  <script src="chrome://browser/content/rosavio-details-menu.js"></script>', 1)
     browser.write_text(s, encoding='utf-8')
-print('Read-only privacy overview and bundled release notes prepared (German/English fallback).')
+print('Read-only privacy overview and bundled release notes prepared (20 bundled interface languages).')
 
