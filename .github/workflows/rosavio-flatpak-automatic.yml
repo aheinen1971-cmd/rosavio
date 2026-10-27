@@ -27,6 +27,8 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
+      - name: Verify delayed dispatch discovery and correlation safeguards
+        run: python3 tests/test_flatpak_dispatch.py
       - name: Build only newer tested Linux versions and verify full public Flatpak delivery
         env:
           GH_TOKEN: ${{ github.token }}
@@ -36,6 +38,8 @@ jobs:
         if: always()
         with:
           name: rosavio-flatpak-automatic-report-${{ github.run_id }}
-          path: flatpak-automatic-report.json
+          path: |
+            flatpak-automatic-report.json
+            flatpak-dispatch-diagnostic.json
           retention-days: 7
           if-no-files-found: warn
