@@ -1,0 +1,94 @@
+name: Rosavio saved macOS package verification
+on:
+  workflow_dispatch:
+    inputs:
+      source_run:
+        type: string
+        required: true
+      platform:
+        type: choice
+        options: [macos-arm64, macos-x64]
+        required: true
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: rosavio-macos-public-${{ inputs.platform }}
+  cancel-in-progress: false
+jobs:
+  recover:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    runs-on: ${{ inputs.platform == 'macos-arm64' && 'macos-15' || 'macos-15-intel' }}
+    timeout-minutes: 70
+    env:
+      ROSAVIO_MAC_PLATFORM: ${{ inputs.platform }}
+      ROSAVIO_MAC_DESKTOP_TEST: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Require completed main native build and successful signed local update
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN: ${{ inputs.source_run }}
+        run: |
+          python - <<'PY'
+          import json,os,subprocess
+          source=os.environ['SOURCE_RUN'];platform=os.environ['ROSAVIO_MAC_PLATFORM']
+          if not source.isdecimal():raise SystemExit('Invalid source run')
+          def api(path):return json.loads(subprocess.check_output(['gh','api','repos/aheinen1971-cmd/rosavio/'+path]))
+          r=api('actions/runs/'+source)
+          if r['status']!='completed' or r['path']!='.github/workflows/rosavio-macos-automatic.yml' or r['head_branch']!='main' or r['head_repository']['full_name']!='aheinen1971-cmd/rosavio':raise SystemExit('Completed trusted native source required')
+          jobs=api('actions/runs/'+source+'/jobs?per_page=100')['jobs']
+          matches=[j for j in jobs if j['name']=='release ('+platform+')']
+          if len(matches)!=1:raise SystemExit('Exactly one matching native job required')
+          steps={s['name']:s['conclusion'] for s in matches[0]['steps']}
+          for name in ['Build two genuine native versions and test twenty languages','Seal applications, sign MAR and test local native update']:
+            if steps.get(name)!='success':raise SystemExit('Native build and signed local update must have passed')
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          name: rosavio-macos-automatic-${{ inputs.platform }}-${{ inputs.source_run }}
+          path: .
+          run-id: ${{ inputs.source_run }}
+          github-token: ${{ github.token }}
+      - name: Prepare isolated Python dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Repeat genuine local signed update from saved sealed packages
+        run: python scripts/recover-macos-local-test.py
+      - name: Prepare candidate with authenticated release metadata
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/prepare-macos-public-inputs.py
+      - name: Verify public signed update and complete profile preservation
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/publish-macos-test.py
+      - name: Promote only complete tested recovery
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json,pathlib,subprocess
+          r=json.loads(pathlib.Path('macos-candidate/release/public-update-test.json').read_text())
+          if not all(r.get(k) for k in ['passed','publicUpdateTestPassed','resourceSealAfterPublicUpdateVerified','macLaunchServicesStartPassed','browserPagesAfterUpdatePassed']) or r.get('finderDockIconExtensionSecurityChecksPending',True):raise SystemExit('Recovery verification incomplete')
+          if not r['preservationAfter']['extension']['containerTabLoaded'] or not all(x['value'] for x in r['preservationAfter']['protection']) or not all(x['checked'] for x in r['preservationAfter']['protectionUI']):raise SystemExit('Profile preservation incomplete')
+          notes=pathlib.Path('macos-recovery-notes.txt');notes.write_text('Rosavio macOS: twenty interface languages, privacy overview and bundled release notes. Saved sealed native packages verified through a new local and public signed update/restart, app resource seal, Launch Services start, original icons, bookmarks toolbar, Containers and active protection preservation. NOT notarized by Apple; macOS may block first launch and require an informed user decision. No OS protection is disabled. No physical Finder/Dock click is claimed.')
+          subprocess.run(['gh','release','edit',r['releaseTag'],'--repo','aheinen1971-cmd/rosavio','--latest=false','--prerelease=false','--notes-file',str(notes)],check=True)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rosavio-macos-recovery-${{ inputs.platform }}-${{ github.run_id }}
+          path: |
+            macos-candidate/release/*.json
+            macos-candidate/release/*.png
+            macos-candidate/release/public-browser-pages-check/*.json
+            macos-candidate/release/public-browser-pages-check/*.png
+            candidate-icons/*
+            updated-icons/*
+          retention-days: 7
+          if-no-files-found: warn

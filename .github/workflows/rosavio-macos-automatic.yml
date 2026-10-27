@@ -123,6 +123,8 @@ jobs:
         run: python scripts/cloud-unix-sign-test.py '${{ matrix.platform }}'
       - name: Prepare fresh candidate and previous public baseline
         if: matrix.replay_run == ''
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: python scripts/prepare-macos-public-inputs.py
       - name: Public signed update, Launch Services, icons and preserved profile
         env:
