@@ -1,7 +1,8 @@
 'use strict';
-const english = !navigator.language.toLowerCase().startsWith('de');
-const pick = (de, en) => english ? en : de;
-document.documentElement.lang = english ? 'en' : 'de';
+const l10n = RosavioL10n.forLocale(navigator.language);
+const pick = (de, en) => l10n.text(en);
+document.documentElement.lang = l10n.locale;
+document.documentElement.dir = l10n.dir;
 const privacy = location.href === 'about:rosavio-privacy';
 const title = pick(privacy ? 'Datenschutz im Überblick' : 'Neues in Rosavio', privacy ? 'Privacy at a glance' : 'What’s new in Rosavio');
 document.title = title + ' · Rosavio';
@@ -53,11 +54,11 @@ function render(s) {
     const section = element('section', null, 'note');
     section.append(element('h2', pick('Neu in dieser Ausgabe', 'New in this edition')));
     const list = element('ul');
-    for (const text of [pick('Datenschutz im Überblick: aktive Schutzoptionen und verständliche Erklärungen an einem Ort.', 'Privacy at a glance: active protections and clear explanations in one place.'), pick('Versionshinweise direkt in Rosavio, ohne eine externe Seite laden zu müssen.', 'Release notes inside Rosavio, without loading an external page.'), pick('Schnelle Wege zu den bestehenden Datenschutz- und Erweiterungseinstellungen.', 'Quick links to the existing privacy and extension settings.')]) list.append(element('li', text));
+    for (const text of [l10n.text('Privacy overview, release notes and the extension catalogue interface are available in all 20 Rosavio languages.'), pick('Datenschutz im Überblick: aktive Schutzoptionen und verständliche Erklärungen an einem Ort.', 'Privacy at a glance: active protections and clear explanations in one place.'), pick('Versionshinweise direkt in Rosavio, ohne eine externe Seite laden zu müssen.', 'Release notes inside Rosavio, without loading an external page.'), pick('Schnelle Wege zu den bestehenden Datenschutz- und Erweiterungseinstellungen.', 'Quick links to the existing privacy and extension settings.')]) list.append(element('li', text));
     section.append(list, element('p', pick('Vorhandene Einstellungen werden durch diese Seiten nicht zurückgesetzt.', 'These pages do not reset your existing settings.'))); content.append(section);
     const update = element('section', null, 'note'); update.append(element('h2', pick('So kommen Updates zu dir', 'How updates reach you')), element('p', s.updateAllowed ? pick('Rosavio prüft über seinen eigenen Update-Kanal auf neue Ausgaben. Im Menü Hilfe → Über Rosavio kannst du die Prüfung öffnen. Diese Hinweise beschreiben die installierte Ausgabe. Neuere Veröffentlichungen findest du über den Link unten.', 'Rosavio checks its own update channel for new editions. Open Help → About Rosavio to check. These notes describe the installed edition. Find newer published releases using the link below.') : pick('Der eingebaute Updater wird durch eine Richtlinie verwaltet. Bei Flatpak kommen Updates über die Softwareverwaltung oder „flatpak update“. In anderen verwalteten Installationen frage die zuständige Administration.', 'The built-in updater is managed by policy. Flatpak updates arrive through the software manager or “flatpak update”. For other managed installations, ask your administrator.')), element('p', pick('macOS-Ausgaben sind nicht von Apple notarisiert. macOS kann den ersten Start blockieren oder eine persönliche Freigabe verlangen.', 'macOS editions are not notarized by Apple. macOS may block the first launch or require your approval.')), link(pick('Alle veröffentlichten Versionen auf GitHub', 'All published releases on GitHub'), 'https://github.com/aheinen1971-cmd/rosavio/releases')); content.append(update);
   }
-  const meta = element('p', pick('Diese Installation: Rosavio ', 'This installation: Rosavio ') + s.version + ' · Build ' + s.buildID, 'meta'); meta.id = 'build'; content.append(meta);
+  const meta = element('p', pick('Diese Installation: Rosavio ', 'This installation: Rosavio ').trimEnd() + ' ' + s.version + ' · Build ' + s.buildID, 'meta'); meta.id = 'build'; content.append(meta);
   status.textContent = pick('Aktueller Stand aus diesem Browser. Nach Änderungen kannst du die Anzeige aktualisieren.', 'Current values from this browser. Refresh the overview after changing settings.');
   document.documentElement.dataset.ready = 'true';
 }
