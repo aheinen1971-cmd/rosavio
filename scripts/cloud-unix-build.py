@@ -39,8 +39,9 @@ if a.platform=='macos-x64':
     with tarfile.open(archive) as tf:
         for member in tf:
             name=pathlib.PurePosixPath(member.name)
+            if member.name=='.' and member.isdir():continue
             if name.is_absolute() or '..' in name.parts or not name.parts or name.parts[0]!=f'firefox-{version}':
-                raise SystemExit('Unsafe official source archive path')
+                raise SystemExit('Unsafe official source archive path: '+member.name)
             if member.issym() or member.islnk():
                 target=pathlib.PurePosixPath(member.linkname)
                 if target.is_absolute():raise SystemExit('Unsafe source archive link')
