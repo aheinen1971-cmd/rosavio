@@ -7,7 +7,7 @@ on:
         default: false
         description: Rebuild and verify even if the stable Firefox version is unchanged
   schedule:
-    - cron: '0 18 * * *'
+    - cron: '17 * * * *'
       timezone: 'Europe/Berlin'
 permissions:
   contents: read

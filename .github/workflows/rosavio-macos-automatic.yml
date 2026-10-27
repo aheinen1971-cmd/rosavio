@@ -7,7 +7,7 @@ on:
         type: boolean
         default: false
       platform:
-        description: Platform to verify; all for normal daily operation
+        description: Platform to verify; all for normal hourly operation
         type: choice
         options: [all, macos-arm64, macos-x64]
         default: all
@@ -20,7 +20,7 @@ on:
         type: string
         default: ''
   schedule:
-    - cron: '0 18 * * *'
+    - cron: '17 * * * *'
       timezone: 'Europe/Berlin'
 permissions:
   contents: read
