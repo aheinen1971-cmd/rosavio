@@ -57,7 +57,7 @@ jobs:
           github-token: ${{ github.token }}
       - name: Prepare isolated Python dependencies
         run: python -m pip install -r requirements.txt
-      - name: Repeat genuine local signed update from saved sealed packages
+      - name: Verify saved candidate and passed signed local update evidence
         run: python scripts/recover-macos-local-test.py
       - name: Prepare candidate with authenticated release metadata
         env:
