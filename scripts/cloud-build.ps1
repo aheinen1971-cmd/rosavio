@@ -22,7 +22,16 @@ Write-Output 'Phase: check official Firefox release and previous Rosavio release
 $rosavioVersions = Invoke-RestMethod 'https://product-details.mozilla.org/1.0/firefox_versions.json' -TimeoutSec 60
 $rosavioVersion = $rosavioVersions.LATEST_FIREFOX_VERSION
 if ($rosavioVersion -notmatch '^\d+\.\d+(\.\d+)?$') { throw 'Invalid stable version' }
-$rosavioPublished = Invoke-RestMethod 'https://api.github.com/repos/aheinen1971-cmd/rosavio/releases/latest' -TimeoutSec 60
+if (-not $env:GH_TOKEN) { throw 'Scoped GitHub token required for release metadata' }
+try {
+    $rosavioPublishedJson = gh api repos/aheinen1971-cmd/rosavio/releases/latest
+    if ($LASTEXITCODE -ne 0) { throw 'Cannot read authenticated GitHub release metadata' }
+    $rosavioPublished = $rosavioPublishedJson | ConvertFrom-Json
+    if (-not $rosavioPublished.tag_name) { throw 'GitHub release metadata has no tag' }
+} finally {
+    # The credential is needed only for metadata, never by build tools or browsers.
+    Remove-Item Env:GH_TOKEN -ErrorAction SilentlyContinue
+}
 $rosavioFeedResponse = Invoke-WebRequest 'https://github.com/aheinen1971-cmd/rosavio/releases/latest/download/rosavio-win64-update.xml' -TimeoutSec 60
 $rosavioFeedText = if ($rosavioFeedResponse.Content -is [byte[]]) { [Text.Encoding]::UTF8.GetString($rosavioFeedResponse.Content) } else { $rosavioFeedResponse.Content }
 [xml]$rosavioFeed = $rosavioFeedText
