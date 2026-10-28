@@ -10,7 +10,9 @@ fs.writeFileSync(path.join(profile,'user.js'),[
  'user_pref("browser.startup.page", 0);'
 ].join('\n'));
 const browserEnv={...process.env};
-delete browserEnv.ROSAVIO_SIGNING_PASSWORD;
+for(const key of ['ROSAVIO_SIGNING_PASSWORD','ROSAVIO_UPDATE_KEY','ROSAVIO_FLATPAK_SIGNING_KEY','ROSAVIO_FLATPAK_SIGNING_PASSWORD','GH_TOKEN','GITHUB_TOKEN','ROSAVIO_KEY_PATH'])delete browserEnv[key];
+// Explicit Firefox 159 opt-in for this isolated automation child only.
+browserEnv.MOZ_REMOTE_ALLOW_SYSTEM_ACCESS='1';
 const proc=spawn(binary,['-headless','-no-remote','-profile',profile,'--marionette','--remote-allow-system-access'],{env:browserEnv,stdio:['ignore','ignore','pipe']});
 let sock,buffer=Buffer.alloc(0),queue=[],waiters=[],sequence=0;
 proc.stderr.on('data',data=>fs.appendFileSync(path.join(base,'native-smoke-browser.log'),data));
