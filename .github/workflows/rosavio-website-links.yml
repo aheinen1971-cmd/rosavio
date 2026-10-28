@@ -2,7 +2,7 @@ name: Rosavio verified website download links
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ['Rosavio automatic Windows release', 'Rosavio automatic Linux release', 'Rosavio automatic macOS release', 'Rosavio saved macOS package verification']
+    workflows: ['Rosavio automatic Windows release', 'Rosavio automatic Linux release', 'Rosavio automatic macOS release', 'Rosavio saved macOS package verification', 'Rosavio automatic Flatpak release', 'Rosavio public Flatpak installation and update trial']
     types: [completed]
 permissions:
   contents: write
