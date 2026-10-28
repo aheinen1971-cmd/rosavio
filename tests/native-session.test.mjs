@@ -4,8 +4,19 @@ import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import {EventEmitter} from 'node:events';
+import {pathToFileURL} from 'node:url';
 
 const source=fs.readFileSync(new URL('../scripts/native-session.cjs',import.meta.url),'utf8');
+test('standalone Windows checker isolates system-access opt-in and excludes signing credentials',()=>{
+  const env={GH_TOKEN:'test-token',GITHUB_TOKEN:'test-token',ROSAVIO_UPDATE_KEY:'test-key',ROSAVIO_SIGNING_PASSWORD:'test-password',ROSAVIO_FLATPAK_SIGNING_KEY:'test-key',ROSAVIO_FLATPAK_SIGNING_PASSWORD:'test-password',ROSAVIO_KEY_PATH:'test-path'};
+  let captured;
+  const mocks={fs:{mkdirSync(){},writeFileSync(){}},path,net:{},url:{pathToFileURL},child_process:{spawn(binary,args,options){captured=options.env;throw Error('test stops before launching');}}};
+  const code=fs.readFileSync(new URL('../scripts/check-native.cjs',import.meta.url),'utf8');
+  assert.throws(()=>vm.runInNewContext(code,{require:n=>mocks[n],process:{argv:['node','check-native','test-browser','test-profile'],env}}),/test stops before launching/);
+  assert.equal(captured.MOZ_REMOTE_ALLOW_SYSTEM_ACCESS,'1');
+  assert.equal(env.MOZ_REMOTE_ALLOW_SYSTEM_ACCESS,undefined);
+  for(const key of Object.keys(env))assert.equal(captured[key],undefined,key);
+});
 function harness(failContext=false){
   const env={GH_TOKEN:'test-token',ROSAVIO_SIGNING_PASSWORD:'test-password',KEEP:'yes'};
   const child=new EventEmitter();child.stderr=new EventEmitter();child.exitCode=null;
