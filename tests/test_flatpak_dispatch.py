@@ -30,4 +30,22 @@ class DiscoveryTests(unittest.TestCase):
  def test_matching_failed_run_still_requires_success(self):
   with patch.object(m,'ghjson',return_value={'status':'completed','conclusion':'failure','html_url':'https://github.com/example'}):
    with self.assertRaisesRegex(SystemExit,'Downstream verification failed'):m.wait_run(123)
+ def test_release_metadata_uses_authenticated_api_and_unchanged_build_skips(self):
+  import io,json
+  tag='v159.0-rosavio-linux-x64.40589644153';build='20261028000404'
+  feed=f'<updates><update buildID="{build}"><patch URL="https://github.com/{m.REPO}/releases/download/{tag}/rosavio.complete.mar"/></update></updates>'
+  current={'passed':True,'desktopIconAndExtensionTestsPending':False,'newBuildID':build,'newNativeRelease':tag}
+  cwd=os.getcwd()
+  with tempfile.TemporaryDirectory() as d:
+   try:
+    os.chdir(d)
+    with patch.dict(os.environ,{'GITHUB_ACTIONS':'true','GITHUB_REPOSITORY':m.REPO,'REUSE_PREPARATION':''}),patch.object(m.urllib.request,'urlopen',return_value=io.BytesIO(feed.encode())) as public,patch.object(m,'ghjson',return_value={'draft':False,'prerelease':False}) as api,patch.object(m,'getjson',return_value=current) as report,patch.object(m,'dispatch') as dispatch,patch('builtins.print'):
+     with self.assertRaises(SystemExit) as result:m.main()
+     self.assertEqual(result.exception.code,0)
+     api.assert_called_once_with('api',f'repos/{m.REPO}/releases/tags/'+tag)
+     self.assertNotIn('api.github.com',public.call_args.args[0])
+     self.assertNotIn('api.github.com',report.call_args.args[0])
+     dispatch.assert_not_called()
+     self.assertEqual(json.loads(pathlib.Path('flatpak-automatic-report.json').read_text())['action'],'no newer tested Linux build')
+   finally:os.chdir(cwd)
 if __name__=='__main__':unittest.main()
