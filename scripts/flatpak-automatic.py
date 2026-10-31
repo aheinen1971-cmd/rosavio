@@ -52,7 +52,7 @@ def main():
   build=update.attrib['buildID'];url=update.find('patch').attrib['URL']
   match=re.fullmatch(r'https://github.com/aheinen1971-cmd/rosavio/releases/download/(v\d+(?:\.\d+){1,3}-rosavio-linux-x64\.\d+)/[^/]+\.complete\.mar',url)
   if not match or not re.fullmatch(r'\d{14}',build):raise SystemExit('Invalid native Linux feed')
-  latest=getjson(f'https://api.github.com/repos/{REPO}/releases/tags/'+match[1])
+  latest=ghjson('api',f'repos/{REPO}/releases/tags/'+match[1])
   if latest['prerelease'] or latest['draft']:raise SystemExit('Native Linux release not fully published')
   current=getjson(f'https://github.com/{REPO}/releases/download/rosavio-flatpak-repository/public-update-report.json')
   if not current.get('passed') or current.get('desktopIconAndExtensionTestsPending',True):raise SystemExit('Complete first Flatpak verification before automatic updates')
