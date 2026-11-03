@@ -23,7 +23,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   public-update:
-    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    if: ${{ false }} # macOS maintenance retired by owner on 2026-11-03
     runs-on: ${{ inputs.platform == 'macos-arm64' && 'macos-15' || 'macos-15-intel' }}
     timeout-minutes: 45
     steps:

@@ -19,9 +19,6 @@ on:
         description: Optional successful Intel repack for an isolated automation trial
         type: string
         default: ''
-  schedule:
-    - cron: '17 * * * *'
-      timezone: 'Europe/Berlin'
 permissions:
   contents: read
 concurrency:
@@ -29,7 +26,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   check:
-    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false
+    if: ${{ false }} # macOS maintenance retired by owner on 2026-11-03
     runs-on: ubuntu-24.04
     outputs:
       build: ${{ steps.version.outputs.build }}
@@ -65,7 +62,7 @@ jobs:
           PY
   release:
     needs: check
-    if: needs.check.outputs.build == 'true'
+    if: ${{ false }} # macOS maintenance retired by owner on 2026-11-03
     concurrency:
       group: rosavio-macos-public-${{ matrix.platform }}
       cancel-in-progress: false

@@ -52,9 +52,7 @@ def collect():
     published={}
     for platform,label,workflow,jobname in [
         ('windows','Windows','rosavio-build.yml','release'),
-        ('linux-x64','Linux','rosavio-linux-automatic.yml','release'),
-        ('macos-x64','macOS Intel','rosavio-macos-automatic.yml','release (macos-x64)'),
-        ('macos-arm64','macOS Apple Silicon','rosavio-macos-automatic.yml','release (macos-arm64)')]:
+        ('linux-x64','Linux','rosavio-linux-automatic.yml','release')]:
         try:
             pattern=r'v[0-9.]+-rosavio'+('' if platform=='windows' else '-'+platform)+r'\.\d+'
             candidates=[r for r in regular if re.fullmatch(pattern,r['tag_name'])]
@@ -97,7 +95,7 @@ def collect():
         count=0
         for lang in ['index','en','fr','es','nl','it','pt-PT','pl','cs','da','sv-SE','nb-NO','fi','tr','uk','el','ja','ko','ar','he']:
             with urllib.request.urlopen('https://aheinen1971-cmd.github.io/rosavio/'+lang+'.html',timeout=30) as response:html=response.read().decode('utf-8')
-            for platform in ('linux-x64','macos-x64','macos-arm64'):
+            for platform in ('linux-x64',):
                 if platform not in published or published[platform]['tag_name'] not in html:raise ValueError('Download links not current')
             count+=1
         rows.append(row('Webseite · 20 Sprachen','green','20 Seiten','Erreichbar; Links entsprechen den geprüften Unix-Releases','https://aheinen1971-cmd.github.io/rosavio/'))
@@ -116,10 +114,11 @@ def collect():
         rows.append(row('Weitersehen · Mozilla-Katalog','green',version['version'],'Öffentlicher Katalog und offizieller Download vorhanden','https://addons.mozilla.org/de/firefox/addon/rosavio-weitersehen/'))
     except Exception:
         rows.append(row('Weitersehen · Mozilla-Katalog','gray','0.1.2 eingereicht','Öffentliche Freigabe nicht bestätigt. Interner Prüfstatus ist ohne Anmeldung nicht abrufbar.'))
+    rows.append(row('macOS','neutral','Pflege eingestellt','Seit 03.11.2026 keine weitere Pflege oder Sicherheitsupdates. Bereits laufende Altaufträge dürfen enden; keine Wiederaufnahme.'))
     assets=[a for r in regular for a in r['assets'] if a['name'] in ('Rosavio-Setup-Deutsch.exe','Rosavio-Linux-x64.tar.xz','Rosavio.dmg')]
     rows.append(row('Paketdownloads','neutral',str(sum(a['download_count'] for a in assets)),'GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.'))
     rows.append(row('Fehlerübersicht','red' if any(r['state']=='red' for r in rows) else 'neutral','—','Siehe rote Zeilen. Laufstatus und öffentliche Metadaten können nicht alle Browserfehler erkennen.'))
-    order=['Windows','Linux','Flatpak','macOS Intel','macOS Apple Silicon']
+    order=['Windows','Linux','Flatpak','macOS']
     rows.sort(key=lambda r:order.index(r['label']) if r['label'] in order else len(order))
     return data
 

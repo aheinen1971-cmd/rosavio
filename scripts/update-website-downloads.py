@@ -66,7 +66,7 @@ def main():
     with urllib.request.urlopen(BASE+'rosavio-flatpak-repository/public-update-report.json',timeout=60) as response:flatpak=json.load(response)
     if not all(flatpak.get(k) is True for k in ('passed','publicUpdateTestPassed','gpgVerificationRequired','browserPagesAfterUpdatePassed')):raise ValueError('Verified Flatpak release required')
     versions['Flatpak']=version_of(flatpak['newNativeRelease'])
-    for platform,filename in [('linux-x64','Rosavio-Linux-x64.tar.xz'),('macos-arm64','Rosavio.dmg'),('macos-x64','Rosavio.dmg')]:
+    for platform,filename in [('linux-x64','Rosavio-Linux-x64.tar.xz')]:
         candidates=[r for r in releases if re.fullmatch(r'v[0-9.]+-rosavio-'+platform+r'\.\d+',r['tag_name']) and not r['draft'] and not r['prerelease']]
         if not candidates:raise ValueError('Missing regular release: '+platform)
         # Publication order can differ from build order; use verified BuildIDs.
@@ -85,6 +85,7 @@ def main():
     pending=[]
     for page in pages:
         source=page.read_text(encoding='utf-8-sig')
+        if 'Rosavio.dmg' in source:raise ValueError('Retired Mac download must not be promoted')
         for m in PATTERN.finditer(source):
             if m[1] not in builds:
                 release=api('releases/tags/'+m[1]);platform=next(p for p in targets if f'-rosavio-{p}.' in m[1])
