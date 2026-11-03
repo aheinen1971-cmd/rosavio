@@ -11,7 +11,7 @@ async function check(session,root,options={}){
  async function prefs(value){await session.command('Marionette:SetContext',{value:'chrome'});return session.script(`const names=${JSON.stringify(names)};${value===undefined?'':`for(const name of names)Services.prefs.setBoolPref(name,${value});`}return Object.fromEntries(names.map(n=>[n,Services.prefs.getBoolPref(n)]));`);}
  async function page(url,screenshot){
   console.log('Checking '+url);
-  await session.command('Marionette:SetContext',{value:'content'});
+  await require('./select-test-content.cjs')(session);
   await session.command('WebDriver:Navigate',{url});
   let data;
   for(let i=0;i<40;i++){

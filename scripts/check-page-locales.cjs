@@ -10,7 +10,8 @@ module.exports=async function checkPageLocales(session,locale,root,options={}){
   for(const [id,key] of expected)if(menu[id==='addons'?'extensions':id]!==words[key])throw Error('Menu translation mismatch: '+locale+' '+id+': '+JSON.stringify(menu));
  }
  for(const [page,key] of expected){
-  await session.command('Marionette:SetContext',{value:'content'});
+  console.log('Checking localized page: '+locale+' '+page);
+  await require('./select-test-content.cjs')(session);
   await session.command('WebDriver:Navigate',{url:'about:rosavio-'+page});
   let view;
   for(let attempt=0;attempt<50;attempt++){
