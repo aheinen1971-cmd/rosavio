@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-03T19:58:16.691501+00:00",
+  "checkedAt": "2026-11-03T20:04:37.069805+00:00",
   "rows": [
     {
       "label": "Windows",
       "state": "yellow",
       "version": "159.0 → 159.0.1",
       "detail": "Bau / Prüfungen laufen",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41669346418"
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41708122497"
     },
     {
       "label": "Linux",
