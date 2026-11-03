@@ -1,5 +1,5 @@
 'use strict';
-const endpoint='https://api.github.com/repos/aheinen1971-cmd/rosavio/releases/tags/rosavio-status-dashboard';
+const endpoint='https://raw.githubusercontent.com/aheinen1971-cmd/rosavio/rosavio-status-data/status.json';
 const labels={green:'🟢 Bestätigt',yellow:'🟡 In Arbeit / wartet',red:'🔴 Problem',gray:'⚪ Nicht bestätigt',neutral:'ℹ️ Information'};
 let busy=false,last=null;
 function ageNotice(){
@@ -36,7 +36,7 @@ function render(data){
 }
 async function refresh(){
  if(busy)return;busy=true;document.getElementById('refresh').disabled=true;
- try{const response=await fetch(endpoint,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}});if(!response.ok)throw Error('HTTP '+response.status);const release=await response.json();render(JSON.parse(release.body));}
+ try{const response=await fetch(endpoint,{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);render(await response.json());}
  catch(error){const el=document.getElementById('notice');el.className='warning';el.textContent='Aktueller Abruf nicht möglich. '+(last?'Die Tabelle zeigt den letzten abgerufenen Stand.':'Bitte später erneut abrufen.');}
  finally{busy=false;document.getElementById('refresh').disabled=false;}
 }

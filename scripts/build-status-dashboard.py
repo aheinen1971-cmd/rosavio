@@ -122,6 +122,25 @@ def collect():
     rows.sort(key=lambda r:order.index(r['label']) if r['label'] in order else len(order))
     return data
 
+def publish_static(snapshot):
+    """Publish only public JSON on a separate data branch, never main or a feed."""
+    branch='rosavio-status-data'
+    def request(route, method='GET', payload=None, missing=False):
+        args=['gh','api','--method',method,'repos/'+REPO+'/'+route]
+        if payload is not None: args+=['--input','-']
+        result=subprocess.run(args,input=json.dumps(payload) if payload is not None else None,capture_output=True,text=True)
+        if result.returncode:
+            if missing and '(HTTP 404)' in result.stderr:return None
+            raise RuntimeError('Status data publication failed: '+route)
+        return json.loads(result.stdout)
+    head=request('git/ref/heads/'+branch,missing=True)
+    tree=request('git/trees','POST',{'tree':[{'path':'status.json','mode':'100644','type':'blob','content':json.dumps(snapshot,ensure_ascii=False,indent=2)}]})
+    commit=request('git/commits','POST',{'message':'Refresh public Rosavio status','tree':tree['sha'],'parents':[head['object']['sha']] if head else []})
+    if head:
+        request('git/refs/heads/'+branch,'PATCH',{'sha':commit['sha'],'force':False})
+    else:
+        request('git/refs','POST',{'ref':'refs/heads/'+branch,'sha':commit['sha']})
+
 def main():
     snapshot=collect()
     pathlib.Path('status-snapshot.json').write_text(json.dumps(snapshot,ensure_ascii=False,indent=2),encoding='utf-8')
@@ -131,5 +150,6 @@ def main():
     exists=subprocess.run(['gh','release','view',TAG,'--repo',REPO],capture_output=True).returncode==0
     args=['gh','release','edit' if exists else 'create',TAG,'--repo',REPO,'--title','Rosavio status data','--notes-file','status-snapshot.json','--prerelease','--latest=false']
     subprocess.run(args,check=True)
+    publish_static(snapshot)
 
 if __name__=='__main__':main()
