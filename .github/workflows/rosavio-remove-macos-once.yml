@@ -1,0 +1,78 @@
+name: Rosavio authorized macOS removal
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/rosavio-remove-macos-once.yml']
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: rosavio-remove-macos-once
+  cancel-in-progress: false
+jobs:
+  remove:
+    if: github.repository == 'aheinen1971-cmd/rosavio'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Remove only explicitly authorized retired Mac resources
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json,os,re,subprocess,time,urllib.parse,pathlib
+          REPO='aheinen1971-cmd/rosavio'
+          assert os.environ.get('GITHUB_ACTIONS')=='true' and os.environ.get('GITHUB_REPOSITORY')==REPO
+          def api(path,method='GET'):
+           p=subprocess.run(['gh','api','--method',method,'repos/'+REPO+'/'+path],capture_output=True,text=True)
+           if p.returncode:raise RuntimeError(method+' '+path+' failed: '+p.stderr)
+           return json.loads(p.stdout) if p.stdout.strip() else None
+          def pages(path,key=None):
+           out=[]
+           for n in range(1,101):
+            d=api(path+('&' if '?' in path else '?')+f'per_page=100&page={n}');batch=d[key] if key else d;out+=batch
+            if len(batch)<100:return out
+           raise RuntimeError('Incomplete pagination')
+          paths={'.github/workflows/rosavio-macos-'+s+'.yml' for s in ['automatic','public','recovery','repack','audit']}
+          tagmatch=lambda tag:bool(re.fullmatch(r'(?:v[0-9.]+-rosavio-macos-(?:arm64|x64)\.\d+|rosavio-macos-(?:arm64|x64)-latest)',tag))
+          def mac_runs():
+           return [r for p in sorted(paths) for r in pages('actions/workflows/'+p.rsplit('/',1)[1]+'/runs','workflow_runs')]
+          report={'cancelled':[],'releases':[],'tags':[],'runs':[],'artifacts':[]}
+          latest=api('releases/latest')['id']
+          for rid in [41689521045,41659936138]:
+           r=api(f'actions/runs/{rid}');assert r['path'] in paths
+           if r['status']!='completed':api(f'actions/runs/{rid}/cancel','POST');report['cancelled'].append(rid)
+          for _ in range(60):
+           active=[r for r in mac_runs() if r['path'] in paths and r['status']!='completed']
+           if not active:break
+           if any(r['id'] not in [41689521045,41659936138] for r in active):raise RuntimeError('Unexpected active Mac run; requires review')
+           time.sleep(5)
+          else:raise RuntimeError('Mac cancellation not completed; no releases deleted')
+          runs=[r for r in mac_runs() if r['path'] in paths]
+          releases=[r for r in pages('releases') if tagmatch(r['tag_name'])]
+          tags=[t['ref'][10:] for t in api('git/matching-refs/tags/') if tagmatch(t['ref'][10:])]
+          assert all(r['id']!=latest for r in releases)
+          for r in releases:
+           fresh=api('releases/'+str(r['id']));assert fresh['tag_name']==r['tag_name'] and tagmatch(fresh['tag_name'])
+           api('releases/'+str(r['id']),'DELETE');report['releases'].append(r['tag_name'])
+          for tag in tags:api('git/refs/tags/'+urllib.parse.quote(tag,safe=''),'DELETE');report['tags'].append(tag)
+          for r in runs:
+           fresh=api('actions/runs/'+str(r['id']));assert fresh['path'] in paths and fresh['status']=='completed'
+           api('actions/runs/'+str(r['id']),'DELETE');report['runs'].append(r['id'])
+          for a in pages('actions/artifacts','artifacts'):
+           if re.search(r'macos-(?:arm64|x64)',a['name']):
+            api('actions/artifacts/'+str(a['id']),'DELETE');report['artifacts'].append({'id':a['id'],'name':a['name']})
+          assert not any(tagmatch(r['tag_name']) for r in pages('releases'))
+          assert not any(tagmatch(t['ref'][10:]) for t in api('git/matching-refs/tags/'))
+          assert not any(r['path'] in paths for r in mac_runs())
+          assert api('releases/latest')['id']==latest
+          report['passed']=True
+          pathlib.Path('mac-removal-report.json').write_text(json.dumps(report,indent=2))
+          print(json.dumps(report))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mac-removal-audit
+          path: mac-removal-report.json
+          retention-days: 7
