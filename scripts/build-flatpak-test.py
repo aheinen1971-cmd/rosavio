@@ -7,6 +7,8 @@ import configparser, hashlib, json, os, pathlib, re, shutil, subprocess, tarfile
 
 if os.environ.get('GITHUB_ACTIONS')!='true' or os.environ.get('GITHUB_REPOSITORY')!='aheinen1971-cmd/rosavio':
     raise SystemExit('Only the authorized Rosavio test runner may run this script')
+api_token=os.environ.pop('GH_TOKEN','')
+from flatpak_release_metadata import get_release
 ROOT=pathlib.Path.cwd(); OUT=ROOT/'flatpak-results'; OUT.mkdir(exist_ok=True)
 APP='io.github.aheinen1971_cmd.Rosavio'; BRANCH='stable'; RUNTIME='25.08'
 REPO=ROOT/'flatpak-test-repo'; PROFILE=ROOT/'flatpak-profile-tests'; PROFILE.mkdir()
@@ -16,10 +18,8 @@ identity_password=os.environ.pop('ROSAVIO_FLATPAK_SIGNING_PASSWORD','')
 if PRODUCTION and (not private_identity or not identity_password):raise SystemExit('Approved production signing secrets required')
 def run(*args,**kw):return subprocess.run([str(a) for a in args],check=True,**kw)
 def output(*args):return subprocess.check_output([str(a) for a in args],text=True).strip()
-def getjson(url):
-    with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Rosavio-Flatpak-Test'}),timeout=60) as f:return json.load(f)
 def source(tag,label):
-    release=getjson('https://api.github.com/repos/aheinen1971-cmd/rosavio/releases/tags/'+tag)
+    release=get_release(tag,api_token)
     if release['prerelease']:raise SystemExit('Only verified regular Linux releases can be packaged')
     asset=next(x for x in release['assets'] if x['name']=='Rosavio-Linux-x64.tar.xz')
     digest=asset.get('digest','')
@@ -44,6 +44,7 @@ for tag in [oldtag,newtag]:
  if not re.fullmatch(r'v\d+(?:\.\d+){1,3}-rosavio-linux-x64\.\d+',tag):raise SystemExit('Invalid tested Linux release tag')
 baseline,oldid,oldhash=source(oldtag,'flatpak-old-native')
 candidate,newid,newhash=source(newtag,'flatpak-new-native')
+api_token=''
 if oldid>=newid:raise SystemExit('Two distinct genuine builds are required')
 
 with tempfile.TemporaryDirectory(prefix='rosavio-flatpak-test-key-') as keydir:

@@ -20,6 +20,8 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y flatpak flatpak-builder gnupg dbus-x11 xvfb desktop-file-utils
       - name: Build and verify signed isolated Flatpak updates
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: dbus-run-session -- xvfb-run -a python3 scripts/build-flatpak-test.py
       - name: Retain candidate and verification reports
         if: always()

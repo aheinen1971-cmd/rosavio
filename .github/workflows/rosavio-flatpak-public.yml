@@ -30,8 +30,11 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y flatpak flatpak-builder ostree gnupg dbus-x11 xvfb desktop-file-utils
+      - name: Verify authenticated source metadata safeguards
+        run: python3 tests/test_flatpak_source_metadata.py
       - name: Verify protected production identity and signed installation/update
         env:
+          GH_TOKEN: ${{ github.token }}
           ROSAVIO_FLATPAK_PRODUCTION: '1'
           ROSAVIO_FLATPAK_OLD_TAG: ${{ inputs.old_tag }}
           ROSAVIO_FLATPAK_NEW_TAG: ${{ inputs.new_tag }}
