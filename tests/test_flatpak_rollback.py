@@ -4,6 +4,14 @@ from types import SimpleNamespace
 spec=importlib.util.spec_from_file_location('rollback',pathlib.Path(__file__).resolve().parents[1]/'scripts/prepare-flatpak-rollback.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 class Tests(unittest.TestCase):
  def result(self,code=0,out='{"assets":[]}',err=''):return SimpleNamespace(returncode=code,stdout=out,stderr=err)
+ def test_all_rollback_workflow_callers_supply_scoped_auth(self):
+  root=pathlib.Path(__file__).resolve().parents[1]/'.github/workflows'
+  found=[]
+  for f in root.glob('*.yml'):
+   for step in f.read_text(encoding='utf8').split('      - '):
+    if 'scripts/prepare-flatpak-rollback.py' in step:
+     found.append(f.name);self.assertIn('GH_TOKEN: ${{ github.token }}',step,f.name)
+  self.assertEqual(set(found),{'rosavio-pages.yml','rosavio-flatpak-deploy.yml'})
  def test_authenticated_api(self):
   with patch.object(m.subprocess,'run',return_value=self.result()) as p:
    self.assertEqual(m.previous_release(),{'assets':[]});self.assertEqual(p.call_args.args[0],['gh','api','repos/aheinen1971-cmd/rosavio/releases/tags/rosavio-flatpak-repository'])

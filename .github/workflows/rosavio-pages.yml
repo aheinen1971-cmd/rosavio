@@ -23,7 +23,11 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
+      - name: Verify rollback metadata safeguards
+        run: python3 tests/test_flatpak_rollback.py
       - name: Preserve all website languages and last verified signed Flatpak repository
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: python3 scripts/prepare-flatpak-rollback.py site
       - uses: actions/upload-pages-artifact@v3
         with:
