@@ -1,0 +1,44 @@
+'use strict';
+const endpoint='https://api.github.com/repos/aheinen1971-cmd/rosavio/releases/tags/rosavio-status-dashboard';
+const labels={green:'🟢 Bestätigt',yellow:'🟡 In Arbeit / wartet',red:'🔴 Problem',gray:'⚪ Nicht bestätigt',neutral:'ℹ️ Information'};
+let busy=false,last=null;
+function ageNotice(){
+ if(!last)return;
+ const stale=Date.now()-Date.parse(last.checkedAt)>90*60*1000;
+ const el=document.getElementById('notice');
+ el.textContent=stale?'Dieser Prüfstand ist über 90 Minuten alt. Aktuelle Ergebnisse sind noch nicht bestätigt.':'Gespeicherter GitHub-Prüfstand. Nächster Datenabruf dieser Seite automatisch in fünf Minuten.';
+ el.className=stale?'warning':'';
+}
+function render(data){
+ if(data.schema!==1||!Array.isArray(data.rows)||data.rows.length>30||!Number.isFinite(Date.parse(data.checkedAt)))throw Error('Ungültige Statusdaten');
+ const fragment=document.createDocumentFragment();
+ for(const row of data.rows){
+  if(!Object.hasOwn(labels,row.state)||!['label','version','detail'].every(k=>typeof row[k]==='string'))throw Error('Ungültige Statuszeile');
+  const tr=document.createElement('tr');
+  for(const key of ['label','version','state','detail']){
+   const td=document.createElement('td');
+   if(key==='state'){const badge=document.createElement('span');badge.className='badge '+row.state;badge.textContent=labels[row.state];td.append(badge);}
+   else td.textContent=row[key];
+   if(key==='detail'&&row.url){
+    const url=new URL(row.url);
+    if(url.protocol==='https:'&&['github.com','aheinen1971-cmd.github.io','addons.mozilla.org'].includes(url.hostname)){
+     const a=document.createElement('a');a.href=url.href;a.textContent='Details ansehen ↗';a.target='_blank';a.rel='noopener noreferrer';a.className='details-link';td.append(a);
+    }
+   }
+   tr.append(td);
+  }
+  fragment.append(tr);
+ }
+ document.getElementById('rows').replaceChildren(fragment);
+ document.getElementById('upstream').textContent=data.upstream||'—';
+ document.getElementById('checked').textContent=new Intl.DateTimeFormat('de-DE',{dateStyle:'medium',timeStyle:'short',timeZone:'Europe/Berlin'}).format(new Date(data.checkedAt));
+ last=data;ageNotice();
+}
+async function refresh(){
+ if(busy)return;busy=true;document.getElementById('refresh').disabled=true;
+ try{const response=await fetch(endpoint,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}});if(!response.ok)throw Error('HTTP '+response.status);const release=await response.json();render(JSON.parse(release.body));}
+ catch(error){const el=document.getElementById('notice');el.className='warning';el.textContent='Aktueller Abruf nicht möglich. '+(last?'Die Tabelle zeigt den letzten abgerufenen Stand.':'Bitte später erneut abrufen.');}
+ finally{busy=false;document.getElementById('refresh').disabled=false;}
+}
+document.getElementById('refresh').addEventListener('click',refresh);
+refresh();setInterval(refresh,300000);
