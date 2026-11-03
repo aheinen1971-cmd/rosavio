@@ -135,4 +135,5 @@ subprocess.run([sys.executable, str(project / 'scripts/create-icons.py'), str(br
 (source / 'rosavio-build.json').write_text(json.dumps({'name': 'Rosavio', 'upstreamVersion': version, 'updateOrigin': origin, 'updateUrl': update_url, 'githubRepo': args.github_repo, 'localTest': args.local_test, 'signedUpdatesRequired': True}, indent=2))
 subprocess.run([sys.executable, str(project / 'scripts/prepare-extensions.py'), str(source)], check=True)
 subprocess.run([sys.executable, str(project / 'scripts/prepare-browser-pages.py'), str(source)], check=True)
+subprocess.run([sys.executable, str(project / 'scripts/prepare-workspace.py'), str(source)], check=True)
 print(f'Rosavio overlay applied to Firefox {version}. Update origin: {origin}')

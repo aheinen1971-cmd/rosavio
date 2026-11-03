@@ -102,12 +102,13 @@ with tempfile.TemporaryDirectory(prefix='rosavio-flatpak-test-key-') as keydir:
     newcommit=output('flatpak','info','--user','--show-commit',APP)
     if oldcommit==newcommit:raise SystemExit('Flatpak revision did not change')
     run('node','scripts/check-flatpak.cjs',wrapper,PROFILE,'verify',newid)
-    run('node','scripts/check-locales.cjs',wrapper,PROFILE/'locales')
+    verified_local=json.loads((PROFILE/'verify-report.json').read_text())
+    run('node','scripts/check-locales.cjs',wrapper,PROFILE/'locales',*(['--workspace'] if verified_local.get('workspaceTested') else []))
     run('flatpak','build-bundle',REPO,OUT/'Rosavio-Linux-x64-Test.flatpak',APP,BRANCH)
     if PRODUCTION:
         run('tar','-cJf',OUT/'repository-candidate.tar.xz','-C',REPO,'.')
         run(os.sys.executable,'scripts/prepare-flatpak-distribution.py',REPO,public,fingerprint,OUT/'installation')
     # Never export private test keys, test profiles or an untrusted production installer.
     verified_local=json.loads((PROFILE/'verify-report.json').read_text())
-    (OUT/'report.json').write_text(json.dumps({'passed':True,'candidateOnly':True,'publicRepositoryTestPassed':False,'productionSigningConfigured':PRODUCTION,'signingFingerprint':fingerprint,'appID':APP,'languages':20,'oldNativeRelease':oldtag,'newNativeRelease':newtag,'oldBuildID':oldid,'newBuildID':newid,'oldCommit':oldcommit,'newCommit':newcommit,'sourcesSHA256':[oldhash,newhash],'signedLocalFlatpakUpdatePassed':True,'browserPagesIncluded':verified_local.get('browserPagesTested',False),'permissions':output('flatpak','info','--user','--show-permissions',APP)},indent=2))
+    (OUT/'report.json').write_text(json.dumps({'passed':True,'candidateOnly':True,'publicRepositoryTestPassed':False,'productionSigningConfigured':PRODUCTION,'signingFingerprint':fingerprint,'appID':APP,'languages':20,'oldNativeRelease':oldtag,'newNativeRelease':newtag,'oldBuildID':oldid,'newBuildID':newid,'oldCommit':oldcommit,'newCommit':newcommit,'sourcesSHA256':[oldhash,newhash],'signedLocalFlatpakUpdatePassed':True,'browserPagesIncluded':verified_local.get('browserPagesTested',False),'workspaceIncluded':verified_local.get('workspaceTested',False),'permissions':output('flatpak','info','--user','--show-permissions',APP)},indent=2))
 print('Isolated signed Flatpak installation/update and twenty languages passed; public distribution remains gated.')

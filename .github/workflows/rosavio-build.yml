@@ -75,6 +75,13 @@ jobs:
             D:/rv/release/locale-check/report.json
             D:/rv/release/locale-check/failure.json
             D:/rv/release/locale-check/*/browser.log
+            D:/rv/release/*-protection-toolbar.png
+            D:/rv/release/workspace-check/report.json
+            D:/rv/release/workspace-check/*.png
+            D:/rv/release/local-workspace-check/report.json
+            D:/rv/release/local-workspace-check/*.png
+            D:/rv/release/public-workspace-check/report.json
+            D:/rv/release/public-workspace-check/*.png
             D:/rv/release/browser-pages-check/report.json
             D:/rv/release/browser-pages-check/*.png
             D:/rv/release/local-browser-pages-check/report.json

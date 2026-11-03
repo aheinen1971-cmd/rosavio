@@ -94,6 +94,14 @@ jobs:
             linux-candidate/release/profile-preservation-*.json
             linux-candidate/release/public-browser-pages-check/report.json
             linux-candidate/release/public-browser-pages-check/*.png
+            unix-results/linux-x64/workspace-check/report.json
+            unix-results/linux-x64/workspace-check/*.png
+            unix-results/linux-x64/release/local-workspace-check/report.json
+            unix-results/linux-x64/release/local-workspace-check/*.png
+            linux-candidate/release/public-workspace-check/report.json
+            linux-candidate/release/public-workspace-check/*.png
+            candidate-workspace/report.json
+            candidate-workspace/*.png
             candidate-icons/*
             updated-icons/*
             candidate-languages/report.json

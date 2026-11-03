@@ -89,11 +89,12 @@ if a.platform.startswith('macos'):
     package=apps[0];binary=package/'Contents/MacOS/rosavio'
 else:package=dist/'rosavio';binary=package/'rosavio'
 if not binary.is_file():raise SystemExit(f'Native binary missing: {binary}')
-run('node',project/'scripts/check-locales.cjs',binary,out/'locale-check','--rosavio-pages')
+run('node',project/'scripts/check-locales.cjs',binary,out/'locale-check','--rosavio-pages','--workspace')
 run('node',project/'scripts/check-unix-native.cjs',binary,out/'native-check',a.platform)
 run('node',project/'scripts/check-extensions.cjs',binary,out/'extensions-check')
 run('node',project/'scripts/check-translations.cjs',binary,out/'translations-check')
 run('node',project/'scripts/check-browser-pages.cjs',binary,out/'browser-pages-check')
+run('node',project/'scripts/check-workspace.cjs',binary,out/'workspace-check')
 # Keep a genuine older application in a separate writable test installation.
 baseline=root/'baseline'/package.name
 baseline.parent.mkdir(parents=True,exist_ok=True)
@@ -104,7 +105,7 @@ if new_build<=old_build:raise SystemExit('Second genuine build needs a later Bui
 os.environ['MOZ_BUILD_DATE']=new_build
 for command in ['configure','build','package']:run(python,'mach','--no-interactive',command,cwd=source)
 run(python,'mach','--no-interactive','package-multi-locale','--locales',*translations,cwd=source)
-run('node',project/'scripts/check-locales.cjs',binary,out/'updated-locale-check','--rosavio-pages')
+run('node',project/'scripts/check-locales.cjs',binary,out/'updated-locale-check','--rosavio-pages','--workspace')
 run('node',project/'scripts/check-unix-native.cjs',binary,out/'native-check',a.platform)
 (out/'paths.json').write_text(json.dumps({'source':str(source),'package':str(package),'baseline':str(baseline),'platform':a.platform},indent=2))
 

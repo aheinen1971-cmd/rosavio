@@ -134,6 +134,10 @@ jobs:
           path: |
             flatpak-public-profiles/*-report.json
             flatpak-public-profiles/locales/report.json
+            flatpak-public-profiles/workspace-check/report.json
+            flatpak-public-profiles/workspace-check/*.png
+            flatpak-public-profiles/workspace-before.json
+            flatpak-public-profiles/workspace-after.json
             flatpak-public-profiles/*-desktop.png
             flatpak-public-profiles/*-icons/*
             flatpak-public-profiles/*-browser-pages/report.json

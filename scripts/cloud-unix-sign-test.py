@@ -26,6 +26,7 @@ if os.environ.get('ROSAVIO_MAC_DESKTOP_TEST')=='1' or os.environ.get('ROSAVIO_DE
     if addon.get('guid')!='@testpilot-containers' or not xpi.startswith('https://addons.mozilla.org/'):
         raise SystemExit('Official Containers identity and HTTPS source required')
     os.environ['ROSAVIO_UPDATE_EXTENSION_XPI']=xpi
+if (out/'workspace-check/report.json').is_file():os.environ['ROSAVIO_CHECK_WORKSPACE']='1'
 subprocess.run(['node',str(project/'scripts/test-unix-update.cjs'),paths['baseline'],str(out/'release'),platform],check=True)
 report=json.loads((out/'build.json').read_text())
 report.update(signedLocalUpdateTestPassed=True,nativeAutoupdateTestPassed=False,published=False,state='signed local update passed; public native update test and release still required')

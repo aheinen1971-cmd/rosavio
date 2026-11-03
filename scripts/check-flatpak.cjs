@@ -28,10 +28,14 @@ const profile=path.join(root,'preserved-profile'),report=path.join(root,'before.
  if(mode==='seed')fs.writeFileSync(report,JSON.stringify(state));else if(stable(state)!==stable(JSON.parse(fs.readFileSync(report)))||state.video!==false||state.toolbar!=='always'||!state.protection.every(Boolean))throw Error('Flatpak update lost profile state');
  let desktopTest=null;
  if(desktopEntry){desktopTest=await b.script(`await window.delayedStartupPromise;const bar=document.getElementById('PersonalToolbar');return {passed:!bar.hidden&&!bar.collapsed,hidden:bar.hidden,collapsed:bar.collapsed,processDir:Services.dirsvc.get('CurProcD',Ci.nsIFile).path};`);if(!desktopTest?.passed)throw Error('Flatpak desktop toolbar is not visible: '+JSON.stringify(desktopTest));if(mode==='seed')fs.writeFileSync(path.join(root,'desktop-before.json'),JSON.stringify(desktopTest));else if(desktopTest.processDir!==JSON.parse(fs.readFileSync(path.join(root,'desktop-before.json'))).processDir)throw Error('Flatpak browser process path changed');const shot=(await b.command('WebDriver:TakeScreenshot',{id:null,highlights:[],full:false})).value;fs.writeFileSync(path.join(root,mode+'-desktop.png'),Buffer.from(shot,'base64'));}
+ const workspaceIncluded=await require('./check-workspace-state.cjs').capability(b);
+ let workspacePreservation=null;
+ if(mode==='seed'||workspaceIncluded)workspacePreservation=await require('./check-workspace-state.cjs')(b,root,mode);
+ if(mode==='verify'&&workspaceIncluded)await require('./check-workspace.cjs')(b,path.join(root,'workspace-check'));
  const protectionUI=await require('./check-protection-ui.cjs')(b);
  const protectionShot=(await b.command('WebDriver:TakeScreenshot',{id:null,highlights:[],full:false})).value;fs.writeFileSync(path.join(root,mode+'-protection-desktop.png'),Buffer.from(protectionShot,'base64'));
  const browserPagesIncluded=await b.script(`return Components.manager.QueryInterface(Ci.nsIComponentRegistrar).isContractIDRegistered('@mozilla.org/network/protocol/about;1?what=rosavio-privacy')&&Components.manager.QueryInterface(Ci.nsIComponentRegistrar).isContractIDRegistered('@mozilla.org/network/protocol/about;1?what=rosavio-updates');`);
  if(typeof browserPagesIncluded!=='boolean')throw Error('Browser information-page capability check failed: '+JSON.stringify(browserPagesIncluded));
  if(browserPagesIncluded===true)await require('./check-browser-pages.cjs')(b,path.join(root,mode+'-browser-pages'));
- fs.writeFileSync(path.join(root,mode+'-report.json'),JSON.stringify({passed:true,identity,state,sandbox,fileIOTest,extensionTest,desktopTest,protectionUI,browserPagesTested:browserPagesIncluded===true},null,2));
+ fs.writeFileSync(path.join(root,mode+'-report.json'),JSON.stringify({passed:true,identity,state,sandbox,fileIOTest,extensionTest,desktopTest,protectionUI,browserPagesTested:browserPagesIncluded===true,workspaceTested:mode==='verify'&&workspaceIncluded,workspacePreservation},null,2));
  }finally{try{if(b)await b.close();}finally{if(containerServer)await new Promise(r=>containerServer.close(r));}}})().catch(e=>{console.error(e);process.exitCode=1});

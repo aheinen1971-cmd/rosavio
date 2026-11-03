@@ -21,7 +21,7 @@ package=release/'local-update/rosavio'
 ini=configparser.ConfigParser();ini.read(package/'application.ini')
 if ini.get('App','Name')!='Rosavio' or ini.get('App','BuildID')!=r['buildID']:raise SystemExit('Verified application missing')
 def run(*args,**kw):
-    if str(args[0])=='node' and pathlib.Path(args[1]).name in ['check-unix-native.cjs','check-locales.cjs','check-extensions.cjs','check-translations.cjs','check-browser-pages.cjs']:
+    if str(args[0])=='node' and pathlib.Path(args[1]).name in ['check-unix-native.cjs','check-locales.cjs','check-extensions.cjs','check-translations.cjs','check-browser-pages.cjs','check-workspace.cjs']:
         executable=pathlib.Path(args[2])
         if not executable.is_file() or not os.access(executable,os.X_OK):
             raise SystemExit('Native check requires an executable file: '+str(executable))
@@ -43,7 +43,10 @@ if not baseline_binary.is_file() or not os.access(baseline_binary,os.X_OK):raise
 run('node','scripts/check-unix-native.cjs',baseline_binary,root/'baseline-report','linux-x64')
 b=json.loads((root/'baseline-report/report.json').read_text())
 if b['buildID']>=r['buildID']:raise SystemExit('Public update needs an older genuine build')
-run('node','scripts/check-locales.cjs',package/'rosavio',root/'candidate-languages')
+workspace_marker=new/'workspace-check/report.json'
+has_workspace=workspace_marker.is_file() and json.loads(workspace_marker.read_text()).get('passed') is True
+run('node','scripts/check-locales.cjs',package/'rosavio',root/'candidate-languages',*(['--workspace'] if has_workspace else []))
+if has_workspace:run('node','scripts/check-workspace.cjs',package/'rosavio',root/'candidate-workspace')
 run('node','scripts/check-extensions.cjs',package/'rosavio',root/'candidate-extensions')
 run('node','scripts/check-translations.cjs',package/'rosavio',root/'candidate-translations')
 pages_marker=new/'browser-pages-check/report.json'
@@ -76,11 +79,12 @@ fmt=lambda d:' '.join(k+'='+quoteattr(v) for k,v in d.items())
 feed=release/feedname;feed.write_text('<?xml version="1.0"?><updates><update '+fmt(attrs)+'><patch '+fmt(patch)+'/></update></updates>')
 try:
     gh('release','upload',stable,feed,'--repo',repo,'--clobber')
-    run('node','scripts/test-unix-update.cjs',baseline,release,'linux-x64',env={**os.environ,'ROSAVIO_PUBLIC_TEST':'1','ROSAVIO_CHECK_BROWSER_PAGES':'1' if has_browser_pages else '0'})
+    run('node','scripts/test-unix-update.cjs',baseline,release,'linux-x64',env={**os.environ,'ROSAVIO_PUBLIC_TEST':'1','ROSAVIO_CHECK_WORKSPACE':'1' if has_workspace else '0','ROSAVIO_CHECK_BROWSER_PAGES':'1' if has_browser_pages else '0'})
     run(os.sys.executable,'scripts/check-linux-icons.py',release/'public-update/rosavio',root/'updated-icons')
     public=json.loads((release/'public-update-test.json').read_text())
     if not public.get('desktopLaunchTestPassed'):raise SystemExit('Real desktop launch before/after update is required')
     if not public.get('preservationAfter',{}).get('extension',{}).get('containerTabLoaded'):raise SystemExit('Real extension preservation/function test required')
+    if has_workspace and not public.get('workspaceAfterUpdatePassed'):raise SystemExit('Workspace public update proof required')
     if has_browser_pages and not public.get('browserPagesAfterUpdatePassed'):raise SystemExit('Browser information pages must pass after the public update')
     gh('release','upload',tag,release/'public-update-test.json',release/'linux-desktop-toolbar.png',root/'updated-icons/report.json','--repo',repo)
     # Promote only after public native update, actual desktop launch and icon checks.

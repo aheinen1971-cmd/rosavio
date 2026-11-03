@@ -50,5 +50,7 @@ jobs:
             flatpak-results/
             flatpak-profile-tests/*-report.json
             flatpak-profile-tests/locales/report.json
+            flatpak-profile-tests/workspace-check/report.json
+            flatpak-profile-tests/workspace-check/*.png
           retention-days: 7
           if-no-files-found: warn
