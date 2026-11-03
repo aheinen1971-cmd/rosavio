@@ -25,6 +25,8 @@ jobs:
           persist-credentials: false
       - name: Verify rollback metadata safeguards
         run: python3 tests/test_flatpak_rollback.py
+      - name: Verify all twenty status-page languages and links
+        run: node tests/test_status_languages.cjs
       - name: Preserve all website languages and last verified signed Flatpak repository
         env:
           GH_TOKEN: ${{ github.token }}

@@ -7,6 +7,7 @@ def add(source):
  lang=re.search(r'<html\b[^>]*\blang="([^"]+)"',source)[1]
  label=html.escape(LABELS[lang])
  link='<!-- rosavio-status-link --><div style="margin:12px 0 18px;text-align:end"><a class="rosavio-status-link" href="status/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;color:#7c1935;font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:4px">'+label+' <span aria-hidden="true">↗</span></a></div><!-- /rosavio-status-link -->'
+ link=link.replace('href="status/"','href="status/?lang='+html.escape(lang,quote=True)+'"')
  result,n=re.subn(r'(<main\b)',lambda m:link+m[1],source,count=1)
  if n!=1:raise ValueError('Unique main element required')
  return result

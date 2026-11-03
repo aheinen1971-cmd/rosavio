@@ -6,7 +6,7 @@ function ageNotice(){
  if(!last)return;
  const stale=Date.now()-Date.parse(last.checkedAt)>90*60*1000;
  const el=document.getElementById('notice');
- el.textContent=stale?'Dieser Prüfstand ist über 90 Minuten alt. Aktuelle Ergebnisse sind noch nicht bestätigt.':'Gespeicherter GitHub-Prüfstand. Nächster Datenabruf dieser Seite automatisch in fünf Minuten.';
+ el.textContent=statusText(stale?'Dieser Prüfstand ist über 90 Minuten alt. Aktuelle Ergebnisse sind noch nicht bestätigt.':'Gespeicherter GitHub-Prüfstand. Nächster Datenabruf dieser Seite automatisch in fünf Minuten.');
  el.className=stale?'warning':'';
 }
 function render(data){
@@ -17,20 +17,20 @@ function render(data){
   const tr=document.createElement('tr');
   for(const key of ['label','version','state','detail']){
    const td=document.createElement('td');
-   if(key==='state'){const badge=document.createElement('span');badge.className='badge '+row.state;badge.textContent=labels[row.state];td.append(badge);}
-   else td.textContent=row[key];
+   if(key==='state'){const badge=document.createElement('span');badge.className='badge '+row.state;badge.textContent=statusText(labels[row.state]);td.append(badge);}
+   else td.textContent=statusText(row[key]);
    if(key==='label'&&['Windows','Linux','Flatpak'].includes(row.label)){
     const p=row.progress, percent=p?.percent;
     const valid=Number.isInteger(percent)&&percent>=0&&percent<=100&&(percent!==100||row.state==='green');
     const box=document.createElement('div');box.className='phase-progress';
     const text=document.createElement('span');text.textContent=valid?percent+' %':'— %';box.append(text);
-    if(valid){const bar=document.createElement('progress');bar.max=100;bar.value=percent;bar.setAttribute('aria-label',row.label+' – abgeschlossene Updatephasen');bar.className='phase-'+row.state;box.append(bar);}
-    const note=document.createElement('small');note.textContent=valid&&typeof p.note==='string'?p.note:'Fortschritt nicht überprüfbar';box.append(note);td.append(box);
+    if(valid){const bar=document.createElement('progress');bar.max=100;bar.value=percent;bar.setAttribute('aria-label',row.label+' – '+statusText('abgeschlossene Updatephasen'));bar.className='phase-'+row.state;box.append(bar);}
+    const note=document.createElement('small');note.textContent=statusText(valid&&typeof p.note==='string'?p.note:'Fortschritt nicht überprüfbar');box.append(note);td.append(box);
    }
    if(key==='detail'&&row.url){
     const url=new URL(row.url);
     if(url.protocol==='https:'&&['github.com','aheinen1971-cmd.github.io','addons.mozilla.org'].includes(url.hostname)){
-     const a=document.createElement('a');a.href=url.href;a.textContent='Details ansehen ↗';a.target='_blank';a.rel='noopener noreferrer';a.className='details-link';td.append(a);
+     const a=document.createElement('a');a.href=url.href;a.textContent=statusText('Details ansehen ↗');a.target='_blank';a.rel='noopener noreferrer';a.className='details-link';td.append(a);
     }
    }
    tr.append(td);
@@ -39,13 +39,13 @@ function render(data){
  }
  document.getElementById('rows').replaceChildren(fragment);
  document.getElementById('upstream').textContent=data.upstream||'—';
- document.getElementById('checked').textContent=new Intl.DateTimeFormat('de-DE',{dateStyle:'medium',timeStyle:'short',timeZone:'Europe/Berlin'}).format(new Date(data.checkedAt));
+ document.getElementById('checked').textContent=new Intl.DateTimeFormat(statusLanguage,{dateStyle:'medium',timeStyle:'short',timeZone:'Europe/Berlin'}).format(new Date(data.checkedAt));
  last=data;ageNotice();
 }
 async function refresh(){
  if(busy)return;busy=true;document.getElementById('refresh').disabled=true;
  try{const response=await fetch(endpoint,{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);render(await response.json());}
- catch(error){const el=document.getElementById('notice');el.className='warning';el.textContent='Aktueller Abruf nicht möglich. '+(last?'Die Tabelle zeigt den letzten abgerufenen Stand.':'Bitte später erneut abrufen.');}
+ catch(error){const el=document.getElementById('notice');el.className='warning';el.textContent=statusText('Aktueller Abruf nicht möglich. ')+' '+statusText(last?'Die Tabelle zeigt den letzten abgerufenen Stand.':'Bitte später erneut abrufen.');}
  finally{busy=false;document.getElementById('refresh').disabled=false;}
 }
 document.getElementById('refresh').addEventListener('click',refresh);
