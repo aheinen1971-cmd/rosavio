@@ -64,6 +64,8 @@ def collect():
             # A check-only or skipped run must not hide the last actual platform attempt.
             selected=None; run=None
             for candidate in runs:
+                # Attempts older than the published package are already superseded.
+                if candidate['id'] < int(release['tag_name'].split('.')[-1]):break
                 jobs=api(f"actions/runs/{candidate['id']}/jobs?per_page=100")['jobs']
                 matching=[j for j in jobs if j['name']==jobname and j.get('conclusion')!='skipped']
                 if matching:selected=matching[0];run=candidate;break
@@ -113,6 +115,8 @@ def collect():
     assets=[a for r in regular for a in r['assets'] if a['name'] in ('Rosavio-Setup-Deutsch.exe','Rosavio-Linux-x64.tar.xz','Rosavio.dmg')]
     rows.append(row('Paketdownloads','neutral',str(sum(a['download_count'] for a in assets)),'GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.'))
     rows.append(row('Fehlerübersicht','red' if any(r['state']=='red' for r in rows) else 'neutral','—','Siehe rote Zeilen. Laufstatus und öffentliche Metadaten können nicht alle Browserfehler erkennen.'))
+    order=['Windows','Linux','Flatpak','macOS Intel','macOS Apple Silicon']
+    rows.sort(key=lambda r:order.index(r['label']) if r['label'] in order else len(order))
     return data
 
 def main():
