@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "checkedAt": "2026-11-03T18:50:27.102700+00:00",
+  "rows": [
+    {
+      "label": "Windows",
+      "state": "yellow",
+      "version": "159.0 → 159.0.1",
+      "detail": "Bau / Prüfungen laufen",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41669346418"
+    },
+    {
+      "label": "Linux",
+      "state": "green",
+      "version": "159.0.1",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41652717409"
+    },
+    {
+      "label": "Flatpak",
+      "state": "green",
+      "version": "159.0.1",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41691748538"
+    },
+    {
+      "label": "macOS",
+      "state": "neutral",
+      "version": "Pflege eingestellt",
+      "detail": "Seit 03.11.2026 keine weitere Pflege oder Sicherheitsupdates. Bereits laufende Altaufträge dürfen enden; keine Wiederaufnahme.",
+      "url": ""
+    },
+    {
+      "label": "Webseite · 20 Sprachen",
+      "state": "green",
+      "version": "20 Seiten",
+      "detail": "Erreichbar; Links entsprechen den geprüften Unix-Releases",
+      "url": "https://aheinen1971-cmd.github.io/rosavio/"
+    },
+    {
+      "label": "Weitersehen · GitHub",
+      "state": "green",
+      "version": "0.1.1",
+      "detail": "Öffentlicher Updatekanal erreichbar (kein neuer Funktionstest)",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/rosavio-weitersehen-updates"
+    },
+    {
+      "label": "Weitersehen · Mozilla-Katalog",
+      "state": "gray",
+      "version": "0.1.2 eingereicht",
+      "detail": "Öffentliche Freigabe nicht bestätigt. Interner Prüfstatus ist ohne Anmeldung nicht abrufbar.",
+      "url": ""
+    },
+    {
+      "label": "Paketdownloads",
+      "state": "neutral",
+      "version": "42",
+      "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
+      "url": ""
+    },
+    {
+      "label": "Fehlerübersicht",
+      "state": "neutral",
+      "version": "—",
+      "detail": "Siehe rote Zeilen. Laufstatus und öffentliche Metadaten können nicht alle Browserfehler erkennen.",
+      "url": ""
+    }
+  ],
+  "errors": [],
+  "upstream": "159.0.1"
+}
