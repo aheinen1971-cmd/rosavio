@@ -27,6 +27,10 @@ def paginate(route, key=None):
 def row(label, state, version, detail, url=''):
     return dict(label=label,state=state,version=version,detail=detail,url=url)
 
+def release_key(release):
+    match=re.match(r'v(\d+(?:\.\d+)+)-',release['tag_name'])
+    return tuple(map(int,match[1].split('.'))),int(release['tag_name'].split('.')[-1])
+
 def run_state(job, current, target):
     if job and job['status']!='completed':
         return 'yellow', ('Wartet auf GitHub-Rechner' if job['status'] in ('queued','waiting','pending') else 'Bau / Prüfungen laufen')
@@ -54,7 +58,7 @@ def collect():
         try:
             pattern=r'v[0-9.]+-rosavio'+('' if platform=='windows' else '-'+platform)+r'\.\d+'
             candidates=[r for r in regular if re.fullmatch(pattern,r['tag_name'])]
-            release=max(candidates,key=lambda r:tuple(map(int,guard.version_of(r['tag_name']).split('.')))+(int(r['tag_name'].split('.')[-1]),))
+            release=max(candidates,key=release_key)
             proof=get(BASE+release['tag_name']+'/public-update-test.json')
             current=guard.version_of(release['tag_name'])
             if platform=='windows':guard.windows_version(release,proof)
