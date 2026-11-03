@@ -1,0 +1,82 @@
+{
+  "de": {
+    "question": "Warum gibt es keine aktuelle macOS-Version?",
+    "answer": "Ich entwickle Rosavio als kostenloses, unabhängiges Projekt. Damit ich Updates und Prüfungen zuverlässig betreuen kann, konzentriere ich mich auf Windows und Linux einschließlich Flatpak. Deshalb habe ich die macOS-Pflege eingestellt. Bereits veröffentlichte Mac-Versionen erhalten künftig keine Sicherheitsupdates mehr."
+  },
+  "en": {
+    "question": "Why is there no current macOS version?",
+    "answer": "I develop Rosavio as a free, independent project. To reliably manage updates and testing, I focus on Windows and Linux, including Flatpak. That is why I have ended macOS maintenance. Previously released Mac versions will receive no future security updates."
+  },
+  "fr": {
+    "question": "Pourquoi n’y a-t-il plus de version macOS à jour ?",
+    "answer": "Je développe Rosavio comme un projet gratuit et indépendant. Pour assurer un suivi fiable des mises à jour et des tests, je me concentre sur Windows et Linux, y compris Flatpak. J’ai donc arrêté la maintenance de macOS. Les versions Mac déjà publiées ne recevront plus de mises à jour de sécurité."
+  },
+  "es": {
+    "question": "¿Por qué no hay una versión actual de macOS?",
+    "answer": "Desarrollo Rosavio como un proyecto gratuito e independiente. Para gestionar de forma fiable las actualizaciones y las pruebas, me concentro en Windows y Linux, incluido Flatpak. Por eso he dejado de mantener macOS. Las versiones Mac ya publicadas no recibirán nuevas actualizaciones de seguridad."
+  },
+  "nl": {
+    "question": "Waarom is er geen actuele macOS-versie?",
+    "answer": "Ik ontwikkel Rosavio als een gratis, onafhankelijk project. Om updates en tests betrouwbaar te kunnen verzorgen, richt ik me op Windows en Linux, inclusief Flatpak. Daarom heb ik het onderhoud voor macOS beëindigd. Eerder uitgebrachte Mac-versies krijgen geen toekomstige beveiligingsupdates."
+  },
+  "it": {
+    "question": "Perché non esiste una versione macOS aggiornata?",
+    "answer": "Sviluppo Rosavio come progetto gratuito e indipendente. Per gestire in modo affidabile aggiornamenti e test, mi concentro su Windows e Linux, incluso Flatpak. Ho quindi interrotto la manutenzione di macOS. Le versioni Mac già pubblicate non riceveranno ulteriori aggiornamenti di sicurezza."
+  },
+  "pt-PT": {
+    "question": "Porque não existe uma versão atual para macOS?",
+    "answer": "Desenvolvo o Rosavio como um projeto gratuito e independente. Para gerir as atualizações e os testes de forma fiável, concentro-me no Windows e no Linux, incluindo Flatpak. Por isso, terminei a manutenção do macOS. As versões Mac já publicadas não receberão futuras atualizações de segurança."
+  },
+  "pl": {
+    "question": "Dlaczego nie ma aktualnej wersji dla macOS?",
+    "answer": "Rozwijam Rosavio jako bezpłatny, niezależny projekt. Aby rzetelnie zajmować się aktualizacjami i testami, skupiam się na Windows i Linuksie, w tym na Flatpaku. Dlatego zakończyłem utrzymanie wersji macOS. Wcześniej wydane wersje Mac nie otrzymają kolejnych aktualizacji zabezpieczeń."
+  },
+  "cs": {
+    "question": "Proč není k dispozici aktuální verze pro macOS?",
+    "answer": "Vyvíjím Rosavio jako bezplatný a nezávislý projekt. Abych mohl spolehlivě zajišťovat aktualizace a testování, soustředím se na Windows a Linux včetně Flatpaku. Proto jsem ukončil údržbu macOS. Dříve vydané verze pro Mac již nebudou dostávat bezpečnostní aktualizace."
+  },
+  "da": {
+    "question": "Hvorfor findes der ikke en aktuel macOS-version?",
+    "answer": "Jeg udvikler Rosavio som et gratis, uafhængigt projekt. For at kunne håndtere opdateringer og test pålideligt fokuserer jeg på Windows og Linux, inklusive Flatpak. Derfor har jeg afsluttet vedligeholdelsen af macOS. Tidligere udgivne Mac-versioner får ingen fremtidige sikkerhedsopdateringer."
+  },
+  "sv-SE": {
+    "question": "Varför finns det ingen aktuell macOS-version?",
+    "answer": "Jag utvecklar Rosavio som ett kostnadsfritt, oberoende projekt. För att kunna sköta uppdateringar och tester tillförlitligt fokuserar jag på Windows och Linux, inklusive Flatpak. Därför har jag avslutat underhållet för macOS. Tidigare utgivna Mac-versioner får inga framtida säkerhetsuppdateringar."
+  },
+  "nb-NO": {
+    "question": "Hvorfor finnes det ingen oppdatert macOS-versjon?",
+    "answer": "Jeg utvikler Rosavio som et gratis, uavhengig prosjekt. For å kunne håndtere oppdateringer og testing pålitelig fokuserer jeg på Windows og Linux, inkludert Flatpak. Derfor har jeg avsluttet vedlikeholdet av macOS. Tidligere utgitte Mac-versjoner får ingen fremtidige sikkerhetsoppdateringer."
+  },
+  "fi": {
+    "question": "Miksi ajantasaista macOS-versiota ei ole?",
+    "answer": "Kehitän Rosaviota maksuttomana ja itsenäisenä projektina. Jotta voin huolehtia päivityksistä ja testauksesta luotettavasti, keskityn Windowsiin ja Linuxiin, mukaan lukien Flatpak. Siksi olen lopettanut macOS-version ylläpidon. Aiemmin julkaistut Mac-versiot eivät saa tulevia tietoturvapäivityksiä."
+  },
+  "tr": {
+    "question": "Neden güncel bir macOS sürümü yok?",
+    "answer": "Rosavio’yu ücretsiz ve bağımsız bir proje olarak geliştiriyorum. Güncellemeleri ve testleri güvenilir biçimde yürütebilmek için Windows ve Flatpak dahil Linux üzerine odaklanıyorum. Bu nedenle macOS bakımını sonlandırdım. Daha önce yayımlanan Mac sürümleri gelecekte güvenlik güncellemeleri almayacak."
+  },
+  "uk": {
+    "question": "Чому немає актуальної версії для macOS?",
+    "answer": "Я розробляю Rosavio як безкоштовний незалежний проєкт. Щоб надійно забезпечувати оновлення й тестування, зосереджуюся на Windows і Linux, зокрема Flatpak. Тому я припинив підтримку macOS. Раніше опубліковані версії для Mac більше не отримуватимуть оновлень безпеки."
+  },
+  "el": {
+    "question": "Γιατί δεν υπάρχει ενημερωμένη έκδοση για macOS;",
+    "answer": "Αναπτύσσω το Rosavio ως δωρεάν, ανεξάρτητο έργο. Για να μπορώ να διαχειρίζομαι αξιόπιστα τις ενημερώσεις και τις δοκιμές, επικεντρώνομαι στα Windows και στο Linux, μαζί με το Flatpak. Γι’ αυτό σταμάτησα τη συντήρηση του macOS. Οι ήδη δημοσιευμένες εκδόσεις Mac δεν θα λαμβάνουν μελλοντικές ενημερώσεις ασφαλείας."
+  },
+  "ja": {
+    "question": "最新の macOS 版がないのはなぜですか？",
+    "answer": "Rosavio は無料の独立したプロジェクトとして開発しています。更新とテストを確実に行うため、Windows と Linux（Flatpak を含む）に注力することにしました。そのため macOS 版の保守を終了しました。公開済みの Mac 版には今後セキュリティ更新が提供されません。"
+  },
+  "ko": {
+    "question": "최신 macOS 버전이 없는 이유는 무엇인가요?",
+    "answer": "저는 Rosavio를 무료 독립 프로젝트로 개발하고 있습니다. 업데이트와 테스트를 안정적으로 관리하기 위해 Windows와 Flatpak을 포함한 Linux에 집중하기로 했습니다. 따라서 macOS 유지보수를 종료했습니다. 이미 출시된 Mac 버전에는 향후 보안 업데이트가 제공되지 않습니다."
+  },
+  "ar": {
+    "question": "لماذا لا توجد نسخة حديثة لنظام macOS؟",
+    "answer": "أطوّر Rosavio كمشروع مجاني ومستقل. لكي أتمكن من إدارة التحديثات والاختبارات بشكل موثوق، أركز على Windows وLinux، بما في ذلك Flatpak. لذلك أوقفت صيانة نسخة macOS. لن تتلقى إصدارات Mac المنشورة سابقًا تحديثات أمان مستقبلية."
+  },
+  "he": {
+    "question": "מדוע אין גרסה עדכנית ל־macOS?",
+    "answer": "אני מפתח את Rosavio כפרויקט עצמאי וחינמי. כדי לנהל באופן אמין את העדכונים והבדיקות, אני מתמקד ב־Windows וב־Linux, כולל Flatpak. לכן הפסקתי את התחזוקה של macOS. גרסאות Mac שכבר פורסמו לא יקבלו עדכוני אבטחה עתידיים."
+  }
+}
