@@ -1,82 +1,82 @@
 {
   "de": {
     "title": "macOS-Pflege eingestellt",
-    "note": "Seit dem 3. November 2026 wird Rosavio für macOS nicht mehr gepflegt. Vorhandene Mac-Versionen erhalten künftig keine Sicherheitsupdates. Sie sind nicht von Apple notarisiert. Unterstützt werden Windows und Linux, einschließlich Flatpak."
+    "note": "Ich konzentriere mich künftig auf Windows und Linux – einschließlich Flatpak. Seit dem 3. November 2026 wird Rosavio für macOS nicht mehr gepflegt. Vorhandene Mac-Versionen erhalten künftig keine Sicherheitsupdates. Sie sind nicht von Apple notarisiert. Unterstützt werden Windows und Linux, einschließlich Flatpak."
   },
   "en": {
     "title": "macOS support ended",
-    "note": "Since 3 November 2026, Rosavio for macOS is no longer maintained. Existing Mac versions will receive no future security updates. They are not notarized by Apple. Windows and Linux, including Flatpak, remain supported."
+    "note": "From now on, I am focusing on Windows and Linux, including Flatpak. Since 3 November 2026, Rosavio for macOS is no longer maintained. Existing Mac versions will receive no future security updates. They are not notarized by Apple. Windows and Linux, including Flatpak, remain supported."
   },
   "fr": {
     "title": "Fin du suivi de macOS",
-    "note": "Depuis le 3 novembre 2026, Rosavio pour macOS n’est plus maintenu. Les versions Mac existantes ne recevront plus de mises à jour de sécurité. Elles ne sont pas notariées par Apple. Windows et Linux, y compris Flatpak, restent pris en charge."
+    "note": "Je me concentre désormais sur Windows et Linux, y compris Flatpak. Depuis le 3 novembre 2026, Rosavio pour macOS n’est plus maintenu. Les versions Mac existantes ne recevront plus de mises à jour de sécurité. Elles ne sont pas notariées par Apple. Windows et Linux, y compris Flatpak, restent pris en charge."
   },
   "es": {
     "title": "Fin del mantenimiento de macOS",
-    "note": "Desde el 3 de noviembre de 2026, Rosavio para macOS ya no recibe mantenimiento. Las versiones Mac existentes no recibirán nuevas actualizaciones de seguridad. No están notarizadas por Apple. Se mantienen Windows y Linux, incluido Flatpak."
+    "note": "A partir de ahora me concentro en Windows y Linux, incluido Flatpak. Desde el 3 de noviembre de 2026, Rosavio para macOS ya no recibe mantenimiento. Las versiones Mac existentes no recibirán nuevas actualizaciones de seguridad. No están notarizadas por Apple. Se mantienen Windows y Linux, incluido Flatpak."
   },
   "nl": {
     "title": "Ondersteuning voor macOS gestopt",
-    "note": "Sinds 3 november 2026 wordt Rosavio voor macOS niet meer onderhouden. Bestaande Mac-versies ontvangen geen toekomstige beveiligingsupdates. Ze zijn niet door Apple genotariseerd. Windows en Linux, inclusief Flatpak, blijven ondersteund."
+    "note": "Ik richt me voortaan op Windows en Linux, inclusief Flatpak. Sinds 3 november 2026 wordt Rosavio voor macOS niet meer onderhouden. Bestaande Mac-versies ontvangen geen toekomstige beveiligingsupdates. Ze zijn niet door Apple genotariseerd. Windows en Linux, inclusief Flatpak, blijven ondersteund."
   },
   "it": {
     "title": "Manutenzione macOS terminata",
-    "note": "Dal 3 novembre 2026 Rosavio per macOS non viene più mantenuto. Le versioni Mac esistenti non riceveranno ulteriori aggiornamenti di sicurezza. Non sono autenticate da Apple tramite notarizzazione. Restano supportati Windows e Linux, incluso Flatpak."
+    "note": "D’ora in poi mi concentro su Windows e Linux, incluso Flatpak. Dal 3 novembre 2026 Rosavio per macOS non viene più mantenuto. Le versioni Mac esistenti non riceveranno ulteriori aggiornamenti di sicurezza. Non sono autenticate da Apple tramite notarizzazione. Restano supportati Windows e Linux, incluso Flatpak."
   },
   "pt-PT": {
     "title": "Manutenção do macOS terminada",
-    "note": "Desde 3 de novembro de 2026, o Rosavio para macOS deixou de ser mantido. As versões Mac existentes não receberão futuras atualizações de segurança. Não estão notarizadas pela Apple. Windows e Linux, incluindo Flatpak, continuam a ser suportados."
+    "note": "A partir de agora, concentro-me no Windows e no Linux, incluindo Flatpak. Desde 3 de novembro de 2026, o Rosavio para macOS deixou de ser mantido. As versões Mac existentes não receberão futuras atualizações de segurança. Não estão notarizadas pela Apple. Windows e Linux, incluindo Flatpak, continuam a ser suportados."
   },
   "pl": {
     "title": "Koniec wsparcia macOS",
-    "note": "Od 3 listopada 2026 Rosavio dla macOS nie jest już rozwijany ani utrzymywany. Istniejące wersje Mac nie otrzymają kolejnych aktualizacji zabezpieczeń. Nie mają notaryzacji Apple. Nadal wspieramy Windows i Linux, w tym Flatpak."
+    "note": "Od teraz skupiam się na Windows i Linuksie, w tym na Flatpaku. Od 3 listopada 2026 Rosavio dla macOS nie jest już rozwijany ani utrzymywany. Istniejące wersje Mac nie otrzymają kolejnych aktualizacji zabezpieczeń. Nie mają notaryzacji Apple. Nadal wspieramy Windows i Linux, w tym Flatpak."
   },
   "cs": {
     "title": "Podpora macOS ukončena",
-    "note": "Od 3. listopadu 2026 již Rosavio pro macOS není udržováno. Stávající verze pro Mac nebudou dostávat další bezpečnostní aktualizace. Nemají notarizaci od Apple. Windows a Linux včetně Flatpaku zůstávají podporovány."
+    "note": "Od nynějška se soustředím na Windows a Linux včetně Flatpaku. Od 3. listopadu 2026 již Rosavio pro macOS není udržováno. Stávající verze pro Mac nebudou dostávat další bezpečnostní aktualizace. Nemají notarizaci od Apple. Windows a Linux včetně Flatpaku zůstávají podporovány."
   },
   "da": {
     "title": "Vedligeholdelse af macOS er ophørt",
-    "note": "Siden 3. november 2026 vedligeholdes Rosavio til macOS ikke længere. Eksisterende Mac-versioner modtager ingen fremtidige sikkerhedsopdateringer. De er ikke notariseret af Apple. Windows og Linux, inklusive Flatpak, understøttes fortsat."
+    "note": "Fremover fokuserer jeg på Windows og Linux, inklusive Flatpak. Siden 3. november 2026 vedligeholdes Rosavio til macOS ikke længere. Eksisterende Mac-versioner modtager ingen fremtidige sikkerhedsopdateringer. De er ikke notariseret af Apple. Windows og Linux, inklusive Flatpak, understøttes fortsat."
   },
   "sv-SE": {
     "title": "Underhållet för macOS har upphört",
-    "note": "Sedan den 3 november 2026 underhålls Rosavio för macOS inte längre. Befintliga Mac-versioner får inga framtida säkerhetsuppdateringar. De är inte notariserade av Apple. Windows och Linux, inklusive Flatpak, stöds fortfarande."
+    "note": "Framöver fokuserar jag på Windows och Linux, inklusive Flatpak. Sedan den 3 november 2026 underhålls Rosavio för macOS inte längre. Befintliga Mac-versioner får inga framtida säkerhetsuppdateringar. De är inte notariserade av Apple. Windows och Linux, inklusive Flatpak, stöds fortfarande."
   },
   "nb-NO": {
     "title": "Vedlikehold av macOS er avsluttet",
-    "note": "Fra 3. november 2026 vedlikeholdes ikke Rosavio for macOS lenger. Eksisterende Mac-versjoner får ingen fremtidige sikkerhetsoppdateringer. De er ikke notarisert av Apple. Windows og Linux, inkludert Flatpak, støttes fortsatt."
+    "note": "Fremover fokuserer jeg på Windows og Linux, inkludert Flatpak. Fra 3. november 2026 vedlikeholdes ikke Rosavio for macOS lenger. Eksisterende Mac-versjoner får ingen fremtidige sikkerhetsoppdateringer. De er ikke notarisert av Apple. Windows og Linux, inkludert Flatpak, støttes fortsatt."
   },
   "fi": {
     "title": "macOS-ylläpito päättynyt",
-    "note": "Rosavion macOS-version ylläpito on päättynyt 3. marraskuuta 2026. Nykyiset Mac-versiot eivät saa tulevia tietoturvapäivityksiä. Apple ei ole notarisoinut niitä. Windowsia ja Linuxia, mukaan lukien Flatpak, tuetaan edelleen."
+    "note": "Keskityn jatkossa Windowsiin ja Linuxiin, mukaan lukien Flatpak. Rosavion macOS-version ylläpito on päättynyt 3. marraskuuta 2026. Nykyiset Mac-versiot eivät saa tulevia tietoturvapäivityksiä. Apple ei ole notarisoinut niitä. Windowsia ja Linuxia, mukaan lukien Flatpak, tuetaan edelleen."
   },
   "tr": {
     "title": "macOS desteği sona erdi",
-    "note": "3 Kasım 2026 itibarıyla macOS için Rosavio artık güncellenmiyor. Mevcut Mac sürümleri gelecekte güvenlik güncellemeleri almayacak. Apple tarafından noter onaylı değiller. Windows ve Flatpak dahil Linux desteklenmeye devam ediyor."
+    "note": "Bundan sonra Windows ve Flatpak dahil Linux üzerine odaklanıyorum. 3 Kasım 2026 itibarıyla macOS için Rosavio artık güncellenmiyor. Mevcut Mac sürümleri gelecekte güvenlik güncellemeleri almayacak. Apple tarafından noter onaylı değiller. Windows ve Flatpak dahil Linux desteklenmeye devam ediyor."
   },
   "uk": {
     "title": "Підтримку macOS припинено",
-    "note": "З 3 листопада 2026 року Rosavio для macOS більше не підтримується. Наявні версії для Mac не отримуватимуть подальших оновлень безпеки. Вони не мають нотаризації Apple. Windows і Linux, зокрема Flatpak, залишаються підтримуваними."
+    "note": "Надалі я зосереджуюся на Windows і Linux, зокрема Flatpak. З 3 листопада 2026 року Rosavio для macOS більше не підтримується. Наявні версії для Mac не отримуватимуть подальших оновлень безпеки. Вони не мають нотаризації Apple. Windows і Linux, зокрема Flatpak, залишаються підтримуваними."
   },
   "el": {
     "title": "Η συντήρηση του macOS σταμάτησε",
-    "note": "Από τις 3 Νοεμβρίου 2026 το Rosavio για macOS δεν συντηρείται πλέον. Οι υπάρχουσες εκδόσεις Mac δεν θα λαμβάνουν μελλοντικές ενημερώσεις ασφαλείας. Δεν έχουν συμβολαιογραφική πιστοποίηση από την Apple. Τα Windows και το Linux, μαζί με το Flatpak, συνεχίζουν να υποστηρίζονται."
+    "note": "Από εδώ και πέρα επικεντρώνομαι στα Windows και στο Linux, μαζί με το Flatpak. Από τις 3 Νοεμβρίου 2026 το Rosavio για macOS δεν συντηρείται πλέον. Οι υπάρχουσες εκδόσεις Mac δεν θα λαμβάνουν μελλοντικές ενημερώσεις ασφαλείας. Δεν έχουν συμβολαιογραφική πιστοποίηση από την Apple. Τα Windows και το Linux, μαζί με το Flatpak, συνεχίζουν να υποστηρίζονται."
   },
   "ja": {
     "title": "macOS のサポート終了",
-    "note": "2026年11月3日をもって、Rosavio の macOS 版の保守を終了しました。既存の Mac 版には今後セキュリティ更新が提供されません。Apple による公証も受けていません。Windows と Linux（Flatpak を含む）のサポートは継続します。"
+    "note": "今後は Windows と Linux（Flatpak を含む）に注力します。 2026年11月3日をもって、Rosavio の macOS 版の保守を終了しました。既存の Mac 版には今後セキュリティ更新が提供されません。Apple による公証も受けていません。Windows と Linux（Flatpak を含む）のサポートは継続します。"
   },
   "ko": {
     "title": "macOS 지원 종료",
-    "note": "2026년 11월 3일부터 Rosavio macOS 버전의 유지보수가 종료되었습니다. 기존 Mac 버전에는 향후 보안 업데이트가 제공되지 않습니다. Apple 공증도 받지 않았습니다. Windows와 Flatpak을 포함한 Linux는 계속 지원됩니다."
+    "note": "앞으로는 Windows와 Flatpak을 포함한 Linux에 집중하겠습니다. 2026년 11월 3일부터 Rosavio macOS 버전의 유지보수가 종료되었습니다. 기존 Mac 버전에는 향후 보안 업데이트가 제공되지 않습니다. Apple 공증도 받지 않았습니다. Windows와 Flatpak을 포함한 Linux는 계속 지원됩니다."
   },
   "ar": {
     "title": "انتهاء دعم macOS",
-    "note": "منذ 3 نوفمبر 2026، لم يعد Rosavio لنظام macOS يخضع للصيانة. لن تتلقى إصدارات Mac الحالية تحديثات أمان مستقبلية. وهي غير موثّقة لدى Apple. يستمر دعم Windows وLinux، بما في ذلك Flatpak."
+    "note": "سأركز من الآن فصاعدًا على Windows وLinux، بما في ذلك Flatpak. منذ 3 نوفمبر 2026، لم يعد Rosavio لنظام macOS يخضع للصيانة. لن تتلقى إصدارات Mac الحالية تحديثات أمان مستقبلية. وهي غير موثّقة لدى Apple. يستمر دعم Windows وLinux، بما في ذلك Flatpak."
   },
   "he": {
     "title": "התמיכה ב־macOS הופסקה",
-    "note": "מאז 3 בנובמבר 2026, Rosavio עבור macOS אינו מתוחזק עוד. גרסאות Mac קיימות לא יקבלו עדכוני אבטחה עתידיים. הן אינן מאושרות בתהליך הנוטריזציה של Apple. התמיכה ב־Windows וב־Linux, כולל Flatpak, נמשכת."
+    "note": "מעתה אתמקד ב־Windows וב־Linux, כולל Flatpak. מאז 3 בנובמבר 2026, Rosavio עבור macOS אינו מתוחזק עוד. גרסאות Mac קיימות לא יקבלו עדכוני אבטחה עתידיים. הן אינן מאושרות בתהליך הנוטריזציה של Apple. התמיכה ב־Windows וב־Linux, כולל Flatpak, נמשכת."
   }
 }
