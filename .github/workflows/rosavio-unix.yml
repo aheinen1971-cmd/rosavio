@@ -1,9 +1,9 @@
-name: Rosavio Linux and macOS native bring-up
+name: Rosavio Linux native verification
 on:
   workflow_dispatch:
     inputs:
       platform:
-        description: Platform to build (all only when no platform builds are active)
+        description: Linux x64 native verification
         type: choice
         default: linux-x64
         options: [linux-x64]
