@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-03T19:27:08.757653+00:00",
+  "checkedAt": "2026-11-03T19:57:17.776580+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -21,7 +21,7 @@
       "state": "green",
       "version": "159.0.1",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41698706901"
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41708005524"
     },
     {
       "label": "macOS",
