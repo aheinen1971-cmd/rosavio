@@ -3,23 +3,12 @@ import json, os, pathlib, subprocess, sys, tempfile, urllib.request
 platform=sys.argv[1]
 if os.environ.get('GITHUB_ACTIONS')!='true' or os.environ.get('GITHUB_REPOSITORY')!='aheinen1971-cmd/rosavio':
     raise SystemExit('Only the authorized Rosavio cloud runner may sign')
-if platform not in ['linux-x64','macos-x64','macos-arm64']:raise SystemExit('Invalid platform')
+if platform != 'linux-x64':raise SystemExit('Invalid platform')
 project=pathlib.Path.cwd();out=project/'unix-results'/platform
 paths=json.loads((out/'paths.json').read_text())
 key=os.environ.pop('ROSAVIO_UPDATE_KEY',None)
 password=os.environ.pop('ROSAVIO_SIGNING_PASSWORD',None)
 if not key or not password:raise SystemExit('Existing signing secrets missing')
-if platform.startswith('macos'):
-    from macos_bundle_signing import seal_bundle
-    # Seal both genuine builds before constructing the update archive.
-    # The original pre-sealing DMG must never masquerade as this candidate.
-    for kind in ('baseline','package'):
-        seal_bundle(paths[kind],out/(kind+'-app-signature.json'))
-    subprocess.run(['node',str(project/'scripts/check-locales.cjs'),str(pathlib.Path(paths['package'])/'Contents/MacOS/rosavio'),str(out/'sealed-locale-check')],check=True)
-    for dmg in out.glob('*.dmg'):
-        dmg.rename(dmg.with_suffix('.dmg.unsealed-not-for-distribution'))
-    subprocess.run(['hdiutil','create','-volname','Rosavio','-srcfolder',paths['package'],'-format','UDZO',str(out/'Rosavio-sealed-test.dmg')],check=True)
-    subprocess.run(['tar','-cJf',str(out/'Rosavio-sealed-baseline.tar.xz'),'-C',str(pathlib.Path(paths['baseline']).parent),pathlib.Path(paths['baseline']).name],check=True)
 handle,name=tempfile.mkstemp(prefix='rosavio-encrypted-key-',dir=os.environ['RUNNER_TEMP'])
 keypath=pathlib.Path(name)
 try:
