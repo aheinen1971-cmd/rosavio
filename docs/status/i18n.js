@@ -7,7 +7,7 @@ function statusText(source){
  const value=String(source).trim();
  if(Object.hasOwn(statusWords,value))return statusWords[value];
  const phase=value.match(/^(\d+) von (\d+) Phasen abgeschlossen$/);
- if(phase)return statusWords['{done} von {total} Phasen abgeschlossen'].replace('{done}',phase[1]).replace('{total}',phase[2]);
+ if(phase){const result=statusWords['{done} von {total} Phasen abgeschlossen'].replace('{done}',phase[1]).replace('{total}',phase[2]);return ['ar','he'].includes(statusLanguage)?result.replace(/\d+\s*\/\s*\d+/g,number=>'\u2066'+number+'\u2069'):result;}
  const failure=value.match(/^Letzter Auftrag: (failure|timed_out|cancelled|action_required); siehe Laufdetails$/);
  if(failure)return statusWords['Letzter Auftrag: {result}; siehe Laufdetails'].replace('{result}',statusWords[failure[1]]);
  const icon=value.match(/^(🟢|🟡|🔴|⚪|ℹ️)\s+(.+)$/u);

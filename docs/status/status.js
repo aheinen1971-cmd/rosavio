@@ -19,11 +19,12 @@ function render(data){
    const td=document.createElement('td');
    if(key==='state'){const badge=document.createElement('span');badge.className='badge '+row.state;badge.textContent=statusText(labels[row.state]);td.append(badge);}
    else td.textContent=statusText(row[key]);
+   if(key==='version'&&/^\d+(?:\.\d+)*(?: → \d+(?:\.\d+)*)?$/.test(row.version))td.dir='ltr';
    if(key==='label'&&['Windows','Linux','Flatpak'].includes(row.label)){
     const p=row.progress, percent=p?.percent;
     const valid=Number.isInteger(percent)&&percent>=0&&percent<=100&&(percent!==100||row.state==='green');
     const box=document.createElement('div');box.className='phase-progress';
-    const text=document.createElement('span');text.textContent=valid?percent+' %':'— %';box.append(text);
+    const text=document.createElement('span');text.dir='ltr';text.textContent=valid?percent+' %':'— %';box.append(text);
     if(valid){const bar=document.createElement('progress');bar.max=100;bar.value=percent;bar.setAttribute('aria-label',row.label+' – '+statusText('abgeschlossene Updatephasen'));bar.className='phase-'+row.state;box.append(bar);}
     const note=document.createElement('small');note.textContent=statusText(valid&&typeof p.note==='string'?p.note:'Fortschritt nicht überprüfbar');box.append(note);td.append(box);
    }
