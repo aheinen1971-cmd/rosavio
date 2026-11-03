@@ -1,0 +1,33 @@
+name: Rosavio public status table
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scripts/build-status-dashboard.py', '.github/workflows/rosavio-status.yml']
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_run:
+    workflows: ['Rosavio automatic Windows release', 'Rosavio automatic Linux release', 'Rosavio automatic macOS release', 'Rosavio automatic Flatpak release', 'Rosavio verified website download links']
+    types: [completed]
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: rosavio-status-data
+  cancel-in-progress: false
+jobs:
+  status:
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false && (github.event_name != 'workflow_run' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Verify status classification
+        run: python3 -m unittest discover -s tests -p test_status_dashboard.py
+      - name: Read public evidence and update only status data
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/build-status-dashboard.py --publish
