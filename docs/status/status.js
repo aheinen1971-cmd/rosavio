@@ -19,6 +19,14 @@ function render(data){
    const td=document.createElement('td');
    if(key==='state'){const badge=document.createElement('span');badge.className='badge '+row.state;badge.textContent=labels[row.state];td.append(badge);}
    else td.textContent=row[key];
+   if(key==='label'&&['Windows','Linux','Flatpak'].includes(row.label)){
+    const p=row.progress, percent=p?.percent;
+    const valid=Number.isInteger(percent)&&percent>=0&&percent<=100&&(percent!==100||row.state==='green');
+    const box=document.createElement('div');box.className='phase-progress';
+    const text=document.createElement('span');text.textContent=valid?percent+' %':'— %';box.append(text);
+    if(valid){const bar=document.createElement('progress');bar.max=100;bar.value=percent;bar.setAttribute('aria-label',row.label+' – abgeschlossene Updatephasen');bar.className='phase-'+row.state;box.append(bar);}
+    const note=document.createElement('small');note.textContent=valid&&typeof p.note==='string'?p.note:'Fortschritt nicht überprüfbar';box.append(note);td.append(box);
+   }
    if(key==='detail'&&row.url){
     const url=new URL(row.url);
     if(url.protocol==='https:'&&['github.com','aheinen1971-cmd.github.io','addons.mozilla.org'].includes(url.hostname)){

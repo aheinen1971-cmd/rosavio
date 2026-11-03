@@ -3,6 +3,21 @@ from unittest.mock import patch
 spec=importlib.util.spec_from_file_location('dashboard',pathlib.Path(__file__).parents[1]/'scripts/build-status-dashboard.py')
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 class StatusTests(unittest.TestCase):
+ def test_phase_progress_not_time_estimate(self):
+  for label in m.PHASES:
+   steps=[{'name':name,'conclusion':'success' if i==0 else None} for i,name in enumerate(m.PHASES[label])]
+   result=m.with_progress(m.row(label,'yellow','old','running'),{'steps':steps})
+   self.assertEqual(result['progress']['percent'],int(100/len(steps)))
+ def test_only_verified_publication_can_reach_100(self):
+  job={'steps':[{'name':name,'conclusion':'success'} for name in m.PHASES['Windows']]}
+  for state in ['yellow','red']:
+   self.assertEqual(m.with_progress(m.row('Windows',state,'old',''),job)['progress']['percent'],99)
+  self.assertEqual(m.with_progress(m.row('Windows','green','new',''))['progress']['percent'],100)
+ def test_missing_and_failed_steps_are_not_success(self):
+  self.assertIsNone(m.with_progress(m.row('Linux','gray','?',''))['progress']['percent'])
+  self.assertIsNone(m.with_progress(m.row('Linux','yellow','?',''),{'steps':[{'name':'unexpected','conclusion':'success'}]})['progress']['percent'])
+  steps=[{'name':name,'conclusion':'skipped' if i else 'failure'} for i,name in enumerate(m.PHASES['Windows'])]
+  self.assertEqual(m.with_progress(m.row('Windows','red','old',''),{'steps':steps})['progress']['percent'],0)
  def test_static_publication_only_data_branch(self):
   for head in [None,{'object':{'sha':'old'}}]:
    calls=[]

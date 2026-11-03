@@ -31,6 +31,28 @@ def release_key(release):
     match=re.match(r'v(\d+(?:\.\d+)+)-',release['tag_name'])
     return tuple(map(int,match[1].split('.'))),int(release['tag_name'].split('.')[-1])
 
+PHASES={
+ 'Windows':['Reserve release tag before the long build','Build German Rosavio from verified stable Firefox source','Verify, sign and test native update','Publish and test public update with rollback on failure'],
+ 'Linux':['Reserve release tag before the long build','Prepare standard Linux runner','Build two genuine Linux versions and verify all twenty languages','Sign and test the local native update','Prepare the previous public Linux baseline','Verify public update, actual desktop launch and colored icons'],
+ 'Flatpak':['Verify delayed dispatch discovery and correlation safeguards','Build only newer tested Linux versions and verify full public Flatpak delivery'],
+}
+
+def with_progress(item, job=None):
+    """Equal completed phases, not elapsed time; 100 requires verified publication."""
+    if item['label'] not in PHASES:return item
+    phases=PHASES[item['label']]
+    steps={s['name']:s for s in (job or {}).get('steps',[])}
+    if item['state']=='green':percent=100; note='Geprüft und veröffentlicht'
+    elif item['state']=='gray':percent=None; note='Fortschritt nicht überprüfbar'
+    elif not steps:percent=0 if item['state']=='yellow' else None; note='Noch keine abgeschlossene Phase bestätigt'
+    elif not all(name in steps for name in phases):percent=None; note='Fortschritt nicht überprüfbar'
+    else:
+        complete=sum(steps[name].get('conclusion')=='success' for name in phases)
+        percent=min(99,int(complete*100/len(phases)))
+        note=f'{complete} von {len(phases)} Phasen abgeschlossen'
+    item['progress']={'percent':percent,'note':note}
+    return item
+
 def run_state(job, current, target):
     if job and job['status']!='completed':
         return 'yellow', ('Wartet auf GitHub-Rechner' if job['status'] in ('queued','waiting','pending') else 'Bau / Prüfungen laufen')
@@ -76,7 +98,7 @@ def collect():
                 annotations=api(f"check-runs/{selected['id']}/annotations")
                 if any('capacity constraints' in a.get('message','') for a in annotations):
                     detail='GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen'
-            rows.append(row(label,state,current+' → '+target if current!=target else current,detail,run['html_url'] if run else release['html_url']))
+            rows.append(with_progress(row(label,state,current+' → '+target if current!=target else current,detail,run['html_url'] if run else release['html_url']),selected))
         except Exception as exc:
             rows.append(row(label,'gray','—','Prüfung derzeit nicht möglich'))
             data['errors'].append(label+': '+type(exc).__name__)
@@ -88,7 +110,11 @@ def collect():
         run=api('actions/workflows/rosavio-flatpak-automatic.yml/runs?branch=main&per_page=1')['workflow_runs'][0]
         state,detail=run_state(run,version,target)
         if state=='yellow' and run['status']=='completed':detail='Folgt auf ein neueres geprüftes Linux-Release'
-        rows.append(row('Flatpak',state,version,detail,run['html_url']))
+        progress_job=None
+        if state!='green':
+            jobs=api(f"actions/runs/{run['id']}/jobs?per_page=100")['jobs']
+            progress_job=next((j for j in jobs if j['name']=='update'),None)
+        rows.append(with_progress(row('Flatpak',state,version,detail,run['html_url']),progress_job))
     except Exception as exc:
         rows.append(row('Flatpak','gray','—','Prüfung derzeit nicht möglich'));data['errors'].append('Flatpak: '+type(exc).__name__)
     try:
