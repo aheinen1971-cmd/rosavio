@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T04:53:07.183643+00:00",
+  "checkedAt": "2026-11-04T05:02:37.029699+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -26,10 +26,10 @@
     },
     {
       "label": "Flatpak",
-      "state": "red",
+      "state": "yellow",
       "version": "159.0.1",
-      "detail": "Letzter Auftrag: failure; siehe Laufdetails",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41770263742",
+      "detail": "Bau / Prüfungen laufen",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41776787795",
       "progress": {
         "percent": 50,
         "note": "1 von 2 Phasen abgeschlossen"
@@ -72,7 +72,7 @@
     },
     {
       "label": "Fehlerübersicht",
-      "state": "red",
+      "state": "neutral",
       "version": "—",
       "detail": "Siehe rote Zeilen. Laufstatus und öffentliche Metadaten können nicht alle Browserfehler erkennen.",
       "url": ""
