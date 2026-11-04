@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T03:59:21.737039+00:00",
+  "checkedAt": "2026-11-04T04:15:00.930889+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -26,9 +26,9 @@
     },
     {
       "label": "Flatpak",
-      "state": "yellow",
+      "state": "red",
       "version": "159.0.1",
-      "detail": "Bau / Prüfungen laufen",
+      "detail": "Letzter Auftrag: failure; siehe Laufdetails",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41770263742",
       "progress": {
         "percent": 50,
@@ -66,13 +66,13 @@
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "54",
+      "version": "56",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
     {
       "label": "Fehlerübersicht",
-      "state": "neutral",
+      "state": "red",
       "version": "—",
       "detail": "Siehe rote Zeilen. Laufstatus und öffentliche Metadaten können nicht alle Browserfehler erkennen.",
       "url": ""
