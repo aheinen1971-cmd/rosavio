@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T16:25:57.783032+00:00",
+  "checkedAt": "2026-11-04T16:59:47.136909+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -95,7 +95,7 @@
       "state": "yellow",
       "version": "159.0.1",
       "detail": "Folgt auf ein neueres geprüftes Linux-Release",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41847051026",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41873075460",
       "progress": {
         "percent": 0,
         "note": "Noch keine abgeschlossene Phase bestätigt"
