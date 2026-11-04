@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T17:53:24.953553+00:00",
+  "checkedAt": "2026-11-04T17:58:39.902269+00:00",
   "rows": [
     {
       "label": "Windows",
       "state": "green",
       "version": "159.0.1",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41873210502",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41882130347",
       "progress": {
         "percent": 100,
         "note": "Geprüft und veröffentlicht",
@@ -92,32 +92,33 @@
     },
     {
       "label": "Flatpak",
-      "state": "yellow",
+      "state": "green",
       "version": "159.0.1",
-      "detail": "Wartet auf GitHub-Rechner",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41875487751",
       "progress": {
-        "percent": 0,
-        "note": "Noch keine abgeschlossene Phase bestätigt"
+        "percent": 100,
+        "note": "Geprüft und veröffentlicht"
       },
       "available": {
         "version": "159.0.1",
-        "build": "41817707652"
+        "build": "41848598577"
       },
       "features": {
         "reading": true,
-        "rose": false
+        "rose": true,
+        "download": "https://aheinen1971-cmd.github.io/rosavio/flatpak/Rosavio.flatpakref"
       },
       "roseChange": {
         "key": [
-          false,
-          "yellow",
-          "Wartet auf GitHub-Rechner",
+          true,
+          "green",
+          "Öffentliches Update geprüft und veröffentlicht",
           null,
           null,
-          "41817707652"
+          "41848598577"
         ],
-        "at": "2026-11-04T17:13:34.981893+00:00"
+        "at": "2026-11-04T17:58:39.902269+00:00"
       }
     },
     {
@@ -129,9 +130,9 @@
     },
     {
       "label": "Webseite · 20 Sprachen",
-      "state": "green",
-      "version": "20 Seiten",
-      "detail": "Erreichbar; Links entsprechen den geprüften Unix-Releases",
+      "state": "gray",
+      "version": "—",
+      "detail": "Seiten oder aktuelle Downloadlinks nicht vollständig bestätigt",
       "url": "https://aheinen1971-cmd.github.io/rosavio/"
     },
     {
