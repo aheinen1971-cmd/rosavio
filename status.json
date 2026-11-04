@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T17:00:18.532266+00:00",
+  "checkedAt": "2026-11-04T17:00:47.979398+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -51,17 +51,17 @@
       "detail": "Bau / Prüfungen laufen",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41848598577",
       "progress": {
-        "percent": 33,
-        "note": "2 von 6 Phasen abgeschlossen",
+        "percent": 50,
+        "note": "3 von 6 Phasen abgeschlossen",
         "steps": [
+          "success",
           "success",
           "success",
           "in_progress",
           "pending",
-          "pending",
           "pending"
         ],
-        "startedAt": "2026-11-04T14:36:05Z"
+        "startedAt": "2026-11-04T17:00:35Z"
       },
       "available": {
         "version": "159.0.1",
@@ -80,14 +80,14 @@
           [
             "success",
             "success",
+            "success",
             "in_progress",
-            "pending",
             "pending",
             "pending"
           ],
           "41817707652"
         ],
-        "at": "2026-11-04T14:36:05Z"
+        "at": "2026-11-04T17:00:35Z"
       }
     },
     {
@@ -120,13 +120,13 @@
           [
             "success",
             "success",
+            "success",
             "in_progress",
-            "pending",
             "pending",
             "pending"
           ]
         ],
-        "at": "2026-11-04T14:36:05Z"
+        "at": "2026-11-04T17:00:35Z"
       }
     },
     {
