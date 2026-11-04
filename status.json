@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T11:53:56.328439+00:00",
+  "checkedAt": "2026-11-04T12:42:20.063402+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -15,24 +15,24 @@
     },
     {
       "label": "Linux",
-      "state": "yellow",
+      "state": "green",
       "version": "159.0.1",
-      "detail": "Bau / Prüfungen laufen",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41817707652",
       "progress": {
-        "percent": 33,
-        "note": "2 von 6 Phasen abgeschlossen"
+        "percent": 100,
+        "note": "Geprüft und veröffentlicht"
       }
     },
     {
       "label": "Flatpak",
-      "state": "green",
+      "state": "yellow",
       "version": "159.0.1",
-      "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41812130687",
+      "detail": "Wartet auf GitHub-Rechner",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41831568151",
       "progress": {
-        "percent": 100,
-        "note": "Geprüft und veröffentlicht"
+        "percent": 0,
+        "note": "Noch keine abgeschlossene Phase bestätigt"
       }
     },
     {
@@ -44,9 +44,9 @@
     },
     {
       "label": "Webseite · 20 Sprachen",
-      "state": "green",
-      "version": "20 Seiten",
-      "detail": "Erreichbar; Links entsprechen den geprüften Unix-Releases",
+      "state": "gray",
+      "version": "—",
+      "detail": "Seiten oder aktuelle Downloadlinks nicht vollständig bestätigt",
       "url": "https://aheinen1971-cmd.github.io/rosavio/"
     },
     {
