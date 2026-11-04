@@ -28,6 +28,7 @@ function render(data){
     }else badge.textContent=statusText(labels[row.state]);
     td.append(badge);
    }
+   else if(key==='detail'&&Object.hasOwn(packageLabels,row.label))showRelease(td,row,data.checkedAt);
    else td.textContent=statusText(row[key]);
    if(key==='version'&&/^\d+(?:\.\d+)*(?: → \d+(?:\.\d+)*)?$/.test(row.version))td.dir='ltr';
    if(key==='label'&&['Windows','Linux','Flatpak'].includes(row.label)){

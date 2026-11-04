@@ -18,6 +18,17 @@ class StatusTests(unittest.TestCase):
   self.assertIsNone(m.with_progress(m.row('Linux','yellow','?',''),{'steps':[{'name':'unexpected','conclusion':'success'}]})['progress']['percent'])
   steps=[{'name':name,'conclusion':'skipped' if i else 'failure'} for i,name in enumerate(m.PHASES['Windows'])]
   self.assertEqual(m.with_progress(m.row('Windows','red','old',''),{'steps':steps})['progress']['percent'],0)
+ def test_flatpak_wait_uses_release_identity_even_for_same_firefox_version(self):
+  linux={'state':'yellow'}
+  self.assertEqual(m.flatpak_wait(linux,'v159.0.1.2','v159.0.1.2','green'),'linux')
+  self.assertEqual(m.flatpak_wait(linux,'v159.0.1.3','v159.0.1.2','green'),'flatpak')
+  self.assertIsNone(m.flatpak_wait({'state':'green'},'same','same','green'))
+  self.assertIsNone(m.flatpak_wait(linux,None,'old','green'))
+  self.assertIsNone(m.flatpak_wait(linux,'new','old','red'))
+ def test_duration_uses_only_active_phase_start(self):
+  steps=[{'name':n,'status':'in_progress' if i==1 else 'completed','started_at':str(i)} for i,n in enumerate(m.PHASES['Windows'])]
+  result=m.with_progress(m.row('Windows','yellow','159.0.1',''),{'steps':steps})
+  self.assertEqual(result['progress']['startedAt'],'1')
  def test_static_publication_only_data_branch(self):
   for head in [None,{'object':{'sha':'old'}}]:
    calls=[]

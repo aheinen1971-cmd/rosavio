@@ -53,7 +53,15 @@ def with_progress(item, job=None):
     item['progress']={'percent':percent,'note':note}
     if steps and any(name in steps for name in phases):
         item['progress']['steps']=[steps.get(name,{}).get('conclusion') or steps.get(name,{}).get('status','unknown') for name in phases]
+        active=next((steps[n] for n in phases if n in steps and steps[n].get('status')=='in_progress'),{})
+        if active.get('started_at'):item['progress']['startedAt']=active['started_at']
     return item
+
+def flatpak_wait(linux, linux_tag, flatpak_tag, state):
+    if state in ('red','gray') or not linux_tag:return None
+    if linux_tag!=flatpak_tag:return 'flatpak'
+    if linux and linux['state'] in ('yellow','red'):return 'linux'
+    return None
 
 def run_state(job, current, target):
     if job and job['status']!='completed':
@@ -101,24 +109,38 @@ def collect():
                 if any('capacity constraints' in a.get('message','') for a in annotations):
                     detail='GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen'
             rows.append(with_progress(row(label,state,current+' → '+target if current!=target else current,detail,run['html_url'] if run else release['html_url']),selected))
+            rows[-1]['available']={'version':current,'build':release['tag_name'].split('.')[-1]}
         except Exception as exc:
             rows.append(row(label,'gray','—','Prüfung derzeit nicht möglich'))
+            if platform in published:
+                rows[-1]['available']={'version':current,'build':release['tag_name'].split('.')[-1]}
             data['errors'].append(label+': '+type(exc).__name__)
+    flatpak_available=None
     try:
         proof=get(BASE+'rosavio-flatpak-repository/public-update-report.json')
         if not all(proof.get(k) is True for k in ('passed','publicUpdateTestPassed','gpgVerificationRequired','browserPagesAfterUpdatePassed')):raise ValueError('Incomplete Flatpak proof')
         if proof.get('desktopIconAndExtensionTestsPending') is not False:raise ValueError('Pending tests')
         version=guard.version_of(proof['newNativeRelease'])
+        flatpak_available={'version':version,'build':proof['newNativeRelease'].split('.')[-1]}
         run=api('actions/workflows/rosavio-flatpak-automatic.yml/runs?branch=main&per_page=1')['workflow_runs'][0]
         state,detail=run_state(run,version,target)
         if state=='yellow' and run['status']=='completed':detail='Folgt auf ein neueres geprüftes Linux-Release'
+        linux_tag=published.get('linux-x64',{}).get('tag_name')
+        waiting=flatpak_wait(next((r for r in rows if r['label']=='Linux'),None),linux_tag,proof['newNativeRelease'],state)
         progress_job=None
         if state!='green':
             jobs=api(f"actions/runs/{run['id']}/jobs?per_page=100")['jobs']
             progress_job=next((j for j in jobs if j['name']=='update'),None)
-        rows.append(with_progress(row('Flatpak',state,version,detail,run['html_url']),progress_job))
+        if waiting and state=='green':
+            state,detail='yellow','Folgt auf ein neueres geprüftes Linux-Release'
+        if waiting and run['status']=='completed':progress_job=None
+        item=with_progress(row('Flatpak',state,version,detail,run['html_url']),progress_job)
+        item['available']=flatpak_available
+        if waiting and run['status']=='completed':item['awaiting']=waiting
+        rows.append(item)
     except Exception as exc:
         rows.append(row('Flatpak','gray','—','Prüfung derzeit nicht möglich'));data['errors'].append('Flatpak: '+type(exc).__name__)
+        if flatpak_available:rows[-1]['available']=flatpak_available
     try:
         count=0
         for lang in ['index','en','fr','es','nl','it','pt-PT','pl','cs','da','sv-SE','nb-NO','fi','tr','uk','el','ja','ko','ar','he']:
