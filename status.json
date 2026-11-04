@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T02:04:48.116982+00:00",
+  "checkedAt": "2026-11-04T02:06:19.810431+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -20,8 +20,8 @@
       "detail": "Bau / Prüfungen laufen",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41743272090",
       "progress": {
-        "percent": 50,
-        "note": "3 von 6 Phasen abgeschlossen"
+        "percent": 83,
+        "note": "5 von 6 Phasen abgeschlossen"
       }
     },
     {
