@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T01:38:20.088211+00:00",
+  "checkedAt": "2026-11-04T02:04:27.196917+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -20,8 +20,8 @@
       "detail": "Bau / Prüfungen laufen",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41743272090",
       "progress": {
-        "percent": 33,
-        "note": "2 von 6 Phasen abgeschlossen"
+        "percent": 50,
+        "note": "3 von 6 Phasen abgeschlossen"
       }
     },
     {
@@ -29,7 +29,7 @@
       "state": "green",
       "version": "159.0.1",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41741550800",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41758302684",
       "progress": {
         "percent": 100,
         "note": "Geprüft und veröffentlicht"
