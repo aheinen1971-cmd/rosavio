@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T02:16:09.782448+00:00",
+  "checkedAt": "2026-11-04T02:31:11.543624+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -28,11 +28,11 @@
       "label": "Flatpak",
       "state": "yellow",
       "version": "159.0.1",
-      "detail": "Wartet auf GitHub-Rechner",
+      "detail": "Bau / Prüfungen laufen",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41759565978",
       "progress": {
-        "percent": 0,
-        "note": "Noch keine abgeschlossene Phase bestätigt"
+        "percent": 50,
+        "note": "1 von 2 Phasen abgeschlossen"
       }
     },
     {
@@ -44,9 +44,9 @@
     },
     {
       "label": "Webseite · 20 Sprachen",
-      "state": "gray",
-      "version": "—",
-      "detail": "Seiten oder aktuelle Downloadlinks nicht vollständig bestätigt",
+      "state": "green",
+      "version": "20 Seiten",
+      "detail": "Erreichbar; Links entsprechen den geprüften Unix-Releases",
       "url": "https://aheinen1971-cmd.github.io/rosavio/"
     },
     {
@@ -66,7 +66,7 @@
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "44",
+      "version": "49",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
