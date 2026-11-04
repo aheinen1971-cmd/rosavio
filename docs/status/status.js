@@ -18,7 +18,16 @@ function render(data){
   const tr=document.createElement('tr');tr.dataset.platform=row.label;
   for(const key of ['label','version','state','detail']){
    const td=document.createElement('td');
-   if(key==='state'){const badge=document.createElement('span');badge.className='badge '+row.state;badge.textContent=statusText(labels[row.state]);td.append(badge);}
+   if(key==='state'){
+    const badge=document.createElement('span');
+    badge.className='badge '+row.state;
+    const active=row.state==='yellow'&&Array.isArray(row.progress?.steps)&&row.progress.steps.includes('in_progress');
+    if(active){
+     const ring=document.createElement('span');ring.className='activity-ring';ring.setAttribute('aria-hidden','true');
+     badge.append(ring,statusText('Bau / Prüfungen laufen'));
+    }else badge.textContent=statusText(labels[row.state]);
+    td.append(badge);
+   }
    else td.textContent=statusText(row[key]);
    if(key==='version'&&/^\d+(?:\.\d+)*(?: → \d+(?:\.\d+)*)?$/.test(row.version))td.dir='ltr';
    if(key==='label'&&['Windows','Linux','Flatpak'].includes(row.label)){

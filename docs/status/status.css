@@ -3,3 +3,6 @@
 .status-languages{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:22px;font-size:13px}.status-languages [aria-current=page]{font-weight:800;text-decoration:none}table{text-align:start}[dir=rtl] header{padding-right:0;padding-left:70px}[dir=rtl] .rose{right:auto;left:0}[dir=rtl] .summary button{margin-left:0;margin-right:auto}[dir=rtl] .phase-progress{text-align:right}@media(max-width:650px){[dir=rtl] .summary button{margin-right:0}[dir=rtl] header{padding-left:40px}}
 
 .package-box{margin-block:.6em;padding:.5em .7em;border:1px solid currentColor;border-radius:.55em;overflow-wrap:anywhere}.package-box summary{cursor:pointer;font-weight:600}.package-box div,.package-box ol{margin-block:.5em}.package-box ol{padding-inline-start:1.7em}
+.activity-ring{display:inline-block;width:1em;height:1em;border:.17em solid currentColor;border-inline-end-color:transparent;border-radius:50%;vertical-align:-.13em;margin-inline-end:.45em}
+@keyframes activity-turn{to{transform:rotate(1turn)}}
+@media(prefers-reduced-motion:no-preference){.activity-ring{animation:activity-turn 1s linear infinite}}
