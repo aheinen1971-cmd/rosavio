@@ -1,47 +1,47 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T17:24:31.570674+00:00",
+  "checkedAt": "2026-11-04T17:48:40.697448+00:00",
   "rows": [
     {
       "label": "Windows",
-      "state": "yellow",
+      "state": "green",
       "version": "159.0.1",
-      "detail": "Bau / Prüfungen laufen",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41848549527",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41873210502",
       "progress": {
-        "percent": 25,
-        "note": "1 von 4 Phasen abgeschlossen",
+        "percent": 100,
+        "note": "Geprüft und veröffentlicht",
         "steps": [
           "success",
-          "in_progress",
-          "pending",
-          "pending"
-        ],
-        "startedAt": "2026-11-04T14:32:35Z"
+          "success",
+          "skipped",
+          "skipped"
+        ]
       },
       "available": {
         "version": "159.0.1",
-        "build": "41817685070"
+        "build": "41848549527"
       },
       "features": {
         "reading": true,
-        "rose": false
+        "rose": true,
+        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v159.0.1-rosavio.41848549527/Rosavio-Setup-Deutsch.exe"
       },
       "roseChange": {
         "key": [
-          false,
-          "yellow",
-          "Bau / Prüfungen laufen",
+          true,
+          "green",
+          "Öffentliches Update geprüft und veröffentlicht",
           null,
           [
             "success",
-            "in_progress",
-            "pending",
-            "pending"
+            "success",
+            "skipped",
+            "skipped"
           ],
-          "41817685070"
+          "41848549527"
         ],
-        "at": "2026-11-04T14:32:35Z"
+        "at": "2026-11-04T17:48:40.697448+00:00"
       }
     },
     {
@@ -151,7 +151,7 @@
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "65",
+      "version": "66",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
