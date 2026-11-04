@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T02:15:39.742204+00:00",
+  "checkedAt": "2026-11-04T02:15:54.431832+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -28,11 +28,11 @@
       "label": "Flatpak",
       "state": "yellow",
       "version": "159.0.1",
-      "detail": "Bau / Prüfungen laufen",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41759553713",
+      "detail": "Wartet auf GitHub-Rechner",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41759565978",
       "progress": {
-        "percent": 50,
-        "note": "1 von 2 Phasen abgeschlossen"
+        "percent": 0,
+        "note": "Noch keine abgeschlossene Phase bestätigt"
       }
     },
     {
