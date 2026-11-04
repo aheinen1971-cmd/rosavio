@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T14:42:26.944896+00:00",
+  "checkedAt": "2026-11-04T14:57:06.711926+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -16,7 +16,12 @@
           "in_progress",
           "pending",
           "pending"
-        ]
+        ],
+        "startedAt": "2026-11-04T14:32:35Z"
+      },
+      "available": {
+        "version": "159.0.1",
+        "build": "41817685070"
       }
     },
     {
@@ -35,19 +40,29 @@
           "pending",
           "pending",
           "pending"
-        ]
+        ],
+        "startedAt": "2026-11-04T14:36:05Z"
+      },
+      "available": {
+        "version": "159.0.1",
+        "build": "41817707652"
       }
     },
     {
       "label": "Flatpak",
-      "state": "green",
+      "state": "yellow",
       "version": "159.0.1",
-      "detail": "Öffentliches Update geprüft und veröffentlicht",
+      "detail": "Folgt auf ein neueres geprüftes Linux-Release",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41847051026",
       "progress": {
-        "percent": 100,
-        "note": "Geprüft und veröffentlicht"
-      }
+        "percent": 0,
+        "note": "Noch keine abgeschlossene Phase bestätigt"
+      },
+      "available": {
+        "version": "159.0.1",
+        "build": "41817707652"
+      },
+      "awaiting": "linux"
     },
     {
       "label": "macOS",
