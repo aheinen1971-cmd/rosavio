@@ -23,8 +23,8 @@ test('only bounded plain text and HTTP(S) links are persisted',async()=>{
   {revision:0,notes:'',links:[],path:'/outside'},
  ])await assert.rejects(t.a.receiveMessage({name:'RosavioWorkspace:Save',data}));
  assert.equal(t.writes,0);
- await t.a.receiveMessage({name:'RosavioWorkspace:Save',data:{revision:0,notes:'<script>plain text ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â¹</script>',links:[{title:'Example',url:'https://example.com'}]}});
- assert.equal(t.disk.notes,'<script>plain text ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â¹</script>');assert.equal(t.disk.links[0].url,'https://example.com/');assert.equal(t.writes,1);
+ await t.a.receiveMessage({name:'RosavioWorkspace:Save',data:{revision:0,notes:'<script>plain text 🌹</script>',links:[{title:'Example',url:'https://example.com'}]}});
+ assert.equal(t.disk.notes,'<script>plain text 🌹</script>');assert.equal(t.disk.links[0].url,'https://example.com/');assert.equal(t.writes,1);
 });
 test('concurrent stale edits cannot silently overwrite newer notes',async()=>{
  const t=setup(),save=notes=>t.a.receiveMessage({name:'RosavioWorkspace:Save',data:{revision:0,notes,links:[]}});
