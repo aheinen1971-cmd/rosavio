@@ -51,6 +51,8 @@ def with_progress(item, job=None):
         percent=min(99,int(complete*100/len(phases)))
         note=f'{complete} von {len(phases)} Phasen abgeschlossen'
     item['progress']={'percent':percent,'note':note}
+    if steps and any(name in steps for name in phases):
+        item['progress']['steps']=[steps.get(name,{}).get('conclusion') or steps.get(name,{}).get('status','unknown') for name in phases]
     return item
 
 def run_state(job, current, target):

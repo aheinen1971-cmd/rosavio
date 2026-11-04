@@ -11,10 +11,11 @@ function ageNotice(){
 }
 function render(data){
  if(data.schema!==1||!Array.isArray(data.rows)||data.rows.length>30||!Number.isFinite(Date.parse(data.checkedAt)))throw Error('Ungültige Statusdaten');
+ const expanded=new Set(Array.from(document.querySelectorAll('.package-box[open]'),box=>box.closest('tr').dataset.platform));
  const fragment=document.createDocumentFragment();
  for(const row of data.rows){
   if(!Object.hasOwn(labels,row.state)||!['label','version','detail'].every(k=>typeof row[k]==='string'))throw Error('Ungültige Statuszeile');
-  const tr=document.createElement('tr');
+  const tr=document.createElement('tr');tr.dataset.platform=row.label;
   for(const key of ['label','version','state','detail']){
    const td=document.createElement('td');
    if(key==='state'){const badge=document.createElement('span');badge.className='badge '+row.state;badge.textContent=statusText(labels[row.state]);td.append(badge);}
@@ -28,6 +29,7 @@ function render(data){
     if(valid){const bar=document.createElement('progress');bar.max=100;bar.value=percent;bar.setAttribute('aria-label',row.label+' – '+statusText('abgeschlossene Updatephasen'));bar.className='phase-'+row.state;box.append(bar);}
     const note=document.createElement('small');note.textContent=statusText(valid&&typeof p.note==='string'?p.note:'Fortschritt nicht überprüfbar');box.append(note);td.append(box);
    }
+   if(key==='detail'){const box=packageBox(row,expanded.has(row.label));if(box)td.append(box);}
    if(key==='detail'&&row.url){
     const url=new URL(row.url);
     if(url.protocol==='https:'&&['github.com','aheinen1971-cmd.github.io','addons.mozilla.org'].includes(url.hostname)){
