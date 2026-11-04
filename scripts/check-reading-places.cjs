@@ -56,11 +56,12 @@ module.exports = async function checkReadingPlaces(session) {
     assert.equal(await session.script("return document.querySelector('#target').textContent;"),'Inzwischen geänderter Inhalt');
     await nav('about:rosavio-notes');
     await until(`return document.querySelector('#reading-places a')?.textContent.includes(${JSON.stringify(quote)})===true;`,'Excerpt lost when page changed');
+    const rosePath=await require('./check-rose-path.cjs')(session,link);
     await click('#reading-places button');await click('#save');
     await until("return !document.getElementById('save').disabled && !Array.from(document.querySelectorAll('#reading-places a')).some(a=>a.textContent.includes('Lesestelle für morgen'));",'Removal not saved');
     await session.command('WebDriver:Refresh');
     await until("return !document.getElementById('save').disabled && !Array.from(document.querySelectorAll('#reading-places a')).some(a=>a.textContent.includes('Lesestelle für morgen'));",'Removal lost');
-    return {passed:true,contextMenu:true,jumpedToPassage:true,changedPageKeptExcerpt:true,removalPersisted:true};
+    return {passed:true,rosePath,contextMenu:true,jumpedToPassage:true,changedPageKeptExcerpt:true,removalPersisted:true};
   } finally {
     await chrome();
     server.closeAllConnections();server.close();

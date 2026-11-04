@@ -23,8 +23,8 @@ test('only bounded plain text and HTTP(S) links are persisted',async()=>{
   {revision:0,notes:'',links:[],path:'/outside'},
  ])await assert.rejects(t.a.receiveMessage({name:'RosavioWorkspace:Save',data}));
  assert.equal(t.writes,0);
- await t.a.receiveMessage({name:'RosavioWorkspace:Save',data:{revision:0,notes:'<script>plain text ðŸŒ¹</script>',links:[{title:'Example',url:'https://example.com'}]}});
- assert.equal(t.disk.notes,'<script>plain text ðŸŒ¹</script>');assert.equal(t.disk.links[0].url,'https://example.com/');assert.equal(t.writes,1);
+ await t.a.receiveMessage({name:'RosavioWorkspace:Save',data:{revision:0,notes:'<script>plain text ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â¹</script>',links:[{title:'Example',url:'https://example.com'}]}});
+ assert.equal(t.disk.notes,'<script>plain text ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â¹</script>');assert.equal(t.disk.links[0].url,'https://example.com/');assert.equal(t.writes,1);
 });
 test('concurrent stale edits cannot silently overwrite newer notes',async()=>{
  const t=setup(),save=notes=>t.a.receiveMessage({name:'RosavioWorkspace:Save',data:{revision:0,notes,links:[]}});
@@ -46,4 +46,20 @@ test('private windows, unsafe addresses and a full list cannot overwrite saved r
  for(let i=0;i<30;i++)await add('https://example.org/#:~:text='+i);
  const disk=t.disk;await assert.rejects(add('https://example.org/#:~:text=overflow'));assert.deepEqual(t.disk,disk);
  t.private();assert.throws(()=>add('https://example.org/#:~:text=private'));assert.deepEqual(t.disk,disk);
+});
+test('rose paths validate saved steps and reject unsafe or inconsistent trails without changing other data',async()=>{
+ const t=setup();
+ const base={revision:0,notes:'Old note',links:[]};
+ const step={url:'https://example.org/article#:~:text=garden',quote:'garden',note:'Come back in spring'};
+ const trail={name:'Garden',steps:[step],current:0};
+ for(const invalid of [
+  {...trail,current:1},{...trail,steps:[]},{...trail,steps:[step,step]},
+  {...trail,steps:[{...step,url:'javascript:alert(1)#:~:text=x'}]},
+  {...trail,steps:[{...step,note:'a'.repeat(701)}]}
+ ])await assert.rejects(t.a.receiveMessage({name:'RosavioWorkspace:Save',data:{...base,trail:invalid}}));
+ assert.equal(t.writes,0);
+ await t.a.receiveMessage({name:'RosavioWorkspace:Save',data:{...base,trail}});
+ assert.deepEqual(t.disk.trail,trail);
+ await t.a.constructor.addPlace({},{url:'https://example.org/#:~:text=another',quote:'another'});
+ assert.deepEqual(t.disk.trail,trail);assert.equal(t.disk.notes,'Old note');
 });

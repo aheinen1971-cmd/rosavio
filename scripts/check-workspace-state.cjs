@@ -16,6 +16,9 @@ async function state(session,root,mode){
   // fixture in that case; never claim that the old release had workspace UI.
   if(included){
    await select(session);await session.command('WebDriver:Navigate',{url:'about:rosavio-notes'});
+   if(hasPlaces && await session.script("return !!document.getElementById('rose-path');")){
+    fixture.trail={name:'Testpfad',steps:[{...fixture.places[0],note:'Notiz bleibt erhalten'}],current:0};
+   }
    await session.command('Marionette:SetContext',{value:'chrome'});
    const result=await session.script(`const a=gBrowser.selectedBrowser.browsingContext.currentWindowGlobal.getActor('RosavioWorkspace');const current=await a.receiveMessage({name:'RosavioWorkspace:Read'});if(current.revision!==0)throw Error('Fresh isolated workspace required');return await a.receiveMessage({name:'RosavioWorkspace:Save',data:${JSON.stringify({...fixture,revision:0})}});`);
    assert.deepEqual(result,fixture);
@@ -35,7 +38,7 @@ async function state(session,root,mode){
   assert.equal(data.ready,true);assert.equal(data.notes,before.fixture.notes);assert.deepEqual(data.links,before.fixture.links);assert.deepEqual(data.places,(before.fixture.places||[]).map(p=>p.url));
  }
  await session.command('Marionette:SetContext',{value:'chrome'});
- const result={passed:true,notesAndShortcutsPreserved:true,readingPlaceExistedBeforeUpdate:!!before.fixture.places?.length,baselineWorkspaceAvailable:before.baselineWorkspaceAvailable,legacyDataFixture:before.legacyDataFixture};
+ const result={passed:true,notesAndShortcutsPreserved:true,rosePathExistedBeforeUpdate:!!before.fixture.trail,readingPlaceExistedBeforeUpdate:!!before.fixture.places?.length,baselineWorkspaceAvailable:before.baselineWorkspaceAvailable,legacyDataFixture:before.legacyDataFixture};
  fs.writeFileSync(path.join(root,'workspace-after.json'),JSON.stringify(result,null,2));return result;
 }
 module.exports=state;module.exports.capability=capability;
