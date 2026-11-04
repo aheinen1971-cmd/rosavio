@@ -29,6 +29,25 @@ class StatusTests(unittest.TestCase):
   steps=[{'name':n,'status':'in_progress' if i==1 else 'completed','started_at':str(i)} for i,n in enumerate(m.PHASES['Windows'])]
   result=m.with_progress(m.row('Windows','yellow','159.0.1',''),{'steps':steps})
   self.assertEqual(result['progress']['startedAt'],'1')
+ def test_feature_evidence_requires_post_update_test_and_matching_report(self):
+  proof={'passed':True,'workspaceAfterUpdatePassed':True,'workspaceAfter':{'passed':True,'readingPlaceExistedBeforeUpdate':False}}
+  old=m.feature_evidence(proof,'v1.2','Windows')
+  self.assertEqual(old,{'reading':True,'rose':False})
+  proof['workspaceAfter']['rosePathExistedBeforeUpdate']=False
+  self.assertTrue(m.feature_evidence(proof,'v1.3','Linux')['download'].endswith('v1.3/Rosavio-Linux-x64.tar.xz'))
+  proof['workspaceAfterUpdatePassed']=False
+  self.assertFalse(m.feature_evidence(proof,'v1.3','Linux'))
+ def test_change_time_persists_across_checks(self):
+  import copy
+  current={'checkedAt':'2026-11-04T12:00:00Z','rows':[{'label':'Linux','state':'yellow','detail':'running','progress':{'steps':['in_progress'],'startedAt':'2026-11-04T11:00:00Z'}}]}
+  m.feature_changes(current,{})
+  previous=copy.deepcopy(current)
+  current['checkedAt']='2026-11-04T13:00:00Z'
+  m.feature_changes(current,previous)
+  self.assertEqual(current['rows'][0]['roseChange']['at'],'2026-11-04T11:00:00Z')
+  current['rows'][0]['progress']={'steps':['success']}
+  m.feature_changes(current,previous)
+  self.assertEqual(current['rows'][0]['roseChange']['at'],current['checkedAt'])
  def test_static_publication_only_data_branch(self):
   for head in [None,{'object':{'sha':'old'}}]:
    calls=[]

@@ -71,6 +71,40 @@ def run_state(job, current, target):
     if current==target:return 'green','Öffentliches Update geprüft und veröffentlicht'
     return 'yellow','Neue Version noch nicht vollständig veröffentlicht'
 
+def feature_evidence(proof, tag, platform):
+    preservation=proof.get('workspaceAfter') or proof.get('workspacePreservation') or {}
+    if not (proof.get('passed') is True and proof.get('workspaceAfterUpdatePassed') is True
+            and preservation.get('passed') is True):
+        return {}
+    # These report fields were introduced by the corresponding post-update UI tests.
+    # A false value describes the OLD profile and is valid for a newly added feature.
+    features={'reading':isinstance(preservation.get('readingPlaceExistedBeforeUpdate'),bool),
+              'rose':isinstance(preservation.get('rosePathExistedBeforeUpdate'),bool)}
+    if features['rose']:
+        names={'Windows':'Rosavio-Setup-Deutsch.exe','Linux':'Rosavio-Linux-x64.tar.xz'}
+        features['download']=BASE+tag+'/'+names[platform] if platform in names else 'https://aheinen1971-cmd.github.io/rosavio/flatpak/Rosavio.flatpakref'
+    return features
+
+def feature_changes(snapshot, previous):
+    earlier={r['label']:r for r in previous.get('rows',[])}
+    for item in snapshot['rows']:
+        if item['label'] not in PHASES:continue
+        progress=item.get('progress',{})
+        key=[item.get('features',{}).get('rose'),item['state'],item['detail'],item.get('awaiting'),
+             progress.get('steps'),item.get('available',{}).get('build')]
+        if item.get('awaiting')=='linux':
+            linux=next((r for r in snapshot['rows'] if r['label']=='Linux'),{})
+            key.append(linux.get('progress',{}).get('steps'))
+        prior=earlier.get(item['label'],{}).get('roseChange',{})
+        if prior.get('key')==key:
+            when=prior.get('at')
+        else:
+            when=progress.get('startedAt')
+            if item.get('awaiting')=='linux':when=linux.get('progress',{}).get('startedAt')
+            if not when or (prior.get('at') and when < prior['at']):
+                when=snapshot['checkedAt'] if prior else None
+        item['roseChange']={'key':key,'at':when}
+
 def collect():
     spec=importlib.util.spec_from_file_location('download_guards',pathlib.Path(__file__).with_name('update-website-downloads.py'))
     guard=importlib.util.module_from_spec(spec);spec.loader.exec_module(guard)
@@ -110,6 +144,7 @@ def collect():
                     detail='GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen'
             rows.append(with_progress(row(label,state,current+' → '+target if current!=target else current,detail,run['html_url'] if run else release['html_url']),selected))
             rows[-1]['available']={'version':current,'build':release['tag_name'].split('.')[-1]}
+            rows[-1]['features']=feature_evidence(proof,release['tag_name'],label)
         except Exception as exc:
             rows.append(row(label,'gray','—','Prüfung derzeit nicht möglich'))
             if platform in published:
@@ -136,6 +171,7 @@ def collect():
         if waiting and run['status']=='completed':progress_job=None
         item=with_progress(row('Flatpak',state,version,detail,run['html_url']),progress_job)
         item['available']=flatpak_available
+        item['features']=feature_evidence(proof,proof['newNativeRelease'],'Flatpak')
         if waiting and run['status']=='completed':item['awaiting']=waiting
         rows.append(item)
     except Exception as exc:
@@ -193,6 +229,9 @@ def publish_static(snapshot):
 
 def main():
     snapshot=collect()
+    import base64
+    saved=api('contents/status.json?ref=rosavio-status-data')
+    feature_changes(snapshot,json.loads(base64.b64decode(saved['content'])))
     pathlib.Path('status-snapshot.json').write_text(json.dumps(snapshot,ensure_ascii=False,indent=2),encoding='utf-8')
     if '--publish' not in __import__('sys').argv:return
     if os.environ.get('GITHUB_ACTIONS')!='true' or os.environ.get('GITHUB_REPOSITORY')!=REPO:raise SystemExit('Publication only on authorized runner')

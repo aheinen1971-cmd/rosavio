@@ -6,3 +6,4 @@
 .activity-ring{display:inline-block;width:1em;height:1em;border:.17em solid currentColor;border-inline-end-color:transparent;border-radius:50%;vertical-align:-.13em;margin-inline-end:.45em}
 @keyframes activity-turn{to{transform:rotate(1turn)}}
 @media(prefers-reduced-motion:no-preference){.activity-ring{animation:activity-turn 1s linear infinite}}
+#rose-card{background:#fff;border:1px solid #eddbe1;border-radius:16px;margin-block:1rem;padding:1rem 1.3rem}#rose-card h2{font-size:1.25rem;margin:0 0 .7rem}.rose-choices{display:flex;flex-wrap:wrap;gap:.45rem}.rose-choices button{border:1px solid #915067;color:#712d49;background:#fff;border-radius:1rem;padding:.4rem .9rem;font:inherit;cursor:pointer}.rose-choices button[aria-pressed=true]{background:#822b4a;color:white}.rose-choices button:focus-visible{outline:3px solid #14543b;outline-offset:2px}.rose-body p{margin:.65rem 0;overflow-wrap:anywhere}

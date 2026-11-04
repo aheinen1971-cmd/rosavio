@@ -53,7 +53,7 @@ function render(data){
  document.getElementById('rows').replaceChildren(fragment);
  document.getElementById('upstream').textContent=data.upstream||'—';
  document.getElementById('checked').textContent=new Intl.DateTimeFormat(statusLanguage,{dateStyle:'medium',timeStyle:'short',timeZone:'Europe/Berlin'}).format(new Date(data.checkedAt));
- last=data;ageNotice();
+ last=data;ageNotice();roseCard(data);
 }
 async function refresh(){
  if(busy)return;busy=true;document.getElementById('refresh').disabled=true;
