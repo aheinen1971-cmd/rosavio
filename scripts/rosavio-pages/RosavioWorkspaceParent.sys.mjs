@@ -13,6 +13,20 @@ function cleanPlace(place) {
       !url.hash.includes(':~:text=')) throw Error('Invalid reading URL');
   return {url:url.href, quote:place.quote};
 }
+function cleanTrail(trail) {
+  if (!trail || typeof trail.name !== 'string' || trail.name.length > 80 ||
+      !Array.isArray(trail.steps) || !trail.steps.length || trail.steps.length > 30 ||
+      !Number.isInteger(trail.current) || trail.current < 0 || trail.current >= trail.steps.length) {
+    throw Error('Invalid rose path');
+  }
+  const steps = trail.steps.map(step => {
+    const place = cleanPlace(step);
+    if (typeof step.note !== 'string' || step.note.length > 700) throw Error('Invalid step note');
+    return {...place, note:step.note};
+  });
+  if (new Set(steps.map(step => step.url)).size !== steps.length) throw Error('Duplicate rose path step');
+  return {name:trail.name.trim(), current:trail.current, steps};
+}
 function enqueue(action) {
   const task = pending.then(action);
   pending = task.catch(() => {});
@@ -24,12 +38,12 @@ async function write(file, data) {
 }
 function clean(data) {
   if (!data || typeof data !== 'object' || Array.isArray(data) ||
-      Object.keys(data).some(k => !['revision', 'notes', 'links', 'places'].includes(k)) ||
+      Object.keys(data).some(k => !['revision', 'notes', 'links', 'places', 'trail'].includes(k)) ||
       !Number.isSafeInteger(data.revision) || data.revision < 0 ||
       typeof data.notes !== 'string' || data.notes.length > LIMIT ||
       !Array.isArray(data.links) || data.links.length > 24) throw Error('Invalid workspace data');
   if (data.places !== undefined && (!Array.isArray(data.places) || data.places.length > 30)) throw Error('Invalid reading places');
-  return { ...(data.places?.length ? {places:data.places.map(cleanPlace)} : {}), revision: data.revision, notes: data.notes, links: data.links.map(item => {
+  return { ...(data.trail === undefined ? {} : {trail:cleanTrail(data.trail)}), ...(data.places?.length ? {places:data.places.map(cleanPlace)} : {}), revision: data.revision, notes: data.notes, links: data.links.map(item => {
     if (!item || Object.keys(item).some(k => !['title','url'].includes(k)) ||
         typeof item.title !== 'string' || !item.title.trim() || item.title.length > 100 ||
         typeof item.url !== 'string' || item.url.length > 4096) throw Error('Invalid shortcut');

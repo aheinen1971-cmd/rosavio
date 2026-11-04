@@ -8,7 +8,12 @@
 <nav><a href="about:rosavio-home">Startseite</a><a href="about:rosavio-notes">Notizen</a></nav>
 <p>Nur auf diesem Gerät, in diesem Browserprofil. Keine Cloud-Synchronisierung. In privaten Fenstern nicht verfügbar.</p>
 <p id="status" role="status" aria-live="polite">Wird geladen …</p>
-<section id="notes-panel" hidden><label for="notes">Meine Notizen</label><textarea id="notes" maxlength="100000" rows="16" disabled></textarea><h2>Später hier weiterlesen</h2><p>Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.</p><ul id="reading-places"></ul></section>
+<section id="notes-panel" hidden><label for="notes">Meine Notizen</label><textarea id="notes" maxlength="100000" rows="16" disabled></textarea><h2>Später hier weiterlesen</h2><p>Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.</p><ul id="reading-places"></ul>
+<section id="rose-path"><h2>🌹 <span>Rosenpfad</span></h2><p id="trail-hint">Füge gespeicherte Lesestellen zum Pfad hinzu. Speichere deine Reihenfolge und Notizen.</p>
+<div id="trail-editor" hidden><label for="trail-name">Name des Pfads</label><input id="trail-name" maxlength="80" disabled>
+<ol id="trail-steps"></ol><p id="trail-progress" aria-live="polite"></p><blockquote id="trail-quote" dir="auto"></blockquote>
+<label for="trail-note">Notiz zur Lesestelle</label><textarea id="trail-note" maxlength="700" rows="2" disabled></textarea>
+<p id="trail-navigation"></p></div><button id="trail-save" disabled>Speichern</button></section></section>
 <section id="home-panel" hidden><h2>Meine Webseiten</h2><p>Deine eigene Auswahl. Bestehende Lesezeichen und Startseiten-Einstellungen bleiben erhalten.</p><ul id="links"></ul>
 <label for="link-title">Name</label><input id="link-title" maxlength="100" disabled>
 <label for="link-url">Webadresse (https://…)</label><input id="link-url" type="url" dir="ltr" maxlength="4096" disabled><button id="add" disabled>Webseite hinzufügen</button></section>
