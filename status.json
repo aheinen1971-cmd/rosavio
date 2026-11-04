@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T15:21:28.077500+00:00",
+  "checkedAt": "2026-11-04T15:26:21.562366+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -22,6 +22,26 @@
       "available": {
         "version": "159.0.1",
         "build": "41817685070"
+      },
+      "features": {
+        "reading": true,
+        "rose": false
+      },
+      "roseChange": {
+        "key": [
+          false,
+          "yellow",
+          "Bau / Prüfungen laufen",
+          null,
+          [
+            "success",
+            "in_progress",
+            "pending",
+            "pending"
+          ],
+          "41817685070"
+        ],
+        "at": "2026-11-04T14:32:35Z"
       }
     },
     {
@@ -46,6 +66,28 @@
       "available": {
         "version": "159.0.1",
         "build": "41817707652"
+      },
+      "features": {
+        "reading": true,
+        "rose": false
+      },
+      "roseChange": {
+        "key": [
+          false,
+          "yellow",
+          "Bau / Prüfungen laufen",
+          null,
+          [
+            "success",
+            "success",
+            "in_progress",
+            "pending",
+            "pending",
+            "pending"
+          ],
+          "41817707652"
+        ],
+        "at": "2026-11-04T14:36:05Z"
       }
     },
     {
@@ -62,7 +104,30 @@
         "version": "159.0.1",
         "build": "41817707652"
       },
-      "awaiting": "linux"
+      "features": {
+        "reading": true,
+        "rose": false
+      },
+      "awaiting": "linux",
+      "roseChange": {
+        "key": [
+          false,
+          "yellow",
+          "Folgt auf ein neueres geprüftes Linux-Release",
+          "linux",
+          null,
+          "41817707652",
+          [
+            "success",
+            "success",
+            "in_progress",
+            "pending",
+            "pending",
+            "pending"
+          ]
+        ],
+        "at": "2026-11-04T14:36:05Z"
+      }
     },
     {
       "label": "macOS",
