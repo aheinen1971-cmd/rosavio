@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T12:55:51.332143+00:00",
+  "checkedAt": "2026-11-04T13:03:36.147664+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -26,13 +26,13 @@
     },
     {
       "label": "Flatpak",
-      "state": "yellow",
+      "state": "green",
       "version": "159.0.1",
-      "detail": "Wartet auf GitHub-Rechner",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41831568151",
       "progress": {
-        "percent": 0,
-        "note": "Noch keine abgeschlossene Phase bestätigt"
+        "percent": 100,
+        "note": "Geprüft und veröffentlicht"
       }
     },
     {
