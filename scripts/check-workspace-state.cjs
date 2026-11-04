@@ -1,12 +1,17 @@
 // This helper is exclusively for isolated release-test profiles.
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const select=require('./select-test-content.cjs');
-const fixture={revision:1,notes:'Rosavio update fixture 🌹\n<plain text> bleibt erhalten',links:[{title:'Erhaltene Testseite',url:'https://example.com/rosavio-preserved'}]};
+const baseFixture={revision:1,notes:'Rosavio update fixture 🌹\n<plain text> bleibt erhalten',links:[{title:'Erhaltene Testseite',url:'https://example.com/rosavio-preserved'}]};
 async function capability(session){await session.command('Marionette:SetContext',{value:'chrome'});const r=await session.script(`return Components.manager.QueryInterface(Ci.nsIComponentRegistrar).isContractIDRegistered('@mozilla.org/network/protocol/about;1?what=rosavio-notes');`);if(typeof r!=='boolean')throw Error('Workspace capability check failed');return r;}
 async function state(session,root,mode){
  if(!['seed','verify'].includes(mode))throw Error('Invalid workspace preservation mode');
  const included=await capability(session);fs.mkdirSync(root,{recursive:true});
  if(mode==='seed'){
+  const hasPlaces = included && await session.script("return typeof ChromeUtils.importESModule('resource:///actors/RosavioWorkspaceParent.sys.mjs').RosavioWorkspaceParent.addPlace === 'function';");
+  if(typeof hasPlaces !== 'boolean')throw Error('Cannot determine reading-place capability');
+  const fixture={...baseFixture};
+  if(hasPlaces)fixture.places=[{url:'https://example.com/book#:~:text=Garten',quote:'Garten'}];
+
   // Old released versions cannot open the new pages. Seed a clearly reported data
   // fixture in that case; never claim that the old release had workspace UI.
   if(included){
@@ -26,11 +31,11 @@ async function state(session,root,mode){
  for(const page of ['notes','home']){
   await select(session);await session.command('WebDriver:Navigate',{url:'about:rosavio-'+page});
   let data;
-  for(let i=0;i<50;i++){data=await session.script(`return {ready:document.getElementById('save')?.disabled===false,notes:document.getElementById('notes')?.value,links:Array.from(document.querySelectorAll('#links a')).map(a=>({title:a.textContent,url:a.href}))};`);if(data.ready)break;await new Promise(r=>setTimeout(r,100));}
-  assert.equal(data.ready,true);assert.equal(data.notes,before.fixture.notes);assert.deepEqual(data.links,before.fixture.links);
+  for(let i=0;i<50;i++){data=await session.script(`return {places:Array.from(document.querySelectorAll("#reading-places a"),a=>a.href),ready:document.getElementById('save')?.disabled===false,notes:document.getElementById('notes')?.value,links:Array.from(document.querySelectorAll('#links a')).map(a=>({title:a.textContent,url:a.href}))};`);if(data.ready)break;await new Promise(r=>setTimeout(r,100));}
+  assert.equal(data.ready,true);assert.equal(data.notes,before.fixture.notes);assert.deepEqual(data.links,before.fixture.links);assert.deepEqual(data.places,(before.fixture.places||[]).map(p=>p.url));
  }
  await session.command('Marionette:SetContext',{value:'chrome'});
- const result={passed:true,notesAndShortcutsPreserved:true,baselineWorkspaceAvailable:before.baselineWorkspaceAvailable,legacyDataFixture:before.legacyDataFixture};
+ const result={passed:true,notesAndShortcutsPreserved:true,readingPlaceExistedBeforeUpdate:!!before.fixture.places?.length,baselineWorkspaceAvailable:before.baselineWorkspaceAvailable,legacyDataFixture:before.legacyDataFixture};
  fs.writeFileSync(path.join(root,'workspace-after.json'),JSON.stringify(result,null,2));return result;
 }
 module.exports=state;module.exports.capability=capability;

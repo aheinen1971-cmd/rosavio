@@ -25,7 +25,10 @@
     "Webseiten wieder trennen": "Webseiten wieder trennen",
     "Wird geladen …": "Wird geladen …",
     "Zwei Webseiten nebeneinander": "Zwei Webseiten nebeneinander",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Änderungen werden erst mit „Speichern“ dauerhaft gesichert."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.",
+    "Später hier weiterlesen": "Später hier weiterlesen",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Lesestelle konnte nicht gespeichert werden (höchstens 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten."
   },
   "en-US": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Enter a website name and a valid HTTP/HTTPS address (up to 24 websites).",
@@ -53,7 +56,10 @@
     "Webseiten wieder trennen": "Disconnect websites again",
     "Wird geladen …": "Loading...",
     "Zwei Webseiten nebeneinander": "Two websites next to each other",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Changes are only saved permanently when you click “Save”."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Changes are only saved permanently when you click “Save”.",
+    "Später hier weiterlesen": "Continue reading here later",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Could not save the reading place (maximum 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Select text on a web page, then right-click and choose “Continue reading here later”. Your excerpt stays here even if the page changes."
   },
   "fr": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Veuillez saisir votre nom et une adresse HTTP/HTTPS valide (maximum 24 sites Web).",
@@ -81,7 +87,10 @@
     "Webseiten wieder trennen": "Déconnectez à nouveau les sites Web",
     "Wird geladen …": "Chargement...",
     "Zwei Webseiten nebeneinander": "Deux sites Web côte à côte",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Les modifications ne sont enregistrées définitivement que lorsque vous cliquez sur « Enregistrer »."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Les modifications ne sont enregistrées définitivement que lorsque vous cliquez sur « Enregistrer ».",
+    "Später hier weiterlesen": "Reprendre la lecture ici plus tard",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Impossible d’enregistrer ce passage (maximum 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Sélectionnez un passage sur une page web, puis choisissez « Reprendre la lecture ici plus tard » d’un clic droit. L’extrait reste ici même si la page change."
   },
   "es-ES": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Ingrese su nombre y dirección HTTP/HTTPS válida (máximo 24 sitios web).",
@@ -109,7 +118,10 @@
     "Webseiten wieder trennen": "Desconectar sitios web nuevamente",
     "Wird geladen …": "Cargando...",
     "Zwei Webseiten nebeneinander": "Dos sitios web uno al lado del otro",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Los cambios solo se guardan permanentemente cuando haces clic en \"Guardar\"."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Los cambios solo se guardan permanentemente cuando haces clic en \"Guardar\".",
+    "Später hier weiterlesen": "Seguir leyendo aquí más tarde",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "No se pudo guardar el pasaje (máximo 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Selecciona un texto en una página web, haz clic con el botón derecho y elige «Seguir leyendo aquí más tarde». El fragmento se conserva aunque cambie la página."
   },
   "nl": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Voer uw naam en een geldig HTTP/HTTPS-adres in (maximaal 24 websites).",
@@ -137,7 +149,10 @@
     "Webseiten wieder trennen": "Koppel websites opnieuw los",
     "Wird geladen …": "Laden...",
     "Zwei Webseiten nebeneinander": "Twee websites naast elkaar",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Wijzigingen worden pas definitief opgeslagen als u op “Opslaan” klikt."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Wijzigingen worden pas definitief opgeslagen als u op “Opslaan” klikt.",
+    "Später hier weiterlesen": "Later hier verder lezen",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "De leesplek kon niet worden opgeslagen (maximaal 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Selecteer tekst op een webpagina, klik met de rechtermuisknop en kies ‘Later hier verder lezen’. Je citaat blijft hier staan als de pagina verandert."
   },
   "it": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Inserisci il tuo nome e un indirizzo HTTP/HTTPS valido (massimo 24 siti web).",
@@ -165,7 +180,10 @@
     "Webseiten wieder trennen": "Disconnetti nuovamente i siti web",
     "Wird geladen …": "Caricamento...",
     "Zwei Webseiten nebeneinander": "Due siti web uno accanto all'altro",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Le modifiche vengono salvate in modo permanente solo quando si fa clic su \"Salva\"."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Le modifiche vengono salvate in modo permanente solo quando si fa clic su \"Salva\".",
+    "Später hier weiterlesen": "Riprendi la lettura da qui più tardi",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Impossibile salvare il passaggio (massimo 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Seleziona un testo su una pagina web, fai clic con il tasto destro e scegli «Riprendi la lettura da qui più tardi». Il brano resta qui anche se la pagina cambia."
   },
   "pt-PT": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Insira seu nome e endereço HTTP/HTTPS válido (máximo de 24 sites).",
@@ -193,7 +211,10 @@
     "Webseiten wieder trennen": "Desconecte sites novamente",
     "Wird geladen …": "Carregando...",
     "Zwei Webseiten nebeneinander": "Dois sites um ao lado do outro",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "As alterações só são salvas permanentemente quando você clica em “Salvar”."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "As alterações só são salvas permanentemente quando você clica em “Salvar”.",
+    "Später hier weiterlesen": "Continuar a ler aqui mais tarde",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Não foi possível guardar a passagem (máximo de 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Seleciona texto numa página, clica com o botão direito e escolhe «Continuar a ler aqui mais tarde». O excerto fica guardado mesmo que a página mude."
   },
   "pl": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Proszę podać swoje imię i nazwisko oraz prawidłowy adres HTTP/HTTPS (maksymalnie 24 strony internetowe).",
@@ -221,7 +242,10 @@
     "Webseiten wieder trennen": "Odłącz ponownie strony internetowe",
     "Wird geladen …": "Ładowanie...",
     "Zwei Webseiten nebeneinander": "Dwie strony internetowe obok siebie",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Zmiany zostaną trwale zapisane dopiero po kliknięciu „Zapisz”."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Zmiany zostaną trwale zapisane dopiero po kliknięciu „Zapisz”.",
+    "Später hier weiterlesen": "Wróć później do tego fragmentu",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Nie udało się zapisać fragmentu (maksymalnie 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Zaznacz tekst na stronie, kliknij prawym przyciskiem i wybierz „Wróć później do tego fragmentu”. Cytat pozostanie tutaj, nawet jeśli strona się zmieni."
   },
   "cs": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Zadejte prosím své jméno a platnou adresu HTTP/HTTPS (maximálně 24 webových stránek).",
@@ -249,7 +273,10 @@
     "Webseiten wieder trennen": "Znovu odpojit weby",
     "Wird geladen …": "Načítání...",
     "Zwei Webseiten nebeneinander": "Dva weby vedle sebe",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Změny se trvale uloží pouze po kliknutí na „Uložit“."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Změny se trvale uloží pouze po kliknutí na „Uložit“.",
+    "Später hier weiterlesen": "Pokračovat zde ve čtení později",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Pasáž se nepodařilo uložit (nejvýše 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Označte text na stránce, klikněte pravým tlačítkem a vyberte „Pokračovat zde ve čtení později“. Úryvek zde zůstane, i když se stránka změní."
   },
   "da": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Indtast venligst dit navn og gyldig HTTP/HTTPS-adresse (maks. 24 websteder).",
@@ -277,7 +304,10 @@
     "Webseiten wieder trennen": "Afbryd forbindelsen til websteder igen",
     "Wird geladen …": "Indlæser...",
     "Zwei Webseiten nebeneinander": "To hjemmesider ved siden af hinanden",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Ændringer gemmes kun permanent, når du klikker på \"Gem\"."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Ændringer gemmes kun permanent, når du klikker på \"Gem\".",
+    "Später hier weiterlesen": "Læs videre her senere",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Læsestedet kunne ikke gemmes (højst 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Markér tekst på en webside, højreklik og vælg »Læs videre her senere«. Citatet bliver her, selv om siden ændres."
   },
   "sv-SE": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Vänligen ange ditt namn och giltig HTTP/HTTPS-adress (max 24 webbplatser).",
@@ -305,7 +335,10 @@
     "Webseiten wieder trennen": "Koppla bort webbplatser igen",
     "Wird geladen …": "Laddar...",
     "Zwei Webseiten nebeneinander": "Två hemsidor bredvid varandra",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Ändringar sparas bara permanent när du klickar på \"Spara\"."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Ändringar sparas bara permanent när du klickar på \"Spara\".",
+    "Später hier weiterlesen": "Läs vidare här senare",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Lässtället kunde inte sparas (högst 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Markera text på en webbsida, högerklicka och välj ”Läs vidare här senare”. Citatet finns kvar här även om sidan ändras."
   },
   "nb-NO": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Vennligst skriv inn navnet ditt og gyldig HTTP/HTTPS-adresse (maksimalt 24 nettsteder).",
@@ -333,7 +366,10 @@
     "Webseiten wieder trennen": "Koble fra nettsteder igjen",
     "Wird geladen …": "Laster inn...",
     "Zwei Webseiten nebeneinander": "To nettsider ved siden av hverandre",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Endringer lagres bare permanent når du klikker \"Lagre\"."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Endringer lagres bare permanent når du klikker \"Lagre\".",
+    "Später hier weiterlesen": "Les videre her senere",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Kunne ikke lagre lesestedet (maksimalt 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Marker tekst på en nettside, høyreklikk og velg «Les videre her senere». Sitatet blir værende her selv om siden endres."
   },
   "fi": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Anna nimesi ja kelvollinen HTTP/HTTPS-osoite (enintään 24 verkkosivustoa).",
@@ -361,7 +397,10 @@
     "Webseiten wieder trennen": "Katkaise verkkosivustojen yhteys uudelleen",
     "Wird geladen …": "Ladataan...",
     "Zwei Webseiten nebeneinander": "Kaksi nettisivua vierekkäin",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Muutokset tallennetaan pysyvästi vain, kun napsautat \"Tallenna\"."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Muutokset tallennetaan pysyvästi vain, kun napsautat \"Tallenna\".",
+    "Später hier weiterlesen": "Jatka lukemista tästä myöhemmin",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Lukukohtaa ei voitu tallentaa (enintään 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Valitse tekstiä verkkosivulta, napsauta hiiren kakkospainiketta ja valitse ”Jatka lukemista tästä myöhemmin”. Lainaus säilyy täällä, vaikka sivu muuttuisi."
   },
   "tr": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Lütfen adınızı ve geçerli HTTP/HTTPS adresinizi girin (en fazla 24 web sitesi).",
@@ -389,7 +428,10 @@
     "Webseiten wieder trennen": "Web sitelerinin bağlantısını tekrar kesin",
     "Wird geladen …": "Yükleniyor...",
     "Zwei Webseiten nebeneinander": "İki site yan yana",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Değişiklikler yalnızca “Kaydet”e tıkladığınızda kalıcı olarak kaydedilir."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Değişiklikler yalnızca “Kaydet”e tıkladığınızda kalıcı olarak kaydedilir.",
+    "Später hier weiterlesen": "Daha sonra buradan okumaya devam et",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Okuma yeri kaydedilemedi (en fazla 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Bir web sayfasında metni seçip sağ tıklayın ve “Daha sonra buradan okumaya devam et” seçeneğini seçin. Sayfa değişse bile alıntı burada kalır."
   },
   "uk": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Введіть своє ім’я та дійсну адресу HTTP/HTTPS (максимум 24 веб-сайти).",
@@ -417,7 +459,10 @@
     "Webseiten wieder trennen": "Знову відключіть веб-сайти",
     "Wird geladen …": "Завантаження...",
     "Zwei Webseiten nebeneinander": "Два веб-сайти поруч",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Зміни зберігаються остаточно лише після натискання кнопки «Зберегти»."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Зміни зберігаються остаточно лише після натискання кнопки «Зберегти».",
+    "Später hier weiterlesen": "Продовжити читати звідси пізніше",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Не вдалося зберегти уривок (максимум 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Виділіть текст на сторінці, клацніть правою кнопкою миші й виберіть «Продовжити читати звідси пізніше». Цитата збережеться тут, навіть якщо сторінка зміниться."
   },
   "el": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Εισαγάγετε το όνομά σας και την έγκυρη διεύθυνση HTTP/HTTPS (μέγιστο 24 ιστότοποι).",
@@ -445,7 +490,10 @@
     "Webseiten wieder trennen": "Αποσυνδέστε ξανά ιστότοπους",
     "Wird geladen …": "Φόρτωση...",
     "Zwei Webseiten nebeneinander": "Δύο ιστότοποι ο ένας δίπλα στον άλλο",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Οι αλλαγές αποθηκεύονται μόνιμα μόνο όταν κάνετε κλικ στο \"Αποθήκευση\"."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "Οι αλλαγές αποθηκεύονται μόνιμα μόνο όταν κάνετε κλικ στο \"Αποθήκευση\".",
+    "Später hier weiterlesen": "Συνέχεια ανάγνωσης από εδώ αργότερα",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "Δεν ήταν δυνατή η αποθήκευση του αποσπάσματος (έως 30).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "Επιλέξτε κείμενο σε μια ιστοσελίδα, κάντε δεξί κλικ και επιλέξτε «Συνέχεια ανάγνωσης από εδώ αργότερα». Το απόσπασμα παραμένει εδώ ακόμη κι αν η σελίδα αλλάξει."
   },
   "ja": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "名前と有効な HTTP/HTTPS アドレス (最大 24 の Web サイト) を入力してください。",
@@ -473,7 +521,10 @@
     "Webseiten wieder trennen": "ウェブサイトを再度切断する",
     "Wird geladen …": "読み込み中...",
     "Zwei Webseiten nebeneinander": "隣り合った 2 つの Web サイト",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "変更は「保存」をクリックした場合にのみ永続的に保存されます。"
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "変更は「保存」をクリックした場合にのみ永続的に保存されます。",
+    "Später hier weiterlesen": "後でここから読み続ける",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "読書位置を保存できませんでした（最大30件）。",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "ウェブページの文章を選択し、右クリックして「後でここから読み続ける」を選びます。ページが変更されても、選んだ文章はここに残ります。"
   },
   "ko": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "귀하의 이름과 유효한 HTTP/HTTPS 주소(최대 24개 웹사이트)를 입력하세요.",
@@ -501,7 +552,10 @@
     "Webseiten wieder trennen": "웹사이트를 다시 연결 해제하세요",
     "Wird geladen …": "로드 중...",
     "Zwei Webseiten nebeneinander": "나란히 있는 두 개의 웹사이트",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "변경 사항은 \"저장\"을 클릭한 경우에만 영구적으로 저장됩니다."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "변경 사항은 \"저장\"을 클릭한 경우에만 영구적으로 저장됩니다.",
+    "Später hier weiterlesen": "나중에 여기서 이어 읽기",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "읽던 위치를 저장할 수 없습니다(최대 30개).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "웹페이지에서 문장을 선택한 뒤 마우스 오른쪽 버튼을 눌러 ‘나중에 여기서 이어 읽기’를 선택하세요. 페이지가 바뀌어도 인용문은 여기에 남습니다."
   },
   "ar": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "الرجاء إدخال اسمك وعنوان HTTP/HTTPS الصحيح (بحد أقصى 24 موقعًا).",
@@ -529,7 +583,10 @@
     "Webseiten wieder trennen": "افصل مواقع الويب مرة أخرى",
     "Wird geladen …": "جار التحميل...",
     "Zwei Webseiten nebeneinander": "موقعين على شبكة الإنترنت بجانب بعضهما البعض",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "يتم حفظ التغييرات بشكل دائم فقط عند النقر فوق \"حفظ\"."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "يتم حفظ التغييرات بشكل دائم فقط عند النقر فوق \"حفظ\".",
+    "Später hier weiterlesen": "متابعة القراءة من هنا لاحقًا",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "تعذّر حفظ موضع القراءة (30 موضعًا كحد أقصى).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "حدّد نصًا في صفحة ويب، ثم انقر بزر الفأرة الأيمن واختر «متابعة القراءة من هنا لاحقًا». يبقى الاقتباس هنا حتى إذا تغيّرت الصفحة."
   },
   "he": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "אנא הזן את שמך וכתובת HTTP/HTTPS חוקית (מקסימום 24 אתרים).",
@@ -557,6 +614,9 @@
     "Webseiten wieder trennen": "נתק שוב אתרים",
     "Wird geladen …": "טוען...",
     "Zwei Webseiten nebeneinander": "שני אתרים אחד ליד השני",
-    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "השינויים נשמרים לצמיתות רק כאשר אתה לוחץ על \"שמור\"."
+    "Änderungen werden erst mit „Speichern“ dauerhaft gesichert.": "השינויים נשמרים לצמיתות רק כאשר אתה לוחץ על \"שמור\".",
+    "Später hier weiterlesen": "להמשיך לקרוא מכאן מאוחר יותר",
+    "Lesestelle konnte nicht gespeichert werden (höchstens 30).": "לא ניתן לשמור את מקום הקריאה (עד 30 מקומות).",
+    "Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.": "יש לסמן טקסט בדף, ללחוץ עליו בלחיצה ימנית ולבחור „להמשיך לקרוא מכאן מאוחר יותר”. הציטוט יישמר כאן גם אם הדף ישתנה."
   }
 }

@@ -12,10 +12,20 @@ let data=null, dirty=false, busy=false;
 const isNotes=location.href==='about:rosavio-notes';
 $('title').textContent=document.title=isNotes?t("Meine Notizen · Rosavio"):t("Meine Startseite · Rosavio");
 $(isNotes?'notes-panel':'home-panel').hidden=false;
-function controls(enabled){for(const id of ['notes','link-title','link-url','add','save','reload'])$(id).disabled=!enabled;for(const button of $('links').querySelectorAll('button'))button.disabled=!enabled;}
+function controls(enabled){for(const id of ['notes','link-title','link-url','add','save','reload'])$(id).disabled=!enabled;for(const button of document.querySelectorAll('#links button,#reading-places button'))button.disabled=!enabled;}
 function changed(){dirty=true;$('status').textContent=t("Noch nicht gespeichert");}
 function render(){
  $('notes').value=data.notes;$('links').replaceChildren();
+ const list=$('reading-places');
+ list.replaceChildren();
+ (data.places || []).forEach((place,index)=>{
+   const row=document.createElement('li'), link=document.createElement('a'), remove=document.createElement('button');
+   link.href=place.url;link.target='_blank';link.rel='noopener noreferrer';link.dir='auto';
+   link.textContent=place.quote+' · '+new URL(place.url).host;
+   remove.textContent=t('Entfernen');
+   remove.addEventListener('click',()=>{data.places.splice(index,1);render();changed();});
+   row.append(link,remove);list.append(row);
+ });
  data.links.forEach((link,index)=>{
   const li=document.createElement('li'),a=document.createElement('a'),button=document.createElement('button');
   a.textContent=link.title;a.href=link.url;a.target='_blank';a.rel='noopener noreferrer';
