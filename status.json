@@ -1,27 +1,27 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-04T10:37:57.971542+00:00",
+  "checkedAt": "2026-11-04T11:53:56.328439+00:00",
   "rows": [
     {
       "label": "Windows",
-      "state": "green",
+      "state": "yellow",
       "version": "159.0.1",
-      "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41812314417",
+      "detail": "Bau / Prüfungen laufen",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41817685070",
       "progress": {
-        "percent": 100,
-        "note": "Geprüft und veröffentlicht"
+        "percent": 25,
+        "note": "1 von 4 Phasen abgeschlossen"
       }
     },
     {
       "label": "Linux",
-      "state": "green",
+      "state": "yellow",
       "version": "159.0.1",
-      "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41743272090",
+      "detail": "Bau / Prüfungen laufen",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41817707652",
       "progress": {
-        "percent": 100,
-        "note": "Geprüft und veröffentlicht"
+        "percent": 33,
+        "note": "2 von 6 Phasen abgeschlossen"
       }
     },
     {
