@@ -1,4 +1,5 @@
 """Refresh only existing package links from regular, publicly tested releases."""
+from maintenance_http import read_url, run_gh
 import json,pathlib,re,subprocess,urllib.request
 
 LABELS=dict(zip('de en fr es nl it pt-PT pl cs da sv-SE nb-NO fi tr uk el ja ko ar he'.split(),['Aktuelle Version','Current version','Version actuelle','Versión actual','Huidige versie','Versione attuale','Versão atual','Aktualna wersja','Aktuální verze','Aktuel version','Aktuell version','Gjeldende versjon','Nykyinen versio','Güncel sürüm','Поточна версія','Τρέχουσα έκδοση','現在のバージョン','현재 버전','الإصدار الحالي','הגרסה הנוכחית']))
@@ -57,13 +58,13 @@ def rewrite(source,targets,builds):
     return PATTERN.sub(replace,source)
 
 def main():
-    def api(route):return json.loads(subprocess.check_output(['gh','api',f'repos/{REPO}/'+route],text=True))
+    def api(route):return json.loads(run_gh(['gh','api',f'repos/{REPO}/'+route]).stdout)
     def report(tag):
-        with urllib.request.urlopen(BASE+tag+'/public-update-test.json',timeout=60) as r:return json.load(r)
+        return json.loads(read_url(BASE+tag+'/public-update-test.json',timeout=60))
     releases=api('releases?per_page=100');targets={};builds={}
     win=api('releases/latest')
     versions={'Windows':windows_version(win,report(win['tag_name']))}
-    with urllib.request.urlopen(BASE+'rosavio-flatpak-repository/public-update-report.json',timeout=60) as response:flatpak=json.load(response)
+    flatpak=json.loads(read_url(BASE+'rosavio-flatpak-repository/public-update-report.json',timeout=60))
     if not all(flatpak.get(k) is True for k in ('passed','publicUpdateTestPassed','gpgVerificationRequired','browserPagesAfterUpdatePassed')):raise ValueError('Verified Flatpak release required')
     versions['Flatpak']=version_of(flatpak['newNativeRelease'])
     for platform,filename in [('linux-x64','Rosavio-Linux-x64.tar.xz')]:

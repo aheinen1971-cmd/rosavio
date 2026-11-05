@@ -1,4 +1,5 @@
 """Read public evidence only; publish a small snapshot, never start browser builds."""
+from maintenance_http import read_url, run_gh, http_status
 import datetime, importlib.util, json, os, pathlib, re, subprocess, urllib.request
 
 REPO = 'aheinen1971-cmd/rosavio'
@@ -7,12 +8,11 @@ ROOT = 'https://github.com/' + REPO
 BASE = ROOT + '/releases/download/'
 
 def get(url):
-    with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent':'Rosavio-status'}), timeout=30) as r:
-        return json.load(r)
+    return json.loads(read_url(url))
 
 def api(route):
     if os.environ.get('GH_TOKEN'):
-        return json.loads(subprocess.check_output(['gh','api','repos/'+REPO+'/'+route], text=True))
+        return json.loads(run_gh(['gh','api','repos/'+REPO+'/'+route]).stdout)
     return get('https://api.github.com/repos/'+REPO+'/'+route)
 
 def paginate(route, key=None):
@@ -180,7 +180,7 @@ def collect():
     try:
         count=0
         for lang in ['index','en','fr','es','nl','it','pt-PT','pl','cs','da','sv-SE','nb-NO','fi','tr','uk','el','ja','ko','ar','he']:
-            with urllib.request.urlopen('https://aheinen1971-cmd.github.io/rosavio/'+lang+'.html',timeout=30) as response:html=response.read().decode('utf-8')
+            html=read_url('https://aheinen1971-cmd.github.io/rosavio/'+lang+'.html').decode('utf-8')
             for platform in ('linux-x64',):
                 if platform not in published or published[platform]['tag_name'] not in html:raise ValueError('Download links not current')
             count+=1
@@ -214,10 +214,10 @@ def publish_static(snapshot):
     def request(route, method='GET', payload=None, missing=False):
         args=['gh','api','--method',method,'repos/'+REPO+'/'+route]
         if payload is not None: args+=['--input','-']
-        result=subprocess.run(args,input=json.dumps(payload) if payload is not None else None,capture_output=True,text=True)
+        result=run_gh(args,input=json.dumps(payload) if payload is not None else None,check=False)
         if result.returncode:
             if missing and '(HTTP 404)' in result.stderr:return None
-            raise RuntimeError('Status data publication failed: '+route)
+            raise RuntimeError(f'Status data publication failed: {route} (HTTP {http_status(result) or "unknown"}, exit {result.returncode}).')
         return json.loads(result.stdout)
     head=request('git/ref/heads/'+branch,missing=True)
     tree=request('git/trees','POST',{'tree':[{'path':'status.json','mode':'100644','type':'blob','content':json.dumps(snapshot,ensure_ascii=False,indent=2)}]})
@@ -236,9 +236,12 @@ def main():
     if '--publish' not in __import__('sys').argv:return
     if os.environ.get('GITHUB_ACTIONS')!='true' or os.environ.get('GITHUB_REPOSITORY')!=REPO:raise SystemExit('Publication only on authorized runner')
     # Infrastructure prerelease never changes Latest or any product update feed.
-    exists=subprocess.run(['gh','release','view',TAG,'--repo',REPO],capture_output=True).returncode==0
+    lookup=run_gh(['gh','api','repos/'+REPO+'/releases/tags/'+TAG],check=False)
+    if lookup.returncode and http_status(lookup)!=404:raise RuntimeError(f'Status release lookup failed (HTTP {http_status(lookup) or "unknown"}).')
+    exists=lookup.returncode==0
     args=['gh','release','edit' if exists else 'create',TAG,'--repo',REPO,'--title','Rosavio status data','--notes-file','status-snapshot.json','--prerelease','--latest=false']
-    subprocess.run(args,check=True)
+    if exists:run_gh(args)
+    else:subprocess.run(args,check=True)
     publish_static(snapshot)
 
 if __name__=='__main__':main()

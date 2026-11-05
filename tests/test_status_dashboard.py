@@ -1,5 +1,7 @@
+import sys
 import importlib.util,pathlib,unittest,json,subprocess
 from unittest.mock import patch
+sys.path.insert(0,str(pathlib.Path(__file__).parents[1]/"scripts"))
 spec=importlib.util.spec_from_file_location('dashboard',pathlib.Path(__file__).parents[1]/'scripts/build-status-dashboard.py')
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 class StatusTests(unittest.TestCase):

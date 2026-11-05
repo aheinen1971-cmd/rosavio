@@ -1,6 +1,9 @@
 name: Rosavio verified website download links
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scripts/update-website-downloads.py', 'scripts/maintenance_http.py', '.github/workflows/rosavio-website-links.yml']
   workflow_run:
     workflows: ['Rosavio automatic Windows release', 'Rosavio automatic Linux release', 'Rosavio automatic Flatpak release', 'Rosavio public Flatpak installation and update trial']
     types: [completed]
@@ -12,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   update:
-    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false && (github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository))
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false && (github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository))
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -20,7 +23,9 @@ jobs:
         with:
           ref: main
       - name: Check release guards and preserve page content
-        run: python3 -m unittest discover -s tests -p test_website_downloads.py
+        run: |
+          python3 -m unittest discover -s tests -p test_maintenance_http.py
+          python3 -m unittest discover -s tests -p test_website_downloads.py
       - name: Select only fully tested regular releases
         env:
           GH_TOKEN: ${{ github.token }}

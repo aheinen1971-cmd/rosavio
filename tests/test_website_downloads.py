@@ -1,4 +1,6 @@
+import sys
 import importlib.util,pathlib,unittest
+sys.path.insert(0,str(pathlib.Path(__file__).parents[1]/"scripts"))
 s=importlib.util.spec_from_file_location('website',pathlib.Path(__file__).parents[1]/'scripts/update-website-downloads.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
 class WebsiteTests(unittest.TestCase):
  def proof(self):return {'platform':'linux-x64','passed':True,'publicUpdateTestPassed':True,'browserPagesAfterUpdatePassed':True,'desktopLaunchTestPassed':True,'after':{'signatureDisabled':False,'buildID':'20261028000404'}}
