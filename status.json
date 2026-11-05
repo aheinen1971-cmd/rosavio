@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-05T00:11:40.729821+00:00",
+  "checkedAt": "2026-11-05T01:09:51.117392+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -49,18 +49,10 @@
       "state": "green",
       "version": "159.0.1",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41848598577",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v159.0.1-rosavio-linux-x64.41848598577",
       "progress": {
         "percent": 100,
-        "note": "Geprüft und veröffentlicht",
-        "steps": [
-          "success",
-          "success",
-          "success",
-          "success",
-          "success",
-          "success"
-        ]
+        "note": "Geprüft und veröffentlicht"
       },
       "available": {
         "version": "159.0.1",
@@ -77,17 +69,10 @@
           "green",
           "Öffentliches Update geprüft und veröffentlicht",
           null,
-          [
-            "success",
-            "success",
-            "success",
-            "success",
-            "success",
-            "success"
-          ],
+          null,
           "41848598577"
         ],
-        "at": "2026-11-04T17:13:34.981893+00:00"
+        "at": "2026-11-05T01:09:51.117392+00:00"
       }
     },
     {
@@ -95,7 +80,7 @@
       "state": "green",
       "version": "159.0.1",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41936503704",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/41946584557",
       "progress": {
         "percent": 100,
         "note": "Geprüft und veröffentlicht"
