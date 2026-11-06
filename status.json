@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-06T09:21:12.478526+00:00",
+  "checkedAt": "2026-11-06T15:00:35.007886+00:00",
   "rows": [
     {
       "label": "Windows",
       "state": "green",
       "version": "159.0.1",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42176507980",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42238943923",
       "progress": {
         "percent": 100,
         "note": "Geprüft und veröffentlicht",
@@ -129,15 +129,15 @@
     },
     {
       "label": "Weitersehen · Mozilla-Katalog",
-      "state": "gray",
-      "version": "0.1.2 eingereicht",
-      "detail": "Öffentliche Freigabe nicht bestätigt. Interner Prüfstatus ist ohne Anmeldung nicht abrufbar.",
-      "url": ""
+      "state": "green",
+      "version": "0.1.2",
+      "detail": "Öffentlicher Katalog und offizieller Download vorhanden",
+      "url": "https://addons.mozilla.org/de/firefox/addon/rosavio-weitersehen/"
     },
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "67",
+      "version": "68",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
