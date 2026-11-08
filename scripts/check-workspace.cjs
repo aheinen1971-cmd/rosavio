@@ -6,6 +6,7 @@ async function checkWorkspace(s,root,options={}){
  async function wait(script){let r;for(let i=0;i<50;i++){r=await s.script(script);if(r===true)return;await pause(100);}throw Error(JSON.stringify(r));}
  await select(s);await s.command('WebDriver:Navigate',{url:'about:rosavio-notes'});
  await wait("return document.getElementById('notes')?.disabled===false;");
+ assert.equal(await s.script("return document.querySelector('.project-tile').getClientRects().length;"),0);
  await s.script(`document.getElementById('notes').value='Rosavio test 🌹 <script>not executable</script>';document.getElementById('notes').dispatchEvent(new Event('input'));document.getElementById('save').click();return true;`);
  await wait("return document.getElementById('save').disabled===false && document.getElementById('status').textContent==='Gespeicherter Stand geladen';");
  await s.command('WebDriver:Refresh');await wait("return document.getElementById('notes')?.disabled===false;");
@@ -14,6 +15,8 @@ async function checkWorkspace(s,root,options={}){
  assert.equal(await s.script('return gBrowser.selectedBrowser.contentPrincipal.isSystemPrincipal;'),false);
  await select(s);await s.command('WebDriver:Navigate',{url:'about:rosavio-home'});
  await wait("return document.getElementById('add')?.disabled===false;");
+ const pdfTile=await s.script("const a=document.querySelector('.project-tile');return {url:a?.href,visible:!!a?.getClientRects().length};");
+ assert.deepEqual(pdfTile,{url:'https://github.com/aheinen1971-cmd/pdf-digital/releases/latest',visible:true});
  await s.script(`document.getElementById('link-title').value='Example';document.getElementById('link-url').value='https://example.com/';document.getElementById('add').click();document.getElementById('save').click();return true;`);
  await wait("return document.getElementById('save').disabled===false && Array.from(document.querySelectorAll('#links a')).some(a=>a.href==='https://example.com/');");
  const shot=(await s.command('WebDriver:TakeScreenshot',{id:null,highlights:[],full:true})).value;
