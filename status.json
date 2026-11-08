@@ -1,9 +1,51 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-08T10:17:44.660015+00:00",
+  "checkedAt": "2026-11-08T10:19:48.526245+00:00",
   "rows": [
     {
       "label": "Windows",
+      "state": "red",
+      "version": "159.0.1",
+      "detail": "Letzter Auftrag: failure; siehe Laufdetails",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42470762315",
+      "progress": {
+        "percent": 25,
+        "note": "1 von 4 Phasen abgeschlossen",
+        "steps": [
+          "success",
+          "failure",
+          "skipped",
+          "skipped"
+        ]
+      },
+      "available": {
+        "version": "159.0.1",
+        "build": "41848549527"
+      },
+      "features": {
+        "reading": true,
+        "rose": true,
+        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v159.0.1-rosavio.41848549527/Rosavio-Setup-Deutsch.exe"
+      },
+      "roseChange": {
+        "key": [
+          true,
+          "red",
+          "Letzter Auftrag: failure; siehe Laufdetails",
+          null,
+          [
+            "success",
+            "failure",
+            "skipped",
+            "skipped"
+          ],
+          "41848549527"
+        ],
+        "at": "2026-11-08T10:19:48.526245+00:00"
+      }
+    },
+    {
+      "label": "Linux",
       "state": "gray",
       "version": "—",
       "detail": "Prüfung derzeit nicht möglich",
@@ -17,38 +59,7 @@
           null,
           null
         ],
-        "at": "2026-11-08T09:25:05.601278+00:00"
-      }
-    },
-    {
-      "label": "Linux",
-      "state": "green",
-      "version": "159.0.1",
-      "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v159.0.1-rosavio-linux-x64.41848598577",
-      "progress": {
-        "percent": 100,
-        "note": "Geprüft und veröffentlicht"
-      },
-      "available": {
-        "version": "159.0.1",
-        "build": "41848598577"
-      },
-      "features": {
-        "reading": true,
-        "rose": true,
-        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v159.0.1-rosavio-linux-x64.41848598577/Rosavio-Linux-x64.tar.xz"
-      },
-      "roseChange": {
-        "key": [
-          true,
-          "green",
-          "Öffentliches Update geprüft und veröffentlicht",
-          null,
-          null,
-          "41848598577"
-        ],
-        "at": "2026-11-08T10:17:44.660015+00:00"
+        "at": "2026-11-08T10:19:48.526245+00:00"
       }
     },
     {
@@ -78,9 +89,9 @@
     },
     {
       "label": "Webseite · 20 Sprachen",
-      "state": "green",
-      "version": "20 Seiten",
-      "detail": "Erreichbar; Links entsprechen den geprüften Unix-Releases",
+      "state": "gray",
+      "version": "—",
+      "detail": "Seiten oder aktuelle Downloadlinks nicht vollständig bestätigt",
       "url": "https://aheinen1971-cmd.github.io/rosavio/"
     },
     {
@@ -106,14 +117,14 @@
     },
     {
       "label": "Fehlerübersicht",
-      "state": "neutral",
+      "state": "red",
       "version": "—",
       "detail": "Siehe rote Zeilen. Laufstatus und öffentliche Metadaten können nicht alle Browserfehler erkennen.",
       "url": ""
     }
   ],
   "errors": [
-    "Windows: HTTPError",
+    "Linux: HTTPError",
     "Flatpak: HTTPError"
   ],
   "upstream": "159.0.1"
