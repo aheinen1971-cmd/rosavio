@@ -17,6 +17,28 @@ async function checkWorkspace(s,root,options={}){
  await wait("return document.getElementById('add')?.disabled===false;");
  const pdfTile=await s.script("const a=document.querySelector('.project-tile');return {url:a?.href,visible:!!a?.getClientRects().length};");
  assert.deepEqual(pdfTile,{url:'https://github.com/aheinen1971-cmd/pdf-digital/releases/latest',visible:true});
+ const tile=await s.command('WebDriver:FindElement',{using:'css selector',value:'.project-tile'});
+ const tileElement=(tile.value||tile)['element-6066-11e4-a52e-4f735466cecf'];
+ await s.command('WebDriver:ElementClick',{id:tileElement});
+ await s.command('Marionette:SetContext',{value:'chrome'});
+ const pdfDigitalRelease=await s.script(`
+  const startPage=gBrowser.tabs.find(tab=>tab.linkedBrowser.currentURI.spec==='about:rosavio-home');
+  if(!startPage)throw Error('Rosavio home tab was not preserved');
+  const deadline=Date.now()+20000;
+  while(Date.now()<deadline){
+   const downloadTab=gBrowser.tabs.find(tab=>/^https:\\/\\/github\\.com\\/aheinen1971-cmd\\/pdf-digital\\/releases\\/tag\\/v[0-9.]+$/.test(tab.linkedBrowser.currentURI.spec));
+   if(downloadTab){
+    const url=downloadTab.linkedBrowser.currentURI.spec;
+    gBrowser.removeTab(downloadTab);
+    gBrowser.selectedTab=startPage;
+    return url;
+   }
+   await new Promise(resolve=>setTimeout(resolve,250));
+  }
+  throw Error('PDF Digital release did not open: '+gBrowser.tabs.map(tab=>tab.linkedBrowser.currentURI.spec).join(', '));
+ `);
+ assert.match(pdfDigitalRelease,/^https:\/\/github\.com\/aheinen1971-cmd\/pdf-digital\/releases\/tag\/v[0-9.]+$/);
+ await select(s);
  await s.script(`document.getElementById('link-title').value='Example';document.getElementById('link-url').value='https://example.com/';document.getElementById('add').click();document.getElementById('save').click();return true;`);
  await wait("return document.getElementById('save').disabled===false && Array.from(document.querySelectorAll('#links a')).some(a=>a.href==='https://example.com/');");
  const shot=(await s.command('WebDriver:TakeScreenshot',{id:null,highlights:[],full:true})).value;
@@ -76,7 +98,7 @@ async function checkWorkspace(s,root,options={}){
  const privateCheck=await s.script(`const pw=OpenBrowserWindow({private:true});try{await new Promise(resolve=>pw.addEventListener('load',resolve,{once:true}));if(!pw.delayedStartupPromise)throw Error("Private startup promise unavailable");await pw.delayedStartupPromise;const privateTab=pw.gBrowser.addTrustedTab('about:rosavio-notes');pw.gBrowser.selectedTab=privateTab;const b=privateTab.linkedBrowser;for(let i=0;i<100;i++){if(b.browsingContext.currentWindowGlobal?.documentURI.spec==='about:rosavio-notes')break;await new Promise(r=>setTimeout(r,100));}if(b.browsingContext.currentWindowGlobal?.documentURI.spec!=='about:rosavio-notes')throw Error('Private test page did not load: '+JSON.stringify({uri:b.currentURI.spec,global:b.browsingContext.currentWindowGlobal?.documentURI.spec,tabs:pw.gBrowser.tabs.map(t=>t.linkedBrowser.currentURI.spec)}));const a=b.browsingContext.currentWindowGlobal.getActor('RosavioWorkspace');try{await a.receiveMessage({name:'RosavioWorkspace:Read'});return false;}catch(e){return String(e).includes('private windows');}}finally{pw.close();}`);
  assert.equal(privateCheck,true);
  const readingPlaces=await require('./check-reading-places.cjs')(s);
- const report={passed:true,readingPlaces,runtimeOverlayOnly:!!options.runtimeOverlay,notesReloadPreserved:true,shortcutSaved:true,noSystemPrincipal:true,guards,nativeMenuClicksAllFive:true,nativeSplitTwoLoadedPages:true,unsupportedReaderDisabled:true,privatePersistenceBlocked:true,qr,readerEnterAndExit:reader,updateRestartTested:false};
+ const report={passed:true,pdfDigitalRelease,readingPlaces,runtimeOverlayOnly:!!options.runtimeOverlay,notesReloadPreserved:true,shortcutSaved:true,noSystemPrincipal:true,guards,nativeMenuClicksAllFive:true,nativeSplitTwoLoadedPages:true,unsupportedReaderDisabled:true,privatePersistenceBlocked:true,qr,readerEnterAndExit:reader,updateRestartTested:false};
  fs.writeFileSync(path.join(root,'report.json'),JSON.stringify(report,null,2));return report;
 }
 module.exports=checkWorkspace;
