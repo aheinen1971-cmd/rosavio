@@ -1,32 +1,31 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-08T16:50:46.632953+00:00",
+  "checkedAt": "2026-11-08T18:42:40.828702+00:00",
   "rows": [
     {
       "label": "Windows",
       "state": "yellow",
       "version": "159.0.1",
       "detail": "Bau / Prüfungen laufen",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42496046473",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42502860439",
       "progress": {
-        "percent": 25,
-        "note": "1 von 4 Phasen abgeschlossen",
+        "percent": 0,
+        "note": "0 von 4 Phasen abgeschlossen",
         "steps": [
-          "success",
-          "in_progress",
+          "pending",
+          "pending",
           "pending",
           "pending"
-        ],
-        "startedAt": "2026-11-08T15:41:21Z"
+        ]
       },
       "available": {
         "version": "159.0.1",
-        "build": "41848549527"
+        "build": "42496046473"
       },
       "features": {
         "reading": true,
         "rose": true,
-        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v159.0.1-rosavio.41848549527/Rosavio-Setup-Deutsch.exe"
+        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v159.0.1-rosavio.42496046473/Rosavio-Setup-Deutsch.exe"
       },
       "roseChange": {
         "key": [
@@ -35,14 +34,14 @@
           "Bau / Prüfungen laufen",
           null,
           [
-            "success",
-            "in_progress",
+            "pending",
+            "pending",
             "pending",
             "pending"
           ],
-          "41848549527"
+          "42496046473"
         ],
-        "at": "2026-11-08T15:41:21Z"
+        "at": "2026-11-08T18:42:40.828702+00:00"
       }
     },
     {
