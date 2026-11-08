@@ -5,6 +5,22 @@ sys.path.insert(0,str(pathlib.Path(__file__).parents[1]/"scripts"))
 spec=importlib.util.spec_from_file_location('dashboard',pathlib.Path(__file__).parents[1]/'scripts/build-status-dashboard.py')
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 class StatusTests(unittest.TestCase):
+ def test_pdf_metadata_requires_windows_package_and_signature(self):
+  release={'draft':False,'prerelease':False,'tag_name':'v1.54.0','published_at':'2026-11-08T13:33:31Z','html_url':'https://github.com/aheinen1971-cmd/pdf-digital/releases/tag/v1.54.0','assets':[{'name':'PDF-Werkbank-1.54.0-Windows.zip','download_count':2},{'name':'PDF-Werkbank-1.54.0-Signatur.json','download_count':8}]}
+  with patch.object(m,'api',return_value=[release]) as api:
+   rows=m.pdf_rows()
+   self.assertEqual(rows[0]['version'],'1.54.0')
+   self.assertEqual(rows[1]['version'],'2')
+   self.assertEqual(api.call_args.args[1],'aheinen1971-cmd/pdf-digital')
+  release['assets'].pop()
+  with patch.object(m,'api',return_value=[release]):
+   with self.assertRaises(ValueError):m.pdf_rows()
+ def test_pdf_paginates_and_excludes_drafts(self):
+  draft={'draft':True,'prerelease':False}
+  release={'draft':False,'prerelease':False,'tag_name':'v1.0','published_at':'2026-11-08T00:00:00Z','html_url':'https://github.com/aheinen1971-cmd/pdf-digital/releases/tag/v1.0','assets':[{'name':'PDF-Werkbank-1.0-Windows.zip','download_count':3},{'name':'PDF-Werkbank-1.0-Signatur.json','download_count':9}]}
+  with patch.object(m,'api',side_effect=[[draft]*100,[release]]) as api:
+   self.assertEqual(m.pdf_rows()[1]['version'],'3')
+   self.assertEqual(api.call_count,2)
  def test_phase_progress_not_time_estimate(self):
   for label in m.PHASES:
    steps=[{'name':name,'conclusion':'success' if i==0 else None} for i,name in enumerate(m.PHASES[label])]

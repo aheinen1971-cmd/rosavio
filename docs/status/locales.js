@@ -1,8 +1,8 @@
 "use strict";
 const STATUS_LOCALES = {
   "de": {
-    "Rosavio · Aktueller Status": "Rosavio · Aktueller Status",
-    "ROSAVIO · STATUS": "ROSAVIO · STATUS",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Aktueller Status",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · STATUS",
     "Alles auf einen Blick.": "Alles auf einen Blick.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.",
     "OFFIZIELLE FIREFOX-VERSION": "OFFIZIELLE FIREFOX-VERSION",
@@ -10,7 +10,7 @@ const STATUS_LOCALES = {
     "Wird geladen …": "Wird geladen …",
     "Jetzt abrufen ↻": "Jetzt abrufen ↻",
     "Statusdaten werden abgerufen.": "Statusdaten werden abgerufen.",
-    "Aktueller Rosavio-Status": "Aktueller Rosavio-Status",
+    "Aktueller Rosavio-Status": "Aktueller Rosavio & PDF Digital-Status",
     "Bereich": "Bereich",
     "Version / Anzahl": "Version / Anzahl",
     "Status": "Status",
@@ -67,11 +67,15 @@ const STATUS_LOCALES = {
     "action_required": "action_required",
     "Sprachen": "Sprachen",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Downloads",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl."
   },
   "en": {
-    "Rosavio · Aktueller Status": "Rosavio · Current status",
-    "ROSAVIO · STATUS": "ROSAVIO · STATUS",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Current status",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · STATUS",
     "Alles auf einen Blick.": "Everything at a glance.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Browser updates, Weitersehen and downloads — checked automatically on GitHub, even when your PC is switched off.",
     "OFFIZIELLE FIREFOX-VERSION": "OFFICIAL FIREFOX VERSION",
@@ -79,7 +83,7 @@ const STATUS_LOCALES = {
     "Wird geladen …": "Loading …",
     "Jetzt abrufen ↻": "Refresh now ↻",
     "Statusdaten werden abgerufen.": "Fetching status data.",
-    "Aktueller Rosavio-Status": "Current Rosavio status",
+    "Aktueller Rosavio-Status": "Current Rosavio & PDF Digital status",
     "Bereich": "Category",
     "Version / Anzahl": "Version / count",
     "Status": "Status",
@@ -136,11 +140,15 @@ const STATUS_LOCALES = {
     "action_required": "action required",
     "Sprachen": "Languages",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Status details are not translated; please check the run details.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub had no available Mac runner; stopped before the build began"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub had no available Mac runner; stopped before the build began",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Downloads",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows release and project signature available; no new functional test.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Windows package requests across all versions, including tests; not a user count."
   },
   "fr": {
-    "Rosavio · Aktueller Status": "Rosavio · Situation actuelle",
-    "ROSAVIO · STATUS": "ROSAVIO · STATUT",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Situation actuelle",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · STATUT",
     "Alles auf einen Blick.": "Tout en un coup d'œil.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Mises à jour du navigateur, Weitersehen et téléchargements — vérifiés automatiquement sur GitHub, même lorsque votre PC est éteint.",
     "OFFIZIELLE FIREFOX-VERSION": "VERSION OFFICIELLE DE FIREFOX",
@@ -148,7 +156,7 @@ const STATUS_LOCALES = {
     "Wird geladen …": "Chargement…",
     "Jetzt abrufen ↻": "Actualiser maintenant ↻",
     "Statusdaten werden abgerufen.": "Récupération des données d'état.",
-    "Aktueller Rosavio-Status": "Statut actuel de Rosavio",
+    "Aktueller Rosavio-Status": "Statut actuel de Rosavio & PDF Digital",
     "Bereich": "Catégorie",
     "Version / Anzahl": "Version / nombre",
     "Status": "Statut",
@@ -205,13 +213,17 @@ const STATUS_LOCALES = {
     "action_required": "action requise",
     "Sprachen": "Langues",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Les détails du statut ne sont pas traduits ; veuillez vérifier les détails de l'exécution.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub n'avait pas d'exécuteur Mac disponible ; arrêté avant le début de la construction"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub n'avait pas d'exécuteur Mac disponible ; arrêté avant le début de la construction",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Téléchargements",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Version Windows et signature du projet disponibles ; aucun nouveau test fonctionnel.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Requêtes de paquets Windows de toutes les versions, tests inclus ; pas un nombre d’utilisateurs."
   },
   "es": {
     "{done} von {total} Phasen abgeschlossen": "Fases completadas: {done} / {total}",
     "Letzter Auftrag: {result}; siehe Laufdetails": "Última ejecución: {result}; consulta los detalles",
-    "Rosavio · Aktueller Status": "Rosavio · Estado actual",
-    "ROSAVIO · STATUS": "ROSAVIO · ESTADO",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Estado actual",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · ESTADO",
     "Alles auf einen Blick.": "Todo de un vistazo.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Actualizaciones del navegador, Weitersehen y descargas: verificadas automáticamente en GitHub, incluso cuando su PC está apagada.",
     "OFFIZIELLE FIREFOX-VERSION": "VERSIÓN OFICIAL DE FIREFOX",
@@ -219,7 +231,7 @@ const STATUS_LOCALES = {
     "Wird geladen …": "Cargando…",
     "Jetzt abrufen ↻": "Actualizar ahora ↻",
     "Statusdaten werden abgerufen.": "Obteniendo datos de estado.",
-    "Aktueller Rosavio-Status": "Estado actual de Rosavio",
+    "Aktueller Rosavio-Status": "Estado actual de Rosavio & PDF Digital",
     "Bereich": "categoría",
     "Version / Anzahl": "Versión / recuento",
     "Status": "Estado",
@@ -274,11 +286,15 @@ const STATUS_LOCALES = {
     "action_required": "acción requerida",
     "Sprachen": "Idiomas",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Los detalles del estado no se traducen; por favor verifique los detalles de la ejecución.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub no tenía ningún ejecutor de Mac disponible; se detuvo antes de que comenzara la construcción"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub no tenía ningún ejecutor de Mac disponible; se detuvo antes de que comenzara la construcción",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Descargas",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Versión para Windows y firma del proyecto disponibles; sin nueva prueba funcional.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Solicitudes de paquetes Windows de todas las versiones, incluidas pruebas; no es una cifra de usuarios."
   },
   "nl": {
-    "Rosavio · Aktueller Status": "Rosavio · Huidige status",
-    "ROSAVIO · STATUS": "ROSAVIO · STATUS",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Huidige status",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · STATUS",
     "Alles auf einen Blick.": "Alles in één oogopslag.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Browserupdates, Weitersehen en downloads — automatisch gecontroleerd op GitHub, zelfs als uw pc is uitgeschakeld.",
     "OFFIZIELLE FIREFOX-VERSION": "OFFICIËLE FIREFOX-VERSIE",
@@ -286,7 +302,7 @@ const STATUS_LOCALES = {
     "Wird geladen …": "Laden…",
     "Jetzt abrufen ↻": "Vernieuw nu ↻",
     "Statusdaten werden abgerufen.": "Statusgegevens ophalen.",
-    "Aktueller Rosavio-Status": "Huidige Rosavio-status",
+    "Aktueller Rosavio-Status": "Huidige Rosavio & PDF Digital-status",
     "Bereich": "Categorie",
     "Version / Anzahl": "Versie / aantal",
     "Status": "Status",
@@ -343,13 +359,17 @@ const STATUS_LOCALES = {
     "action_required": "actie vereist",
     "Sprachen": "Talen",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Statusdetails worden niet vertaald; Controleer de rundetails.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub had geen beschikbare Mac-runner; gestopt voordat de bouw begon"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub had geen beschikbare Mac-runner; gestopt voordat de bouw begon",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Downloads",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows-uitgave en projecthandtekening beschikbaar; geen nieuwe functietest.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Windows-pakketaanvragen van alle versies, inclusief tests; geen gebruikersaantal."
   },
   "it": {
     "{done} von {total} Phasen abgeschlossen": "Fasi completate: {done} / {total}",
     "Letzter Auftrag: {result}; siehe Laufdetails": "Ultima esecuzione: {result}; vedi i dettagli",
-    "Rosavio · Aktueller Status": "Rosavio · Stato attuale",
-    "ROSAVIO · STATUS": "ROSAVIO · STATO",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Stato attuale",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · STATO",
     "Alles auf einen Blick.": "Tutto a colpo d'occhio.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Aggiornamenti browser, Weitersehen e download: controllati automaticamente su GitHub, anche quando il PC è spento.",
     "OFFIZIELLE FIREFOX-VERSION": "VERSIONE UFFICIALE DI FIREFOX",
@@ -357,7 +377,7 @@ const STATUS_LOCALES = {
     "Wird geladen …": "Caricamento...",
     "Jetzt abrufen ↻": "Aggiorna ora ↻",
     "Statusdaten werden abgerufen.": "Recupero dei dati sullo stato.",
-    "Aktueller Rosavio-Status": "Stato attuale del Rosavio",
+    "Aktueller Rosavio-Status": "Stato attuale del Rosavio & PDF Digital",
     "Bereich": "Categoria",
     "Version / Anzahl": "Versione/conteggio",
     "Status": "Stato",
@@ -412,7 +432,11 @@ const STATUS_LOCALES = {
     "action_required": "azione richiesta",
     "Sprachen": "Lingue",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "I dettagli sullo stato non vengono tradotti; si prega di controllare i dettagli della corsa.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub non aveva un Mac runner disponibile; interrotto prima dell'inizio della costruzione"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub non aveva un Mac runner disponibile; interrotto prima dell'inizio della costruzione",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Download",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Versione Windows e firma del progetto disponibili; nessun nuovo test funzionale.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Richieste di pacchetti Windows di tutte le versioni, inclusi i test; non è il numero di utenti."
   },
   "pt-PT": {
     "{done} von {total} Phasen abgeschlossen": "Fases concluídas: {done} / {total}",
@@ -481,13 +505,17 @@ const STATUS_LOCALES = {
     "action_required": "ação necessária",
     "Sprachen": "Idiomas",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Os detalhes do estado não são traduzidos; por favor verifique os detalhes da execução.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "O GitHub não tinha nenhum Mac executor disponível; parou antes do início da construção"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "O GitHub não tinha nenhum Mac executor disponível; parou antes do início da construção",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Transferências",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Versão Windows e assinatura do projeto disponíveis; sem novo teste funcional.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Pedidos de pacotes Windows de todas as versões, incluindo testes; não é uma contagem de utilizadores."
   },
   "pl": {
     "{done} von {total} Phasen abgeschlossen": "Ukończone etapy: {done} / {total}",
     "Letzter Auftrag: {result}; siehe Laufdetails": "Ostatnie uruchomienie: {result}; zobacz szczegóły",
-    "Rosavio · Aktueller Status": "Rosavio · Stan obecny",
-    "ROSAVIO · STATUS": "ROSAVIO · STATUS",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Stan obecny",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · STATUS",
     "Alles auf einen Blick.": "Wszystko w skrócie.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Aktualizacje przeglądarki, Weitersehen i pliki do pobrania — sprawdzane automatycznie w GitHub, nawet gdy Twój komputer jest wyłączony.",
     "OFFIZIELLE FIREFOX-VERSION": "OFICJALNA WERSJA FIREFOXA",
@@ -495,7 +523,7 @@ const STATUS_LOCALES = {
     "Wird geladen …": "Ładowanie…",
     "Jetzt abrufen ↻": "Odśwież teraz ↻",
     "Statusdaten werden abgerufen.": "Pobieram dane o stanie.",
-    "Aktueller Rosavio-Status": "Obecny stan Rosavio",
+    "Aktueller Rosavio-Status": "Obecny stan Rosavio & PDF Digital",
     "Bereich": "Kategoria",
     "Version / Anzahl": "Wersja / liczba",
     "Status": "Stan",
@@ -550,13 +578,17 @@ const STATUS_LOCALES = {
     "action_required": "wymagane działanie",
     "Sprachen": "Języki",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Szczegóły statusu nie są tłumaczone; sprawdź szczegóły biegu.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub nie miał dostępnego modułu uruchamiającego dla komputerów Mac; zatrzymał się przed rozpoczęciem budowy"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub nie miał dostępnego modułu uruchamiającego dla komputerów Mac; zatrzymał się przed rozpoczęciem budowy",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Pobrania",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Wydanie Windows i podpis projektu dostępne; bez nowego testu funkcjonalnego.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Pobrania pakietów Windows wszystkich wersji, w tym testy; to nie liczba użytkowników."
   },
   "cs": {
     "{done} von {total} Phasen abgeschlossen": "Dokončené fáze: {done} / {total}",
     "Letzter Auftrag: {result}; siehe Laufdetails": "Poslední běh: {result}; viz podrobnosti",
-    "Rosavio · Aktueller Status": "Rosavio · Aktuální stav",
-    "ROSAVIO · STATUS": "ROSAVIO · STAV",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Aktuální stav",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · STAV",
     "Alles auf einen Blick.": "Vše na první pohled.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Aktualizace prohlížeče, Weitersehen a stahování – kontrolované automaticky na GitHubu, i když je váš počítač vypnutý.",
     "OFFIZIELLE FIREFOX-VERSION": "OFICIÁLNÍ VERZE FIREFOX",
@@ -619,13 +651,17 @@ const STATUS_LOCALES = {
     "action_required": "nutná akce",
     "Sprachen": "Jazyky",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Podrobnosti o stavu nejsou přeloženy; zkontrolujte podrobnosti běhu.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub neměl žádný dostupný běžec pro Mac; zastavil před zahájením stavby"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub neměl žádný dostupný běžec pro Mac; zastavil před zahájením stavby",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Stažení",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Vydání pro Windows a podpis projektu jsou dostupné; bez nového funkčního testu.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Požadavky na balíčky Windows všech verzí včetně testů; nejde o počet uživatelů."
   },
   "da": {
     "{done} von {total} Phasen abgeschlossen": "Afsluttede faser: {done} / {total}",
     "Letzter Auftrag: {result}; siehe Laufdetails": "Seneste kørsel: {result}; se detaljer",
-    "Rosavio · Aktueller Status": "Rosavio · Aktuel status",
-    "ROSAVIO · STATUS": "ROSAVIO · STATUS",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Aktuel status",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · STATUS",
     "Alles auf einen Blick.": "Alt på et øjeblik.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Browseropdateringer, Weitersehen og downloads — kontrolleres automatisk på GitHub, selv når din pc er slukket.",
     "OFFIZIELLE FIREFOX-VERSION": "OFFICIEL FIREFOX VERSION",
@@ -633,7 +669,7 @@ const STATUS_LOCALES = {
     "Wird geladen …": "Indlæser...",
     "Jetzt abrufen ↻": "Opdater nu ↻",
     "Statusdaten werden abgerufen.": "Henter statusdata.",
-    "Aktueller Rosavio-Status": "Nuværende Rosavio-status",
+    "Aktueller Rosavio-Status": "Nuværende Rosavio & PDF Digital-status",
     "Bereich": "Kategori",
     "Version / Anzahl": "Version/antal",
     "Status": "Status",
@@ -688,13 +724,17 @@ const STATUS_LOCALES = {
     "action_required": "handling påkrævet",
     "Sprachen": "Sprog",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Statusdetaljer er ikke oversat; tjek venligst løbsdetaljerne.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub havde ingen tilgængelig Mac-løber; stoppet før byggeriet begyndte"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub havde ingen tilgængelig Mac-løber; stoppet før byggeriet begyndte",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Downloads",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows-udgivelse og projektsignatur tilgængelig; ingen ny funktionstest.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Windows-pakkehentninger for alle versioner inklusive test; ikke antal brugere."
   },
   "sv-SE": {
     "{done} von {total} Phasen abgeschlossen": "Slutförda faser: {done} / {total}",
     "Letzter Auftrag: {result}; siehe Laufdetails": "Senaste körning: {result}; se detaljer",
-    "Rosavio · Aktueller Status": "Rosavio · Aktuell status",
-    "ROSAVIO · STATUS": "ROSAVIO · STATUS",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Aktuell status",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · STATUS",
     "Alles auf einen Blick.": "Allt på ett ögonkast.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Webbläsaruppdateringar, Weitersehen och nedladdningar – kontrolleras automatiskt på GitHub, även när din dator är avstängd.",
     "OFFIZIELLE FIREFOX-VERSION": "OFFICIELL FIREFOX-VERSION",
@@ -702,7 +742,7 @@ const STATUS_LOCALES = {
     "Wird geladen …": "Laddar...",
     "Jetzt abrufen ↻": "Uppdatera nu ↻",
     "Statusdaten werden abgerufen.": "Hämtar statusdata.",
-    "Aktueller Rosavio-Status": "Nuvarande Rosavio-status",
+    "Aktueller Rosavio-Status": "Nuvarande Rosavio & PDF Digital-status",
     "Bereich": "Kategori",
     "Version / Anzahl": "Version/antal",
     "Status": "Status",
@@ -757,13 +797,17 @@ const STATUS_LOCALES = {
     "action_required": "åtgärd krävs",
     "Sprachen": "Språk",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Statusinformation översätts inte; kontrollera löpdetaljerna.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub hade ingen tillgänglig Mac-runner; stoppades innan bygget började"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub hade ingen tillgänglig Mac-runner; stoppades innan bygget började",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Hämtningar",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows-version och projektsignatur tillgängliga; inget nytt funktionstest.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Hämtningar av Windows-paket för alla versioner inklusive tester; inte antal användare."
   },
   "nb-NO": {
     "{done} von {total} Phasen abgeschlossen": "Fullførte faser: {done} / {total}",
     "Letzter Auftrag: {result}; siehe Laufdetails": "Siste kjøring: {result}; se detaljer",
-    "Rosavio · Aktueller Status": "Rosavio · Nåværende status",
-    "ROSAVIO · STATUS": "ROSAVIO · STATUS",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Nåværende status",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · STATUS",
     "Alles auf einen Blick.": "Alt på et øyeblikk.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Nettleseroppdateringer, Weitersehen og nedlastinger – sjekkes automatisk på GitHub, selv når PC-en er slått av.",
     "OFFIZIELLE FIREFOX-VERSION": "OFFISIELL FIREFOX-VERSJON",
@@ -771,7 +815,7 @@ const STATUS_LOCALES = {
     "Wird geladen …": "Laster inn …",
     "Jetzt abrufen ↻": "Oppdater nå ↻",
     "Statusdaten werden abgerufen.": "Henter statusdata.",
-    "Aktueller Rosavio-Status": "Gjeldende Rosavio-status",
+    "Aktueller Rosavio-Status": "Gjeldende Rosavio & PDF Digital-status",
     "Bereich": "Kategori",
     "Version / Anzahl": "Versjon / telling",
     "Status": "Status",
@@ -826,13 +870,17 @@ const STATUS_LOCALES = {
     "action_required": "handling nødvendig",
     "Sprachen": "Språk",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Statusdetaljer er ikke oversatt; sjekk løpsdetaljene.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub hadde ingen tilgjengelig Mac-løper; stoppet før byggingen startet"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub hadde ingen tilgjengelig Mac-løper; stoppet før byggingen startet",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Nedlastinger",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows-utgave og prosjektsignatur tilgjengelig; ingen ny funksjonstest.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Hentinger av Windows-pakker for alle versjoner inkludert tester; ikke antall brukere."
   },
   "fi": {
     "{done} von {total} Phasen abgeschlossen": "Valmiit vaiheet: {done} / {total}",
     "Letzter Auftrag: {result}; siehe Laufdetails": "Viimeisin ajo: {result}; katso lisätiedot",
-    "Rosavio · Aktueller Status": "Rosavio · Nykyinen tila",
-    "ROSAVIO · STATUS": "ROSAVIO · TILA",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Nykyinen tila",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · TILA",
     "Alles auf einen Blick.": "Kaikki yhdellä silmäyksellä.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Selainpäivitykset, Weitersehen ja lataukset – tarkistetaan automaattisesti GitHubissa, vaikka tietokoneesi olisi sammutettu.",
     "OFFIZIELLE FIREFOX-VERSION": "VIRALLINEN FIREFOX-VERSIO",
@@ -840,7 +888,7 @@ const STATUS_LOCALES = {
     "Wird geladen …": "Ladataan…",
     "Jetzt abrufen ↻": "Päivitä nyt ↻",
     "Statusdaten werden abgerufen.": "Haetaan tilatietoja.",
-    "Aktueller Rosavio-Status": "Rosavion nykyinen tila",
+    "Aktueller Rosavio-Status": "Rosavio & PDF Digitaln nykyinen tila",
     "Bereich": "Luokka",
     "Version / Anzahl": "Versio / määrä",
     "Status": "Tila",
@@ -895,13 +943,17 @@ const STATUS_LOCALES = {
     "action_required": "tarvitaan toimenpiteitä",
     "Sprachen": "Kielet",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Tilatietoja ei käännetä; tarkista ajon tiedot.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHubilla ei ollut saatavilla Mac-runneria; pysähtyi ennen rakentamisen aloittamista"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHubilla ei ollut saatavilla Mac-runneria; pysähtyi ennen rakentamisen aloittamista",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Lataukset",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows-julkaisu ja projektin allekirjoitus saatavilla; ei uutta toimintatestiä.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Kaikkien versioiden Windows-pakettien pyynnöt, myös testit; ei käyttäjämäärä."
   },
   "tr": {
     "{done} von {total} Phasen abgeschlossen": "Tamamlanan aşamalar: {done} / {total}",
     "Letzter Auftrag: {result}; siehe Laufdetails": "Son çalıştırma: {result}; ayrıntılara bakın",
-    "Rosavio · Aktueller Status": "Rosavio · Mevcut durum",
-    "ROSAVIO · STATUS": "ROSAVIO · DURUM",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Mevcut durum",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · DURUM",
     "Alles auf einen Blick.": "Bir bakışta her şey.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Tarayıcı güncellemeleri, Weitersehen ve indirmeler — bilgisayarınız kapalı olsa bile GitHub'da otomatik olarak kontrol edilir.",
     "OFFIZIELLE FIREFOX-VERSION": "RESMİ FIREFOX VERSİYONU",
@@ -909,7 +961,7 @@ const STATUS_LOCALES = {
     "Wird geladen …": "Yükleniyor…",
     "Jetzt abrufen ↻": "Şimdi yenile ↻",
     "Statusdaten werden abgerufen.": "Durum verileri getiriliyor.",
-    "Aktueller Rosavio-Status": "Mevcut Rosavio durumu",
+    "Aktueller Rosavio-Status": "Mevcut Rosavio & PDF Digital durumu",
     "Bereich": "Kategori",
     "Version / Anzahl": "Sürüm / sayım",
     "Status": "Durum",
@@ -964,7 +1016,11 @@ const STATUS_LOCALES = {
     "action_required": "eylem gerekli",
     "Sprachen": "Diller",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Durum ayrıntıları çevrilmez; lütfen çalıştırma ayrıntılarını kontrol edin.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub'un kullanılabilir bir Mac çalıştırıcısı yoktu; inşaat başlamadan önce durduruldu"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub'un kullanılabilir bir Mac çalıştırıcısı yoktu; inşaat başlamadan önce durduruldu",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · İndirmeler",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows sürümü ve proje imzası mevcut; yeni işlev testi yapılmadı.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Testler dahil tüm sürümlerin Windows paket istekleri; kullanıcı sayısı değildir."
   },
   "uk": {
     "{done} von {total} Phasen abgeschlossen": "Завершені етапи: {done} / {total}",
@@ -1033,12 +1089,16 @@ const STATUS_LOCALES = {
     "action_required": "необхідні дії",
     "Sprachen": "Мови",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Деталі статусу не перекладаються; будь ласка, перевірте деталі запуску.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "У GitHub не було доступного програми для Mac; зупинено до початку будівництва"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "У GitHub не було доступного програми для Mac; зупинено до початку будівництва",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Завантаження",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Випуск Windows і підпис проєкту доступні; нового функціонального тесту не було.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Запити пакетів Windows усіх версій, включно з тестами; це не кількість користувачів."
   },
   "el": {
     "{done} von {total} Phasen abgeschlossen": "Ολοκληρωμένες φάσεις: {done} / {total}",
     "Letzter Auftrag: {result}; siehe Laufdetails": "Τελευταία εκτέλεση: {result}· δείτε λεπτομέρειες",
-    "Rosavio · Aktueller Status": "Rosavio · Τρέχουσα κατάσταση",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Τρέχουσα κατάσταση",
     "ROSAVIO · STATUS": "ΡΟΖΑΒΙΟ · ΚΑΤΑΣΤΑΣΗ",
     "Alles auf einen Blick.": "Όλα με μια ματιά.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "Ενημερώσεις προγράμματος περιήγησης, Weitersehen και λήψεις — ελέγχονται αυτόματα στο GitHub, ακόμη και όταν ο υπολογιστής σας είναι απενεργοποιημένος.",
@@ -1047,7 +1107,7 @@ const STATUS_LOCALES = {
     "Wird geladen …": "Φόρτωση…",
     "Jetzt abrufen ↻": "Ανανέωση τώρα ↻",
     "Statusdaten werden abgerufen.": "Ανάκτηση δεδομένων κατάστασης.",
-    "Aktueller Rosavio-Status": "Τρέχουσα κατάσταση Rosavio",
+    "Aktueller Rosavio-Status": "Τρέχουσα κατάσταση Rosavio & PDF Digital",
     "Bereich": "Κατηγορία",
     "Version / Anzahl": "Έκδοση / αριθμός",
     "Status": "Κατάσταση",
@@ -1102,7 +1162,11 @@ const STATUS_LOCALES = {
     "action_required": "απαιτούνται ενέργειες",
     "Sprachen": "Γλώσσες",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "Τα στοιχεία κατάστασης δεν μεταφράζονται. ελέγξτε τις λεπτομέρειες εκτέλεσης.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "Το GitHub δεν είχε διαθέσιμο πρόγραμμα λειτουργίας Mac. σταμάτησε πριν ξεκινήσει η κατασκευή"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "Το GitHub δεν είχε διαθέσιμο πρόγραμμα λειτουργίας Mac. σταμάτησε πριν ξεκινήσει η κατασκευή",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · Λήψεις",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Διαθέσιμη έκδοση Windows και υπογραφή έργου· χωρίς νέα λειτουργική δοκιμή.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Αιτήματα πακέτων Windows όλων των εκδόσεων, μαζί με δοκιμές· όχι αριθμός χρηστών."
   },
   "ja": {
     "{done} von {total} Phasen abgeschlossen": "完了した段階: {done} / {total}",
@@ -1171,7 +1235,11 @@ const STATUS_LOCALES = {
     "action_required": "必要なアクション",
     "Sprachen": "言語",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "ステータスの詳細は翻訳されません。実行の詳細を確認してください。",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub には利用可能な Mac ランナーがありませんでした。ビルドが始まる前に停止しました"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub には利用可能な Mac ランナーがありませんでした。ビルドが始まる前に停止しました",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · ダウンロード",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows版とプロジェクト署名が公開済み。新たな機能テストは行っていません。",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "テストを含む全バージョンのWindowsパッケージ取得数です。利用者数ではありません。"
   },
   "ko": {
     "{done} von {total} Phasen abgeschlossen": "완료된 단계: {done} / {total}",
@@ -1240,7 +1308,11 @@ const STATUS_LOCALES = {
     "action_required": "필요한 조치",
     "Sprachen": "언어",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "상태 세부 정보는 번역되지 않습니다. 실행 세부정보를 확인하세요.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub에는 사용 가능한 Mac 러너가 없었습니다. 빌드가 시작되기 전에 중지됨"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "GitHub에는 사용 가능한 Mac 러너가 없었습니다. 빌드가 시작되기 전에 중지됨",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · 다운로드",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows 버전과 프로젝트 서명이 공개되었습니다. 새로운 기능 테스트는 수행하지 않았습니다.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "테스트를 포함한 모든 버전의 Windows 패키지 요청 수이며 사용자 수가 아닙니다."
   },
   "ar": {
     "{done} von {total} Phasen abgeschlossen": "المراحل المكتملة: {done} / {total}",
@@ -1309,13 +1381,17 @@ const STATUS_LOCALES = {
     "action_required": "الإجراء المطلوب",
     "Sprachen": "اللغات",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "لا تتم ترجمة تفاصيل الحالة؛ يرجى التحقق من تفاصيل التشغيل.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "لم يكن لدى GitHub مشغل Mac متاح؛ توقفت قبل بدء البناء"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "لم يكن لدى GitHub مشغل Mac متاح؛ توقفت قبل بدء البناء",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · التنزيلات",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "إصدار Windows وتوقيع المشروع متاحان؛ لم يُجرَ اختبار وظيفي جديد.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "طلبات حزم Windows لجميع الإصدارات، بما فيها الاختبارات؛ ليست عدد المستخدمين."
   },
   "he": {
     "{done} von {total} Phasen abgeschlossen": "שלבים שהושלמו: {done} / {total}",
     "Letzter Auftrag: {result}; siehe Laufdetails": "הריצה האחרונה: {result}; ראו פרטים",
-    "Rosavio · Aktueller Status": "Rosavio · מצב נוכחי",
-    "ROSAVIO · STATUS": "ROSAVIO · סטטוס",
+    "Rosavio · Aktueller Status": "Rosavio & PDF Digital · מצב נוכחי",
+    "ROSAVIO · STATUS": "ROSAVIO & PDF DIGITAL · סטטוס",
     "Alles auf einen Blick.": "הכל במבט אחד.",
     "Browser-Updates, Weitersehen und Downloads – automatisch auf GitHub geprüft, auch wenn dein PC ausgeschaltet ist.": "עדכוני דפדפן, Weitersehen והורדות - נבדק אוטומטית ב-GitHub, גם כשהמחשב שלך כבוי.",
     "OFFIZIELLE FIREFOX-VERSION": "גרסת FIREFOX הרשמית",
@@ -1378,6 +1454,10 @@ const STATUS_LOCALES = {
     "action_required": "נדרשת פעולה",
     "Sprachen": "שפות",
     "Statusdetails nicht übersetzt; bitte Laufdetails prüfen.": "פרטי הסטטוס אינם מתורגמים; אנא בדוק את פרטי הריצה.",
-    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "ל-GitHub לא היה רץ Mac זמין; נעצר לפני תחילת הבנייה"
+    "GitHub hatte keinen freien Mac-Rechner; vor Baubeginn abgebrochen": "ל-GitHub לא היה רץ Mac זמין; נעצר לפני תחילת הבנייה",
+    "PDF Digital · Windows": "PDF Digital · Windows",
+    "PDF Digital · Downloads": "PDF Digital · הורדות",
+    "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "גרסת Windows וחתימת הפרויקט זמינות; לא נערכה בדיקת תפקוד חדשה.",
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "בקשות לחבילות Windows מכל הגרסאות, כולל בדיקות; לא מספר משתמשים."
   }
 };

@@ -10,10 +10,10 @@ BASE = ROOT + '/releases/download/'
 def get(url):
     return json.loads(read_url(url))
 
-def api(route):
+def api(route, repo=REPO):
     if os.environ.get('GH_TOKEN'):
-        return json.loads(run_gh(['gh','api','repos/'+REPO+'/'+route]).stdout)
-    return get('https://api.github.com/repos/'+REPO+'/'+route)
+        return json.loads(run_gh(['gh','api','repos/'+repo+'/'+route]).stdout)
+    return get('https://api.github.com/repos/'+repo+'/'+route)
 
 def paginate(route, key=None):
     result=[]
@@ -26,6 +26,25 @@ def paginate(route, key=None):
 
 def row(label, state, version, detail, url=''):
     return dict(label=label,state=state,version=version,detail=detail,url=url)
+
+def pdf_rows():
+    """Public Windows release metadata only; no package downloads or build dispatch."""
+    repo='aheinen1971-cmd/pdf-digital'
+    root='https://github.com/'+repo
+    releases=[]
+    for page in range(1,101):
+        batch=api(f'releases?per_page=100&page={page}',repo)
+        releases.extend(r for r in batch if not r['draft'] and not r['prerelease'])
+        if len(batch)<100:break
+    else:raise ValueError('Incomplete PDF pagination')
+    latest=max(releases,key=lambda r:r['published_at'])
+    version=latest['tag_name'].removeprefix('v')
+    names={a['name'] for a in latest['assets']}
+    if not {f'PDF-Werkbank-{version}-Windows.zip',f'PDF-Werkbank-{version}-Signatur.json'}<=names:
+        raise ValueError('Missing Windows package or project signature')
+    count=sum(a['download_count'] for r in releases for a in r['assets'] if a['name'].endswith('-Windows.zip'))
+    return [row('PDF Digital · Windows','green',version,'Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.',latest['html_url']),
+            row('PDF Digital · Downloads','neutral',str(count),'Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.',root+'/releases')]
 
 def release_key(release):
     match=re.match(r'v(\d+(?:\.\d+)+)-',release['tag_name'])
@@ -203,6 +222,11 @@ def collect():
     rows.append(row('macOS','neutral','Pflege eingestellt','Seit 03.11.2026 keine weitere Pflege oder Sicherheitsupdates. Bereits laufende Altaufträge dürfen enden; keine Wiederaufnahme.'))
     assets=[a for r in regular for a in r['assets'] if a['name'] in ('Rosavio-Setup-Deutsch.exe','Rosavio-Linux-x64.tar.xz','Rosavio.dmg')]
     rows.append(row('Paketdownloads','neutral',str(sum(a['download_count'] for a in assets)),'GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.'))
+    try:
+        rows.extend(pdf_rows())
+    except Exception as exc:
+        rows.append(row('PDF Digital · Windows','gray','—','Prüfung derzeit nicht möglich','https://github.com/aheinen1971-cmd/pdf-digital/releases'))
+        data['errors'].append('PDF Digital: '+type(exc).__name__)
     rows.append(row('Fehlerübersicht','red' if any(r['state']=='red' for r in rows) else 'neutral','—','Siehe rote Zeilen. Laufstatus und öffentliche Metadaten können nicht alle Browserfehler erkennen.'))
     order=['Windows','Linux','Flatpak','macOS']
     rows.sort(key=lambda r:order.index(r['label']) if r['label'] in order else len(order))
