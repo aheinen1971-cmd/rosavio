@@ -71,7 +71,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Downloads",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "LETZTER ERFOLGREICHER ABRUF · BERLIN",
+    "Problem melden": "Problem melden",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "en": {
     "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Current status",
@@ -144,7 +151,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Downloads",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows release and project signature available; no new functional test.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Windows package requests across all versions, including tests; not a user count."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Windows package requests across all versions, including tests; not a user count.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "LAST SUCCESSFUL FETCH · BERLIN",
+    "Problem melden": "Report a problem",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Opens a prefilled GitHub form. Your report becomes public only when you submit it.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Outdated check – the build may have progressed. Fetching again does not mean GitHub has checked again.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "fr": {
     "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Situation actuelle",
@@ -217,7 +231,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Téléchargements",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Version Windows et signature du projet disponibles ; aucun nouveau test fonctionnel.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Requêtes de paquets Windows de toutes les versions, tests inclus ; pas un nombre d’utilisateurs."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Requêtes de paquets Windows de toutes les versions, tests inclus ; pas un nombre d’utilisateurs.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "DERNIÈRE RÉCUPÉRATION RÉUSSIE · BERLIN",
+    "Problem melden": "Signaler un problème",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Ouvre un formulaire GitHub prérempli. Votre rapport devient public uniquement à son envoi.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Vérification ancienne : la compilation peut avoir avancé. Actualiser ne signifie pas que GitHub a refait les vérifications.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "es": {
     "{done} von {total} Phasen abgeschlossen": "Fases completadas: {done} / {total}",
@@ -290,7 +311,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Descargas",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Versión para Windows y firma del proyecto disponibles; sin nueva prueba funcional.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Solicitudes de paquetes Windows de todas las versiones, incluidas pruebas; no es una cifra de usuarios."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Solicitudes de paquetes Windows de todas las versiones, incluidas pruebas; no es una cifra de usuarios.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "ÚLTIMA CONSULTA CORRECTA · BERLÍN",
+    "Problem melden": "Informar de un problema",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Abre un formulario de GitHub rellenado previamente. Tu informe será público solo cuando lo envíes.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Comprobación desactualizada: la compilación puede haber avanzado. Consultar de nuevo no significa que GitHub haya vuelto a comprobar.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "nl": {
     "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Huidige status",
@@ -363,7 +391,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Downloads",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows-uitgave en projecthandtekening beschikbaar; geen nieuwe functietest.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Windows-pakketaanvragen van alle versies, inclusief tests; geen gebruikersaantal."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Windows-pakketaanvragen van alle versies, inclusief tests; geen gebruikersaantal.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "LAATSTE GESLAAGDE OPHAALACTIE · BERLIJN",
+    "Problem melden": "Probleem melden",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Opent een vooraf ingevuld GitHub-formulier. Je melding wordt pas openbaar wanneer je deze indient.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Verouderde controle: de bouw kan al verder zijn. Opnieuw ophalen betekent niet dat GitHub opnieuw heeft gecontroleerd.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "it": {
     "{done} von {total} Phasen abgeschlossen": "Fasi completate: {done} / {total}",
@@ -436,7 +471,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Download",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Versione Windows e firma del progetto disponibili; nessun nuovo test funzionale.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Richieste di pacchetti Windows di tutte le versioni, inclusi i test; non è il numero di utenti."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Richieste di pacchetti Windows di tutte le versioni, inclusi i test; non è il numero di utenti.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "ULTIMO RECUPERO RIUSCITO · BERLINO",
+    "Problem melden": "Segnala un problema",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Apre un modulo GitHub precompilato. La segnalazione diventa pubblica solo quando la invii.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Verifica non aggiornata: la compilazione potrebbe essere avanzata. Ricaricare non significa che GitHub abbia ripetuto la verifica.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "pt-PT": {
     "{done} von {total} Phasen abgeschlossen": "Fases concluídas: {done} / {total}",
@@ -509,7 +551,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Transferências",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Versão Windows e assinatura do projeto disponíveis; sem novo teste funcional.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Pedidos de pacotes Windows de todas as versões, incluindo testes; não é uma contagem de utilizadores."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Pedidos de pacotes Windows de todas as versões, incluindo testes; não é uma contagem de utilizadores.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "ÚLTIMA CONSULTA BEM-SUCEDIDA · BERLIM",
+    "Problem melden": "Comunicar um problema",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Abre um formulário GitHub pré-preenchido. O relatório só se torna público quando o enviar.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Verificação desatualizada: a compilação pode ter avançado. Consultar novamente não significa que o GitHub tenha repetido a verificação.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "pl": {
     "{done} von {total} Phasen abgeschlossen": "Ukończone etapy: {done} / {total}",
@@ -582,7 +631,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Pobrania",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Wydanie Windows i podpis projektu dostępne; bez nowego testu funkcjonalnego.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Pobrania pakietów Windows wszystkich wersji, w tym testy; to nie liczba użytkowników."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Pobrania pakietów Windows wszystkich wersji, w tym testy; to nie liczba użytkowników.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "OSTATNIE UDANE POBRANIE DANYCH · BERLIN",
+    "Problem melden": "Zgłoś problem",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Otwiera wstępnie wypełniony formularz GitHub. Zgłoszenie staje się publiczne dopiero po wysłaniu.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Nieaktualna kontrola: budowanie mogło się posunąć dalej. Ponowne pobranie danych nie oznacza nowej kontroli GitHub.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "cs": {
     "{done} von {total} Phasen abgeschlossen": "Dokončené fáze: {done} / {total}",
@@ -655,7 +711,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Stažení",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Vydání pro Windows a podpis projektu jsou dostupné; bez nového funkčního testu.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Požadavky na balíčky Windows všech verzí včetně testů; nejde o počet uživatelů."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Požadavky na balíčky Windows všech verzí včetně testů; nejde o počet uživatelů.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "POSLEDNÍ ÚSPĚŠNÉ NAČTENÍ · BERLÍN",
+    "Problem melden": "Nahlásit problém",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Otevře předvyplněný formulář GitHub. Hlášení bude veřejné až po odeslání.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Zastaralá kontrola: sestavení již mohlo pokročit. Nové načtení neznamená novou kontrolu na GitHubu.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "da": {
     "{done} von {total} Phasen abgeschlossen": "Afsluttede faser: {done} / {total}",
@@ -728,7 +791,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Downloads",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows-udgivelse og projektsignatur tilgængelig; ingen ny funktionstest.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Windows-pakkehentninger for alle versioner inklusive test; ikke antal brugere."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Windows-pakkehentninger for alle versioner inklusive test; ikke antal brugere.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "SENESTE VELLYKKEDE HENTNING · BERLIN",
+    "Problem melden": "Rapportér et problem",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Åbner en forudfyldt GitHub-formular. Din rapport bliver først offentlig, når du sender den.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Forældet kontrol: bygningen kan være nået videre. En ny hentning betyder ikke, at GitHub har kontrolleret igen.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "sv-SE": {
     "{done} von {total} Phasen abgeschlossen": "Slutförda faser: {done} / {total}",
@@ -801,7 +871,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Hämtningar",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows-version och projektsignatur tillgängliga; inget nytt funktionstest.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Hämtningar av Windows-paket för alla versioner inklusive tester; inte antal användare."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Hämtningar av Windows-paket för alla versioner inklusive tester; inte antal användare.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "SENASTE LYCKADE HÄMTNING · BERLIN",
+    "Problem melden": "Rapportera ett problem",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Öppnar ett förifyllt GitHub-formulär. Rapporten blir offentlig först när du skickar den.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Föråldrad kontroll: bygget kan ha kommit längre. Ny hämtning betyder inte att GitHub har kontrollerat igen.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "nb-NO": {
     "{done} von {total} Phasen abgeschlossen": "Fullførte faser: {done} / {total}",
@@ -874,7 +951,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Nedlastinger",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows-utgave og prosjektsignatur tilgjengelig; ingen ny funksjonstest.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Hentinger av Windows-pakker for alle versjoner inkludert tester; ikke antall brukere."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Hentinger av Windows-pakker for alle versjoner inkludert tester; ikke antall brukere.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "SISTE VELLYKKEDE HENTING · BERLIN",
+    "Problem melden": "Meld et problem",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Åpner et forhåndsutfylt GitHub-skjema. Rapporten blir først offentlig når du sender den.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Utdatert kontroll: byggingen kan ha kommet videre. Ny henting betyr ikke at GitHub har kontrollert på nytt.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "fi": {
     "{done} von {total} Phasen abgeschlossen": "Valmiit vaiheet: {done} / {total}",
@@ -947,7 +1031,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Lataukset",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows-julkaisu ja projektin allekirjoitus saatavilla; ei uutta toimintatestiä.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Kaikkien versioiden Windows-pakettien pyynnöt, myös testit; ei käyttäjämäärä."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Kaikkien versioiden Windows-pakettien pyynnöt, myös testit; ei käyttäjämäärä.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "VIIMEISIN ONNISTUNUT HAKU · BERLIINI",
+    "Problem melden": "Ilmoita ongelmasta",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Avaa esitäytetyn GitHub-lomakkeen. Ilmoitus tulee julkiseksi vasta lähettäessäsi sen.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Vanhentunut tarkistus: koonti on voinut edetä. Uusi haku ei tarkoita GitHubin uutta tarkistusta.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "tr": {
     "{done} von {total} Phasen abgeschlossen": "Tamamlanan aşamalar: {done} / {total}",
@@ -1020,7 +1111,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · İndirmeler",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows sürümü ve proje imzası mevcut; yeni işlev testi yapılmadı.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Testler dahil tüm sürümlerin Windows paket istekleri; kullanıcı sayısı değildir."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Testler dahil tüm sürümlerin Windows paket istekleri; kullanıcı sayısı değildir.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "SON BAŞARILI VERİ ALIMI · BERLİN",
+    "Problem melden": "Sorun bildir",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Önceden doldurulmuş GitHub formunu açar. Bildiriminiz ancak gönderdiğinizde herkese açık olur.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Kontrol güncel değil; derleme ilerlemiş olabilir. Yeniden veri almak GitHub’ın yeniden kontrol yaptığı anlamına gelmez.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "uk": {
     "{done} von {total} Phasen abgeschlossen": "Завершені етапи: {done} / {total}",
@@ -1093,7 +1191,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Завантаження",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Випуск Windows і підпис проєкту доступні; нового функціонального тесту не було.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Запити пакетів Windows усіх версій, включно з тестами; це не кількість користувачів."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Запити пакетів Windows усіх версій, включно з тестами; це не кількість користувачів.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "ОСТАННЄ УСПІШНЕ ОТРИМАННЯ · БЕРЛІН",
+    "Problem melden": "Повідомити про проблему",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Відкриває попередньо заповнену форму GitHub. Звіт стане публічним лише після надсилання.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Перевірка застаріла: збірка могла просунутися. Повторне отримання даних не означає нову перевірку GitHub.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "el": {
     "{done} von {total} Phasen abgeschlossen": "Ολοκληρωμένες φάσεις: {done} / {total}",
@@ -1166,7 +1271,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · Λήψεις",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Διαθέσιμη έκδοση Windows και υπογραφή έργου· χωρίς νέα λειτουργική δοκιμή.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Αιτήματα πακέτων Windows όλων των εκδόσεων, μαζί με δοκιμές· όχι αριθμός χρηστών."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "Αιτήματα πακέτων Windows όλων των εκδόσεων, μαζί με δοκιμές· όχι αριθμός χρηστών.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "ΤΕΛΕΥΤΑΙΑ ΕΠΙΤΥΧΗΣ ΑΝΑΚΤΗΣΗ · ΒΕΡΟΛΙΝΟ",
+    "Problem melden": "Αναφορά προβλήματος",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "Ανοίγει προσυμπληρωμένη φόρμα GitHub. Η αναφορά γίνεται δημόσια μόνο όταν την υποβάλετε.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Παρωχημένος έλεγχος: η κατασκευή μπορεί να έχει προχωρήσει. Νέα ανάκτηση δεν σημαίνει νέο έλεγχο από το GitHub.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "ja": {
     "{done} von {total} Phasen abgeschlossen": "完了した段階: {done} / {total}",
@@ -1239,7 +1351,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · ダウンロード",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows版とプロジェクト署名が公開済み。新たな機能テストは行っていません。",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "テストを含む全バージョンのWindowsパッケージ取得数です。利用者数ではありません。"
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "テストを含む全バージョンのWindowsパッケージ取得数です。利用者数ではありません。",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "最終取得成功 · ベルリン",
+    "Problem melden": "問題を報告",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "入力例付きのGitHubフォームを開きます。送信するまで報告は公開されません。",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "確認データが古くなっています。ビルドは進んでいる可能性があります。再取得はGitHubの再検査を意味しません。",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "ko": {
     "{done} von {total} Phasen abgeschlossen": "완료된 단계: {done} / {total}",
@@ -1312,7 +1431,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · 다운로드",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "Windows 버전과 프로젝트 서명이 공개되었습니다. 새로운 기능 테스트는 수행하지 않았습니다.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "테스트를 포함한 모든 버전의 Windows 패키지 요청 수이며 사용자 수가 아닙니다."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "테스트를 포함한 모든 버전의 Windows 패키지 요청 수이며 사용자 수가 아닙니다.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "마지막 성공한 조회 · 베를린",
+    "Problem melden": "문제 신고",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "미리 채워진 GitHub 양식을 엽니다. 제출해야만 보고서가 공개됩니다.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "확인 정보가 오래되었습니다. 빌드가 더 진행되었을 수 있습니다. 다시 조회해도 GitHub가 새로 검사한 것은 아닙니다.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "ar": {
     "{done} von {total} Phasen abgeschlossen": "المراحل المكتملة: {done} / {total}",
@@ -1385,7 +1511,14 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · التنزيلات",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "إصدار Windows وتوقيع المشروع متاحان؛ لم يُجرَ اختبار وظيفي جديد.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "طلبات حزم Windows لجميع الإصدارات، بما فيها الاختبارات؛ ليست عدد المستخدمين."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "طلبات حزم Windows لجميع الإصدارات، بما فيها الاختبارات؛ ليست عدد المستخدمين.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "آخر جلب ناجح · برلين",
+    "Problem melden": "الإبلاغ عن مشكلة",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "يفتح نموذج GitHub معبأ مسبقًا. لا يصبح تقريرك عامًا إلا عند إرساله.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "نتيجة الفحص قديمة؛ ربما تقدم البناء. جلب البيانات مجددًا لا يعني أن GitHub أعاد الفحص.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   },
   "he": {
     "{done} von {total} Phasen abgeschlossen": "שלבים שהושלמו: {done} / {total}",
@@ -1458,6 +1591,13 @@ const STATUS_LOCALES = {
     "PDF Digital · Windows": "PDF Digital · Windows",
     "PDF Digital · Downloads": "PDF Digital · הורדות",
     "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.": "גרסת Windows וחתימת הפרויקט זמינות; לא נערכה בדיקת תפקוד חדשה.",
-    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "בקשות לחבילות Windows מכל הגרסאות, כולל בדיקות; לא מספר משתמשים."
+    "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.": "בקשות לחבילות Windows מכל הגרסאות, כולל בדיקות; לא מספר משתמשים.",
+    "LETZTER ERFOLGREICHER ABRUF · BERLIN": "אחזור מוצלח אחרון · ברלין",
+    "Problem melden": "דיווח על בעיה",
+    "Öffnet ein vorausgefülltes GitHub-Formular. Erst beim Absenden wird dein Bericht öffentlich.": "פותח טופס GitHub עם תוכן התחלתי. הדיווח יהיה ציבורי רק לאחר שליחתו.",
+    "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "הבדיקה אינה עדכנית; ייתכן שהבנייה התקדמה. אחזור נוסף אינו אומר ש־GitHub בדק שוב.",
+    "Rosavio": "Rosavio",
+    "PDF Digital": "PDF Digital",
+    "·": "·"
   }
 };

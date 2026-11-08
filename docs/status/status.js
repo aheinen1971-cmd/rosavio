@@ -6,7 +6,7 @@ function ageNotice(){
  if(!last)return;
  const stale=Date.now()-Date.parse(last.checkedAt)>90*60*1000;
  const el=document.getElementById('notice');
- el.textContent=statusText(stale?'Dieser Prüfstand ist über 90 Minuten alt. Aktuelle Ergebnisse sind noch nicht bestätigt.':'Gespeicherter GitHub-Prüfstand. Nächster Datenabruf dieser Seite automatisch in fünf Minuten.');
+ el.textContent=statusText(stale?'Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.':'Gespeicherter GitHub-Prüfstand. Nächster Datenabruf dieser Seite automatisch in fünf Minuten.');
  el.className=stale?'warning':'';
 }
 function render(data){
@@ -57,7 +57,7 @@ function render(data){
 }
 async function refresh(){
  if(busy)return;busy=true;document.getElementById('refresh').disabled=true;
- try{const response=await fetch(endpoint,{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);render(await response.json());}
+ try{const response=await fetch(endpoint,{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);render(await response.json());document.getElementById('retrieved').textContent=new Intl.DateTimeFormat(statusLanguage,{dateStyle:'medium',timeStyle:'medium',timeZone:'Europe/Berlin'}).format(new Date());}
  catch(error){const el=document.getElementById('notice');el.className='warning';el.textContent=statusText('Aktueller Abruf nicht möglich. ')+' '+statusText(last?'Die Tabelle zeigt den letzten abgerufenen Stand.':'Bitte später erneut abrufen.');}
  finally{busy=false;document.getElementById('refresh').disabled=false;}
 }
