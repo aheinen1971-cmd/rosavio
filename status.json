@@ -1,22 +1,23 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-08T15:31:11.279122+00:00",
+  "checkedAt": "2026-11-08T15:45:15.509092+00:00",
   "rows": [
     {
       "label": "Windows",
-      "state": "red",
+      "state": "yellow",
       "version": "159.0.1",
-      "detail": "Letzter Auftrag: failure; siehe Laufdetails",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42481381677",
+      "detail": "Bau / Prüfungen laufen",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42496046473",
       "progress": {
-        "percent": 50,
-        "note": "2 von 4 Phasen abgeschlossen",
+        "percent": 25,
+        "note": "1 von 4 Phasen abgeschlossen",
         "steps": [
           "success",
-          "success",
-          "failure",
-          "skipped"
-        ]
+          "in_progress",
+          "pending",
+          "pending"
+        ],
+        "startedAt": "2026-11-08T15:41:21Z"
       },
       "available": {
         "version": "159.0.1",
@@ -30,18 +31,18 @@
       "roseChange": {
         "key": [
           true,
-          "red",
-          "Letzter Auftrag: failure; siehe Laufdetails",
+          "yellow",
+          "Bau / Prüfungen laufen",
           null,
           [
             "success",
-            "success",
-            "failure",
-            "skipped"
+            "in_progress",
+            "pending",
+            "pending"
           ],
           "41848549527"
         ],
-        "at": "2026-11-08T15:30:53.792490+00:00"
+        "at": "2026-11-08T15:41:21Z"
       }
     },
     {
@@ -92,17 +93,17 @@
     },
     {
       "label": "Flatpak",
-      "state": "yellow",
+      "state": "green",
       "version": "159.0.1",
-      "detail": "Wartet auf GitHub-Rechner",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42494695094",
       "progress": {
-        "percent": 0,
-        "note": "Noch keine abgeschlossene Phase bestätigt"
+        "percent": 100,
+        "note": "Geprüft und veröffentlicht"
       },
       "available": {
         "version": "159.0.1",
-        "build": "41848598577"
+        "build": "42481383335"
       },
       "features": {
         "reading": true,
@@ -112,13 +113,13 @@
       "roseChange": {
         "key": [
           true,
-          "yellow",
-          "Wartet auf GitHub-Rechner",
+          "green",
+          "Öffentliches Update geprüft und veröffentlicht",
           null,
           null,
-          "41848598577"
+          "42481383335"
         ],
-        "at": "2026-11-08T15:25:01.220102+00:00"
+        "at": "2026-11-08T15:45:15.509092+00:00"
       }
     },
     {
@@ -152,13 +153,13 @@
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "69",
+      "version": "72",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
     {
       "label": "Fehlerübersicht",
-      "state": "red",
+      "state": "neutral",
       "version": "—",
       "detail": "Siehe rote Zeilen. Laufstatus und öffentliche Metadaten können nicht alle Browserfehler erkennen.",
       "url": ""
