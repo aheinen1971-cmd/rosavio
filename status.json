@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-08T09:25:05.601278+00:00",
+  "checkedAt": "2026-11-08T10:17:44.660015+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -22,20 +22,33 @@
     },
     {
       "label": "Linux",
-      "state": "gray",
-      "version": "—",
-      "detail": "Prüfung derzeit nicht möglich",
-      "url": "",
+      "state": "green",
+      "version": "159.0.1",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v159.0.1-rosavio-linux-x64.41848598577",
+      "progress": {
+        "percent": 100,
+        "note": "Geprüft und veröffentlicht"
+      },
+      "available": {
+        "version": "159.0.1",
+        "build": "41848598577"
+      },
+      "features": {
+        "reading": true,
+        "rose": true,
+        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v159.0.1-rosavio-linux-x64.41848598577/Rosavio-Linux-x64.tar.xz"
+      },
       "roseChange": {
         "key": [
+          true,
+          "green",
+          "Öffentliches Update geprüft und veröffentlicht",
           null,
-          "gray",
-          "Prüfung derzeit nicht möglich",
           null,
-          null,
-          null
+          "41848598577"
         ],
-        "at": "2026-11-08T09:25:05.601278+00:00"
+        "at": "2026-11-08T10:17:44.660015+00:00"
       }
     },
     {
@@ -65,9 +78,9 @@
     },
     {
       "label": "Webseite · 20 Sprachen",
-      "state": "gray",
-      "version": "—",
-      "detail": "Seiten oder aktuelle Downloadlinks nicht vollständig bestätigt",
+      "state": "green",
+      "version": "20 Seiten",
+      "detail": "Erreichbar; Links entsprechen den geprüften Unix-Releases",
       "url": "https://aheinen1971-cmd.github.io/rosavio/"
     },
     {
@@ -101,7 +114,6 @@
   ],
   "errors": [
     "Windows: HTTPError",
-    "Linux: HTTPError",
     "Flatpak: HTTPError"
   ],
   "upstream": "159.0.1"
