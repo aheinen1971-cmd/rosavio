@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-09T06:20:49.093296+00:00",
+  "checkedAt": "2026-11-09T07:49:53.213274+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -113,10 +113,10 @@
     },
     {
       "label": "Weitersehen · GitHub",
-      "state": "green",
-      "version": "0.1.1",
-      "detail": "Öffentlicher Updatekanal erreichbar (kein neuer Funktionstest)",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/rosavio-weitersehen-updates"
+      "state": "gray",
+      "version": "—",
+      "detail": "Updatekanal nicht überprüfbar",
+      "url": ""
     },
     {
       "label": "Weitersehen · Mozilla-Katalog",
