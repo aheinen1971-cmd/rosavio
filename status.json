@@ -1,23 +1,47 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-09T07:49:53.213274+00:00",
+  "checkedAt": "2026-11-09T07:57:30.055368+00:00",
   "rows": [
     {
       "label": "Windows",
-      "state": "gray",
-      "version": "—",
-      "detail": "Prüfung derzeit nicht möglich",
-      "url": "",
+      "state": "red",
+      "version": "159.0.1",
+      "detail": "Letzter Auftrag: failure; siehe Laufdetails",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42582514178",
+      "progress": {
+        "percent": 25,
+        "note": "1 von 4 Phasen abgeschlossen",
+        "steps": [
+          "success",
+          "failure",
+          "skipped",
+          "skipped"
+        ]
+      },
+      "available": {
+        "version": "159.0.1",
+        "build": "42496046473"
+      },
+      "features": {
+        "reading": true,
+        "rose": true,
+        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v159.0.1-rosavio.42496046473/Rosavio-Setup-Deutsch.exe"
+      },
       "roseChange": {
         "key": [
+          true,
+          "red",
+          "Letzter Auftrag: failure; siehe Laufdetails",
           null,
-          "gray",
-          "Prüfung derzeit nicht möglich",
-          null,
-          null,
-          null
+          [
+            "success",
+            "failure",
+            "skipped",
+            "skipped"
+          ],
+          "42496046473"
         ],
-        "at": "2026-11-09T06:20:49.093296+00:00"
+        "at": "2026-11-09T07:57:30.055368+00:00"
       }
     },
     {
@@ -113,10 +137,10 @@
     },
     {
       "label": "Weitersehen · GitHub",
-      "state": "gray",
-      "version": "—",
-      "detail": "Updatekanal nicht überprüfbar",
-      "url": ""
+      "state": "green",
+      "version": "0.1.1",
+      "detail": "Öffentlicher Updatekanal erreichbar (kein neuer Funktionstest)",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/rosavio-weitersehen-updates"
     },
     {
       "label": "Weitersehen · Mozilla-Katalog",
@@ -148,14 +172,12 @@
     },
     {
       "label": "Fehlerübersicht",
-      "state": "neutral",
+      "state": "red",
       "version": "—",
       "detail": "Siehe rote Zeilen. Laufstatus und öffentliche Metadaten können nicht alle Browserfehler erkennen.",
       "url": ""
     }
   ],
-  "errors": [
-    "Windows: HTTPError"
-  ],
+  "errors": [],
   "upstream": "159.0.1"
 }
