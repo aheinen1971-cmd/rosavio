@@ -1,48 +1,47 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-10T19:51:35.844303+00:00",
+  "checkedAt": "2026-11-10T20:31:38.556042+00:00",
   "rows": [
     {
       "label": "Windows",
-      "state": "yellow",
-      "version": "159.0.1 → 160.0",
-      "detail": "Bau / Prüfungen laufen",
+      "state": "green",
+      "version": "160.0",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42868671255",
       "progress": {
-        "percent": 25,
-        "note": "1 von 4 Phasen abgeschlossen",
+        "percent": 100,
+        "note": "Geprüft und veröffentlicht",
         "steps": [
           "success",
-          "in_progress",
-          "pending",
-          "pending"
-        ],
-        "startedAt": "2026-11-10T17:48:35Z"
+          "success",
+          "success",
+          "success"
+        ]
       },
       "available": {
-        "version": "159.0.1",
-        "build": "42496046473"
+        "version": "160.0",
+        "build": "42868671255"
       },
       "features": {
         "reading": true,
         "rose": true,
-        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v159.0.1-rosavio.42496046473/Rosavio-Setup-Deutsch.exe"
+        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v160.0-rosavio.42868671255/Rosavio-Setup-Deutsch.exe"
       },
       "roseChange": {
         "key": [
           true,
-          "yellow",
-          "Bau / Prüfungen laufen",
+          "green",
+          "Öffentliches Update geprüft und veröffentlicht",
           null,
           [
             "success",
-            "in_progress",
-            "pending",
-            "pending"
+            "success",
+            "success",
+            "success"
           ],
-          "42496046473"
+          "42868671255"
         ],
-        "at": "2026-11-10T17:48:35Z"
+        "at": "2026-11-10T20:31:38.556042+00:00"
       }
     },
     {
