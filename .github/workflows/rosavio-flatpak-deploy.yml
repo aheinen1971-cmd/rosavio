@@ -70,7 +70,9 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install Pillow==12.3.0
       - name: Verify rollback metadata failure safeguards
-        run: python3 tests/test_flatpak_rollback.py
+        run: |
+          python3 tests/test_flatpak_rollback.py
+          python3 tests/test_flatpak_public_revision.py
       - name: Assemble unchanged website with baseline and candidate repositories
         env:
           GH_TOKEN: ${{ github.token }}

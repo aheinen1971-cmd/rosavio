@@ -1,5 +1,6 @@
 """Install/update from the actual public HTTPS Flatpak ref; retain only test data."""
 import base64,configparser,hashlib,json,os,pathlib,shlex,subprocess,sys,time,urllib.request
+from flatpak_public_revision import require_public_revision
 ROOT=pathlib.Path.cwd();DATA=ROOT/'flatpak-public-profiles';DATA.mkdir(exist_ok=True)
 if os.environ.get('GITHUB_ACTIONS')!='true':raise SystemExit('Isolated GitHub test runner required')
 # Hosted CI has no desktop user-directory configuration. Supply the same
@@ -33,13 +34,11 @@ if mode=='seed':
    if attempt==2:raise
    time.sleep(10)
 else:
- for attempt in range(30):
-  run('flatpak','update','--user','--noninteractive',APP)
-  if output('flatpak','info','--user','--show-commit',APP)==r['newCommit']:break
-  time.sleep(10)
- else:raise SystemExit('Public Flatpak candidate revision never arrived')
+ run('flatpak','update','--user','--noninteractive',APP)
 expected=r['oldCommit'] if mode=='seed' else r['newCommit']
-if output('flatpak','info','--user','--show-commit',APP)!=expected:raise SystemExit('Wrong public Flatpak commit')
+require_public_revision(expected,
+ lambda:output('flatpak','info','--user','--show-commit',APP),
+ lambda:run('flatpak','update','--user','--noninteractive',APP),phase=mode)
 remotes=output('flatpak','remotes','--user','--show-details')
 if 'https://aheinen1971-cmd.github.io/rosavio/flatpak/' not in remotes:raise SystemExit('Public repository was not used')
 if any('aheinen1971-cmd.github.io/rosavio/flatpak/' in line and 'no-gpg-verify' in line for line in remotes.splitlines()):raise SystemExit('Public GPG verification disabled')
