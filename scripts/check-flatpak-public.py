@@ -53,7 +53,10 @@ if os.environ.get('ROSAVIO_FLATPAK_EXTRA_CHECKS')=='1':
  finally:sentinel.unlink(missing_ok=True)
  metadata=output('flatpak','info','--user','--show-permissions',APP)
  if 'filesystems=host' in metadata or 'filesystems=home' in metadata or 'session-bus;' in metadata:raise SystemExit('Unexpected broad Flatpak permission')
- portal=output('gdbus','introspect','--session','--dest','org.freedesktop.portal.Desktop','--object-path','/org/freedesktop/portal/desktop')
+ # gdbus introspect uses a fixed three-second call timeout. A fresh hosted
+ # desktop needs time to activate the GTK portal; keep the same introspection
+ # and mandatory FileChooser check, with an explicit bounded startup timeout.
+ portal=output('gdbus','call','--session','--dest','org.freedesktop.portal.Desktop','--object-path','/org/freedesktop/portal/desktop','--method','org.freedesktop.DBus.Introspectable.Introspect','--timeout','60')
  if 'org.freedesktop.portal.FileChooser' not in portal:raise SystemExit('Native file chooser portal missing')
  (DATA/(mode+'-isolation-report.json')).write_text(json.dumps({'passed':True,'privateHostFileBlocked':True,'fileChooserPortalAvailable':True,'permissions':metadata},indent=2))
  location=pathlib.Path(output('flatpak','info','--user','--show-location',APP))
