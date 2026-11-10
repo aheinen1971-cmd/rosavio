@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-10T22:48:57.348481+00:00",
+  "checkedAt": "2026-11-10T22:59:00.115414+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -92,21 +92,17 @@
     },
     {
       "label": "Flatpak",
-      "state": "red",
-      "version": "159.0.1",
-      "detail": "Letzter Auftrag: failure; siehe Laufdetails",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42917555130",
+      "state": "green",
+      "version": "160.0",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42918034943",
       "progress": {
-        "percent": 50,
-        "note": "1 von 2 Phasen abgeschlossen",
-        "steps": [
-          "success",
-          "failure"
-        ]
+        "percent": 100,
+        "note": "Geprüft und veröffentlicht"
       },
       "available": {
-        "version": "159.0.1",
-        "build": "42481383335"
+        "version": "160.0",
+        "build": "42868390948"
       },
       "features": {
         "reading": true,
@@ -116,16 +112,13 @@
       "roseChange": {
         "key": [
           true,
-          "red",
-          "Letzter Auftrag: failure; siehe Laufdetails",
+          "green",
+          "Öffentliches Update geprüft und veröffentlicht",
           null,
-          [
-            "success",
-            "failure"
-          ],
-          "42481383335"
+          null,
+          "42868390948"
         ],
-        "at": "2026-11-10T22:48:41.452104+00:00"
+        "at": "2026-11-10T22:59:00.115414+00:00"
       }
     },
     {
@@ -179,7 +172,7 @@
     },
     {
       "label": "Fehlerübersicht",
-      "state": "red",
+      "state": "neutral",
       "version": "—",
       "detail": "Siehe rote Zeilen. Laufstatus und öffentliche Metadaten können nicht alle Browserfehler erkennen.",
       "url": ""
