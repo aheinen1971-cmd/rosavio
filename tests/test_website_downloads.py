@@ -1,4 +1,4 @@
-import sys
+import sys,re
 import importlib.util,pathlib,unittest
 sys.path.insert(0,str(pathlib.Path(__file__).parents[1]/"scripts"))
 s=importlib.util.spec_from_file_location('website',pathlib.Path(__file__).parents[1]/'scripts/update-website-downloads.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
@@ -35,4 +35,22 @@ class WebsiteTests(unittest.TestCase):
   self.assertEqual(m.windows_version(r,p),'159.0')
   p['signatureVerificationDisabled']=True
   with self.assertRaises(ValueError):m.windows_version(r,p)
+ def test_news_all_pages_preserves_pdf_and_everything_else(self):
+  pages=list((pathlib.Path(__file__).parents[1]/'docs').glob('*.html'))
+  self.assertEqual(len(pages),20)
+  for page in pages:
+   source=page.read_text(encoding='utf-8-sig')
+   heading=re.search(r'<h3><bdi>(?:Windows · )?Rosavio \d.*?</h3>',source)[0]
+   versions={'Windows':'161.0','Linux':'161.0','Flatpak':'161.0'}
+   changed=m.show_news_version(source,versions)
+   self.assertEqual(changed,source.replace(heading,'<h3><bdi>Rosavio 161.0</bdi></h3>',1))
+   self.assertEqual(m.show_news_version(changed,versions),changed)
+   mixed=m.show_news_version(changed,dict(versions,Flatpak='160.0'))
+   self.assertIn('Flatpak · Rosavio 160.0',mixed)
+   self.assertIn('Windows · Rosavio 161.0',mixed)
+   self.assertEqual(m.show_news_version(mixed,versions),changed)
+ def test_news_missing_or_ambiguous_fails_closed(self):
+  versions={'Windows':'160.0'}
+  with self.assertRaises(ValueError):m.show_news_version('<h3>Rosavio 159.0</h3>',versions)
+  with self.assertRaises(ValueError):m.show_news_version('<section id="rosavio-news"><h3>Rosavio 1.0</h3><h3>Rosavio 2.0</h3></section>',versions)
 if __name__=='__main__':unittest.main()

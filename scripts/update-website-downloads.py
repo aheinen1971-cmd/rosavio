@@ -1,9 +1,10 @@
-"""Refresh only existing package links from regular, publicly tested releases."""
+"""Refresh package links and version headings from publicly tested releases."""
 from maintenance_http import read_url, run_gh
 import json,pathlib,re,subprocess,urllib.request
 
 LABELS=dict(zip('de en fr es nl it pt-PT pl cs da sv-SE nb-NO fi tr uk el ja ko ar he'.split(),['Aktuelle Version','Current version','Version actuelle','Versión actual','Huidige versie','Versione attuale','Versão atual','Aktualna wersja','Aktuální verze','Aktuel version','Aktuell version','Gjeldende versjon','Nykyinen versio','Güncel sürüm','Поточна версія','Τρέχουσα έκδοση','現在のバージョン','현재 버전','الإصدار الحالي','הגרסה הנוכחית']))
 VERSION_BLOCK=re.compile(r'<!-- rosavio-versions -->.*?<!-- /rosavio-versions -->',re.S)
+NEWS_BLOCK=re.compile(r'<section\b[^>]*\bid="rosavio-news"[^>]*>.*?</section>',re.S)
 
 def version_of(tag):
     match=re.fullmatch(r'v(\d+(?:\.\d+)+)-rosavio(?:-(?:linux-x64|macos-arm64|macos-x64))?\.\d+',tag)
@@ -18,14 +19,26 @@ def windows_version(release,proof):
     if not any(a['name']=='Rosavio-Setup-Deutsch.exe' for a in release['assets']):raise ValueError('Windows installer missing')
     return version
 
+def version_text(versions):
+    if not versions or any(not re.fullmatch(r'\d+(?:\.\d+)+',v) for v in versions.values()):raise ValueError('Invalid displayed version')
+    if set(versions)-{'Windows','Linux','Flatpak'}:raise ValueError('Unsupported active platform')
+    if len(set(versions.values()))==1:
+        return '<bdi>Rosavio '+next(iter(versions.values()))+'</bdi>'
+    return '<br>'.join('<bdi>'+p+' · Rosavio '+v+'</bdi>' for p,v in versions.items())
+
+def show_news_version(source,versions):
+    blocks=list(NEWS_BLOCK.finditer(source))
+    if len(blocks)!=1:raise ValueError('Unique news section required')
+    block=blocks[0]; headings=list(re.finditer(r'<h3>.*?</h3>',block[0],re.S))
+    rosavio=[h for h in headings if re.search(r'\bRosavio \d',h[0])]
+    if len(rosavio)!=1:raise ValueError('Unique Rosavio news heading required')
+    h=rosavio[0];content=block[0][:h.start()]+'<h3>'+version_text(versions)+'</h3>'+block[0][h.end():]
+    return source[:block.start()]+content+source[block.end():]
+
 def show_versions(source,versions):
     lang=re.search(r'<html\b[^>]*\blang="([^"]+)"',source)[1]
     label=LABELS[lang]
-    if not versions or any(not re.fullmatch(r'\d+(?:\.\d+)+',v) for v in versions.values()):raise ValueError('Invalid displayed version')
-    if len(set(versions.values()))==1:
-        text='<bdi>Rosavio '+next(iter(versions.values()))+'</bdi>'
-    else:
-        text='<br>'.join('<bdi>'+p+' · Rosavio '+v+'</bdi>' for p,v in versions.items())
+    text=version_text(versions)
     block='<!-- rosavio-versions --><p id="rosavio-versions" style="font-size:16px;font-weight:700;color:#7c1935;line-height:1.7">'+label+': '+text+'</p><!-- /rosavio-versions -->'
     if VERSION_BLOCK.search(source):return VERSION_BLOCK.sub(lambda _:block,source)
     if source.count('</h1>')!=1:raise ValueError('Unique page heading required')
@@ -91,7 +104,7 @@ def main():
             if m[1] not in builds:
                 release=api('releases/tags/'+m[1]);platform=next(p for p in targets if f'-rosavio-{p}.' in m[1])
                 builds[m[1]]=verified(release,report(m[1]),platform)
-        updated=show_versions(rewrite(source,targets,builds),versions)
+        updated=show_news_version(show_versions(rewrite(source,targets,builds),versions),versions)
         if source!=updated:pending.append((page,updated))
     # Validate every page before writing any; all other content remains intact.
     for page,updated in pending:page.write_text(updated,encoding='utf-8')
