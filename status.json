@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-11T02:09:30.670126+00:00",
+  "checkedAt": "2026-11-11T02:49:29.272508+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -95,7 +95,7 @@
       "state": "green",
       "version": "160.0",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42921921452",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42948608208",
       "progress": {
         "percent": 100,
         "note": "Geprüft und veröffentlicht"
