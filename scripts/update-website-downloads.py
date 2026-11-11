@@ -71,6 +71,9 @@ def rewrite(source,targets,builds):
     return PATTERN.sub(replace,source)
 
 def main():
+    from pdf_website_release import verified_pdf,rewrite_pdf_news
+    pdf_release=json.loads(run_gh(['gh','api','repos/aheinen1971-cmd/pdf-digital/releases/latest']).stdout)
+    pdf_version=verified_pdf(pdf_release,read_url)
     def api(route):return json.loads(run_gh(['gh','api',f'repos/{REPO}/'+route]).stdout)
     def report(tag):
         return json.loads(read_url(BASE+tag+'/public-update-test.json',timeout=60))
@@ -104,7 +107,7 @@ def main():
             if m[1] not in builds:
                 release=api('releases/tags/'+m[1]);platform=next(p for p in targets if f'-rosavio-{p}.' in m[1])
                 builds[m[1]]=verified(release,report(m[1]),platform)
-        updated=show_news_version(show_versions(rewrite(source,targets,builds),versions),versions)
+        updated=rewrite_pdf_news(show_news_version(show_versions(rewrite(source,targets,builds),versions),versions),pdf_version)
         if source!=updated:pending.append((page,updated))
     # Validate every page before writing any; all other content remains intact.
     for page,updated in pending:page.write_text(updated,encoding='utf-8')

@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/update-website-downloads.py', 'scripts/maintenance_http.py', '.github/workflows/rosavio-website-links.yml']
+    paths: ['scripts/update-website-downloads.py', 'scripts/pdf_website_release.py', 'scripts/pdf-release-public.pem', 'scripts/maintenance_http.py', '.github/workflows/rosavio-website-links.yml']
   workflow_run:
-    workflows: ['Rosavio automatic Windows release', 'Rosavio automatic Linux release', 'Rosavio automatic Flatpak release', 'Rosavio public Flatpak installation and update trial']
+    workflows: ['Rosavio automatic Windows release', 'Rosavio automatic Linux release', 'Rosavio automatic Flatpak release', 'Rosavio public Flatpak installation and update trial', 'Rosavio public status table']
     types: [completed]
 permissions:
   contents: write
@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   update:
-    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false && (github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository))
+    if: github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false && (github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository && (github.event.workflow_run.name != 'Rosavio public status table' || github.event.workflow_run.event == 'schedule')))
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -24,8 +24,10 @@ jobs:
           ref: main
       - name: Check release guards and preserve page content
         run: |
+          python3 -m pip install cryptography==50.0.2
           python3 -m unittest discover -s tests -p test_maintenance_http.py
           python3 -m unittest discover -s tests -p test_website_downloads.py
+          python3 -m unittest discover -s tests -p test_pdf_website_release.py
       - name: Select only fully tested regular releases
         env:
           GH_TOKEN: ${{ github.token }}
