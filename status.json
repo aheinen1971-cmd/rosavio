@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-12T18:54:39.935677+00:00",
+  "checkedAt": "2026-11-12T22:20:25.805582+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -159,14 +159,14 @@
     {
       "label": "PDF Digital · Windows",
       "state": "green",
-      "version": "1.61.0",
+      "version": "1.62.0",
       "detail": "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.",
-      "url": "https://github.com/aheinen1971-cmd/pdf-digital/releases/tag/v1.61.0"
+      "url": "https://github.com/aheinen1971-cmd/pdf-digital/releases/tag/v1.62.0"
     },
     {
       "label": "PDF Digital · Downloads",
       "state": "neutral",
-      "version": "175",
+      "version": "176",
       "detail": "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.",
       "url": "https://github.com/aheinen1971-cmd/pdf-digital/releases"
     },
