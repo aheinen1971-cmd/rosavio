@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-13T10:47:41.755287+00:00",
+  "checkedAt": "2026-11-13T15:22:11.854954+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -49,18 +49,10 @@
       "state": "green",
       "version": "160.0",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/42868390948",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v160.0-rosavio-linux-x64.42868390948",
       "progress": {
         "percent": 100,
-        "note": "Geprüft und veröffentlicht",
-        "steps": [
-          "success",
-          "success",
-          "success",
-          "success",
-          "success",
-          "success"
-        ]
+        "note": "Geprüft und veröffentlicht"
       },
       "available": {
         "version": "160.0",
@@ -77,17 +69,10 @@
           "green",
           "Öffentliches Update geprüft und veröffentlicht",
           null,
-          [
-            "success",
-            "success",
-            "success",
-            "success",
-            "success",
-            "success"
-          ],
+          null,
           "42868390948"
         ],
-        "at": "2026-11-10T19:36:37.629678+00:00"
+        "at": "2026-11-13T15:22:11.854954+00:00"
       }
     },
     {
@@ -95,7 +80,7 @@
       "state": "green",
       "version": "160.0",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/43380032389",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/43451804237",
       "progress": {
         "percent": 100,
         "note": "Geprüft und veröffentlicht"
@@ -166,7 +151,7 @@
     {
       "label": "PDF Digital · Downloads",
       "state": "neutral",
-      "version": "195",
+      "version": "196",
       "detail": "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.",
       "url": "https://github.com/aheinen1971-cmd/pdf-digital/releases"
     },
