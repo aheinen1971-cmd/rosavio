@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-13T10:32:06.377605+00:00",
+  "checkedAt": "2026-11-13T10:46:59.180700+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -166,7 +166,7 @@
     {
       "label": "PDF Digital · Downloads",
       "state": "neutral",
-      "version": "194",
+      "version": "195",
       "detail": "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.",
       "url": "https://github.com/aheinen1971-cmd/pdf-digital/releases"
     },
