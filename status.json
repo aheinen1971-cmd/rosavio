@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-13T18:28:44.586317+00:00",
+  "checkedAt": "2026-11-13T21:24:33.802748+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -144,9 +144,9 @@
     {
       "label": "PDF Digital · Windows",
       "state": "green",
-      "version": "1.71.0",
+      "version": "1.72.0",
       "detail": "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.",
-      "url": "https://github.com/aheinen1971-cmd/pdf-digital/releases/tag/v1.71.0"
+      "url": "https://github.com/aheinen1971-cmd/pdf-digital/releases/tag/v1.72.0"
     },
     {
       "label": "PDF Digital · Downloads",
