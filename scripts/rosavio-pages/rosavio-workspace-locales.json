@@ -39,7 +39,13 @@
     "Nächste Lesestelle": "Nächste Lesestelle",
     "Stelle {n} von {total}": "Stelle {n} von {total}",
     "Nach oben": "Nach oben",
-    "Nach unten": "Nach unten"
+    "Nach unten": "Nach unten",
+    "Rosenpfad sichern": "Rosenpfad sichern",
+    "Sicherung öffnen": "Sicherung öffnen",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.",
+    "Sicherung konnte nicht verarbeitet werden.": "Sicherung konnte nicht verarbeitet werden.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“."
   },
   "en-US": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Enter a website name and a valid HTTP/HTTPS address (up to 24 websites).",
@@ -81,7 +87,13 @@
     "Nächste Lesestelle": "Next passage",
     "Stelle {n} von {total}": "Passage {n} of {total}",
     "Nach oben": "Move up",
-    "Nach unten": "Move down"
+    "Nach unten": "Move down",
+    "Rosenpfad sichern": "Back up Rose Trail",
+    "Sicherung öffnen": "Open backup",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "The file contains your saved Rose Trail, including excerpts and notes. Keep it private.",
+    "Sicherung konnte nicht verarbeitet werden.": "The backup could not be processed.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Replace the draft trail? The backup is applied only when you click “Save”.",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Backup loaded. Review the trail and click “Save”."
   },
   "fr": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Veuillez saisir votre nom et une adresse HTTP/HTTPS valide (maximum 24 sites Web).",
@@ -123,7 +135,13 @@
     "Nächste Lesestelle": "Passage suivant",
     "Stelle {n} von {total}": "Passage {n} sur {total}",
     "Nach oben": "Monter",
-    "Nach unten": "Descendre"
+    "Nach unten": "Descendre",
+    "Rosenpfad sichern": "Sauvegarder le parcours",
+    "Sicherung öffnen": "Ouvrir une sauvegarde",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "Le fichier contient votre parcours enregistré, avec les extraits et les notes. Gardez-le privé.",
+    "Sicherung konnte nicht verarbeitet werden.": "Impossible de traiter la sauvegarde.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Remplacer le parcours en cours ? La sauvegarde sera appliquée uniquement après un clic sur « Enregistrer ».",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Sauvegarde chargée. Vérifiez le parcours et cliquez sur « Enregistrer »."
   },
   "es-ES": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Ingrese su nombre y dirección HTTP/HTTPS válida (máximo 24 sitios web).",
@@ -165,7 +183,13 @@
     "Nächste Lesestelle": "Siguiente pasaje",
     "Stelle {n} von {total}": "Pasaje {n} de {total}",
     "Nach oben": "Subir",
-    "Nach unten": "Bajar"
+    "Nach unten": "Bajar",
+    "Rosenpfad sichern": "Guardar copia del recorrido",
+    "Sicherung öffnen": "Abrir copia de seguridad",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "El archivo contiene el recorrido guardado, con citas y notas. Guárdalo en privado.",
+    "Sicherung konnte nicht verarbeitet werden.": "No se pudo procesar la copia de seguridad.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "¿Reemplazar el borrador del recorrido? La copia solo se aplicará al pulsar «Guardar».",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Copia cargada. Revisa el recorrido y pulsa «Guardar»."
   },
   "nl": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Voer uw naam en een geldig HTTP/HTTPS-adres in (maximaal 24 websites).",
@@ -207,7 +231,13 @@
     "Nächste Lesestelle": "Volgende leesplek",
     "Stelle {n} von {total}": "Plek {n} van {total}",
     "Nach oben": "Omhoog",
-    "Nach unten": "Omlaag"
+    "Nach unten": "Omlaag",
+    "Rosenpfad sichern": "Rozenpad back-uppen",
+    "Sicherung öffnen": "Back-up openen",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "Het bestand bevat je opgeslagen rozenpad met citaten en notities. Bewaar het privé.",
+    "Sicherung konnte nicht verarbeitet werden.": "De back-up kon niet worden verwerkt.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Het conceptpad vervangen? De back-up wordt pas toegepast wanneer je op ‘Opslaan’ klikt.",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Back-up geladen. Controleer het pad en klik op ‘Opslaan’."
   },
   "it": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Inserisci il tuo nome e un indirizzo HTTP/HTTPS valido (massimo 24 siti web).",
@@ -249,7 +279,13 @@
     "Nächste Lesestelle": "Brano successivo",
     "Stelle {n} von {total}": "Brano {n} di {total}",
     "Nach oben": "Sposta su",
-    "Nach unten": "Sposta giù"
+    "Nach unten": "Sposta giù",
+    "Rosenpfad sichern": "Salva una copia del percorso",
+    "Sicherung öffnen": "Apri una copia di sicurezza",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "Il file contiene il percorso salvato, con citazioni e note. Conservalo in modo privato.",
+    "Sicherung konnte nicht verarbeitet werden.": "Impossibile elaborare la copia di sicurezza.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Sostituire la bozza del percorso? La copia verrà applicata solo facendo clic su «Salva».",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Copia caricata. Controlla il percorso e fai clic su «Salva»."
   },
   "pt-PT": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Insira seu nome e endereço HTTP/HTTPS válido (máximo de 24 sites).",
@@ -291,7 +327,13 @@
     "Nächste Lesestelle": "Passagem seguinte",
     "Stelle {n} von {total}": "Passagem {n} de {total}",
     "Nach oben": "Subir",
-    "Nach unten": "Descer"
+    "Nach unten": "Descer",
+    "Rosenpfad sichern": "Guardar cópia do percurso",
+    "Sicherung öffnen": "Abrir cópia de segurança",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "O ficheiro contém o percurso guardado, com citações e notas. Mantenha-o privado.",
+    "Sicherung konnte nicht verarbeitet werden.": "Não foi possível processar a cópia de segurança.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Substituir o rascunho do percurso? A cópia só será aplicada ao clicar em «Guardar».",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Cópia carregada. Verifique o percurso e clique em «Guardar»."
   },
   "pl": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Proszę podać swoje imię i nazwisko oraz prawidłowy adres HTTP/HTTPS (maksymalnie 24 strony internetowe).",
@@ -333,7 +375,13 @@
     "Nächste Lesestelle": "Następny fragment",
     "Stelle {n} von {total}": "Fragment {n} z {total}",
     "Nach oben": "W górę",
-    "Nach unten": "W dół"
+    "Nach unten": "W dół",
+    "Rosenpfad sichern": "Zapisz kopię różanej ścieżki",
+    "Sicherung öffnen": "Otwórz kopię zapasową",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "Plik zawiera zapisaną ścieżkę wraz z cytatami i notatkami. Przechowuj go prywatnie.",
+    "Sicherung konnte nicht verarbeitet werden.": "Nie można przetworzyć kopii zapasowej.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Zastąpić szkic ścieżki? Kopia zostanie zastosowana dopiero po kliknięciu „Zapisz”.",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Kopia wczytana. Sprawdź ścieżkę i kliknij „Zapisz”."
   },
   "cs": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Zadejte prosím své jméno a platnou adresu HTTP/HTTPS (maximálně 24 webových stránek).",
@@ -375,7 +423,13 @@
     "Nächste Lesestelle": "Další pasáž",
     "Stelle {n} von {total}": "Pasáž {n} z {total}",
     "Nach oben": "Posunout nahoru",
-    "Nach unten": "Posunout dolů"
+    "Nach unten": "Posunout dolů",
+    "Rosenpfad sichern": "Zálohovat růžovou cestu",
+    "Sicherung öffnen": "Otevřít zálohu",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "Soubor obsahuje uloženou cestu včetně citací a poznámek. Uchovávejte jej v soukromí.",
+    "Sicherung konnte nicht verarbeitet werden.": "Zálohu se nepodařilo zpracovat.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Nahradit rozepsanou cestu? Záloha se použije až po kliknutí na „Uložit“.",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Záloha načtena. Zkontrolujte cestu a klikněte na „Uložit“."
   },
   "da": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Indtast venligst dit navn og gyldig HTTP/HTTPS-adresse (maks. 24 websteder).",
@@ -417,7 +471,13 @@
     "Nächste Lesestelle": "Næste læsested",
     "Stelle {n} von {total}": "Læsested {n} af {total}",
     "Nach oben": "Flyt op",
-    "Nach unten": "Flyt ned"
+    "Nach unten": "Flyt ned",
+    "Rosenpfad sichern": "Sikkerhedskopiér rosenstien",
+    "Sicherung öffnen": "Åbn sikkerhedskopi",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "Filen indeholder din gemte rosensti med citater og noter. Opbevar den privat.",
+    "Sicherung konnte nicht verarbeitet werden.": "Sikkerhedskopien kunne ikke behandles.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Erstat stiens kladde? Sikkerhedskopien anvendes først, når du klikker på “Gem”.",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Sikkerhedskopien er indlæst. Kontrollér stien, og klik på “Gem”."
   },
   "sv-SE": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Vänligen ange ditt namn och giltig HTTP/HTTPS-adress (max 24 webbplatser).",
@@ -459,7 +519,13 @@
     "Nächste Lesestelle": "Nästa läsställe",
     "Stelle {n} von {total}": "Läsställe {n} av {total}",
     "Nach oben": "Flytta upp",
-    "Nach unten": "Flytta ned"
+    "Nach unten": "Flytta ned",
+    "Rosenpfad sichern": "Säkerhetskopiera rosenstigen",
+    "Sicherung öffnen": "Öppna säkerhetskopia",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "Filen innehåller din sparade rosenstig med citat och anteckningar. Förvara den privat.",
+    "Sicherung konnte nicht verarbeitet werden.": "Säkerhetskopian kunde inte behandlas.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Ersätta utkastet till stigen? Kopian används först när du klickar på ”Spara”.",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Säkerhetskopian har lästs in. Kontrollera stigen och klicka på ”Spara”."
   },
   "nb-NO": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Vennligst skriv inn navnet ditt og gyldig HTTP/HTTPS-adresse (maksimalt 24 nettsteder).",
@@ -501,7 +567,13 @@
     "Nächste Lesestelle": "Neste lesested",
     "Stelle {n} von {total}": "Lesested {n} av {total}",
     "Nach oben": "Flytt opp",
-    "Nach unten": "Flytt ned"
+    "Nach unten": "Flytt ned",
+    "Rosenpfad sichern": "Sikkerhetskopier rosestien",
+    "Sicherung öffnen": "Åpne sikkerhetskopi",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "Filen inneholder den lagrede rosestien med sitater og notater. Oppbevar den privat.",
+    "Sicherung konnte nicht verarbeitet werden.": "Sikkerhetskopien kunne ikke behandles.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Erstatt utkastet til stien? Sikkerhetskopien brukes først når du klikker på «Lagre».",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Sikkerhetskopien er lastet inn. Kontroller stien og klikk på «Lagre»."
   },
   "fi": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Anna nimesi ja kelvollinen HTTP/HTTPS-osoite (enintään 24 verkkosivustoa).",
@@ -543,7 +615,13 @@
     "Nächste Lesestelle": "Seuraava lukukohta",
     "Stelle {n} von {total}": "Kohta {n}/{total}",
     "Nach oben": "Siirrä ylös",
-    "Nach unten": "Siirrä alas"
+    "Nach unten": "Siirrä alas",
+    "Rosenpfad sichern": "Varmuuskopioi ruusupolku",
+    "Sicherung öffnen": "Avaa varmuuskopio",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "Tiedosto sisältää tallennetun ruusupolun lainauksineen ja muistiinpanoineen. Säilytä se yksityisesti.",
+    "Sicherung konnte nicht verarbeitet werden.": "Varmuuskopiota ei voitu käsitellä.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Korvataanko polun luonnos? Varmuuskopio otetaan käyttöön vasta, kun napsautat ”Tallenna”.",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Varmuuskopio ladattu. Tarkista polku ja napsauta ”Tallenna”."
   },
   "tr": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Lütfen adınızı ve geçerli HTTP/HTTPS adresinizi girin (en fazla 24 web sitesi).",
@@ -585,7 +663,13 @@
     "Nächste Lesestelle": "Sonraki okuma yeri",
     "Stelle {n} von {total}": "Okuma yeri {n} / {total}",
     "Nach oben": "Yukarı taşı",
-    "Nach unten": "Aşağı taşı"
+    "Nach unten": "Aşağı taşı",
+    "Rosenpfad sichern": "Gül yolunu yedekle",
+    "Sicherung öffnen": "Yedeği aç",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "Dosya, alıntılar ve notlarla birlikte kayıtlı gül yolunuzu içerir. Dosyayı gizli tutun.",
+    "Sicherung konnte nicht verarbeitet werden.": "Yedek işlenemedi.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Yol taslağı değiştirilsin mi? Yedek yalnızca “Kaydet” düğmesine tıkladığınızda uygulanır.",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Yedek yüklendi. Yolu kontrol edin ve “Kaydet” düğmesine tıklayın."
   },
   "uk": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Введіть своє ім’я та дійсну адресу HTTP/HTTPS (максимум 24 веб-сайти).",
@@ -627,7 +711,13 @@
     "Nächste Lesestelle": "Наступний уривок",
     "Stelle {n} von {total}": "Уривок {n} з {total}",
     "Nach oben": "Вгору",
-    "Nach unten": "Вниз"
+    "Nach unten": "Вниз",
+    "Rosenpfad sichern": "Створити резервну копію шляху",
+    "Sicherung öffnen": "Відкрити резервну копію",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "Файл містить збережений шлях із цитатами та нотатками. Зберігайте його приватно.",
+    "Sicherung konnte nicht verarbeitet werden.": "Не вдалося обробити резервну копію.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Замінити чернетку шляху? Копію буде застосовано лише після натискання «Зберегти».",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Копію завантажено. Перевірте шлях і натисніть «Зберегти»."
   },
   "el": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "Εισαγάγετε το όνομά σας και την έγκυρη διεύθυνση HTTP/HTTPS (μέγιστο 24 ιστότοποι).",
@@ -669,7 +759,13 @@
     "Nächste Lesestelle": "Επόμενο απόσπασμα",
     "Stelle {n} von {total}": "Απόσπασμα {n} από {total}",
     "Nach oben": "Προς τα πάνω",
-    "Nach unten": "Προς τα κάτω"
+    "Nach unten": "Προς τα κάτω",
+    "Rosenpfad sichern": "Αντίγραφο ασφαλείας διαδρομής",
+    "Sicherung öffnen": "Άνοιγμα αντιγράφου ασφαλείας",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "Το αρχείο περιέχει την αποθηκευμένη διαδρομή με αποσπάσματα και σημειώσεις. Φυλάξτε το ιδιωτικά.",
+    "Sicherung konnte nicht verarbeitet werden.": "Δεν ήταν δυνατή η επεξεργασία του αντιγράφου ασφαλείας.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "Αντικατάσταση του προσχεδίου διαδρομής; Το αντίγραφο εφαρμόζεται μόνο όταν πατήσετε «Αποθήκευση».",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "Το αντίγραφο φορτώθηκε. Ελέγξτε τη διαδρομή και πατήστε «Αποθήκευση»."
   },
   "ja": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "名前と有効な HTTP/HTTPS アドレス (最大 24 の Web サイト) を入力してください。",
@@ -711,7 +807,13 @@
     "Nächste Lesestelle": "次の箇所",
     "Stelle {n} von {total}": "{total} 件中 {n} 件目",
     "Nach oben": "上に移動",
-    "Nach unten": "下に移動"
+    "Nach unten": "下に移動",
+    "Rosenpfad sichern": "ローズパスをバックアップ",
+    "Sicherung öffnen": "バックアップを開く",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "このファイルには、引用とメモを含む保存済みのローズパスが入っています。非公開で保管してください。",
+    "Sicherung konnte nicht verarbeitet werden.": "バックアップを処理できませんでした。",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "編集中のパスを置き換えますか？「保存」を押すまでバックアップは適用されません。",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "バックアップを読み込みました。パスを確認して「保存」を押してください。"
   },
   "ko": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "귀하의 이름과 유효한 HTTP/HTTPS 주소(최대 24개 웹사이트)를 입력하세요.",
@@ -753,7 +855,13 @@
     "Nächste Lesestelle": "다음 위치",
     "Stelle {n} von {total}": "전체 {total}개 중 {n}번째",
     "Nach oben": "위로 이동",
-    "Nach unten": "아래로 이동"
+    "Nach unten": "아래로 이동",
+    "Rosenpfad sichern": "장미길 백업",
+    "Sicherung öffnen": "백업 열기",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "파일에는 인용문과 메모를 포함한 저장된 장미길이 들어 있습니다. 비공개로 보관하세요.",
+    "Sicherung konnte nicht verarbeitet werden.": "백업을 처리하지 못했습니다.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "편집 중인 경로를 바꿀까요? “저장”을 눌러야 백업이 적용됩니다.",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "백업을 불러왔습니다. 경로를 확인한 후 “저장”을 누르세요."
   },
   "ar": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "الرجاء إدخال اسمك وعنوان HTTP/HTTPS الصحيح (بحد أقصى 24 موقعًا).",
@@ -795,7 +903,13 @@
     "Nächste Lesestelle": "الموضع التالي",
     "Stelle {n} von {total}": "الموضع {n} من {total}",
     "Nach oben": "نقل لأعلى",
-    "Nach unten": "نقل لأسفل"
+    "Nach unten": "نقل لأسفل",
+    "Rosenpfad sichern": "نسخ مسار الورود احتياطيًا",
+    "Sicherung öffnen": "فتح نسخة احتياطية",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "يحتوي الملف على مسار الورود المحفوظ مع الاقتباسات والملاحظات. احتفظ به بشكل خاص.",
+    "Sicherung konnte nicht verarbeitet werden.": "تعذرت معالجة النسخة الاحتياطية.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "هل تريد استبدال مسودة المسار؟ لن تُطبّق النسخة الاحتياطية إلا عند الضغط على «حفظ».",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "تم تحميل النسخة الاحتياطية. راجع المسار ثم اضغط على «حفظ»."
   },
   "he": {
     "Bitte Name und gültige HTTP-/HTTPS-Adresse eingeben (höchstens 24 Webseiten).": "אנא הזן את שמך וכתובת HTTP/HTTPS חוקית (מקסימום 24 אתרים).",
@@ -837,6 +951,12 @@
     "Nächste Lesestelle": "הקטע הבא",
     "Stelle {n} von {total}": "קטע {n} מתוך {total}",
     "Nach oben": "הזזה למעלה",
-    "Nach unten": "הזזה למטה"
+    "Nach unten": "הזזה למטה",
+    "Rosenpfad sichern": "גיבוי שביל הוורדים",
+    "Sicherung öffnen": "פתיחת גיבוי",
+    "Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.": "הקובץ מכיל את השביל השמור עם הציטוטים וההערות. יש לשמור עליו פרטי.",
+    "Sicherung konnte nicht verarbeitet werden.": "לא ניתן היה לעבד את הגיבוי.",
+    "Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.": "להחליף את טיוטת השביל? הגיבוי יוחל רק לאחר לחיצה על „שמור”.",
+    "Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.": "הגיבוי נטען. יש לבדוק את השביל וללחוץ על „שמור”."
   }
 }

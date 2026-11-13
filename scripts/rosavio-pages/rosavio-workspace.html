@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>Rosavio</title>
 <link rel="stylesheet" href="chrome://browser/content/rosavio-workspace.css">
 <script src="chrome://browser/content/rosavio-workspace-l10n.js" defer></script>
+<script src="chrome://browser/content/rosavio-trail-backup.js" defer></script>
 <script src="chrome://browser/content/rosavio-workspace.js" defer></script></head>
 <body><main><header><span aria-hidden="true">🌹</span><h1 id="title">Rosavio</h1></header>
 <nav><a href="about:rosavio-home">Startseite</a><a href="about:rosavio-notes">Notizen</a></nav>
@@ -13,7 +14,11 @@
 <div id="trail-editor" hidden><label for="trail-name">Name des Pfads</label><input id="trail-name" maxlength="80" disabled>
 <ol id="trail-steps"></ol><p id="trail-progress" aria-live="polite"></p><blockquote id="trail-quote" dir="auto"></blockquote>
 <label for="trail-note">Notiz zur Lesestelle</label><textarea id="trail-note" maxlength="700" rows="2" disabled></textarea>
-<p id="trail-navigation"></p></div><button id="trail-save" disabled>Speichern</button></section></section>
+<p id="trail-navigation"></p></div><button id="trail-save" disabled>Speichern</button>
+<p><button id="trail-export" disabled>Rosenpfad sichern</button> <button id="trail-import" disabled>Sicherung öffnen</button></p>
+<input id="trail-file" type="file" accept=".json,application/json" hidden>
+<p id="trail-backup-hint">Die Datei enthält deinen gespeicherten Rosenpfad mit Zitaten und Notizen. Bewahre sie privat auf.</p>
+<p id="trail-backup-status" role="status" aria-live="polite"></p></section></section>
 <section id="home-panel" hidden>
 <a class="project-tile" href="https://github.com/aheinen1971-cmd/pdf-digital/releases/latest" target="_blank" rel="noopener noreferrer">
 <span class="project-icon" aria-hidden="true">PDF</span>

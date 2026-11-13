@@ -80,6 +80,14 @@ async function checkWorkspace(s,root,options={}){
   await clickTool('split');await select(s);await s.command('WebDriver:Navigate',{url:base+'/second'});await s.command('Marionette:SetContext',{value:'chrome'});
   const both=await s.script(`return gBrowser.selectedTab.splitview.tabs.map(t=>({uri:t.linkedBrowser.currentURI.spec,document:t.linkedBrowser.browsingContext.currentWindowGlobal.documentURI.spec}));`);
   assert.equal(both.length,2);assert.deepEqual(both.map(x=>x.uri).sort(),[url,base+'/second'].sort());assert.ok(both.every(x=>x.uri===x.document));
+  const reversed=await s.script('const v=gBrowser.selectedTab.splitview;v.reverseTabs();return v.tabs.map(t=>t.linkedBrowser.currentURI.spec);');
+  assert.deepEqual(reversed,both.map(x=>x.uri).reverse());
+  const geometry=await s.script("const v=gBrowser.selectedTab.splitview,r=document.querySelector('.split-view-splitter').getBoundingClientRect();return {x:Math.round(r.x+r.width/2),y:Math.round(r.y+r.height/2),width:v.panels[0].getBoundingClientRect().width};");
+  await s.command('WebDriver:PerformActions',{actions:[{type:'pointer',id:'split-resize',parameters:{pointerType:'mouse'},actions:[{type:'pointerMove',duration:0,x:geometry.x,y:geometry.y},{type:'pointerDown',button:0},{type:'pointerMove',duration:300,x:geometry.x+70,y:geometry.y},{type:'pointerUp',button:0}]}]});
+  await s.command('WebDriver:ReleaseActions');
+  const resized=await s.script('return gBrowser.selectedTab.splitview.panels[0].getBoundingClientRect().width;');
+  assert.ok(Math.abs(resized-geometry.width)>20,'Native split divider must resize panels');
+  split.swapPassed=true;split.resizePassed=true;
   const splitShot=(await s.command('WebDriver:TakeScreenshot',{id:null,highlights:[],full:false})).value;fs.writeFileSync(path.join(root,'workspace-split.png'),Buffer.from(splitShot,'base64'));
   await clickTool('split');await select(s);await s.command('WebDriver:Navigate',{url});await s.command('Marionette:SetContext',{value:'chrome'});
   await wait('return gBrowser.selectedBrowser.isArticle===true;');
@@ -91,14 +99,14 @@ async function checkWorkspace(s,root,options={}){
   await s.script(`gBrowser.getTabDialogBox(gBrowser.selectedBrowser)._tabDialogManager.abortDialogs();return true;`);
   await clickTool('reader');
   await wait("return gBrowser.selectedBrowser.currentURI.spec.startsWith('about:reader?');");
-  reader=true;
+  reader=await require('./check-reader-preferences.cjs')(s);
   await clickTool('reader');
   await wait(`return gBrowser.selectedBrowser.currentURI.spec===${JSON.stringify(url)};`);
  }finally{await new Promise(r=>server.close(r));}
  const privateCheck=await s.script(`const pw=OpenBrowserWindow({private:true});try{await new Promise(resolve=>pw.addEventListener('load',resolve,{once:true}));if(!pw.delayedStartupPromise)throw Error("Private startup promise unavailable");await pw.delayedStartupPromise;const privateTab=pw.gBrowser.addTrustedTab('about:rosavio-notes');pw.gBrowser.selectedTab=privateTab;const b=privateTab.linkedBrowser;for(let i=0;i<100;i++){if(b.browsingContext.currentWindowGlobal?.documentURI.spec==='about:rosavio-notes')break;await new Promise(r=>setTimeout(r,100));}if(b.browsingContext.currentWindowGlobal?.documentURI.spec!=='about:rosavio-notes')throw Error('Private test page did not load: '+JSON.stringify({uri:b.currentURI.spec,global:b.browsingContext.currentWindowGlobal?.documentURI.spec,tabs:pw.gBrowser.tabs.map(t=>t.linkedBrowser.currentURI.spec)}));const a=b.browsingContext.currentWindowGlobal.getActor('RosavioWorkspace');try{await a.receiveMessage({name:'RosavioWorkspace:Read'});return false;}catch(e){return String(e).includes('private windows');}}finally{pw.close();}`);
  assert.equal(privateCheck,true);
  const readingPlaces=await require('./check-reading-places.cjs')(s);
- const report={passed:true,pdfDigitalRelease,readingPlaces,runtimeOverlayOnly:!!options.runtimeOverlay,notesReloadPreserved:true,shortcutSaved:true,noSystemPrincipal:true,guards,nativeMenuClicksAllFive:true,nativeSplitTwoLoadedPages:true,unsupportedReaderDisabled:true,privatePersistenceBlocked:true,qr,readerEnterAndExit:reader,updateRestartTested:false};
+ const report={passed:true,pdfDigitalRelease,readingPlaces,runtimeOverlayOnly:!!options.runtimeOverlay,notesReloadPreserved:true,shortcutSaved:true,noSystemPrincipal:true,guards,nativeMenuClicksAllFive:true,nativeSplitTwoLoadedPages:true,splitControls:split,unsupportedReaderDisabled:true,privatePersistenceBlocked:true,qr,readerEnterAndExit:reader,updateRestartTested:false};
  fs.writeFileSync(path.join(root,'report.json'),JSON.stringify(report,null,2));return report;
 }
 module.exports=checkWorkspace;

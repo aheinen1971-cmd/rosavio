@@ -13,7 +13,7 @@ const trailDirty=()=>JSON.stringify(data?.trail)!==JSON.stringify(savedData?.tra
 const isNotes=location.href==='about:rosavio-notes';
 $('title').textContent=document.title=isNotes?t("Meine Notizen · Rosavio"):t("Meine Startseite · Rosavio");
 $(isNotes?'notes-panel':'home-panel').hidden=false;
-function controls(enabled){for(const id of ['notes','link-title','link-url','add','save','reload'])$(id).disabled=!enabled;for(const button of document.querySelectorAll('#links button,#reading-places button,#rose-path button,#rose-path input,#rose-path textarea'))button.disabled=!enabled || button.dataset.unavailable==='true';$('trail-save').disabled=!enabled||!trailDirty();}
+function controls(enabled){for(const id of ['notes','link-title','link-url','add','save','reload'])$(id).disabled=!enabled;for(const button of document.querySelectorAll('#links button,#reading-places button,#rose-path button,#rose-path input,#rose-path textarea'))button.disabled=!enabled || button.dataset.unavailable==='true';$('trail-save').disabled=!enabled||!trailDirty();$('trail-export').disabled=!enabled||!savedData?.trail;}
 function changed(){dirty=true;$('trail-save').disabled=busy||!trailDirty();renderNavigation();$('status').textContent=t("Noch nicht gespeichert");}
 function render(){
  $('notes').value=data.notes;$('links').replaceChildren();
@@ -96,6 +96,30 @@ function saveTrail(){
  busy=true;controls(false);renderNavigation();
  document.dispatchEvent(new CustomEvent('RosavioWorkspaceSave',{detail:payload}));
 }
+// Export only saved path data; unrelated notes and shortcuts are excluded.
+$('trail-export').addEventListener('click',()=>{
+ if(busy || !savedData?.trail)return;
+ try{
+  const blob=new Blob([RosavioTrailBackup.stringify(savedData.trail)],{type:'application/json'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download='Rosavio-Rosenpfad.json';document.body.append(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
+ }catch{$('trail-backup-status').textContent=t('Sicherung konnte nicht verarbeitet werden.');}
+});
+$('trail-import').addEventListener('click',()=>{if(!busy && data)$('trail-file').click();});
+$('trail-file').addEventListener('change',async()=>{
+ const file=$('trail-file').files[0];$('trail-file').value='';
+ if(!file || busy || !data)return;
+ busy=true;controls(false);renderNavigation();
+ try{
+  if(file.size>RosavioTrailBackup.limit)throw Error('Backup too large');
+  const trail=RosavioTrailBackup.parse(await file.text());
+  if(!confirm(t('Rosenpfad im Entwurf ersetzen? Erst „Speichern“ übernimmt die Sicherung.')))return;
+  data.trail=trail;render();changed();
+  $('trail-backup-status').textContent=t('Sicherung geladen. Prüfe den Rosenpfad und klicke auf „Speichern“.');
+ }catch{$('trail-backup-status').textContent=t('Sicherung konnte nicht verarbeitet werden.');}
+ finally{busy=false;controls(true);renderNavigation();}
+});
 $('trail-save').addEventListener('click',saveTrail);
 $('trail-name').addEventListener('input',()=>{data.trail.name=$('trail-name').value;changed();});
 $('trail-note').addEventListener('input',()=>{data.trail.steps[data.trail.current].note=$('trail-note').value;changed();});

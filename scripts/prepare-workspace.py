@@ -3,7 +3,7 @@ from pathlib import Path
 import sys,re
 
 source=Path(sys.argv[1]);assets=Path(__file__).with_name('rosavio-pages')
-files=['rosavio-workspace-l10n.js','rosavio-workspace.html','rosavio-workspace.css','rosavio-workspace.js','rosavio-tools-menu.js']
+files=['rosavio-workspace-l10n.js','rosavio-trail-backup.js','rosavio-workspace.html','rosavio-workspace.css','rosavio-workspace.js','rosavio-tools-menu.js']
 for name in files:
     (source/'browser/base/content'/name).write_text((assets/name).read_text(encoding='utf-8'),encoding='utf-8')
 for name in ['RosavioWorkspaceParent.sys.mjs','RosavioWorkspaceChild.sys.mjs']:

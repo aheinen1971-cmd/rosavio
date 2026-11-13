@@ -42,8 +42,31 @@ oldtag=os.environ.get('ROSAVIO_FLATPAK_OLD_TAG') or 'v158.0.1-rosavio-linux-x64.
 newtag=os.environ.get('ROSAVIO_FLATPAK_NEW_TAG') or 'v158.0.1-rosavio-linux-x64.40179413346'
 for tag in [oldtag,newtag]:
  if not re.fullmatch(r'v\d+(?:\.\d+){1,3}-rosavio-linux-x64\.\d+',tag):raise SystemExit('Invalid tested Linux release tag')
-baseline,oldid,oldhash=source(oldtag,'flatpak-old-native')
-candidate,newid,newhash=source(newtag,'flatpak-new-native')
+if os.environ.get('ROSAVIO_FLATPAK_FROM_NATIVE_TEST')=='1':
+    # Test-only path: reuse this runner's signed/qualified native candidates.
+    # Never accepted for production publication or from an arbitrary directory.
+    if PRODUCTION:raise SystemExit('Native test candidates cannot be published')
+    native=ROOT/'unix-results/linux-x64'
+    report=json.loads((native/'build.json').read_text())
+    paths=json.loads((native/'paths.json').read_text())
+    if report.get('signedLocalUpdateTestPassed') is not True or report.get('nativeStartAndTwentyLanguagesPassed') is not True or report.get('published') is not False:
+        raise SystemExit('Completed native qualification required')
+    def native_source(key,label):
+        app=pathlib.Path(paths[key]).resolve()
+        allowed=(pathlib.Path(os.environ['RUNNER_TEMP'])/'rosavio-native').resolve()
+        if not app.is_relative_to(allowed) or not (app/'rosavio').is_file():raise SystemExit('Unexpected native test package')
+        ini=configparser.ConfigParser();ini.read(app/'application.ini')
+        if ini.get('App','Name')!='Rosavio':raise SystemExit('Wrong candidate identity')
+        archive=OUT/(label+'.tar.xz')
+        run('tar','-cJf',archive,'-C',app.parent,app.name)
+        with archive.open('rb') as f:digest=hashlib.file_digest(f,'sha256').hexdigest()
+        return app,ini.get('App','BuildID'),digest
+    baseline,oldid,oldhash=native_source('baseline','native-baseline')
+    candidate,newid,newhash=native_source('package','native-candidate')
+    oldtag='isolated-native-baseline';newtag='isolated-native-candidate'
+else:
+    baseline,oldid,oldhash=source(oldtag,'flatpak-old-native')
+    candidate,newid,newhash=source(newtag,'flatpak-new-native')
 api_token=''
 if oldid>=newid:raise SystemExit('Two distinct genuine builds are required')
 

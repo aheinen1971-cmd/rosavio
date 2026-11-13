@@ -71,10 +71,11 @@ module.exports = async function checkRosePath(session, originalLink) {
   await click('#trail-steps li:first-child button:last-child');
   await click('#trail-save');await ready();
   assert.equal(await inspect("return document.querySelectorAll('#trail-steps li').length;"),1);
+  const backup=await require('./check-trail-backup.cjs')(session);
   // Restore the fixture for the remaining integrity checks; keep the generated revision.
   await storage(`Object.assign(data,${JSON.stringify(baseline)},{revision:data.revision});
     ${baseline.trail?'':'delete data.trail;'} data.places=data.places.filter(p=>p.url!==${JSON.stringify(other.href)});
     return await actor.receiveMessage({name:'RosavioWorkspace:Save',data});`);
   await session.command('WebDriver:Refresh');await ready();
-  return {passed:true,explicitSave:true,reordered:true,notePreserved:true,resumeOpenedSource:true};
+  return {passed:true,explicitSave:true,reordered:true,notePreserved:true,resumeOpenedSource:true,backup};
 };
