@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-14T07:35:47.107269+00:00",
+  "checkedAt": "2026-11-14T10:18:47.853570+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -66,13 +66,17 @@
     },
     {
       "label": "Flatpak",
-      "state": "green",
+      "state": "yellow",
       "version": "160.0",
-      "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/43569989257",
+      "detail": "Bau / Prüfungen laufen",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/43584666028",
       "progress": {
-        "percent": 100,
-        "note": "Geprüft und veröffentlicht"
+        "percent": 99,
+        "note": "2 von 2 Phasen abgeschlossen",
+        "steps": [
+          "success",
+          "success"
+        ]
       },
       "available": {
         "version": "160.0",
@@ -86,13 +90,16 @@
       "roseChange": {
         "key": [
           true,
-          "green",
-          "Öffentliches Update geprüft und veröffentlicht",
+          "yellow",
+          "Bau / Prüfungen laufen",
           null,
-          null,
+          [
+            "success",
+            "success"
+          ],
           "43568804823"
         ],
-        "at": "2026-11-14T07:35:28.745013+00:00"
+        "at": "2026-11-14T10:18:47.853570+00:00"
       }
     },
     {
@@ -104,9 +111,9 @@
     },
     {
       "label": "Webseite · 20 Sprachen",
-      "state": "gray",
-      "version": "—",
-      "detail": "Seiten oder aktuelle Downloadlinks nicht vollständig bestätigt",
+      "state": "green",
+      "version": "20 Seiten",
+      "detail": "Erreichbar; Links entsprechen den geprüften Unix-Releases",
       "url": "https://aheinen1971-cmd.github.io/rosavio/"
     },
     {
@@ -126,7 +133,7 @@
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "85",
+      "version": "86",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
