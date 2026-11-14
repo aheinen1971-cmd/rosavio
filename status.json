@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-14T10:18:47.853570+00:00",
+  "checkedAt": "2026-11-14T10:19:04.464045+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -66,17 +66,13 @@
     },
     {
       "label": "Flatpak",
-      "state": "yellow",
+      "state": "green",
       "version": "160.0",
-      "detail": "Bau / Prüfungen laufen",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/43584666028",
       "progress": {
-        "percent": 99,
-        "note": "2 von 2 Phasen abgeschlossen",
-        "steps": [
-          "success",
-          "success"
-        ]
+        "percent": 100,
+        "note": "Geprüft und veröffentlicht"
       },
       "available": {
         "version": "160.0",
@@ -90,16 +86,13 @@
       "roseChange": {
         "key": [
           true,
-          "yellow",
-          "Bau / Prüfungen laufen",
+          "green",
+          "Öffentliches Update geprüft und veröffentlicht",
           null,
-          [
-            "success",
-            "success"
-          ],
+          null,
           "43568804823"
         ],
-        "at": "2026-11-14T10:18:47.853570+00:00"
+        "at": "2026-11-14T10:19:04.464045+00:00"
       }
     },
     {
