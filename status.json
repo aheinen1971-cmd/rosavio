@@ -1,16 +1,22 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-14T10:19:19.736068+00:00",
+  "checkedAt": "2026-11-14T10:22:29.980211+00:00",
   "rows": [
     {
       "label": "Windows",
       "state": "green",
       "version": "160.0",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v160.0-rosavio.43568804823",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/43584946540",
       "progress": {
         "percent": 100,
-        "note": "Geprüft und veröffentlicht"
+        "note": "Geprüft und veröffentlicht",
+        "steps": [
+          "success",
+          "success",
+          "skipped",
+          "skipped"
+        ]
       },
       "available": {
         "version": "160.0",
@@ -27,10 +33,15 @@
           "green",
           "Öffentliches Update geprüft und veröffentlicht",
           null,
-          null,
+          [
+            "success",
+            "success",
+            "skipped",
+            "skipped"
+          ],
           "43568804823"
         ],
-        "at": "2026-11-14T07:35:28.745013+00:00"
+        "at": "2026-11-14T10:22:29.980211+00:00"
       }
     },
     {
