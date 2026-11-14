@@ -1,0 +1,124 @@
+name: Rosavio publish qualified Rosenpfad backup
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: rosavio-production-release
+  cancel-in-progress: false
+jobs:
+  windows:
+    runs-on: windows-2022
+    timeout-minutes: 70
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Require the exact successful source qualification
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $r=gh api repos/aheinen1971-cmd/rosavio/actions/runs/43516236700 | ConvertFrom-Json
+          if($LASTEXITCODE -ne 0 -or $r.conclusion -ne 'success' -or $r.head_sha -ne 'a25ed9fca672c419ccc87e4878064dd5bbf3584e'){throw 'Wrong qualification'}
+          git diff --exit-code a25ed9fca672c419ccc87e4878064dd5bbf3584e HEAD -- scripts/rosavio-pages scripts/prepare-workspace.py
+          if($LASTEXITCODE -ne 0){throw 'Product differs from tested source'}
+      - uses: actions/download-artifact@v4
+        with:
+          name: rosavio-feature-windows-43516236700
+          run-id: 43516236700
+          github-token: ${{ github.token }}
+          path: D:/rv/release
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify retained proofs and package digest
+        run: python scripts/verify-rosenpfad-candidate.py D:/rv/release windows
+      - name: Prepare genuine public baseline and release tag without rebuilding
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference='Stop'
+          $r=Get-Content D:/rv/release/release.json -Raw | ConvertFrom-Json
+          $previous=gh api repos/aheinen1971-cmd/rosavio/releases/latest | ConvertFrom-Json
+          if($LASTEXITCODE -ne 0){throw 'Cannot read baseline'}
+          $package=@($previous.assets | Where-Object name -eq 'Rosavio-Deutsch-Windows.zip')
+          if($package.Count -ne 1){throw 'Baseline missing'}
+          Invoke-WebRequest $package[0].browser_download_url -OutFile D:/rv/previous.zip
+          tar -xf D:/rv/previous.zip -C D:/rv
+          if($LASTEXITCODE -ne 0){throw 'Baseline extraction failed'}
+          $ini=Get-Content D:/rv/rosavio/application.ini -Raw
+          if($ini -notmatch '(?m)^BuildID=(\d{14})\s*$' -or $Matches[1] -ge $r.buildID){throw 'An older public baseline is required'}
+          @{version=$r.appVersion;source='';previous=$previous;buildID=$r.buildID} | ConvertTo-Json -Depth 30 | Set-Content D:/rv/build-state.json -Encoding utf8NoBOM
+          $tag="v$($r.appVersion)-rosavio.$env:GITHUB_RUN_ID"
+          gh api repos/aheinen1971-cmd/rosavio/git/refs -f "ref=refs/tags/$tag" -f 'sha=a25ed9fca672c419ccc87e4878064dd5bbf3584e'
+          if($LASTEXITCODE -ne 0){throw 'Release tag already exists or cannot be reserved'}
+          node scripts/write-github-feed.mjs aheinen1971-cmd/rosavio $tag D:/rv/release
+          if($LASTEXITCODE -ne 0){throw 'Feed generation failed'}
+      - name: Publish and verify real public Windows update with rollback
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./scripts/cloud-publish.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rosenpfad-public-windows-${{ github.run_id }}
+          path: |
+            D:/rv/release/public-update-test.json
+            D:/rv/release/public-workspace-check/
+            D:/rv/release/public-browser-pages-check/
+            D:/rv/release/public-protection-toolbar.png
+  linux:
+    needs: windows
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: rosavio-feature-linux-flatpak-43516236700
+          run-id: 43516236700
+          github-token: ${{ github.token }}
+          path: .
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare runtime only
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libasound2t64 libdbus-glib-1-2 libgtk-3-0t64 libx11-xcb1 libxt6 xz-utils xvfb desktop-file-utils libglib2.0-bin
+          python -m pip install -r requirements.txt
+      - name: Verify retained proofs and prepare previous public Linux baseline
+        run: |
+          python scripts/verify-rosenpfad-candidate.py unix-results/linux-x64 linux
+          python scripts/prepare-linux-public-inputs.py
+      - name: Publish and verify public Linux update with rollback
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ROSAVIO_DESKTOP_TEST: '1'
+        run: xvfb-run -a python scripts/publish-linux-test.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rosenpfad-public-linux-${{ github.run_id }}
+          path: |
+            unix-results/linux-x64/release/public-update-test.json
+            unix-results/linux-x64/release/public-workspace-check/
+            unix-results/linux-x64/release/public-browser-pages-check/
+            unix-results/linux-x64/release/linux-desktop-toolbar.png
+            candidate-workspace/
+            candidate-languages/report.json
+            candidate-icons/
+            updated-icons/
