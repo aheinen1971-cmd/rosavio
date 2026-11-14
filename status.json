@@ -1,31 +1,25 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-14T05:58:34.545323+00:00",
+  "checkedAt": "2026-11-14T07:35:28.745013+00:00",
   "rows": [
     {
       "label": "Windows",
       "state": "green",
       "version": "160.0",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/43550357135",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v160.0-rosavio.43568804823",
       "progress": {
         "percent": 100,
-        "note": "Geprüft und veröffentlicht",
-        "steps": [
-          "success",
-          "success",
-          "skipped",
-          "skipped"
-        ]
+        "note": "Geprüft und veröffentlicht"
       },
       "available": {
         "version": "160.0",
-        "build": "42868671255"
+        "build": "43568804823"
       },
       "features": {
         "reading": true,
         "rose": true,
-        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v160.0-rosavio.42868671255/Rosavio-Setup-Deutsch.exe"
+        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v160.0-rosavio.43568804823/Rosavio-Setup-Deutsch.exe"
       },
       "roseChange": {
         "key": [
@@ -33,15 +27,10 @@
           "green",
           "Öffentliches Update geprüft und veröffentlicht",
           null,
-          [
-            "success",
-            "success",
-            "skipped",
-            "skipped"
-          ],
-          "42868671255"
+          null,
+          "43568804823"
         ],
-        "at": "2026-11-10T23:18:09.517477+00:00"
+        "at": "2026-11-14T07:35:28.745013+00:00"
       }
     },
     {
@@ -49,19 +38,19 @@
       "state": "green",
       "version": "160.0",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v160.0-rosavio-linux-x64.42868390948",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v160.0-rosavio-linux-x64.43568804823",
       "progress": {
         "percent": 100,
         "note": "Geprüft und veröffentlicht"
       },
       "available": {
         "version": "160.0",
-        "build": "42868390948"
+        "build": "43568804823"
       },
       "features": {
         "reading": true,
         "rose": true,
-        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v160.0-rosavio-linux-x64.42868390948/Rosavio-Linux-x64.tar.xz"
+        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v160.0-rosavio-linux-x64.43568804823/Rosavio-Linux-x64.tar.xz"
       },
       "roseChange": {
         "key": [
@@ -70,9 +59,9 @@
           "Öffentliches Update geprüft und veröffentlicht",
           null,
           null,
-          "42868390948"
+          "43568804823"
         ],
-        "at": "2026-11-13T15:22:11.854954+00:00"
+        "at": "2026-11-14T07:35:28.745013+00:00"
       }
     },
     {
@@ -80,14 +69,14 @@
       "state": "green",
       "version": "160.0",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/43546118594",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/43569989257",
       "progress": {
         "percent": 100,
         "note": "Geprüft und veröffentlicht"
       },
       "available": {
         "version": "160.0",
-        "build": "42868390948"
+        "build": "43568804823"
       },
       "features": {
         "reading": true,
@@ -101,9 +90,9 @@
           "Öffentliches Update geprüft und veröffentlicht",
           null,
           null,
-          "42868390948"
+          "43568804823"
         ],
-        "at": "2026-11-13T21:58:19.756794+00:00"
+        "at": "2026-11-14T07:35:28.745013+00:00"
       }
     },
     {
@@ -115,9 +104,9 @@
     },
     {
       "label": "Webseite · 20 Sprachen",
-      "state": "green",
-      "version": "20 Seiten",
-      "detail": "Erreichbar; Links entsprechen den geprüften Unix-Releases",
+      "state": "gray",
+      "version": "—",
+      "detail": "Seiten oder aktuelle Downloadlinks nicht vollständig bestätigt",
       "url": "https://aheinen1971-cmd.github.io/rosavio/"
     },
     {
@@ -137,7 +126,7 @@
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "81",
+      "version": "85",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
