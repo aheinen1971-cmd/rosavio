@@ -7,7 +7,7 @@ on:
   schedule:
     - cron: '7,37 * * * *'
   workflow_run:
-    workflows: ['Rosavio automatic Windows release', 'Rosavio automatic Linux release', 'Rosavio automatic Flatpak release', 'Rosavio verified website download links']
+    workflows: ['Rosavio automatic Windows release', 'Rosavio automatic Linux release', 'Rosavio automatic Flatpak release', 'Rosavio verified website download links', 'Rosavio website and signed Flatpak repository']
     types: [completed]
 permissions:
   contents: write
