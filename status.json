@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-15T21:47:57.493391+00:00",
+  "checkedAt": "2026-11-15T21:58:38.766705+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -80,7 +80,7 @@
       "state": "green",
       "version": "160.0",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/43765443372",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/43766612525",
       "progress": {
         "percent": 100,
         "note": "Geprüft und veröffentlicht"
@@ -151,7 +151,7 @@
     {
       "label": "PDF Digital · Downloads",
       "state": "neutral",
-      "version": "209",
+      "version": "211",
       "detail": "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.",
       "url": "https://github.com/aheinen1971-cmd/pdf-digital/releases"
     },
