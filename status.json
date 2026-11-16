@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-16T20:29:13.723943+00:00",
+  "checkedAt": "2026-11-16T20:50:34.874222+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -77,22 +77,17 @@
     },
     {
       "label": "Flatpak",
-      "state": "yellow",
+      "state": "green",
       "version": "160.0",
-      "detail": "Bau / Prüfungen laufen",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/43949708891",
       "progress": {
-        "percent": 50,
-        "note": "1 von 2 Phasen abgeschlossen",
-        "steps": [
-          "success",
-          "in_progress"
-        ],
-        "startedAt": "2026-11-16T20:28:43Z"
+        "percent": 100,
+        "note": "Geprüft und veröffentlicht"
       },
       "available": {
         "version": "160.0",
-        "build": "43568804823"
+        "build": "43944037586"
       },
       "features": {
         "reading": true,
@@ -102,16 +97,13 @@
       "roseChange": {
         "key": [
           true,
-          "yellow",
-          "Bau / Prüfungen laufen",
+          "green",
+          "Öffentliches Update geprüft und veröffentlicht",
           null,
-          [
-            "success",
-            "in_progress"
-          ],
-          "43568804823"
+          null,
+          "43944037586"
         ],
-        "at": "2026-11-16T20:28:43Z"
+        "at": "2026-11-16T20:50:34.874222+00:00"
       }
     },
     {
@@ -145,7 +137,7 @@
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "90",
+      "version": "93",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
