@@ -50,9 +50,9 @@ module.exports = async function checkRosePath(session, originalLink) {
   const searchCheck=await inspect(`const input=document.getElementById('trail-search');
     const before=[...document.querySelectorAll('#trail-steps li')].map(r=>r.textContent);
     const run=value=>{input.value=value;input.dispatchEvent(new Event('input'));return [...document.querySelectorAll('#trail-steps li')].filter(r=>!r.hidden).length;};
-    const note=run('BRÜCKE'),none=run('not-present-42'),all=run('');
-    return {note,none,all,unchanged:JSON.stringify(before)===JSON.stringify([...document.querySelectorAll('#trail-steps li')].map(r=>r.textContent))};`);
-  assert.deepEqual(searchCheck,{note:1,none:0,all:2,unchanged:true});
+    const note=run('BRÜCKE'),marks=[...document.querySelectorAll('#trail-steps mark')].map(e=>e.textContent),none=run('not-present-42'),all=run('');
+    return {note,marks,none,all,cleared:document.querySelectorAll('#trail-steps mark').length===0,unchanged:JSON.stringify(before)===JSON.stringify([...document.querySelectorAll('#trail-steps li')].map(r=>r.textContent))};`);
+  assert.deepEqual(searchCheck,{note:1,marks:['Brücke'],none:0,all:2,cleared:true,unchanged:true});
   await click('#trail-steps li:first-child button:nth-of-type(2)');
   assert.equal(await inspect("return Number(document.querySelector('#trail-steps li[aria-current]').dataset.index);"),1);
   assert.equal((await storage('return data;')).trail,undefined);
