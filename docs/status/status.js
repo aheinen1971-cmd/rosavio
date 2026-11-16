@@ -1,13 +1,18 @@
 'use strict';
 const endpoint='https://raw.githubusercontent.com/aheinen1971-cmd/rosavio/rosavio-status-data/status.json';
 const labels={green:'🟢 Bestätigt',yellow:'🟡 In Arbeit / wartet',red:'🔴 Problem',gray:'⚪ Nicht bestätigt',neutral:'ℹ️ Information'};
-let busy=false,last=null;
+let busy=false,last=null,fetchFailed=false;
 function ageNotice(){
  if(!last)return;
- const stale=Date.now()-Date.parse(last.checkedAt)>90*60*1000;
+ const age=Date.now()-Date.parse(last.checkedAt),future=age < -5*60*1000;
+ const stale=age>90*60*1000;
+ const freshness=document.getElementById('freshness');
+ freshness.textContent=statusText(future?'Zeitangabe nicht plausibel':stale?'Aktualisierung verzögert':'Prüfstand aktuell')+' · '+new Intl.RelativeTimeFormat(statusLanguage,{numeric:'auto'}).format(-Math.max(0,Math.floor(age/60000)),'minute');
+ freshness.className=stale||future?'warning':'';
+ if(fetchFailed)return;
  const el=document.getElementById('notice');
- el.textContent=statusText(stale?'Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.':'Gespeicherter GitHub-Prüfstand. Nächster Datenabruf dieser Seite automatisch in fünf Minuten.');
- el.className=stale?'warning':'';
+ el.textContent=statusText(future?'Zeitangabe nicht plausibel':stale?'Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.':'Gespeicherter GitHub-Prüfstand. Nächster Datenabruf dieser Seite automatisch in fünf Minuten.');
+ el.className=stale||future?'warning':'';
 }
 function render(data){
  if(data.schema!==1||!Array.isArray(data.rows)||data.rows.length>30||!Number.isFinite(Date.parse(data.checkedAt)))throw Error('Ungültige Statusdaten');
@@ -57,9 +62,11 @@ function render(data){
 }
 async function refresh(){
  if(busy)return;busy=true;document.getElementById('refresh').disabled=true;
- try{const response=await fetch(endpoint,{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);render(await response.json());document.getElementById('retrieved').textContent=new Intl.DateTimeFormat(statusLanguage,{dateStyle:'medium',timeStyle:'medium',timeZone:'Europe/Berlin'}).format(new Date());}
- catch(error){const el=document.getElementById('notice');el.className='warning';el.textContent=statusText('Aktueller Abruf nicht möglich. ')+' '+statusText(last?'Die Tabelle zeigt den letzten abgerufenen Stand.':'Bitte später erneut abrufen.');}
+ try{const response=await fetch(endpoint,{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);render(await response.json());fetchFailed=false;ageNotice();document.getElementById('retrieved').textContent=new Intl.DateTimeFormat(statusLanguage,{dateStyle:'medium',timeStyle:'medium',timeZone:'Europe/Berlin'}).format(new Date());}
+ catch(error){fetchFailed=true;const el=document.getElementById('notice');el.className='warning';el.textContent=statusText('Aktueller Abruf nicht möglich. ')+' '+statusText(last?'Die Tabelle zeigt den letzten abgerufenen Stand.':'Bitte später erneut abrufen.');}
  finally{busy=false;document.getElementById('refresh').disabled=false;}
 }
 document.getElementById('refresh').addEventListener('click',refresh);
 refresh();setInterval(refresh,300000);
+setInterval(ageNotice,60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)ageNotice();});

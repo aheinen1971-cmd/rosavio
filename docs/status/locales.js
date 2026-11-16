@@ -78,7 +78,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Aktualisierung verzögert",
+    "Prüfstand aktuell": "Prüfstand aktuell",
+    "Zeitangabe nicht plausibel": "Zeitangabe nicht plausibel"
   },
   "en": {
     "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Current status",
@@ -158,7 +161,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Outdated check – the build may have progressed. Fetching again does not mean GitHub has checked again.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Update delayed",
+    "Prüfstand aktuell": "Check is current",
+    "Zeitangabe nicht plausibel": "Timestamp is implausible"
   },
   "fr": {
     "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Situation actuelle",
@@ -238,7 +244,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Vérification ancienne : la compilation peut avoir avancé. Actualiser ne signifie pas que GitHub a refait les vérifications.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Actualisation retardée",
+    "Prüfstand aktuell": "Vérification à jour",
+    "Zeitangabe nicht plausibel": "Horodatage incohérent"
   },
   "es": {
     "{done} von {total} Phasen abgeschlossen": "Fases completadas: {done} / {total}",
@@ -318,7 +327,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Comprobación desactualizada: la compilación puede haber avanzado. Consultar de nuevo no significa que GitHub haya vuelto a comprobar.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Actualización retrasada",
+    "Prüfstand aktuell": "Comprobación actualizada",
+    "Zeitangabe nicht plausibel": "Fecha incoherente"
   },
   "nl": {
     "Rosavio · Aktueller Status": "Rosavio & PDF Digital · Huidige status",
@@ -398,7 +410,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Verouderde controle: de bouw kan al verder zijn. Opnieuw ophalen betekent niet dat GitHub opnieuw heeft gecontroleerd.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Vernieuwing vertraagd",
+    "Prüfstand aktuell": "Controle actueel",
+    "Zeitangabe nicht plausibel": "Tijdstip niet aannemelijk"
   },
   "it": {
     "{done} von {total} Phasen abgeschlossen": "Fasi completate: {done} / {total}",
@@ -478,7 +493,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Verifica non aggiornata: la compilazione potrebbe essere avanzata. Ricaricare non significa che GitHub abbia ripetuto la verifica.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Aggiornamento in ritardo",
+    "Prüfstand aktuell": "Verifica aggiornata",
+    "Zeitangabe nicht plausibel": "Data non plausibile"
   },
   "pt-PT": {
     "{done} von {total} Phasen abgeschlossen": "Fases concluídas: {done} / {total}",
@@ -558,7 +576,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Verificação desatualizada: a compilação pode ter avançado. Consultar novamente não significa que o GitHub tenha repetido a verificação.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Atualização atrasada",
+    "Prüfstand aktuell": "Verificação atualizada",
+    "Zeitangabe nicht plausibel": "Data incoerente"
   },
   "pl": {
     "{done} von {total} Phasen abgeschlossen": "Ukończone etapy: {done} / {total}",
@@ -638,7 +659,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Nieaktualna kontrola: budowanie mogło się posunąć dalej. Ponowne pobranie danych nie oznacza nowej kontroli GitHub.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Aktualizacja opóźniona",
+    "Prüfstand aktuell": "Sprawdzenie aktualne",
+    "Zeitangabe nicht plausibel": "Nieprawidłowy znacznik czasu"
   },
   "cs": {
     "{done} von {total} Phasen abgeschlossen": "Dokončené fáze: {done} / {total}",
@@ -718,7 +742,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Zastaralá kontrola: sestavení již mohlo pokročit. Nové načtení neznamená novou kontrolu na GitHubu.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Aktualizace zpožděna",
+    "Prüfstand aktuell": "Kontrola je aktuální",
+    "Zeitangabe nicht plausibel": "Nevěrohodný časový údaj"
   },
   "da": {
     "{done} von {total} Phasen abgeschlossen": "Afsluttede faser: {done} / {total}",
@@ -798,7 +825,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Forældet kontrol: bygningen kan være nået videre. En ny hentning betyder ikke, at GitHub har kontrolleret igen.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Opdatering forsinket",
+    "Prüfstand aktuell": "Kontrol er aktuel",
+    "Zeitangabe nicht plausibel": "Tidsangivelsen er usandsynlig"
   },
   "sv-SE": {
     "{done} von {total} Phasen abgeschlossen": "Slutförda faser: {done} / {total}",
@@ -878,7 +908,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Föråldrad kontroll: bygget kan ha kommit längre. Ny hämtning betyder inte att GitHub har kontrollerat igen.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Uppdatering försenad",
+    "Prüfstand aktuell": "Kontrollen är aktuell",
+    "Zeitangabe nicht plausibel": "Tidsangivelsen är orimlig"
   },
   "nb-NO": {
     "{done} von {total} Phasen abgeschlossen": "Fullførte faser: {done} / {total}",
@@ -958,7 +991,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Utdatert kontroll: byggingen kan ha kommet videre. Ny henting betyr ikke at GitHub har kontrollert på nytt.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Oppdatering forsinket",
+    "Prüfstand aktuell": "Kontrollen er oppdatert",
+    "Zeitangabe nicht plausibel": "Tidsangivelsen er usannsynlig"
   },
   "fi": {
     "{done} von {total} Phasen abgeschlossen": "Valmiit vaiheet: {done} / {total}",
@@ -1038,7 +1074,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Vanhentunut tarkistus: koonti on voinut edetä. Uusi haku ei tarkoita GitHubin uutta tarkistusta.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Päivitys viivästynyt",
+    "Prüfstand aktuell": "Tarkistus on ajan tasalla",
+    "Zeitangabe nicht plausibel": "Aikaleima on epäuskottava"
   },
   "tr": {
     "{done} von {total} Phasen abgeschlossen": "Tamamlanan aşamalar: {done} / {total}",
@@ -1118,7 +1157,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Kontrol güncel değil; derleme ilerlemiş olabilir. Yeniden veri almak GitHub’ın yeniden kontrol yaptığı anlamına gelmez.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Güncelleme gecikti",
+    "Prüfstand aktuell": "Denetim güncel",
+    "Zeitangabe nicht plausibel": "Zaman damgası tutarsız"
   },
   "uk": {
     "{done} von {total} Phasen abgeschlossen": "Завершені етапи: {done} / {total}",
@@ -1198,7 +1240,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Перевірка застаріла: збірка могла просунутися. Повторне отримання даних не означає нову перевірку GitHub.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Оновлення затримується",
+    "Prüfstand aktuell": "Перевірка актуальна",
+    "Zeitangabe nicht plausibel": "Некоректна позначка часу"
   },
   "el": {
     "{done} von {total} Phasen abgeschlossen": "Ολοκληρωμένες φάσεις: {done} / {total}",
@@ -1278,7 +1323,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "Παρωχημένος έλεγχος: η κατασκευή μπορεί να έχει προχωρήσει. Νέα ανάκτηση δεν σημαίνει νέο έλεγχο από το GitHub.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "Καθυστέρηση ενημέρωσης",
+    "Prüfstand aktuell": "Ο έλεγχος είναι πρόσφατος",
+    "Zeitangabe nicht plausibel": "Μη εύλογη χρονική σήμανση"
   },
   "ja": {
     "{done} von {total} Phasen abgeschlossen": "完了した段階: {done} / {total}",
@@ -1358,7 +1406,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "確認データが古くなっています。ビルドは進んでいる可能性があります。再取得はGitHubの再検査を意味しません。",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "更新が遅れています",
+    "Prüfstand aktuell": "確認結果は最新です",
+    "Zeitangabe nicht plausibel": "日時が不正確です"
   },
   "ko": {
     "{done} von {total} Phasen abgeschlossen": "완료된 단계: {done} / {total}",
@@ -1438,7 +1489,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "확인 정보가 오래되었습니다. 빌드가 더 진행되었을 수 있습니다. 다시 조회해도 GitHub가 새로 검사한 것은 아닙니다.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "갱신 지연",
+    "Prüfstand aktuell": "확인 결과가 최신 상태",
+    "Zeitangabe nicht plausibel": "시간 정보가 올바르지 않음"
   },
   "ar": {
     "{done} von {total} Phasen abgeschlossen": "المراحل المكتملة: {done} / {total}",
@@ -1518,7 +1572,10 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "نتيجة الفحص قديمة؛ ربما تقدم البناء. جلب البيانات مجددًا لا يعني أن GitHub أعاد الفحص.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "تأخر التحديث",
+    "Prüfstand aktuell": "الفحص حديث",
+    "Zeitangabe nicht plausibel": "الوقت غير منطقي"
   },
   "he": {
     "{done} von {total} Phasen abgeschlossen": "שלבים שהושלמו: {done} / {total}",
@@ -1598,6 +1655,9 @@ const STATUS_LOCALES = {
     "Prüfstand veraltet – der Bau kann bereits weiter sein. Erneutes Abrufen bedeutet nicht, dass GitHub neu geprüft hat.": "הבדיקה אינה עדכנית; ייתכן שהבנייה התקדמה. אחזור נוסף אינו אומר ש־GitHub בדק שוב.",
     "Rosavio": "Rosavio",
     "PDF Digital": "PDF Digital",
-    "·": "·"
+    "·": "·",
+    "Aktualisierung verzögert": "העדכון מתעכב",
+    "Prüfstand aktuell": "הבדיקה עדכנית",
+    "Zeitangabe nicht plausibel": "חותמת הזמן אינה סבירה"
   }
 };
