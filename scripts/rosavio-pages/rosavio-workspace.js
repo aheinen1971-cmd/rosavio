@@ -87,6 +87,31 @@ function renderTrail(){
  });
  filterTrail();renderNavigation();
 }
+function highlightTrailText(node,text,tokens){
+ // Match folded text but render only original text nodes, never HTML.
+ const folded=text.toLocaleLowerCase(l10n.locale),offsets=[];
+ let position=0;
+ for(const char of text){
+  for(let n=0;n<char.toLocaleLowerCase(l10n.locale).length;n++)offsets.push([position,position+char.length]);
+  position+=char.length;
+ }
+ const ranges=[];
+ for(const token of new Set(tokens)){
+  let at=0;
+  while(token && (at=folded.indexOf(token,at))!==-1){
+   ranges.push([offsets[at][0],offsets[at+token.length-1][1]]);at+=token.length;
+  }
+ }
+ ranges.sort((a,b)=>a[0]-b[0]||a[1]-b[1]);
+ const merged=[];
+ for(const range of ranges){const last=merged.at(-1);if(last&&range[0]<=last[1])last[1]=Math.max(last[1],range[1]);else merged.push(range.slice());}
+ node.replaceChildren();let end=0;
+ for(const [start,stop] of merged){
+  node.append(document.createTextNode(text.slice(end,start)));
+  const mark=document.createElement('mark');mark.className='trail-hit';mark.textContent=text.slice(start,stop);node.append(mark);end=stop;
+ }
+ node.append(document.createTextNode(text.slice(end)));
+}
 function filterTrail(){
  const tokens=$('trail-search').value.toLocaleLowerCase(l10n.locale).trim().split(/\s+/).filter(Boolean);
  let count=0;
@@ -95,7 +120,19 @@ function filterTrail(){
   const text=[step.quote,step.url,step.note].join(' ').toLocaleLowerCase(l10n.locale);
   row.hidden=!tokens.every(token=>text.includes(token));
   if(!row.hidden)count++;
+  const label=row.firstElementChild;
+  if(label){
+   highlightTrailText(label,step.quote+' · '+new URL(step.url).host,row.hidden?[]:tokens);
+   if(tokens.length&&!row.hidden){
+    // Full URL and note expose hits that the compact label cannot show.
+    for(const value of [step.url,step.note])if(value&&tokens.some(token=>value.toLocaleLowerCase(l10n.locale).includes(token))){
+     const detail=document.createElement('small');detail.className='trail-hit-context';detail.dir='auto';
+     highlightTrailText(detail,value,tokens);label.append(detail);
+    }
+   }
+  }
  }
+ if(data?.trail&&$('trail-quote'))highlightTrailText($('trail-quote'),data.trail.steps[data.trail.current].quote,tokens);
  $('trail-search-status').textContent=t('Treffer: {n} von {total}').replace('{n}',count).replace('{total}',data?.trail?.steps.length||0);
 }
 $('trail-search').addEventListener('input',filterTrail);

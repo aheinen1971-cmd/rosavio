@@ -6,3 +6,6 @@
 .project-tile:hover strong{text-decoration:underline}
 .project-tile small{display:block;margin-block-start:3px;color:light-dark(#59404c,#e6cbd7)}
 .project-icon{display:grid;place-items:center;min-inline-size:40px;min-block-size:44px;border-radius:6px;background:#a21c31;color:#fff;font-size:.75rem;font-weight:700}
+.trail-hit{background:light-dark(#ffe08a,#f2cf70);color:#241900;border-radius:2px;text-decoration:underline;text-decoration-thickness:1px}
+.trail-hit-context{display:block;overflow-wrap:anywhere;white-space:pre-wrap;margin-block-start:.3em;font-weight:normal}
+@media (forced-colors:active){.trail-hit{background:Highlight;color:HighlightText;forced-color-adjust:none}}
