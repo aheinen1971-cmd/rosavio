@@ -36,6 +36,22 @@ class PublicRevisionTests(unittest.TestCase):
             self.check(['previous'],update)
         update.assert_called_once()
 
+    def test_default_wait_covers_public_cache_lifetime(self):
+        installed=Mock(side_effect=['cached']*61+['expected'])
+        update=Mock();sleep=Mock()
+        require_public_revision('expected',installed,update,phase='verify',sleep=sleep,log=Mock())
+        self.assertEqual(installed.call_count,62)
+        self.assertEqual(update.call_count,61)
+        self.assertEqual(sum(c.args[0] for c in sleep.call_args_list),610)
+
+    def test_default_wait_remains_bounded(self):
+        update=Mock();sleep=Mock();installed=Mock(return_value='wrong')
+        with self.assertRaisesRegex(SystemExit,'installed=wrong'):
+            require_public_revision('expected',installed,update,phase='verify',sleep=sleep,log=Mock())
+        self.assertEqual(installed.call_count,73)
+        self.assertEqual(update.call_count,72)
+        self.assertEqual(sum(c.args[0] for c in sleep.call_args_list),720)
+
     def test_no_checks_rejected(self):
         with self.assertRaises(ValueError):self.check([],attempts=0)
 

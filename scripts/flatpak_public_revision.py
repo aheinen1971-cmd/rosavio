@@ -3,7 +3,10 @@ import time
 
 
 def require_public_revision(expected, installed, update, *, phase,
-                            attempts=30, interval=10, sleep=time.sleep, log=print):
+                            attempts=73, interval=10, sleep=time.sleep, log=print):
+    # GitHub Pages repository metadata is served with max-age=600. Allow that
+    # cache lifetime plus two minutes of propagation, while remaining bounded.
+    # The exact revision and signed update checks are still mandatory.
     if attempts < 1:
         raise ValueError('At least one revision check required')
     for attempt in range(attempts):
