@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-16T20:51:51.481374+00:00",
+  "checkedAt": "2026-11-16T21:16:47.245551+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -130,7 +130,7 @@
     {
       "label": "Weitersehen · Mozilla-Katalog",
       "state": "green",
-      "version": "0.1.2",
+      "version": "0.1.4",
       "detail": "Öffentlicher Katalog und offizieller Download vorhanden",
       "url": "https://addons.mozilla.org/de/firefox/addon/rosavio-weitersehen/"
     },
@@ -144,9 +144,9 @@
     {
       "label": "PDF Digital · Windows",
       "state": "green",
-      "version": "1.84.0",
+      "version": "1.85.0",
       "detail": "Windows-Veröffentlichung und Projektsignatur vorhanden; kein neuer Funktionstest.",
-      "url": "https://github.com/aheinen1971-cmd/pdf-digital/releases/tag/v1.84.0"
+      "url": "https://github.com/aheinen1971-cmd/pdf-digital/releases/tag/v1.85.0"
     },
     {
       "label": "PDF Digital · Downloads",
