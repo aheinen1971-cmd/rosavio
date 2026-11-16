@@ -12,6 +12,8 @@
 <section id="notes-panel" hidden><label for="notes">Meine Notizen</label><textarea id="notes" maxlength="100000" rows="16" disabled></textarea><h2>Später hier weiterlesen</h2><p>Markiere Text auf einer Webseite und wähle per Rechtsklick „Später hier weiterlesen“. Ändert sich die Seite, bleibt dein Zitat hier erhalten.</p><ul id="reading-places"></ul>
 <section id="rose-path"><h2>🌹 <span>Rosenpfad</span></h2><p id="trail-hint">Füge gespeicherte Lesestellen zum Pfad hinzu. Speichere deine Reihenfolge und Notizen.</p>
 <div id="trail-editor" hidden><label for="trail-name">Name des Pfads</label><input id="trail-name" maxlength="80" disabled>
+<label for="trail-search">Rosenpfad durchsuchen</label><input id="trail-search" type="search" maxlength="200" autocomplete="off" dir="auto">
+<p id="trail-search-status" role="status" aria-live="polite"></p>
 <ol id="trail-steps"></ol><p id="trail-progress" aria-live="polite"></p><blockquote id="trail-quote" dir="auto"></blockquote>
 <label for="trail-note">Notiz zur Lesestelle</label><textarea id="trail-note" maxlength="700" rows="2" disabled></textarea>
 <p id="trail-navigation"></p></div><button id="trail-save" disabled>Speichern</button>

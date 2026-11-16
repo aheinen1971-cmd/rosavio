@@ -85,8 +85,20 @@ function renderTrail(){
   row.children[1].setAttribute('aria-label',t('Nach oben'));row.children[2].setAttribute('aria-label',t('Nach unten'));
   list.append(row);
  });
- renderNavigation();
+ filterTrail();renderNavigation();
 }
+function filterTrail(){
+ const tokens=$('trail-search').value.toLocaleLowerCase(l10n.locale).trim().split(/\s+/).filter(Boolean);
+ let count=0;
+ for(const row of $('trail-steps').children){
+  const step=data.trail.steps[Number(row.dataset.index)];
+  const text=[step.quote,step.url,step.note].join(' ').toLocaleLowerCase(l10n.locale);
+  row.hidden=!tokens.every(token=>text.includes(token));
+  if(!row.hidden)count++;
+ }
+ $('trail-search-status').textContent=t('Treffer: {n} von {total}').replace('{n}',count).replace('{total}',data?.trail?.steps.length||0);
+}
+$('trail-search').addEventListener('input',filterTrail);
 function saveTrail(){
  if(busy || !data || !trailDirty())return;
  pendingTrailDraft=data;
@@ -122,7 +134,7 @@ $('trail-file').addEventListener('change',async()=>{
 });
 $('trail-save').addEventListener('click',saveTrail);
 $('trail-name').addEventListener('input',()=>{data.trail.name=$('trail-name').value;changed();});
-$('trail-note').addEventListener('input',()=>{data.trail.steps[data.trail.current].note=$('trail-note').value;changed();});
+$('trail-note').addEventListener('input',()=>{data.trail.steps[data.trail.current].note=$('trail-note').value;changed();filterTrail();});
 document.addEventListener('RosavioWorkspaceResult',event=>{
  savedData=structuredClone(event.detail);
  data=event.detail;
