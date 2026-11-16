@@ -1,4 +1,4 @@
-name: Rosavio publish qualified Rosenpfad backup
+name: Rosavio publish qualified Rosenpfad search
 on:
   workflow_dispatch:
 permissions:
@@ -24,14 +24,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $r=gh api repos/aheinen1971-cmd/rosavio/actions/runs/43516236700 | ConvertFrom-Json
-          if($LASTEXITCODE -ne 0 -or $r.conclusion -ne 'success' -or $r.head_sha -ne 'a25ed9fca672c419ccc87e4878064dd5bbf3584e'){throw 'Wrong qualification'}
-          git diff --exit-code a25ed9fca672c419ccc87e4878064dd5bbf3584e HEAD -- scripts/rosavio-pages scripts/prepare-workspace.py
+          $r=gh api repos/aheinen1971-cmd/rosavio/actions/runs/43911774147 | ConvertFrom-Json
+          if($LASTEXITCODE -ne 0 -or $r.conclusion -ne 'success' -or $r.head_sha -ne '0d7e1fbf886bdce53865a43fdeb74edbc32d4c5d'){throw 'Wrong qualification'}
+          git diff --exit-code 0d7e1fbf886bdce53865a43fdeb74edbc32d4c5d HEAD -- scripts/rosavio-pages scripts/prepare-workspace.py
           if($LASTEXITCODE -ne 0){throw 'Product differs from tested source'}
       - uses: actions/download-artifact@v4
         with:
-          name: rosavio-feature-windows-43516236700
-          run-id: 43516236700
+          name: rosavio-feature-windows-43911774147
+          run-id: 43911774147
           github-token: ${{ github.token }}
           path: D:/rv/release
       - uses: actions/setup-python@v5
@@ -57,7 +57,7 @@ jobs:
           if($ini -notmatch '(?m)^BuildID=(\d{14})\s*$' -or $Matches[1] -ge $r.buildID){throw 'An older public baseline is required'}
           @{version=$r.appVersion;source='';previous=$previous;buildID=$r.buildID} | ConvertTo-Json -Depth 30 | Set-Content D:/rv/build-state.json -Encoding utf8NoBOM
           $tag="v$($r.appVersion)-rosavio.$env:GITHUB_RUN_ID"
-          gh api repos/aheinen1971-cmd/rosavio/git/refs -f "ref=refs/tags/$tag" -f 'sha=a25ed9fca672c419ccc87e4878064dd5bbf3584e'
+          gh api repos/aheinen1971-cmd/rosavio/git/refs -f "ref=refs/tags/$tag" -f 'sha=0d7e1fbf886bdce53865a43fdeb74edbc32d4c5d'
           if($LASTEXITCODE -ne 0){throw 'Release tag already exists or cannot be reserved'}
           node scripts/write-github-feed.mjs aheinen1971-cmd/rosavio $tag D:/rv/release
           if($LASTEXITCODE -ne 0){throw 'Feed generation failed'}
@@ -88,8 +88,8 @@ jobs:
           persist-credentials: false
       - uses: actions/download-artifact@v4
         with:
-          name: rosavio-feature-linux-flatpak-43516236700
-          run-id: 43516236700
+          name: rosavio-feature-linux-flatpak-43911774147
+          run-id: 43911774147
           github-token: ${{ github.token }}
           path: .
       - uses: actions/setup-python@v5
