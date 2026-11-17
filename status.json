@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-17T17:03:01.861427+00:00",
+  "checkedAt": "2026-11-17T17:08:27.084487+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -131,13 +131,6 @@
         ],
         "at": "2026-11-17T16:32:05Z"
       }
-    },
-    {
-      "label": "macOS",
-      "state": "neutral",
-      "version": "Pflege eingestellt",
-      "detail": "Seit 03.11.2026 keine weitere Pflege oder Sicherheitsupdates. Bereits laufende Altaufträge dürfen enden; keine Wiederaufnahme.",
-      "url": ""
     },
     {
       "label": "Webseite · 20 Sprachen",
