@@ -1,16 +1,23 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-17T16:22:05.315181+00:00",
+  "checkedAt": "2026-11-17T17:02:24.713455+00:00",
   "rows": [
     {
       "label": "Windows",
       "state": "yellow",
       "version": "160.0 → 160.0.1",
-      "detail": "Neue Version noch nicht vollständig veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v160.0-rosavio.44117542469",
+      "detail": "Bau / Prüfungen laufen",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/44126127051",
       "progress": {
-        "percent": 0,
-        "note": "Noch keine abgeschlossene Phase bestätigt"
+        "percent": 25,
+        "note": "1 von 4 Phasen abgeschlossen",
+        "steps": [
+          "success",
+          "in_progress",
+          "pending",
+          "pending"
+        ],
+        "startedAt": "2026-11-17T16:28:36Z"
       },
       "available": {
         "version": "160.0",
@@ -25,23 +32,37 @@
         "key": [
           true,
           "yellow",
-          "Neue Version noch nicht vollständig veröffentlicht",
+          "Bau / Prüfungen laufen",
           null,
-          null,
+          [
+            "success",
+            "in_progress",
+            "pending",
+            "pending"
+          ],
           "44117542469"
         ],
-        "at": "2026-11-17T16:19:56.285994+00:00"
+        "at": "2026-11-17T16:28:36Z"
       }
     },
     {
       "label": "Linux",
       "state": "yellow",
       "version": "160.0 → 160.0.1",
-      "detail": "Neue Version noch nicht vollständig veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v160.0-rosavio-linux-x64.44117542469",
+      "detail": "Bau / Prüfungen laufen",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/44126151505",
       "progress": {
-        "percent": 0,
-        "note": "Noch keine abgeschlossene Phase bestätigt"
+        "percent": 33,
+        "note": "2 von 6 Phasen abgeschlossen",
+        "steps": [
+          "success",
+          "success",
+          "in_progress",
+          "pending",
+          "pending",
+          "pending"
+        ],
+        "startedAt": "2026-11-17T16:32:05Z"
       },
       "available": {
         "version": "160.0",
@@ -56,12 +77,19 @@
         "key": [
           true,
           "yellow",
-          "Neue Version noch nicht vollständig veröffentlicht",
+          "Bau / Prüfungen laufen",
           null,
-          null,
+          [
+            "success",
+            "success",
+            "in_progress",
+            "pending",
+            "pending",
+            "pending"
+          ],
           "44117542469"
         ],
-        "at": "2026-11-17T16:19:56.285994+00:00"
+        "at": "2026-11-17T16:32:05Z"
       }
     },
     {
@@ -92,9 +120,16 @@
           "linux",
           null,
           "44117542469",
-          null
+          [
+            "success",
+            "success",
+            "in_progress",
+            "pending",
+            "pending",
+            "pending"
+          ]
         ],
-        "at": "2026-11-17T16:19:56.285994+00:00"
+        "at": "2026-11-17T16:32:05Z"
       }
     },
     {
@@ -128,7 +163,7 @@
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "102",
+      "version": "103",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
@@ -142,7 +177,7 @@
     {
       "label": "PDF Digital · Downloads",
       "state": "neutral",
-      "version": "234",
+      "version": "235",
       "detail": "Windows-Paketabrufe aller Versionen inklusive Tests; keine Nutzerzahl.",
       "url": "https://github.com/aheinen1971-cmd/pdf-digital/releases"
     },
