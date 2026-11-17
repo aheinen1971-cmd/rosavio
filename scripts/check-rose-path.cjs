@@ -77,7 +77,7 @@ module.exports = async function checkRosePath(session, originalLink) {
   assert.equal(await inspect("return gBrowser.selectedBrowser.currentURI.spec;"),other.href);
   await select(session);await session.command('WebDriver:Navigate',{url:'about:rosavio-notes'});await ready();
   assert.equal(await inspect("return Number(document.querySelector('#trail-steps li[aria-current]').dataset.index);"),0);
-  await click('#trail-steps li:first-child button:last-child');
+  await click('#trail-steps li:first-child button:last-of-type');
   await click('#trail-save');await ready();
   assert.equal(await inspect("return document.querySelectorAll('#trail-steps li').length;"),1);
   const backup=await require('./check-trail-backup.cjs')(session);
