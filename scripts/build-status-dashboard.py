@@ -219,7 +219,6 @@ def collect():
         rows.append(row('Weitersehen · Mozilla-Katalog','green',version['version'],'Öffentlicher Katalog und offizieller Download vorhanden','https://addons.mozilla.org/de/firefox/addon/rosavio-weitersehen/'))
     except Exception:
         rows.append(row('Weitersehen · Mozilla-Katalog','gray','0.1.2 eingereicht','Öffentliche Freigabe nicht bestätigt. Interner Prüfstatus ist ohne Anmeldung nicht abrufbar.'))
-    rows.append(row('macOS','neutral','Pflege eingestellt','Seit 03.11.2026 keine weitere Pflege oder Sicherheitsupdates. Bereits laufende Altaufträge dürfen enden; keine Wiederaufnahme.'))
     assets=[a for r in regular for a in r['assets'] if a['name'] in ('Rosavio-Setup-Deutsch.exe','Rosavio-Linux-x64.tar.xz','Rosavio.dmg')]
     rows.append(row('Paketdownloads','neutral',str(sum(a['download_count'] for a in assets)),'GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.'))
     try:
@@ -228,7 +227,7 @@ def collect():
         rows.append(row('PDF Digital · Windows','gray','—','Prüfung derzeit nicht möglich','https://github.com/aheinen1971-cmd/pdf-digital/releases'))
         data['errors'].append('PDF Digital: '+type(exc).__name__)
     rows.append(row('Fehlerübersicht','red' if any(r['state']=='red' for r in rows) else 'neutral','—','Siehe rote Zeilen. Laufstatus und öffentliche Metadaten können nicht alle Browserfehler erkennen.'))
-    order=['Windows','Linux','Flatpak','macOS']
+    order=['Windows','Linux','Flatpak']
     rows.sort(key=lambda r:order.index(r['label']) if r['label'] in order else len(order))
     return data
 
