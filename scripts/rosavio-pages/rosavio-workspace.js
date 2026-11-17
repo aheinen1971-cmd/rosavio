@@ -82,6 +82,12 @@ function renderTrail(){
   if(i===trail.current)row.setAttribute('aria-current','step');
   const label=document.createElement('span');label.dir='auto';label.textContent=step.quote+' · '+new URL(step.url).host;
   row.append(label,trailButton('↑',()=>editStep(i,-1),i===0),trailButton('↓',()=>editStep(i,1),i===trail.steps.length-1),trailButton('Entfernen',()=>editStep(i,0)));
+  const open=document.createElement('a');open.className='trail-open-result';
+  const destination=new URL(step.url);
+  if(['http:','https:'].includes(destination.protocol))open.href=destination.href;
+  open.target='_blank';open.rel='noopener noreferrer';open.textContent=t('Weiterlesen');
+  open.setAttribute('aria-label',t('Weiterlesen')+' · '+step.quote);
+  open.hidden=true;row.append(open);
   row.children[1].setAttribute('aria-label',t('Nach oben'));row.children[2].setAttribute('aria-label',t('Nach unten'));
   list.append(row);
  });
@@ -119,6 +125,8 @@ function filterTrail(){
   const step=data.trail.steps[Number(row.dataset.index)];
   const text=[step.quote,step.url,step.note].join(' ').toLocaleLowerCase(l10n.locale);
   row.hidden=!tokens.every(token=>text.includes(token));
+  const open=row.querySelector('.trail-open-result');
+  if(open)open.hidden=!tokens.length||row.hidden||!open.hasAttribute('href');
   if(!row.hidden)count++;
   const label=row.firstElementChild;
   if(label){
