@@ -1,7 +1,7 @@
 name: Rosavio isolated feature qualification
 on:
   push:
-    branches: [feature-rosenpfad-backup-20261113]
+    branches: [feature-trail-open-20261117]
 permissions:
   contents: read
 concurrency:
