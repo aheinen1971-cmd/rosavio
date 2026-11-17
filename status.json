@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-17T18:28:50.297631+00:00",
+  "checkedAt": "2026-11-17T18:29:21.032230+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -98,8 +98,13 @@
       "detail": "Bau / Prüfungen laufen",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/44148258063",
       "progress": {
-        "percent": null,
-        "note": "Fortschritt nicht überprüfbar"
+        "percent": 50,
+        "note": "1 von 2 Phasen abgeschlossen",
+        "steps": [
+          "success",
+          "in_progress"
+        ],
+        "startedAt": "2026-11-17T18:29:03Z"
       },
       "available": {
         "version": "160.0",
@@ -116,10 +121,13 @@
           "yellow",
           "Bau / Prüfungen laufen",
           null,
-          null,
+          [
+            "success",
+            "in_progress"
+          ],
           "44117542469"
         ],
-        "at": "2026-11-17T18:28:50.297631+00:00"
+        "at": "2026-11-17T18:29:03Z"
       }
     },
     {
