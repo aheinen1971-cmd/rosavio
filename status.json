@@ -1,48 +1,47 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-17T18:29:21.032230+00:00",
+  "checkedAt": "2026-11-17T18:50:46.664522+00:00",
   "rows": [
     {
       "label": "Windows",
-      "state": "yellow",
-      "version": "160.0 → 160.0.1",
-      "detail": "Bau / Prüfungen laufen",
+      "state": "green",
+      "version": "160.0.1",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/44126127051",
       "progress": {
-        "percent": 25,
-        "note": "1 von 4 Phasen abgeschlossen",
+        "percent": 100,
+        "note": "Geprüft und veröffentlicht",
         "steps": [
           "success",
-          "in_progress",
-          "pending",
-          "pending"
-        ],
-        "startedAt": "2026-11-17T16:28:36Z"
+          "success",
+          "success",
+          "success"
+        ]
       },
       "available": {
-        "version": "160.0",
-        "build": "44117542469"
+        "version": "160.0.1",
+        "build": "44126127051"
       },
       "features": {
         "reading": true,
         "rose": true,
-        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v160.0-rosavio.44117542469/Rosavio-Setup-Deutsch.exe"
+        "download": "https://github.com/aheinen1971-cmd/rosavio/releases/download/v160.0.1-rosavio.44126127051/Rosavio-Setup-Deutsch.exe"
       },
       "roseChange": {
         "key": [
           true,
-          "yellow",
-          "Bau / Prüfungen laufen",
+          "green",
+          "Öffentliches Update geprüft und veröffentlicht",
           null,
           [
             "success",
-            "in_progress",
-            "pending",
-            "pending"
+            "success",
+            "success",
+            "success"
           ],
-          "44117542469"
+          "44126127051"
         ],
-        "at": "2026-11-17T16:28:36Z"
+        "at": "2026-11-17T18:50:46.664522+00:00"
       }
     },
     {
@@ -94,7 +93,7 @@
     {
       "label": "Flatpak",
       "state": "yellow",
-      "version": "160.0",
+      "version": "160.0.1",
       "detail": "Bau / Prüfungen laufen",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/44148258063",
       "progress": {
@@ -107,8 +106,8 @@
         "startedAt": "2026-11-17T18:29:03Z"
       },
       "available": {
-        "version": "160.0",
-        "build": "44117542469"
+        "version": "160.0.1",
+        "build": "44126151505"
       },
       "features": {
         "reading": true,
@@ -125,16 +124,16 @@
             "success",
             "in_progress"
           ],
-          "44117542469"
+          "44126151505"
         ],
         "at": "2026-11-17T18:29:03Z"
       }
     },
     {
       "label": "Webseite · 20 Sprachen",
-      "state": "gray",
-      "version": "—",
-      "detail": "Seiten oder aktuelle Downloadlinks nicht vollständig bestätigt",
+      "state": "green",
+      "version": "20 Seiten",
+      "detail": "Erreichbar; Links entsprechen den geprüften Unix-Releases",
       "url": "https://aheinen1971-cmd.github.io/rosavio/"
     },
     {
@@ -154,7 +153,7 @@
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "103",
+      "version": "107",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
