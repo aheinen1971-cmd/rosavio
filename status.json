@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-18T16:00:23.737150+00:00",
+  "checkedAt": "2026-11-18T21:24:16.130104+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -95,7 +95,7 @@
       "state": "green",
       "version": "160.0.1",
       "detail": "Öffentliches Update geprüft und veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/44310000536",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/44401076500",
       "progress": {
         "percent": 100,
         "note": "Geprüft und veröffentlicht"
@@ -145,7 +145,7 @@
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "108",
+      "version": "109",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
