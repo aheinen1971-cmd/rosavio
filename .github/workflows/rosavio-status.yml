@@ -27,11 +27,41 @@ jobs:
         with:
           ref: main
           persist-credentials: false
+      # Runs inside the existing status concurrency group. Release events always refresh.
+      - name: Skip duplicate periodic status work
+        id: freshness
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STATUS_EVENT: ${{ github.event_name }}
+        run: |
+          python3 - <<'PY'
+          import base64, datetime, json, os, urllib.request
+          refresh = True
+          if os.environ['STATUS_EVENT'] in ('schedule', 'workflow_dispatch'):
+              request = urllib.request.Request(
+                  'https://api.github.com/repos/aheinen1971-cmd/rosavio/contents/status.json?ref=rosavio-status-data',
+                  headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json', 'User-Agent': 'rosavio-status-freshness'})
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  payload = json.load(response)
+              if payload.get('encoding') != 'base64':
+                  raise ValueError('Invalid status encoding')
+              snapshot = json.loads(base64.b64decode(payload['content']))
+              checked = datetime.datetime.fromisoformat(snapshot['checkedAt'].replace('Z', '+00:00'))
+              age = (datetime.datetime.now(datetime.timezone.utc) - checked).total_seconds()
+              if age < -60:
+                  raise ValueError('Status timestamp is in the future')
+              refresh = age >= 25 * 60
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              print('refresh=' + str(refresh).lower(), file=output)
+          print('Refresh public status' if refresh else 'Skip: public status is less than 25 minutes old')
+          PY
       - name: Verify status classification
+        if: steps.freshness.outputs.refresh == 'true'
         run: |
           python3 -m unittest discover -s tests -p test_maintenance_http.py
           python3 -m unittest discover -s tests -p test_status_dashboard.py
       - name: Read public evidence and update only status data
+        if: steps.freshness.outputs.refresh == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 scripts/build-status-dashboard.py --publish
