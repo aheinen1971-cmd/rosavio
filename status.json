@@ -1,16 +1,16 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-24T13:39:41.776759+00:00",
+  "checkedAt": "2026-11-24T14:09:42.544168+00:00",
   "rows": [
     {
       "label": "Windows",
-      "state": "green",
-      "version": "160.0.1",
-      "detail": "Öffentliches Update geprüft und veröffentlicht",
+      "state": "yellow",
+      "version": "160.0.1 → 161.0",
+      "detail": "Neue Version noch nicht vollständig veröffentlicht",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/45337099596",
       "progress": {
-        "percent": 100,
-        "note": "Geprüft und veröffentlicht",
+        "percent": 50,
+        "note": "2 von 4 Phasen abgeschlossen",
         "steps": [
           "success",
           "success",
@@ -30,8 +30,8 @@
       "roseChange": {
         "key": [
           true,
-          "green",
-          "Öffentliches Update geprüft und veröffentlicht",
+          "yellow",
+          "Neue Version noch nicht vollständig veröffentlicht",
           null,
           [
             "success",
@@ -41,18 +41,18 @@
           ],
           "44126127051"
         ],
-        "at": "2026-11-17T22:20:51.320240+00:00"
+        "at": "2026-11-24T14:09:42.544168+00:00"
       }
     },
     {
       "label": "Linux",
-      "state": "green",
-      "version": "160.0.1",
-      "detail": "Öffentliches Update geprüft und veröffentlicht",
+      "state": "yellow",
+      "version": "160.0.1 → 161.0",
+      "detail": "Neue Version noch nicht vollständig veröffentlicht",
       "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v160.0.1-rosavio-linux-x64.44126151505",
       "progress": {
-        "percent": 100,
-        "note": "Geprüft und veröffentlicht"
+        "percent": 0,
+        "note": "Noch keine abgeschlossene Phase bestätigt"
       },
       "available": {
         "version": "160.0.1",
@@ -66,24 +66,24 @@
       "roseChange": {
         "key": [
           true,
-          "green",
-          "Öffentliches Update geprüft und veröffentlicht",
+          "yellow",
+          "Neue Version noch nicht vollständig veröffentlicht",
           null,
           null,
           "44126151505"
         ],
-        "at": "2026-11-20T20:09:28.570704+00:00"
+        "at": "2026-11-24T14:09:42.544168+00:00"
       }
     },
     {
       "label": "Flatpak",
-      "state": "green",
+      "state": "yellow",
       "version": "160.0.1",
-      "detail": "Öffentliches Update geprüft und veröffentlicht",
+      "detail": "Folgt auf ein neueres geprüftes Linux-Release",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/45328518778",
       "progress": {
-        "percent": 100,
-        "note": "Geprüft und veröffentlicht"
+        "percent": 0,
+        "note": "Noch keine abgeschlossene Phase bestätigt"
       },
       "available": {
         "version": "160.0.1",
@@ -94,16 +94,18 @@
         "rose": true,
         "download": "https://aheinen1971-cmd.github.io/rosavio/flatpak/Rosavio.flatpakref"
       },
+      "awaiting": "linux",
       "roseChange": {
         "key": [
           true,
-          "green",
-          "Öffentliches Update geprüft und veröffentlicht",
+          "yellow",
+          "Folgt auf ein neueres geprüftes Linux-Release",
+          "linux",
           null,
-          null,
-          "44126151505"
+          "44126151505",
+          null
         ],
-        "at": "2026-11-23T00:17:14.180009+00:00"
+        "at": "2026-11-24T14:09:42.544168+00:00"
       }
     },
     {
@@ -157,5 +159,5 @@
     }
   ],
   "errors": [],
-  "upstream": "160.0.1"
+  "upstream": "161.0"
 }
