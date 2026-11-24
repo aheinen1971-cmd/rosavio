@@ -5,6 +5,41 @@ sys.path.insert(0,str(pathlib.Path(__file__).parents[1]/"scripts"))
 spec=importlib.util.spec_from_file_location('dashboard',pathlib.Path(__file__).parents[1]/'scripts/build-status-dashboard.py')
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 class StatusTests(unittest.TestCase):
+ def test_target_tags_bind_exact_version_and_platform(self):
+  refs=[{'ref':r} for r in ['refs/tags/v160.0.1-rosavio.10','refs/tags/v161.0-rosavio.11','refs/tags/v161.0-rosavio-linux-x64.12','refs/tags/v161.0.1-rosavio.13','refs/tags/v161.0-rosavio.14-extra']]
+  self.assertEqual(m.target_run_ids(refs,'161.0','windows'),{11})
+  self.assertEqual(m.target_run_ids(refs,'161.0','linux-x64'),{12})
+  self.assertEqual(m.target_run_ids([], '161.0','windows'),set())
+ def test_windows_successful_skip_does_not_count_as_half_a_build(self):
+  job={'status':'completed','conclusion':'success','steps':[{'name':n,'conclusion':'success' if i<2 else 'skipped'} for i,n in enumerate(m.PHASES['Windows'])]}
+  self.assertTrue(m.check_only_job(job,'Windows'))
+  job['status']='in_progress';job['conclusion']=None
+  self.assertFalse(m.check_only_job(job,'Windows'))
+  job.update(status='completed',conclusion='failure')
+  self.assertFalse(m.check_only_job(job,'Windows'))
+ def test_old_windows_run_cannot_supply_new_version_progress(self):
+  with patch.object(m,'api') as api:
+   selected,run=m.platform_attempt([{'id':45337099596}],44126127051,'Windows','release',set())
+   api.assert_not_called()
+  self.assertIsNone(selected);self.assertIsNone(run)
+  state,detail=m.run_state(selected,'160.0.1','161.0')
+  item=m.with_progress(m.row('Windows',state,'160.0.1 → 161.0',detail),selected)
+  self.assertEqual(item['progress']['percent'],0)
+  self.assertNotIn('steps',item['progress'])
+  self.assertNotIn('startedAt',item['progress'])
+ def test_active_matching_linux_build_keeps_real_progress(self):
+  job={'name':'release','status':'in_progress','steps':[{'name':n,'status':'completed' if i<2 else 'in_progress' if i==2 else 'pending','conclusion':'success' if i<2 else None} for i,n in enumerate(m.PHASES['Linux'])]}
+  with patch.object(m,'api',return_value={'jobs':[job]}):
+   selected,run=m.platform_attempt([{'id':20}],10,'Linux','release',{20})
+  self.assertEqual(run['id'],20)
+  self.assertEqual(m.with_progress(m.row('Linux','yellow','161.0',''),selected)['progress']['percent'],33)
+ def test_skip_does_not_hide_previous_real_attempt(self):
+  skipped={'name':'release','status':'completed','conclusion':'success','steps':[{'name':n,'conclusion':'success' if i<2 else 'skipped'} for i,n in enumerate(m.PHASES['Windows'])]}
+  failed={'name':'release','status':'completed','conclusion':'failure','steps':[]}
+  with patch.object(m,'api',side_effect=[{'jobs':[skipped]},{'jobs':[failed]}]):
+   selected,run=m.platform_attempt([{'id':22},{'id':21}],10,'Windows','release',{21,22})
+  self.assertEqual(run['id'],21)
+  self.assertEqual(m.run_state(selected,'160.0.1','161.0')[0],'red')
  def test_pdf_metadata_requires_windows_package_and_signature(self):
   release={'draft':False,'prerelease':False,'tag_name':'v1.54.0','published_at':'2026-11-08T13:33:31Z','html_url':'https://github.com/aheinen1971-cmd/pdf-digital/releases/tag/v1.54.0','assets':[{'name':'PDF-Werkbank-1.54.0-Windows.zip','download_count':2},{'name':'PDF-Werkbank-1.54.0-Signatur.json','download_count':8}]}
   with patch.object(m,'api',return_value=[release]) as api:

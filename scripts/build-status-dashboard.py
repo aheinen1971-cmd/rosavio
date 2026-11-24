@@ -82,6 +82,29 @@ def flatpak_wait(linux, linux_tag, flatpak_tag, state):
     if linux and linux['state'] in ('yellow','red'):return 'linux'
     return None
 
+def target_run_ids(refs, target, platform):
+    """Reserved source tags bind a platform attempt to an exact Firefox version."""
+    suffix='' if platform=='windows' else '-'+platform
+    pattern=re.compile(r'refs/tags/v'+re.escape(target)+'-rosavio'+re.escape(suffix)+r'\.(\d+)')
+    return {int(match[1]) for ref in refs
+            if (match:=pattern.fullmatch(ref.get('ref','')))}
+
+def check_only_job(job, label):
+    steps={s['name']:s for s in job.get('steps',[])}
+    final=PHASES[label][-2:]
+    return (job.get('status')=='completed' and job.get('conclusion')=='success'
+            and all(steps.get(name,{}).get('conclusion')=='skipped' for name in final))
+
+def platform_attempt(runs, published_id, label, jobname, target_ids=None):
+    for candidate in runs:
+        if candidate['id'] < published_id:break
+        if target_ids is not None and candidate['id'] not in target_ids:continue
+        jobs=api(f"actions/runs/{candidate['id']}/jobs?per_page=100")['jobs']
+        matching=[j for j in jobs if j['name']==jobname and j.get('conclusion')!='skipped'
+                  and not check_only_job(j,label)]
+        if matching:return matching[0],candidate
+    return None,None
+
 def run_state(job, current, target):
     if job and job['status']!='completed':
         return 'yellow', ('Wartet auf GitHub-Rechner' if job['status'] in ('queued','waiting','pending') else 'Bau / Prüfungen laufen')
@@ -148,14 +171,12 @@ def collect():
             else:guard.verified(release,proof,platform)
             published[platform]=release
             runs=api('actions/workflows/'+workflow+'/runs?branch=main&per_page=10')['workflow_runs']
+            target_ids=None
+            if current!=target:
+                refs=api('git/matching-refs/tags/v'+target+'-rosavio')
+                target_ids=target_run_ids(refs,target,platform)
             # A check-only or skipped run must not hide the last actual platform attempt.
-            selected=None; run=None
-            for candidate in runs:
-                # Attempts older than the published package are already superseded.
-                if candidate['id'] < int(release['tag_name'].split('.')[-1]):break
-                jobs=api(f"actions/runs/{candidate['id']}/jobs?per_page=100")['jobs']
-                matching=[j for j in jobs if j['name']==jobname and j.get('conclusion')!='skipped']
-                if matching:selected=matching[0];run=candidate;break
+            selected,run=platform_attempt(runs,int(release['tag_name'].split('.')[-1]),label,jobname,target_ids)
             state,detail=run_state(selected,current,target)
             if state=='red' and selected and not selected.get('steps'):
                 annotations=api(f"check-runs/{selected['id']}/annotations")
