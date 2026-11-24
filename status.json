@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-24T18:04:56.314359+00:00",
+  "checkedAt": "2026-11-24T18:28:23.990118+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -93,22 +93,17 @@
     },
     {
       "label": "Flatpak",
-      "state": "yellow",
-      "version": "160.0.1",
-      "detail": "Bau / Prüfungen laufen",
+      "state": "green",
+      "version": "161.0",
+      "detail": "Öffentliches Update geprüft und veröffentlicht",
       "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/45455445257",
       "progress": {
-        "percent": 50,
-        "note": "1 von 2 Phasen abgeschlossen",
-        "steps": [
-          "success",
-          "in_progress"
-        ],
-        "startedAt": "2026-11-24T18:04:18Z"
+        "percent": 100,
+        "note": "Geprüft und veröffentlicht"
       },
       "available": {
-        "version": "160.0.1",
-        "build": "44126151505"
+        "version": "161.0",
+        "build": "45430032503"
       },
       "features": {
         "reading": true,
@@ -118,23 +113,20 @@
       "roseChange": {
         "key": [
           true,
-          "yellow",
-          "Bau / Prüfungen laufen",
+          "green",
+          "Öffentliches Update geprüft und veröffentlicht",
           null,
-          [
-            "success",
-            "in_progress"
-          ],
-          "44126151505"
+          null,
+          "45430032503"
         ],
-        "at": "2026-11-24T18:04:18Z"
+        "at": "2026-11-24T18:28:23.990118+00:00"
       }
     },
     {
       "label": "Webseite · 20 Sprachen",
-      "state": "gray",
-      "version": "—",
-      "detail": "Seiten oder aktuelle Downloadlinks nicht vollständig bestätigt",
+      "state": "green",
+      "version": "20 Seiten",
+      "detail": "Erreichbar; Links entsprechen den geprüften Unix-Releases",
       "url": "https://aheinen1971-cmd.github.io/rosavio/"
     },
     {
@@ -154,7 +146,7 @@
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "112",
+      "version": "115",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
