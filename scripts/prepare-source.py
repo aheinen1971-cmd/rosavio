@@ -97,6 +97,7 @@ pref("app.update.interval", 21600);
 pref("app.update.auto", true);
 pref("app.update.background.enabled", true);
 pref("extensions.update.enabled", true);
+pref("sidebar.position_start", false);
 pref("browser.translations.enable", true);
 pref("browser.translations.select.enable", true);
 pref("browser.translations.quickAction.enabled", true);
@@ -134,6 +135,7 @@ export ACCEPTED_MAR_CHANNEL_IDS=rosavio-release
 subprocess.run([sys.executable, str(project / 'scripts/create-icons.py'), str(branding)], check=True)
 (source / 'rosavio-build.json').write_text(json.dumps({'name': 'Rosavio', 'upstreamVersion': version, 'updateOrigin': origin, 'updateUrl': update_url, 'githubRepo': args.github_repo, 'localTest': args.local_test, 'signedUpdatesRequired': True}, indent=2))
 subprocess.run([sys.executable, str(project / 'scripts/prepare-extensions.py'), str(source)], check=True)
+subprocess.run([sys.executable, str(project / "scripts/prepare-media.py"), str(source)], check=True)
 subprocess.run([sys.executable, str(project / 'scripts/prepare-browser-pages.py'), str(source)], check=True)
 subprocess.run([sys.executable, str(project / 'scripts/prepare-workspace.py'), str(source)], check=True)
 print(f'Rosavio overlay applied to Firefox {version}. Update origin: {origin}')

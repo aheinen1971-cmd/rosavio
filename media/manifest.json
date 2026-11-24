@@ -1,0 +1,11 @@
+{
+  "manifest_version": 2,
+  "name": "Rosavio Medien",
+  "version": "2.1.1",
+  "permissions": ["activeTab", "scripting", "downloads"],
+  "optional_permissions": ["https://*/*", "http://*/*"],
+  "browser_action": {"default_title": "Medien", "default_area": "navbar", "default_icon": "media.svg"},
+  "sidebar_action": {"default_title": "Medien", "default_panel": "sidebar.html", "default_icon": "media.svg", "open_at_install": false},
+  "background": {"page": "background.html", "persistent": true},
+  "browser_specific_settings": {"gecko": {"id": "medien@rosavio.local", "strict_min_version": "140.0", "data_collection_permissions": {"required": ["none"]}}}
+}

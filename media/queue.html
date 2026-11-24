@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="de"><meta charset="utf-8"><title>Download-Warteschlange</title>
+<style>body{max-width:42em;margin:4vh auto;padding:20px;font:17px/1.5 system-ui;color:#16323a}section{padding:16px 0;border-top:1px solid #abbfc1}h2{font-size:1.1em;overflow-wrap:anywhere}button,a,select{font:inherit}button,a{color:#075c68}progress{width:100%}</style>
+<h1>Download-Warteschlange</h1>
+<main></main>
+<template>
+<section tabindex="-1">
+<h2></h2>
+<label class="choices" hidden>Qualität <select class="quality"></select></label>
+<p class="status" role="status">Wiedergabeliste wird geprüft …</p>
+<progress aria-label="Geladene Abschnitte" hidden></progress>
+<button class="save" type="button" hidden disabled>Video speichern</button>
+<button class="cancel" type="button">Abbrechen</button>
+<button class="restart" type="button" hidden>Erneut vorbereiten</button><div class="files"></div>
+</section>
+</template>
+<script src="filename.js"></script><script src="time.js"></script><script src="periods.js"></script><script src="parts.js"></script><script src="hls.js"></script><script src="queue.js"></script></html>
