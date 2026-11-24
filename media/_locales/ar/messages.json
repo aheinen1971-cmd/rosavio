@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "الوسائط"
+  },
+  "video": {
+    "message": "فيديو"
+  },
+  "scan": {
+    "message": "البحث مجددًا"
+  },
+  "more": {
+    "message": "نتائج أخرى"
+  },
+  "downloads": {
+    "message": "التنزيلات"
+  },
+  "folder": {
+    "message": "فتح مجلد التنزيلات"
+  },
+  "queue": {
+    "message": "قائمة انتظار التنزيل"
+  },
+  "quality": {
+    "message": "الجودة"
+  },
+  "checking": {
+    "message": "جارٍ فحص قائمة التشغيل…"
+  },
+  "sections": {
+    "message": "المقاطع المنزّلة"
+  },
+  "save": {
+    "message": "حفظ الفيديو"
+  },
+  "cancel": {
+    "message": "إلغاء"
+  },
+  "restart": {
+    "message": "التحضير مجددًا"
+  },
+  "playlist": {
+    "message": "قائمة تشغيل · {name}"
+  },
+  "details": {
+    "message": "عرض المدة والجودة"
+  },
+  "videoAccess": {
+    "message": "يتطلب هذا التنزيل الوصول إلى خادم الفيديو."
+  },
+  "queueError": {
+    "message": "تعذر فتح قائمة الانتظار."
+  },
+  "directError": {
+    "message": "أُلغي التنزيل أو الملف غير متاح."
+  },
+  "playing": {
+    "message": "مصدر الفيديو الجاري تشغيله"
+  },
+  "noSingle": {
+    "message": "لم يُحدَّد فيديو واحد قيد التشغيل."
+  },
+  "fragments": {
+    "message": "عُثر على أجزاء فيديو فقط. أعد فتح الشريط الجانبي للوسائط بعد بدء الفيديو بقليل للعثور على قائمة التشغيل."
+  },
+  "noVideo": {
+    "message": "لم يُعثر على ملف فيديو مباشر."
+  },
+  "moreCount": {
+    "message": "نتائج أخرى ({count})"
+  },
+  "searching": {
+    "message": "جارٍ البحث…"
+  },
+  "scanHelp": {
+    "message": "انقر على الوسائط في شريط أدوات التبويب الحالي. افتح الشريط الجانبي في صفحة تحتوي على فيديو."
+  },
+  "audioAccess": {
+    "message": "يتطلب المسار الصوتي الوصول إلى خادم الصوت."
+  },
+  "interrupted": {
+    "message": "انقطع الحفظ."
+  },
+  "cancelled": {
+    "message": "أُلغي التنزيل."
+  },
+  "failed": {
+    "message": "تعذر التنزيل. {error}"
+  },
+  "durationLoading": {
+    "message": "جارٍ تحديد المدة…"
+  },
+  "duration": {
+    "message": "مدة الفيديو: {duration}"
+  },
+  "durationUnknown": {
+    "message": "مدة الفيديو غير معروفة."
+  },
+  "resolutionUnknown": {
+    "message": "الدقة غير معروفة"
+  },
+  "best": {
+    "message": "أفضل جودة متاحة · "
+  },
+  "waiting": {
+    "message": "في انتظار التنزيل…"
+  },
+  "progress": {
+    "message": "{percent} ٪ · {done} من {total} مقطعًا · نُزّل {size} م.ب"
+  },
+  "merging": {
+    "message": "جارٍ دمج الفيديو والصوت."
+  },
+  "part": {
+    "message": "جزء"
+  },
+  "manual": {
+    "message": "حفظ {name} يدويًا"
+  },
+  "saved": {
+    "message": "حُفظ في مجلد التنزيلات."
+  },
+  "partsSaved": {
+    "message": "عدد الأجزاء المحفوظة في مجلد التنزيلات: {count}."
+  },
+  "partialSaved": {
+    "message": "حُفظ {done} من {total} ملفًا. تتوفر هنا روابط لحفظ الملفات المتبقية."
+  },
+  "loaded": {
+    "message": "نُزّل {size} م.ب"
+  },
+  "unsupported": {
+    "message": "عنوان الوسائط هذا غير مدعوم."
+  },
+  "playlistHttp": {
+    "message": "قائمة التشغيل غير متاحة (HTTP {status})."
+  },
+  "notHls": {
+    "message": "لا يوفر هذا العنوان قائمة تشغيل HLS."
+  },
+  "noTracks": {
+    "message": "لم يُعثر على مساري فيديو وصوت متطابقين."
+  },
+  "nested": {
+    "message": "قوائم الجودة المتداخلة غير مدعومة."
+  },
+  "live": {
+    "message": "ليس لقائمة التشغيل هذه نهاية مؤكدة بعد."
+  },
+  "encrypted": {
+    "message": "قائمة تشغيل مشفرة."
+  },
+  "rangeInvalid": {
+    "message": "نطاق بايتات غير صالح في القائمة."
+  },
+  "rangeStart": {
+    "message": "تعذر تحديد بداية نطاق البايتات."
+  },
+  "preview": {
+    "message": "تحتوي هذه القائمة على معاينات فقط. اختر قائمة تشغيل الفيديو العادية."
+  },
+  "gap": {
+    "message": "يشير المزوّد إلى فقدان مقطع واحد على الأقل. الفيديو الكامل غير متاح في هذه القائمة."
+  },
+  "noInit": {
+    "message": "ملف تهيئة MP4 مفقود."
+  },
+  "incomplete": {
+    "message": "قائمة تشغيل غير مكتملة."
+  },
+  "noTime": {
+    "message": "أحد مقاطع الوسائط لا يتضمن مدة."
+  },
+  "serverHttp": {
+    "message": "أعاد خادم الفيديو الرمز HTTP {status}."
+  },
+  "rangeIncomplete": {
+    "message": "أعاد الخادم نطاق بايتات غير مكتمل."
+  },
+  "rangeMismatch": {
+    "message": "نطاق البايتات المستلم لا يطابق القائمة."
+  },
+  "format": {
+    "message": "أعاد الخادم تنسيق وسائط غير متوقع."
+  },
+  "trackFormat": {
+    "message": "تحتوي المسارات المنفصلة على تغييرات تنسيق غير متوافقة."
+  },
+  "trackMissing": {
+    "message": "مسار الفيديو أو الصوت مفقود في الملفات المحددة."
+  },
+  "trackEmpty": {
+    "message": "أحد المسارين فارغ."
+  },
+  "unexpected": {
+    "message": "تعذرت معالجة الملف. تحقق من الاتصال وحاول مجددًا."
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "メディア"
+  },
+  "video": {
+    "message": "動画"
+  },
+  "scan": {
+    "message": "再検索"
+  },
+  "more": {
+    "message": "その他の結果"
+  },
+  "downloads": {
+    "message": "ダウンロード"
+  },
+  "folder": {
+    "message": "ダウンロードフォルダーを開く"
+  },
+  "queue": {
+    "message": "ダウンロード待ち行列"
+  },
+  "quality": {
+    "message": "画質"
+  },
+  "checking": {
+    "message": "プレイリストを確認中…"
+  },
+  "sections": {
+    "message": "ダウンロード済みの区間"
+  },
+  "save": {
+    "message": "動画を保存"
+  },
+  "cancel": {
+    "message": "キャンセル"
+  },
+  "restart": {
+    "message": "再準備"
+  },
+  "playlist": {
+    "message": "プレイリスト · {name}"
+  },
+  "details": {
+    "message": "長さと画質を表示"
+  },
+  "videoAccess": {
+    "message": "このダウンロードには動画サーバーへのアクセスが必要です。"
+  },
+  "queueError": {
+    "message": "待ち行列を開けませんでした。"
+  },
+  "directError": {
+    "message": "ダウンロードがキャンセルされたか、ファイルにアクセスできません。"
+  },
+  "playing": {
+    "message": "再生中の動画のソース"
+  },
+  "noSingle": {
+    "message": "再生中の動画を一つに特定できませんでした。"
+  },
+  "fragments": {
+    "message": "動画の断片のみ見つかりました。動画の再生開始直後にメディアサイドバーを開き直すと、プレイリストを検出できる場合があります。"
+  },
+  "noVideo": {
+    "message": "直接取得できる動画ファイルは見つかりませんでした。"
+  },
+  "moreCount": {
+    "message": "その他の結果（{count}）"
+  },
+  "searching": {
+    "message": "検索中…"
+  },
+  "scanHelp": {
+    "message": "現在のタブのツールバーでメディアをクリックしてください。動画のあるウェブページでサイドバーを開いてください。"
+  },
+  "audioAccess": {
+    "message": "音声トラックには音声サーバーへのアクセスが必要です。"
+  },
+  "interrupted": {
+    "message": "保存が中断されました。"
+  },
+  "cancelled": {
+    "message": "ダウンロードがキャンセルされました。"
+  },
+  "failed": {
+    "message": "ダウンロードできません。{error}"
+  },
+  "durationLoading": {
+    "message": "長さを確認中…"
+  },
+  "duration": {
+    "message": "動画の長さ：{duration}"
+  },
+  "durationUnknown": {
+    "message": "動画の長さは不明です。"
+  },
+  "resolutionUnknown": {
+    "message": "解像度不明"
+  },
+  "best": {
+    "message": "利用可能な最高画質 · "
+  },
+  "waiting": {
+    "message": "ダウンロード待機中…"
+  },
+  "progress": {
+    "message": "{percent} % · {total} 区間中 {done} 区間 · {size} MB ダウンロード済み"
+  },
+  "merging": {
+    "message": "映像と音声を結合中です。"
+  },
+  "part": {
+    "message": "パート"
+  },
+  "manual": {
+    "message": "{name} を手動で保存"
+  },
+  "saved": {
+    "message": "ダウンロードフォルダーに保存しました。"
+  },
+  "partsSaved": {
+    "message": "{count} 個のパートをダウンロードフォルダーに保存しました。"
+  },
+  "partialSaved": {
+    "message": "{total} ファイル中 {done} ファイルを保存しました。残りのファイルの保存リンクはここに表示されます。"
+  },
+  "loaded": {
+    "message": "{size} MB ダウンロード済み"
+  },
+  "unsupported": {
+    "message": "このメディアアドレスはサポートされていません。"
+  },
+  "playlistHttp": {
+    "message": "プレイリストにアクセスできません（HTTP {status}）。"
+  },
+  "notHls": {
+    "message": "このアドレスは HLS プレイリストを提供していません。"
+  },
+  "noTracks": {
+    "message": "対応する映像と音声トラックが見つかりませんでした。"
+  },
+  "nested": {
+    "message": "入れ子になった画質リストはサポートされていません。"
+  },
+  "live": {
+    "message": "このプレイリストの終端はまだ確認されていません。"
+  },
+  "encrypted": {
+    "message": "暗号化されたプレイリストです。"
+  },
+  "rangeInvalid": {
+    "message": "プレイリストのバイト範囲が無効です。"
+  },
+  "rangeStart": {
+    "message": "バイト範囲の開始位置を特定できません。"
+  },
+  "preview": {
+    "message": "このリストにはプレビューのみ含まれます。通常の動画プレイリストを選択してください。"
+  },
+  "gap": {
+    "message": "配信元が少なくとも一つの区間を欠落として指定しています。このリストから動画全体は取得できません。"
+  },
+  "noInit": {
+    "message": "MP4 初期化ファイルがありません。"
+  },
+  "incomplete": {
+    "message": "プレイリストが不完全です。"
+  },
+  "noTime": {
+    "message": "メディア区間に長さの情報がありません。"
+  },
+  "serverHttp": {
+    "message": "動画サーバーが HTTP {status} を返しました。"
+  },
+  "rangeIncomplete": {
+    "message": "サーバーが不完全なバイト範囲を返しました。"
+  },
+  "rangeMismatch": {
+    "message": "受信したバイト範囲がリストと一致しません。"
+  },
+  "format": {
+    "message": "サーバーが予期しないメディア形式を返しました。"
+  },
+  "trackFormat": {
+    "message": "個別のトラックに互換性のない形式変更が含まれています。"
+  },
+  "trackMissing": {
+    "message": "選択したファイルに映像または音声トラックがありません。"
+  },
+  "trackEmpty": {
+    "message": "二つのトラックのいずれかが空です。"
+  },
+  "unexpected": {
+    "message": "ファイルを処理できませんでした。接続を確認して再試行してください。"
+  }
+}

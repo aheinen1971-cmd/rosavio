@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "Medier"
+  },
+  "video": {
+    "message": "Video"
+  },
+  "scan": {
+    "message": "Søk på nytt"
+  },
+  "more": {
+    "message": "Flere treff"
+  },
+  "downloads": {
+    "message": "Nedlastinger"
+  },
+  "folder": {
+    "message": "Åpne nedlastingsmappe"
+  },
+  "queue": {
+    "message": "Nedlastingskø"
+  },
+  "quality": {
+    "message": "Kvalitet"
+  },
+  "checking": {
+    "message": "Kontrollerer spilleliste …"
+  },
+  "sections": {
+    "message": "Nedlastede segmenter"
+  },
+  "save": {
+    "message": "Lagre video"
+  },
+  "cancel": {
+    "message": "Avbryt"
+  },
+  "restart": {
+    "message": "Klargjør på nytt"
+  },
+  "playlist": {
+    "message": "Spilleliste · {name}"
+  },
+  "details": {
+    "message": "Vis varighet og kvalitet"
+  },
+  "videoAccess": {
+    "message": "Denne nedlastingen krever tilgang til videoserveren."
+  },
+  "queueError": {
+    "message": "Køen kunne ikke åpnes."
+  },
+  "directError": {
+    "message": "Nedlasting avbrutt eller fil utilgjengelig."
+  },
+  "playing": {
+    "message": "Kilde til videoen som spilles"
+  },
+  "noSingle": {
+    "message": "Ingen entydig video under avspilling funnet."
+  },
+  "fragments": {
+    "message": "Bare videofragmenter funnet. Åpne mediesidefeltet igjen kort tid etter at videoen starter for å finne spillelisten."
+  },
+  "noVideo": {
+    "message": "Ingen direkte videofil funnet."
+  },
+  "moreCount": {
+    "message": "Flere treff ({count})"
+  },
+  "searching": {
+    "message": "Søker …"
+  },
+  "scanHelp": {
+    "message": "Klikk på Medier i verktøylinjen for den aktive fanen. Åpne sidefeltet på en nettside med video."
+  },
+  "audioAccess": {
+    "message": "Lydsporet krever tilgang til lydserveren."
+  },
+  "interrupted": {
+    "message": "Lagring avbrutt."
+  },
+  "cancelled": {
+    "message": "Nedlasting avbrutt."
+  },
+  "failed": {
+    "message": "Nedlasting ikke mulig. {error}"
+  },
+  "durationLoading": {
+    "message": "Finner varighet …"
+  },
+  "duration": {
+    "message": "Videoens varighet: {duration}"
+  },
+  "durationUnknown": {
+    "message": "Ukjent videovarighet."
+  },
+  "resolutionUnknown": {
+    "message": "Ukjent oppløsning"
+  },
+  "best": {
+    "message": "Beste tilgjengelige · "
+  },
+  "waiting": {
+    "message": "Venter på nedlasting …"
+  },
+  "progress": {
+    "message": "{percent} % · {done} av {total} segmenter · {size} MB lastet ned"
+  },
+  "merging": {
+    "message": "Slår sammen video og lyd."
+  },
+  "part": {
+    "message": "Del"
+  },
+  "manual": {
+    "message": "Lagre {name} manuelt"
+  },
+  "saved": {
+    "message": "Lagret i nedlastingsmappen."
+  },
+  "partsSaved": {
+    "message": "{count} deler lagret i nedlastingsmappen."
+  },
+  "partialSaved": {
+    "message": "{done} av {total} filer lagret. Her finner du en lenke for å lagre resten."
+  },
+  "loaded": {
+    "message": "{size} MB lastet ned"
+  },
+  "unsupported": {
+    "message": "Denne medieadressen støttes ikke."
+  },
+  "playlistHttp": {
+    "message": "Spillelisten er utilgjengelig (HTTP {status})."
+  },
+  "notHls": {
+    "message": "Adressen gir ikke en HLS-spilleliste."
+  },
+  "noTracks": {
+    "message": "Ingen samsvarende video- og lydspor funnet."
+  },
+  "nested": {
+    "message": "Nestede kvalitetslister støttes ikke."
+  },
+  "live": {
+    "message": "Denne spillelisten har ennå ingen bekreftet slutt."
+  },
+  "encrypted": {
+    "message": "Kryptert spilleliste."
+  },
+  "rangeInvalid": {
+    "message": "Ugyldig byteområde i listen."
+  },
+  "rangeStart": {
+    "message": "Starten på byteområdet kunne ikke bestemmes."
+  },
+  "preview": {
+    "message": "Denne listen inneholder bare forhåndsvisninger. Velg den vanlige videospillelisten."
+  },
+  "gap": {
+    "message": "Tilbyderen markerer minst ett segment som manglende. Hele videoen er ikke tilgjengelig i denne listen."
+  },
+  "noInit": {
+    "message": "Initialiseringsfilen for MP4 mangler."
+  },
+  "incomplete": {
+    "message": "Ufullstendig spilleliste."
+  },
+  "noTime": {
+    "message": "Et mediesegment mangler varighet."
+  },
+  "serverHttp": {
+    "message": "Videoserveren returnerte HTTP {status}."
+  },
+  "rangeIncomplete": {
+    "message": "Serveren returnerte et ufullstendig byteområde."
+  },
+  "rangeMismatch": {
+    "message": "Det mottatte byteområdet samsvarer ikke med listen."
+  },
+  "format": {
+    "message": "Serveren returnerte et uventet medieformat."
+  },
+  "trackFormat": {
+    "message": "De separate sporene inneholder uforenlige formatendringer."
+  },
+  "trackMissing": {
+    "message": "De valgte filene mangler et video- eller lydspor."
+  },
+  "trackEmpty": {
+    "message": "Ett av de to sporene er tomt."
+  },
+  "unexpected": {
+    "message": "Filen kunne ikke behandles. Kontroller tilkoblingen og prøv igjen."
+  }
+}

@@ -1,14 +1,14 @@
 function httpUrl(value, base) {
   const url = new URL(value, base);
-  if (!['http:', 'https:'].includes(url.protocol)) throw Error('Diese Medienadresse wird nicht unterstützt.');
+  if (!['http:', 'https:'].includes(url.protocol)) throw mediaError('unsupported');
   return url.href;
 }
 
 async function readList(url, load) {
   const response = await load(url);
-  if (!response.ok) throw Error('Wiedergabeliste nicht erreichbar (HTTP ' + response.status + ').');
+  if (!response.ok) throw mediaError('playlistHttp', {status:response.status});
   const lines = (await response.text()).trim().split(/\r?\n/).map(s => s.trim()).filter(Boolean);
-  if (lines[0] !== '#EXTM3U') throw Error('Die Adresse liefert keine HLS-Wiedergabeliste.');
+  if (lines[0] !== '#EXTM3U') throw mediaError('notHls');
   return {base:response.url || url, lines};
 }
 
@@ -36,14 +36,14 @@ function variantsOf({lines, base}) {
     const resolution = /^(\d+)x(\d+)$/i.exec(fields.RESOLUTION || '');
     variants.push({url:httpUrl(lines[i+1],base), audioURL:track?.URI ? httpUrl(track.URI,base) : null, height:Number(resolution?.[2] || 0), rate:Number(fields.BANDWIDTH) || 0});
   }
-  if (master && !variants.length) throw Error('Eine gemeinsame Bild- und Tonspur wurde nicht gefunden.');
+  if (master && !variants.length) throw mediaError('noTracks');
   return variants.sort((a,b) => b.height-a.height || b.rate-a.rate);
 }
 
 function mediaPlan({lines, base}) {
-  if (lines.some(s => s.startsWith('#EXT-X-STREAM-INF:'))) throw Error('Verschachtelte Qualitätslisten werden nicht unterstützt.');
-  if (!lines.includes('#EXT-X-ENDLIST')) throw Error('Diese Wiedergabeliste hat noch kein bestätigtes Ende.');
-  if (lines.some(s => s.startsWith('#EXT-X-KEY:') && s !== '#EXT-X-KEY:METHOD=NONE')) throw Error('Verschlüsselte Wiedergabeliste.');
+  if (lines.some(s => s.startsWith('#EXT-X-STREAM-INF:'))) throw mediaError('nested');
+  if (!lines.includes('#EXT-X-ENDLIST')) throw mediaError('live');
+  if (lines.some(s => s.startsWith('#EXT-X-KEY:') && s !== '#EXT-X-KEY:METHOD=NONE')) throw mediaError('encrypted');
   const sections = parseMedia(lines, base);
   const times = lines.filter(s => s.startsWith('#EXTINF:')).map(s => {
     const m = /^#EXTINF:(\d+(?:\.\d+)?)(?:,|$)/.exec(s);

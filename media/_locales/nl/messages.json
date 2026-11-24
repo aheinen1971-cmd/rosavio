@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "Media"
+  },
+  "video": {
+    "message": "Video"
+  },
+  "scan": {
+    "message": "Opnieuw zoeken"
+  },
+  "more": {
+    "message": "Meer resultaten"
+  },
+  "downloads": {
+    "message": "Downloads"
+  },
+  "folder": {
+    "message": "Downloadmap openen"
+  },
+  "queue": {
+    "message": "Downloadwachtrij"
+  },
+  "quality": {
+    "message": "Kwaliteit"
+  },
+  "checking": {
+    "message": "Afspeellijst controleren …"
+  },
+  "sections": {
+    "message": "Gedownloade segmenten"
+  },
+  "save": {
+    "message": "Video opslaan"
+  },
+  "cancel": {
+    "message": "Annuleren"
+  },
+  "restart": {
+    "message": "Opnieuw voorbereiden"
+  },
+  "playlist": {
+    "message": "Afspeellijst · {name}"
+  },
+  "details": {
+    "message": "Duur en kwaliteit bekijken"
+  },
+  "videoAccess": {
+    "message": "Voor deze download is toegang tot de videoserver nodig."
+  },
+  "queueError": {
+    "message": "De wachtrij kon niet worden geopend."
+  },
+  "directError": {
+    "message": "Download geannuleerd of bestand niet beschikbaar."
+  },
+  "playing": {
+    "message": "Bron van de afgespeelde video"
+  },
+  "noSingle": {
+    "message": "Geen unieke afgespeelde video gevonden."
+  },
+  "fragments": {
+    "message": "Alleen videofragmenten gevonden. Open de mediazijbalk kort na het starten van de video opnieuw om de afspeellijst te vinden."
+  },
+  "noVideo": {
+    "message": "Geen direct videobestand gevonden."
+  },
+  "moreCount": {
+    "message": "Meer resultaten ({count})"
+  },
+  "searching": {
+    "message": "Zoeken …"
+  },
+  "scanHelp": {
+    "message": "Klik op Media in de werkbalk van het huidige tabblad. Open de zijbalk op een webpagina met video."
+  },
+  "audioAccess": {
+    "message": "Voor het audiospoor is toegang tot de audioserver nodig."
+  },
+  "interrupted": {
+    "message": "Opslaan onderbroken."
+  },
+  "cancelled": {
+    "message": "Download geannuleerd."
+  },
+  "failed": {
+    "message": "Download niet mogelijk. {error}"
+  },
+  "durationLoading": {
+    "message": "Duur bepalen …"
+  },
+  "duration": {
+    "message": "Videoduur: {duration}"
+  },
+  "durationUnknown": {
+    "message": "Videoduur onbekend."
+  },
+  "resolutionUnknown": {
+    "message": "Onbekende resolutie"
+  },
+  "best": {
+    "message": "Beste beschikbaar · "
+  },
+  "waiting": {
+    "message": "Wachten op download …"
+  },
+  "progress": {
+    "message": "{percent} % · {done} van {total} segmenten · {size} MB gedownload"
+  },
+  "merging": {
+    "message": "Video en audio samenvoegen."
+  },
+  "part": {
+    "message": "Deel"
+  },
+  "manual": {
+    "message": "{name} handmatig opslaan"
+  },
+  "saved": {
+    "message": "Opgeslagen in de downloadmap."
+  },
+  "partsSaved": {
+    "message": "{count} delen opgeslagen in de downloadmap."
+  },
+  "partialSaved": {
+    "message": "{done} van {total} bestanden opgeslagen. Hier staat een opslaglink voor de overige bestanden."
+  },
+  "loaded": {
+    "message": "{size} MB gedownload"
+  },
+  "unsupported": {
+    "message": "Dit media-adres wordt niet ondersteund."
+  },
+  "playlistHttp": {
+    "message": "Afspeellijst niet beschikbaar (HTTP {status})."
+  },
+  "notHls": {
+    "message": "Het adres levert geen HLS-afspeellijst."
+  },
+  "noTracks": {
+    "message": "Geen bijpassend video- en audiospoor gevonden."
+  },
+  "nested": {
+    "message": "Geneste kwaliteitslijsten worden niet ondersteund."
+  },
+  "live": {
+    "message": "Deze afspeellijst heeft nog geen bevestigd einde."
+  },
+  "encrypted": {
+    "message": "Versleutelde afspeellijst."
+  },
+  "rangeInvalid": {
+    "message": "Ongeldig bytebereik in de afspeellijst."
+  },
+  "rangeStart": {
+    "message": "Het begin van een bytebereik kon niet worden bepaald."
+  },
+  "preview": {
+    "message": "Deze lijst bevat alleen voorbeelden. Kies de normale videoafspeellijst."
+  },
+  "gap": {
+    "message": "De aanbieder meldt minstens één ontbrekend segment. De volledige video is niet beschikbaar in deze lijst."
+  },
+  "noInit": {
+    "message": "Het MP4-initialisatiebestand ontbreekt."
+  },
+  "incomplete": {
+    "message": "Onvolledige afspeellijst."
+  },
+  "noTime": {
+    "message": "Een mediasegment heeft geen duur."
+  },
+  "serverHttp": {
+    "message": "De videoserver gaf HTTP {status} terug."
+  },
+  "rangeIncomplete": {
+    "message": "De server leverde een onvolledig bytebereik."
+  },
+  "rangeMismatch": {
+    "message": "Het ontvangen bytebereik komt niet overeen met de lijst."
+  },
+  "format": {
+    "message": "De server leverde een onverwacht mediaformaat."
+  },
+  "trackFormat": {
+    "message": "De afzonderlijke sporen bevatten onverenigbare formaatwisselingen."
+  },
+  "trackMissing": {
+    "message": "Een video- of audiospoor ontbreekt in de geselecteerde bestanden."
+  },
+  "trackEmpty": {
+    "message": "Een van de twee sporen is leeg."
+  },
+  "unexpected": {
+    "message": "Het bestand kon niet worden verwerkt. Controleer de verbinding en probeer het opnieuw."
+  }
+}

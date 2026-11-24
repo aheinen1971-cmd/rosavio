@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "Multimédia"
+  },
+  "video": {
+    "message": "Vídeo"
+  },
+  "scan": {
+    "message": "Pesquisar novamente"
+  },
+  "more": {
+    "message": "Mais resultados"
+  },
+  "downloads": {
+    "message": "Transferências"
+  },
+  "folder": {
+    "message": "Abrir pasta de transferências"
+  },
+  "queue": {
+    "message": "Fila de transferências"
+  },
+  "quality": {
+    "message": "Qualidade"
+  },
+  "checking": {
+    "message": "A verificar a lista de reprodução …"
+  },
+  "sections": {
+    "message": "Segmentos transferidos"
+  },
+  "save": {
+    "message": "Guardar vídeo"
+  },
+  "cancel": {
+    "message": "Cancelar"
+  },
+  "restart": {
+    "message": "Preparar novamente"
+  },
+  "playlist": {
+    "message": "Lista de reprodução · {name}"
+  },
+  "details": {
+    "message": "Ver duração e qualidade"
+  },
+  "videoAccess": {
+    "message": "Esta transferência requer acesso ao servidor de vídeo."
+  },
+  "queueError": {
+    "message": "Não foi possível abrir a fila."
+  },
+  "directError": {
+    "message": "Transferência cancelada ou ficheiro indisponível."
+  },
+  "playing": {
+    "message": "Origem do vídeo em reprodução"
+  },
+  "noSingle": {
+    "message": "Não foi identificado um único vídeo em reprodução."
+  },
+  "fragments": {
+    "message": "Foram encontrados apenas fragmentos. Reabra a barra lateral multimédia pouco depois de iniciar o vídeo para encontrar a lista de reprodução."
+  },
+  "noVideo": {
+    "message": "Não foi encontrado um ficheiro de vídeo direto."
+  },
+  "moreCount": {
+    "message": "Mais resultados ({count})"
+  },
+  "searching": {
+    "message": "A pesquisar …"
+  },
+  "scanHelp": {
+    "message": "Clique em Multimédia na barra de ferramentas do separador atual. Abra a barra lateral numa página com vídeo."
+  },
+  "audioAccess": {
+    "message": "A faixa de áudio requer acesso ao servidor de áudio."
+  },
+  "interrupted": {
+    "message": "Gravação interrompida."
+  },
+  "cancelled": {
+    "message": "Transferência cancelada."
+  },
+  "failed": {
+    "message": "Não é possível transferir. {error}"
+  },
+  "durationLoading": {
+    "message": "A determinar a duração …"
+  },
+  "duration": {
+    "message": "Duração do vídeo: {duration}"
+  },
+  "durationUnknown": {
+    "message": "Duração do vídeo desconhecida."
+  },
+  "resolutionUnknown": {
+    "message": "Resolução desconhecida"
+  },
+  "best": {
+    "message": "Melhor disponível · "
+  },
+  "waiting": {
+    "message": "A aguardar transferência …"
+  },
+  "progress": {
+    "message": "{percent} % · {done} de {total} segmentos · {size} MB transferidos"
+  },
+  "merging": {
+    "message": "A juntar vídeo e áudio."
+  },
+  "part": {
+    "message": "Parte"
+  },
+  "manual": {
+    "message": "Guardar {name} manualmente"
+  },
+  "saved": {
+    "message": "Guardado na pasta de transferências."
+  },
+  "partsSaved": {
+    "message": "{count} partes guardadas na pasta de transferências."
+  },
+  "partialSaved": {
+    "message": "Foram guardados {done} de {total} ficheiros. Está aqui disponível uma ligação para guardar os restantes."
+  },
+  "loaded": {
+    "message": "{size} MB transferidos"
+  },
+  "unsupported": {
+    "message": "Este endereço multimédia não é suportado."
+  },
+  "playlistHttp": {
+    "message": "Lista de reprodução indisponível (HTTP {status})."
+  },
+  "notHls": {
+    "message": "O endereço não fornece uma lista de reprodução HLS."
+  },
+  "noTracks": {
+    "message": "Não foram encontradas faixas de vídeo e áudio correspondentes."
+  },
+  "nested": {
+    "message": "Não são suportadas listas de qualidade aninhadas."
+  },
+  "live": {
+    "message": "Esta lista de reprodução ainda não tem um fim confirmado."
+  },
+  "encrypted": {
+    "message": "Lista de reprodução encriptada."
+  },
+  "rangeInvalid": {
+    "message": "Intervalo de bytes inválido na lista."
+  },
+  "rangeStart": {
+    "message": "Não foi possível determinar o início do intervalo de bytes."
+  },
+  "preview": {
+    "message": "Esta lista contém apenas pré-visualizações. Selecione a lista de vídeo normal."
+  },
+  "gap": {
+    "message": "O fornecedor assinala pelo menos um segmento em falta. O vídeo completo não está disponível nesta lista."
+  },
+  "noInit": {
+    "message": "Falta o ficheiro de inicialização MP4."
+  },
+  "incomplete": {
+    "message": "Lista de reprodução incompleta."
+  },
+  "noTime": {
+    "message": "Um segmento multimédia não tem duração."
+  },
+  "serverHttp": {
+    "message": "O servidor de vídeo devolveu HTTP {status}."
+  },
+  "rangeIncomplete": {
+    "message": "O servidor devolveu um intervalo de bytes incompleto."
+  },
+  "rangeMismatch": {
+    "message": "O intervalo de bytes recebido não corresponde à lista."
+  },
+  "format": {
+    "message": "O servidor devolveu um formato multimédia inesperado."
+  },
+  "trackFormat": {
+    "message": "As faixas separadas contêm alterações de formato incompatíveis."
+  },
+  "trackMissing": {
+    "message": "Falta uma faixa de vídeo ou áudio nos ficheiros selecionados."
+  },
+  "trackEmpty": {
+    "message": "Uma das duas faixas está vazia."
+  },
+  "unexpected": {
+    "message": "Não foi possível processar o ficheiro. Verifique a ligação e tente novamente."
+  }
+}

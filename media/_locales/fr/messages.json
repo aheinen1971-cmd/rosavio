@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "Médias"
+  },
+  "video": {
+    "message": "Vidéo"
+  },
+  "scan": {
+    "message": "Rechercher à nouveau"
+  },
+  "more": {
+    "message": "Autres résultats"
+  },
+  "downloads": {
+    "message": "Téléchargements"
+  },
+  "folder": {
+    "message": "Ouvrir le dossier des téléchargements"
+  },
+  "queue": {
+    "message": "File de téléchargement"
+  },
+  "quality": {
+    "message": "Qualité"
+  },
+  "checking": {
+    "message": "Vérification de la liste de lecture …"
+  },
+  "sections": {
+    "message": "Segments téléchargés"
+  },
+  "save": {
+    "message": "Enregistrer la vidéo"
+  },
+  "cancel": {
+    "message": "Annuler"
+  },
+  "restart": {
+    "message": "Préparer à nouveau"
+  },
+  "playlist": {
+    "message": "Liste de lecture · {name}"
+  },
+  "details": {
+    "message": "Voir la durée et la qualité"
+  },
+  "videoAccess": {
+    "message": "Ce téléchargement nécessite l’accès au serveur vidéo."
+  },
+  "queueError": {
+    "message": "Impossible d’ouvrir la file."
+  },
+  "directError": {
+    "message": "Téléchargement annulé ou fichier inaccessible."
+  },
+  "playing": {
+    "message": "Source de la vidéo en cours"
+  },
+  "noSingle": {
+    "message": "Aucune vidéo en cours identifiée de façon unique."
+  },
+  "fragments": {
+    "message": "Seuls des fragments vidéo ont été trouvés. Rouvrez le panneau des médias peu après le démarrage de la vidéo pour trouver la liste de lecture."
+  },
+  "noVideo": {
+    "message": "Aucun fichier vidéo direct trouvé."
+  },
+  "moreCount": {
+    "message": "Autres résultats ({count})"
+  },
+  "searching": {
+    "message": "Recherche en cours …"
+  },
+  "scanHelp": {
+    "message": "Cliquez sur Médias dans la barre d’outils de l’onglet actif. Ouvrez le panneau sur une page contenant une vidéo."
+  },
+  "audioAccess": {
+    "message": "La piste audio nécessite l’accès au serveur audio."
+  },
+  "interrupted": {
+    "message": "Enregistrement interrompu."
+  },
+  "cancelled": {
+    "message": "Téléchargement annulé."
+  },
+  "failed": {
+    "message": "Téléchargement impossible. {error}"
+  },
+  "durationLoading": {
+    "message": "Calcul de la durée …"
+  },
+  "duration": {
+    "message": "Durée de la vidéo : {duration}"
+  },
+  "durationUnknown": {
+    "message": "Durée de la vidéo inconnue."
+  },
+  "resolutionUnknown": {
+    "message": "Résolution inconnue"
+  },
+  "best": {
+    "message": "Meilleure disponible · "
+  },
+  "waiting": {
+    "message": "En attente du téléchargement …"
+  },
+  "progress": {
+    "message": "{percent} % · {done} sur {total} segments · {size} Mo téléchargés"
+  },
+  "merging": {
+    "message": "Fusion de la vidéo et de l’audio."
+  },
+  "part": {
+    "message": "Partie"
+  },
+  "manual": {
+    "message": "Enregistrer {name} manuellement"
+  },
+  "saved": {
+    "message": "Enregistré dans le dossier des téléchargements."
+  },
+  "partsSaved": {
+    "message": "{count} parties enregistrées dans le dossier des téléchargements."
+  },
+  "partialSaved": {
+    "message": "{done} fichiers sur {total} enregistrés. Un lien d’enregistrement est disponible ici pour les autres fichiers."
+  },
+  "loaded": {
+    "message": "{size} Mo téléchargés"
+  },
+  "unsupported": {
+    "message": "Cette adresse de média n’est pas prise en charge."
+  },
+  "playlistHttp": {
+    "message": "Liste de lecture inaccessible (HTTP {status})."
+  },
+  "notHls": {
+    "message": "Cette adresse ne fournit pas de liste de lecture HLS."
+  },
+  "noTracks": {
+    "message": "Aucune piste vidéo et audio correspondante trouvée."
+  },
+  "nested": {
+    "message": "Les listes de qualité imbriquées ne sont pas prises en charge."
+  },
+  "live": {
+    "message": "Cette liste de lecture n’a pas encore de fin confirmée."
+  },
+  "encrypted": {
+    "message": "Liste de lecture chiffrée."
+  },
+  "rangeInvalid": {
+    "message": "Plage d’octets invalide dans la liste de lecture."
+  },
+  "rangeStart": {
+    "message": "Impossible de déterminer le début d’une plage d’octets."
+  },
+  "preview": {
+    "message": "Cette liste ne contient que des aperçus. Sélectionnez la liste de lecture vidéo normale."
+  },
+  "gap": {
+    "message": "Le fournisseur indique qu’au moins un segment manque. La vidéo complète n’est pas disponible dans cette liste."
+  },
+  "noInit": {
+    "message": "Le fichier d’initialisation MP4 est manquant."
+  },
+  "incomplete": {
+    "message": "Liste de lecture incomplète."
+  },
+  "noTime": {
+    "message": "Un segment de média n’a pas de durée."
+  },
+  "serverHttp": {
+    "message": "Le serveur vidéo a renvoyé HTTP {status}."
+  },
+  "rangeIncomplete": {
+    "message": "Le serveur a renvoyé une plage d’octets incomplète."
+  },
+  "rangeMismatch": {
+    "message": "La plage d’octets reçue ne correspond pas à la liste."
+  },
+  "format": {
+    "message": "Le serveur a renvoyé un format de média inattendu."
+  },
+  "trackFormat": {
+    "message": "Les pistes séparées comportent des changements de format incompatibles."
+  },
+  "trackMissing": {
+    "message": "Une piste vidéo ou audio manque dans les fichiers sélectionnés."
+  },
+  "trackEmpty": {
+    "message": "L’une des deux pistes est vide."
+  },
+  "unexpected": {
+    "message": "Impossible de traiter le fichier. Vérifiez la connexion et réessayez."
+  }
+}

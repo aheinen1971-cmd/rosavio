@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "Medien"
+  },
+  "video": {
+    "message": "Video"
+  },
+  "scan": {
+    "message": "Erneut suchen"
+  },
+  "more": {
+    "message": "Weitere Treffer"
+  },
+  "downloads": {
+    "message": "Downloads"
+  },
+  "folder": {
+    "message": "Downloadordner öffnen"
+  },
+  "queue": {
+    "message": "Download-Warteschlange"
+  },
+  "quality": {
+    "message": "Qualität"
+  },
+  "checking": {
+    "message": "Wiedergabeliste wird geprüft …"
+  },
+  "sections": {
+    "message": "Geladene Abschnitte"
+  },
+  "save": {
+    "message": "Video speichern"
+  },
+  "cancel": {
+    "message": "Abbrechen"
+  },
+  "restart": {
+    "message": "Erneut vorbereiten"
+  },
+  "playlist": {
+    "message": "Wiedergabeliste · {name}"
+  },
+  "details": {
+    "message": "Dauer und Qualität ansehen"
+  },
+  "videoAccess": {
+    "message": "Für diesen Download ist Zugriff auf den Videoserver erforderlich."
+  },
+  "queueError": {
+    "message": "Die Warteschlange konnte nicht geöffnet werden."
+  },
+  "directError": {
+    "message": "Download abgebrochen oder Datei nicht erreichbar."
+  },
+  "playing": {
+    "message": "Quelle des laufenden Videos"
+  },
+  "noSingle": {
+    "message": "Kein einzelnes laufendes Video zugeordnet."
+  },
+  "fragments": {
+    "message": "Nur einzelne Videostücke erkannt. Öffne die Medien-Seitenleiste kurz nach dem Start des Videos erneut, damit sie die Wiedergabeliste finden kann."
+  },
+  "noVideo": {
+    "message": "Keine direkte Videodatei gefunden."
+  },
+  "moreCount": {
+    "message": "Weitere Treffer ({count})"
+  },
+  "searching": {
+    "message": "Suche läuft …"
+  },
+  "scanHelp": {
+    "message": "Klicke auf Medien in der Symbolleiste für den aktuellen Tab. Öffne die Seitenleiste auf einer Webseite mit Video."
+  },
+  "audioAccess": {
+    "message": "Für die Tonspur ist Zugriff auf den Audioserver erforderlich."
+  },
+  "interrupted": {
+    "message": "Speichern unterbrochen."
+  },
+  "cancelled": {
+    "message": "Download abgebrochen."
+  },
+  "failed": {
+    "message": "Download nicht möglich. {error}"
+  },
+  "durationLoading": {
+    "message": "Dauer wird ermittelt …"
+  },
+  "duration": {
+    "message": "Videolänge: {duration}"
+  },
+  "durationUnknown": {
+    "message": "Videolänge unbekannt."
+  },
+  "resolutionUnknown": {
+    "message": "Auflösung unbekannt"
+  },
+  "best": {
+    "message": "Beste verfügbare · "
+  },
+  "waiting": {
+    "message": "Wartet auf Download …"
+  },
+  "progress": {
+    "message": "{percent} % · {done} von {total} Abschnitten · {size} MB geladen"
+  },
+  "merging": {
+    "message": "Bild und Ton werden zusammengefügt."
+  },
+  "part": {
+    "message": "Teil"
+  },
+  "manual": {
+    "message": "{name} manuell speichern"
+  },
+  "saved": {
+    "message": "Im Downloadordner gespeichert."
+  },
+  "partsSaved": {
+    "message": "{count} Teile im Downloadordner gespeichert."
+  },
+  "partialSaved": {
+    "message": "{done} von {total} Dateien gespeichert. Für die übrigen Dateien findest du hier einen Speicherlink."
+  },
+  "loaded": {
+    "message": "{size} MB geladen"
+  },
+  "unsupported": {
+    "message": "Diese Medienadresse wird nicht unterstützt."
+  },
+  "playlistHttp": {
+    "message": "Wiedergabeliste nicht erreichbar (HTTP {status})."
+  },
+  "notHls": {
+    "message": "Die Adresse liefert keine HLS-Wiedergabeliste."
+  },
+  "noTracks": {
+    "message": "Eine gemeinsame Bild- und Tonspur wurde nicht gefunden."
+  },
+  "nested": {
+    "message": "Verschachtelte Qualitätslisten werden nicht unterstützt."
+  },
+  "live": {
+    "message": "Diese Wiedergabeliste hat noch kein bestätigtes Ende."
+  },
+  "encrypted": {
+    "message": "Verschlüsselte Wiedergabeliste."
+  },
+  "rangeInvalid": {
+    "message": "Ungültiger Bytebereich in der Wiedergabeliste."
+  },
+  "rangeStart": {
+    "message": "Der Start eines Bytebereichs lässt sich nicht bestimmen."
+  },
+  "preview": {
+    "message": "Diese Liste enthält nur Vorschaubilder. Wähle die normale Video-Wiedergabeliste."
+  },
+  "gap": {
+    "message": "Der Anbieter kennzeichnet mindestens einen Abschnitt als fehlend. Das vollständige Video ist in dieser Liste nicht verfügbar."
+  },
+  "noInit": {
+    "message": "Die MP4-Startdatei fehlt."
+  },
+  "incomplete": {
+    "message": "Unvollständige Wiedergabeliste."
+  },
+  "noTime": {
+    "message": "Ein Medienabschnitt hat keine Zeitangabe."
+  },
+  "serverHttp": {
+    "message": "Der Videoserver antwortet mit HTTP {status}."
+  },
+  "rangeIncomplete": {
+    "message": "Der Server liefert den angeforderten Bytebereich unvollständig."
+  },
+  "rangeMismatch": {
+    "message": "Der empfangene Bytebereich stimmt nicht mit der Liste überein."
+  },
+  "format": {
+    "message": "Der Server liefert ein unerwartetes Medienformat."
+  },
+  "trackFormat": {
+    "message": "Die getrennten Spuren enthalten inkompatible Formatwechsel."
+  },
+  "trackMissing": {
+    "message": "In den ausgewählten Dateien fehlt die Bild- oder Tonspur."
+  },
+  "trackEmpty": {
+    "message": "Eine der beiden Spuren ist leer."
+  },
+  "unexpected": {
+    "message": "Die Datei konnte nicht verarbeitet werden. Prüfe die Verbindung und versuche es erneut."
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "Media"
+  },
+  "video": {
+    "message": "Video"
+  },
+  "scan": {
+    "message": "Search again"
+  },
+  "more": {
+    "message": "More results"
+  },
+  "downloads": {
+    "message": "Downloads"
+  },
+  "folder": {
+    "message": "Open downloads folder"
+  },
+  "queue": {
+    "message": "Download queue"
+  },
+  "quality": {
+    "message": "Quality"
+  },
+  "checking": {
+    "message": "Checking playlist …"
+  },
+  "sections": {
+    "message": "Downloaded segments"
+  },
+  "save": {
+    "message": "Save video"
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "restart": {
+    "message": "Prepare again"
+  },
+  "playlist": {
+    "message": "Playlist · {name}"
+  },
+  "details": {
+    "message": "View duration and quality"
+  },
+  "videoAccess": {
+    "message": "This download requires access to the video server."
+  },
+  "queueError": {
+    "message": "The queue could not be opened."
+  },
+  "directError": {
+    "message": "Download cancelled or file unavailable."
+  },
+  "playing": {
+    "message": "Source of the playing video"
+  },
+  "noSingle": {
+    "message": "No single playing video identified."
+  },
+  "fragments": {
+    "message": "Only video fragments found. Reopen the media sidebar shortly after starting the video so it can find the playlist."
+  },
+  "noVideo": {
+    "message": "No direct video file found."
+  },
+  "moreCount": {
+    "message": "More results ({count})"
+  },
+  "searching": {
+    "message": "Searching …"
+  },
+  "scanHelp": {
+    "message": "Click Media in the toolbar for the current tab. Open the sidebar on a webpage with video."
+  },
+  "audioAccess": {
+    "message": "The audio track requires access to the audio server."
+  },
+  "interrupted": {
+    "message": "Saving interrupted."
+  },
+  "cancelled": {
+    "message": "Download cancelled."
+  },
+  "failed": {
+    "message": "Download unavailable. {error}"
+  },
+  "durationLoading": {
+    "message": "Determining duration …"
+  },
+  "duration": {
+    "message": "Video duration: {duration}"
+  },
+  "durationUnknown": {
+    "message": "Video duration unknown."
+  },
+  "resolutionUnknown": {
+    "message": "Unknown resolution"
+  },
+  "best": {
+    "message": "Best available · "
+  },
+  "waiting": {
+    "message": "Waiting to download …"
+  },
+  "progress": {
+    "message": "{percent} % · {done} of {total} segments · {size} MB downloaded"
+  },
+  "merging": {
+    "message": "Merging video and audio."
+  },
+  "part": {
+    "message": "Part"
+  },
+  "manual": {
+    "message": "Save {name} manually"
+  },
+  "saved": {
+    "message": "Saved in the downloads folder."
+  },
+  "partsSaved": {
+    "message": "{count} parts saved in the downloads folder."
+  },
+  "partialSaved": {
+    "message": "{done} of {total} files saved. A save link is available here for the remaining files."
+  },
+  "loaded": {
+    "message": "{size} MB downloaded"
+  },
+  "unsupported": {
+    "message": "This media address is not supported."
+  },
+  "playlistHttp": {
+    "message": "Playlist unavailable (HTTP {status})."
+  },
+  "notHls": {
+    "message": "The address does not provide an HLS playlist."
+  },
+  "noTracks": {
+    "message": "No matching video and audio track found."
+  },
+  "nested": {
+    "message": "Nested quality lists are not supported."
+  },
+  "live": {
+    "message": "This playlist has no confirmed ending yet."
+  },
+  "encrypted": {
+    "message": "Encrypted playlist."
+  },
+  "rangeInvalid": {
+    "message": "Invalid byte range in the playlist."
+  },
+  "rangeStart": {
+    "message": "The start of a byte range could not be determined."
+  },
+  "preview": {
+    "message": "This list contains previews only. Select the normal video playlist."
+  },
+  "gap": {
+    "message": "The provider marks at least one segment as missing. The complete video is not available in this list."
+  },
+  "noInit": {
+    "message": "The MP4 initialization file is missing."
+  },
+  "incomplete": {
+    "message": "Incomplete playlist."
+  },
+  "noTime": {
+    "message": "A media segment has no duration."
+  },
+  "serverHttp": {
+    "message": "The video server returned HTTP {status}."
+  },
+  "rangeIncomplete": {
+    "message": "The server returned an incomplete byte range."
+  },
+  "rangeMismatch": {
+    "message": "The received byte range does not match the playlist."
+  },
+  "format": {
+    "message": "The server returned an unexpected media format."
+  },
+  "trackFormat": {
+    "message": "The separate tracks contain incompatible format changes."
+  },
+  "trackMissing": {
+    "message": "The selected files are missing a video or audio track."
+  },
+  "trackEmpty": {
+    "message": "One of the two tracks is empty."
+  },
+  "unexpected": {
+    "message": "The file could not be processed. Check your connection and try again."
+  }
+}

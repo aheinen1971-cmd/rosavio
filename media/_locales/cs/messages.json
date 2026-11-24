@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "Média"
+  },
+  "video": {
+    "message": "Video"
+  },
+  "scan": {
+    "message": "Hledat znovu"
+  },
+  "more": {
+    "message": "Další výsledky"
+  },
+  "downloads": {
+    "message": "Stahování"
+  },
+  "folder": {
+    "message": "Otevřít složku stažených souborů"
+  },
+  "queue": {
+    "message": "Fronta stahování"
+  },
+  "quality": {
+    "message": "Kvalita"
+  },
+  "checking": {
+    "message": "Kontrola seznamu skladeb …"
+  },
+  "sections": {
+    "message": "Stažené segmenty"
+  },
+  "save": {
+    "message": "Uložit video"
+  },
+  "cancel": {
+    "message": "Zrušit"
+  },
+  "restart": {
+    "message": "Připravit znovu"
+  },
+  "playlist": {
+    "message": "Seznam skladeb · {name}"
+  },
+  "details": {
+    "message": "Zobrazit délku a kvalitu"
+  },
+  "videoAccess": {
+    "message": "Toto stahování vyžaduje přístup k videoserveru."
+  },
+  "queueError": {
+    "message": "Frontu se nepodařilo otevřít."
+  },
+  "directError": {
+    "message": "Stahování zrušeno nebo soubor není dostupný."
+  },
+  "playing": {
+    "message": "Zdroj přehrávaného videa"
+  },
+  "noSingle": {
+    "message": "Nebylo jednoznačně určeno přehrávané video."
+  },
+  "fragments": {
+    "message": "Nalezeny pouze části videa. Krátce po spuštění videa znovu otevřete postranní panel médií, aby mohl najít seznam skladeb."
+  },
+  "noVideo": {
+    "message": "Nebyl nalezen přímý videosoubor."
+  },
+  "moreCount": {
+    "message": "Další výsledky ({count})"
+  },
+  "searching": {
+    "message": "Vyhledávání …"
+  },
+  "scanHelp": {
+    "message": "Klikněte na Média na liště aktuálního panelu. Otevřete postranní panel na stránce s videem."
+  },
+  "audioAccess": {
+    "message": "Zvuková stopa vyžaduje přístup ke zvukovému serveru."
+  },
+  "interrupted": {
+    "message": "Ukládání přerušeno."
+  },
+  "cancelled": {
+    "message": "Stahování zrušeno."
+  },
+  "failed": {
+    "message": "Stahování není možné. {error}"
+  },
+  "durationLoading": {
+    "message": "Zjišťování délky …"
+  },
+  "duration": {
+    "message": "Délka videa: {duration}"
+  },
+  "durationUnknown": {
+    "message": "Délka videa není známa."
+  },
+  "resolutionUnknown": {
+    "message": "Neznámé rozlišení"
+  },
+  "best": {
+    "message": "Nejlepší dostupná · "
+  },
+  "waiting": {
+    "message": "Čekání na stažení …"
+  },
+  "progress": {
+    "message": "{percent} % · {done} z {total} segmentů · staženo {size} MB"
+  },
+  "merging": {
+    "message": "Spojování obrazu a zvuku."
+  },
+  "part": {
+    "message": "Část"
+  },
+  "manual": {
+    "message": "Uložit {name} ručně"
+  },
+  "saved": {
+    "message": "Uloženo ve složce stažených souborů."
+  },
+  "partsSaved": {
+    "message": "Počet částí uložených ve složce stažených souborů: {count}."
+  },
+  "partialSaved": {
+    "message": "Uloženo {done} z {total} souborů. Odkaz pro uložení zbývajících souborů najdete zde."
+  },
+  "loaded": {
+    "message": "Staženo {size} MB"
+  },
+  "unsupported": {
+    "message": "Tato adresa média není podporována."
+  },
+  "playlistHttp": {
+    "message": "Seznam skladeb není dostupný (HTTP {status})."
+  },
+  "notHls": {
+    "message": "Adresa neposkytuje seznam skladeb HLS."
+  },
+  "noTracks": {
+    "message": "Nebyla nalezena odpovídající obrazová a zvuková stopa."
+  },
+  "nested": {
+    "message": "Vnořené seznamy kvality nejsou podporovány."
+  },
+  "live": {
+    "message": "Tento seznam skladeb zatím nemá potvrzený konec."
+  },
+  "encrypted": {
+    "message": "Šifrovaný seznam skladeb."
+  },
+  "rangeInvalid": {
+    "message": "Neplatný rozsah bajtů v seznamu."
+  },
+  "rangeStart": {
+    "message": "Nelze určit začátek rozsahu bajtů."
+  },
+  "preview": {
+    "message": "Tento seznam obsahuje pouze náhledy. Vyberte běžný seznam videa."
+  },
+  "gap": {
+    "message": "Poskytovatel označil alespoň jeden segment jako chybějící. Úplné video není v tomto seznamu dostupné."
+  },
+  "noInit": {
+    "message": "Chybí inicializační soubor MP4."
+  },
+  "incomplete": {
+    "message": "Neúplný seznam skladeb."
+  },
+  "noTime": {
+    "message": "Segment média nemá údaj o délce."
+  },
+  "serverHttp": {
+    "message": "Videoserver vrátil HTTP {status}."
+  },
+  "rangeIncomplete": {
+    "message": "Server vrátil neúplný rozsah bajtů."
+  },
+  "rangeMismatch": {
+    "message": "Přijatý rozsah bajtů neodpovídá seznamu."
+  },
+  "format": {
+    "message": "Server vrátil neočekávaný formát média."
+  },
+  "trackFormat": {
+    "message": "Oddělené stopy obsahují nekompatibilní změny formátu."
+  },
+  "trackMissing": {
+    "message": "Ve vybraných souborech chybí obrazová nebo zvuková stopa."
+  },
+  "trackEmpty": {
+    "message": "Jedna ze dvou stop je prázdná."
+  },
+  "unexpected": {
+    "message": "Soubor nelze zpracovat. Zkontrolujte připojení a zkuste to znovu."
+  }
+}

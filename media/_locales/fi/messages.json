@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "Media"
+  },
+  "video": {
+    "message": "Video"
+  },
+  "scan": {
+    "message": "Hae uudelleen"
+  },
+  "more": {
+    "message": "Lisää tuloksia"
+  },
+  "downloads": {
+    "message": "Lataukset"
+  },
+  "folder": {
+    "message": "Avaa latauskansio"
+  },
+  "queue": {
+    "message": "Latausjono"
+  },
+  "quality": {
+    "message": "Laatu"
+  },
+  "checking": {
+    "message": "Tarkistetaan soittolistaa …"
+  },
+  "sections": {
+    "message": "Ladatut osat"
+  },
+  "save": {
+    "message": "Tallenna video"
+  },
+  "cancel": {
+    "message": "Peruuta"
+  },
+  "restart": {
+    "message": "Valmistele uudelleen"
+  },
+  "playlist": {
+    "message": "Soittolista · {name}"
+  },
+  "details": {
+    "message": "Näytä kesto ja laatu"
+  },
+  "videoAccess": {
+    "message": "Tämä lataus tarvitsee pääsyn videopalvelimelle."
+  },
+  "queueError": {
+    "message": "Jonoa ei voitu avata."
+  },
+  "directError": {
+    "message": "Lataus peruutettu tai tiedosto ei ole saatavilla."
+  },
+  "playing": {
+    "message": "Toistettavan videon lähde"
+  },
+  "noSingle": {
+    "message": "Yksittäistä toistettavaa videota ei tunnistettu."
+  },
+  "fragments": {
+    "message": "Löytyi vain videon osia. Avaa median sivupalkki uudelleen pian videon alkamisen jälkeen, jotta soittolista löytyy."
+  },
+  "noVideo": {
+    "message": "Suoraa videotiedostoa ei löytynyt."
+  },
+  "moreCount": {
+    "message": "Lisää tuloksia ({count})"
+  },
+  "searching": {
+    "message": "Haetaan …"
+  },
+  "scanHelp": {
+    "message": "Napsauta nykyisen välilehden työkalupalkin Media-painiketta. Avaa sivupalkki videota sisältävällä sivulla."
+  },
+  "audioAccess": {
+    "message": "Ääniraita tarvitsee pääsyn äänipalvelimelle."
+  },
+  "interrupted": {
+    "message": "Tallennus keskeytyi."
+  },
+  "cancelled": {
+    "message": "Lataus peruutettu."
+  },
+  "failed": {
+    "message": "Lataus ei onnistu. {error}"
+  },
+  "durationLoading": {
+    "message": "Selvitetään kestoa …"
+  },
+  "duration": {
+    "message": "Videon kesto: {duration}"
+  },
+  "durationUnknown": {
+    "message": "Videon kesto ei ole tiedossa."
+  },
+  "resolutionUnknown": {
+    "message": "Tuntematon tarkkuus"
+  },
+  "best": {
+    "message": "Paras saatavilla oleva · "
+  },
+  "waiting": {
+    "message": "Odotetaan latausta …"
+  },
+  "progress": {
+    "message": "{percent} % · {done}/{total} osaa · {size} Mt ladattu"
+  },
+  "merging": {
+    "message": "Yhdistetään kuvaa ja ääntä."
+  },
+  "part": {
+    "message": "Osa"
+  },
+  "manual": {
+    "message": "Tallenna {name} käsin"
+  },
+  "saved": {
+    "message": "Tallennettu latauskansioon."
+  },
+  "partsSaved": {
+    "message": "{count} osaa tallennettu latauskansioon."
+  },
+  "partialSaved": {
+    "message": "{done}/{total} tiedostoa tallennettu. Muiden tiedostojen tallennuslinkit löytyvät täältä."
+  },
+  "loaded": {
+    "message": "{size} Mt ladattu"
+  },
+  "unsupported": {
+    "message": "Tätä mediaosoitetta ei tueta."
+  },
+  "playlistHttp": {
+    "message": "Soittolista ei ole saatavilla (HTTP {status})."
+  },
+  "notHls": {
+    "message": "Osoite ei tarjoa HLS-soittolistaa."
+  },
+  "noTracks": {
+    "message": "Yhteensopivia kuva- ja ääniraitoja ei löytynyt."
+  },
+  "nested": {
+    "message": "Sisäkkäisiä laatuluetteloita ei tueta."
+  },
+  "live": {
+    "message": "Tällä soittolistalla ei vielä ole vahvistettua loppua."
+  },
+  "encrypted": {
+    "message": "Salattu soittolista."
+  },
+  "rangeInvalid": {
+    "message": "Virheellinen tavualue soittolistassa."
+  },
+  "rangeStart": {
+    "message": "Tavualueen alkua ei voitu määrittää."
+  },
+  "preview": {
+    "message": "Luettelo sisältää vain esikatseluita. Valitse tavallinen videon soittolista."
+  },
+  "gap": {
+    "message": "Tarjoaja ilmoittaa vähintään yhden osan puuttuvan. Koko video ei ole saatavilla tässä luettelossa."
+  },
+  "noInit": {
+    "message": "MP4-alustustiedosto puuttuu."
+  },
+  "incomplete": {
+    "message": "Puutteellinen soittolista."
+  },
+  "noTime": {
+    "message": "Median osalta puuttuu kesto."
+  },
+  "serverHttp": {
+    "message": "Videopalvelin palautti HTTP-koodin {status}."
+  },
+  "rangeIncomplete": {
+    "message": "Palvelin palautti puutteellisen tavualueen."
+  },
+  "rangeMismatch": {
+    "message": "Vastaanotettu tavualue ei vastaa luetteloa."
+  },
+  "format": {
+    "message": "Palvelin palautti odottamattoman mediamuodon."
+  },
+  "trackFormat": {
+    "message": "Erilliset raidat sisältävät yhteensopimattomia muodonmuutoksia."
+  },
+  "trackMissing": {
+    "message": "Valituista tiedostoista puuttuu kuva- tai ääniraita."
+  },
+  "trackEmpty": {
+    "message": "Toinen raidoista on tyhjä."
+  },
+  "unexpected": {
+    "message": "Tiedostoa ei voitu käsitellä. Tarkista yhteys ja yritä uudelleen."
+  }
+}

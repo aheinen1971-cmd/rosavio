@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "Multimedia"
+  },
+  "video": {
+    "message": "Wideo"
+  },
+  "scan": {
+    "message": "Szukaj ponownie"
+  },
+  "more": {
+    "message": "Więcej wyników"
+  },
+  "downloads": {
+    "message": "Pobrane"
+  },
+  "folder": {
+    "message": "Otwórz folder pobierania"
+  },
+  "queue": {
+    "message": "Kolejka pobierania"
+  },
+  "quality": {
+    "message": "Jakość"
+  },
+  "checking": {
+    "message": "Sprawdzanie listy odtwarzania …"
+  },
+  "sections": {
+    "message": "Pobrane segmenty"
+  },
+  "save": {
+    "message": "Zapisz wideo"
+  },
+  "cancel": {
+    "message": "Anuluj"
+  },
+  "restart": {
+    "message": "Przygotuj ponownie"
+  },
+  "playlist": {
+    "message": "Lista odtwarzania · {name}"
+  },
+  "details": {
+    "message": "Zobacz czas trwania i jakość"
+  },
+  "videoAccess": {
+    "message": "To pobieranie wymaga dostępu do serwera wideo."
+  },
+  "queueError": {
+    "message": "Nie udało się otworzyć kolejki."
+  },
+  "directError": {
+    "message": "Pobieranie anulowano lub plik jest niedostępny."
+  },
+  "playing": {
+    "message": "Źródło odtwarzanego wideo"
+  },
+  "noSingle": {
+    "message": "Nie zidentyfikowano jednego odtwarzanego wideo."
+  },
+  "fragments": {
+    "message": "Znaleziono tylko fragmenty wideo. Otwórz ponownie panel multimediów chwilę po uruchomieniu wideo, aby znaleźć listę odtwarzania."
+  },
+  "noVideo": {
+    "message": "Nie znaleziono bezpośredniego pliku wideo."
+  },
+  "moreCount": {
+    "message": "Więcej wyników ({count})"
+  },
+  "searching": {
+    "message": "Wyszukiwanie …"
+  },
+  "scanHelp": {
+    "message": "Kliknij Multimedia na pasku narzędzi bieżącej karty. Otwórz panel na stronie z wideo."
+  },
+  "audioAccess": {
+    "message": "Ścieżka audio wymaga dostępu do serwera audio."
+  },
+  "interrupted": {
+    "message": "Zapisywanie przerwane."
+  },
+  "cancelled": {
+    "message": "Pobieranie anulowane."
+  },
+  "failed": {
+    "message": "Pobieranie niemożliwe. {error}"
+  },
+  "durationLoading": {
+    "message": "Ustalanie czasu trwania …"
+  },
+  "duration": {
+    "message": "Czas trwania wideo: {duration}"
+  },
+  "durationUnknown": {
+    "message": "Nieznany czas trwania wideo."
+  },
+  "resolutionUnknown": {
+    "message": "Nieznana rozdzielczość"
+  },
+  "best": {
+    "message": "Najlepsza dostępna · "
+  },
+  "waiting": {
+    "message": "Oczekiwanie na pobieranie …"
+  },
+  "progress": {
+    "message": "{percent} % · {done} z {total} segmentów · pobrano {size} MB"
+  },
+  "merging": {
+    "message": "Łączenie obrazu i dźwięku."
+  },
+  "part": {
+    "message": "Część"
+  },
+  "manual": {
+    "message": "Zapisz {name} ręcznie"
+  },
+  "saved": {
+    "message": "Zapisano w folderze pobierania."
+  },
+  "partsSaved": {
+    "message": "Zapisano części: {count}, w folderze pobierania."
+  },
+  "partialSaved": {
+    "message": "Zapisano {done} z {total} plików. Tutaj znajdziesz odnośnik do zapisania pozostałych."
+  },
+  "loaded": {
+    "message": "Pobrano {size} MB"
+  },
+  "unsupported": {
+    "message": "Ten adres multimediów nie jest obsługiwany."
+  },
+  "playlistHttp": {
+    "message": "Lista odtwarzania niedostępna (HTTP {status})."
+  },
+  "notHls": {
+    "message": "Adres nie udostępnia listy odtwarzania HLS."
+  },
+  "noTracks": {
+    "message": "Nie znaleziono pasujących ścieżek obrazu i dźwięku."
+  },
+  "nested": {
+    "message": "Zagnieżdżone listy jakości nie są obsługiwane."
+  },
+  "live": {
+    "message": "Ta lista odtwarzania nie ma jeszcze potwierdzonego końca."
+  },
+  "encrypted": {
+    "message": "Zaszyfrowana lista odtwarzania."
+  },
+  "rangeInvalid": {
+    "message": "Nieprawidłowy zakres bajtów na liście."
+  },
+  "rangeStart": {
+    "message": "Nie można ustalić początku zakresu bajtów."
+  },
+  "preview": {
+    "message": "Ta lista zawiera tylko podglądy. Wybierz zwykłą listę odtwarzania wideo."
+  },
+  "gap": {
+    "message": "Dostawca oznaczył co najmniej jeden segment jako brakujący. Pełne wideo nie jest dostępne na tej liście."
+  },
+  "noInit": {
+    "message": "Brakuje pliku inicjalizacyjnego MP4."
+  },
+  "incomplete": {
+    "message": "Niekompletna lista odtwarzania."
+  },
+  "noTime": {
+    "message": "Segment multimediów nie ma czasu trwania."
+  },
+  "serverHttp": {
+    "message": "Serwer wideo zwrócił HTTP {status}."
+  },
+  "rangeIncomplete": {
+    "message": "Serwer zwrócił niepełny zakres bajtów."
+  },
+  "rangeMismatch": {
+    "message": "Otrzymany zakres bajtów nie odpowiada liście."
+  },
+  "format": {
+    "message": "Serwer zwrócił nieoczekiwany format multimediów."
+  },
+  "trackFormat": {
+    "message": "Oddzielne ścieżki zawierają niezgodne zmiany formatu."
+  },
+  "trackMissing": {
+    "message": "W wybranych plikach brakuje ścieżki obrazu lub dźwięku."
+  },
+  "trackEmpty": {
+    "message": "Jedna z dwóch ścieżek jest pusta."
+  },
+  "unexpected": {
+    "message": "Nie można przetworzyć pliku. Sprawdź połączenie i spróbuj ponownie."
+  }
+}

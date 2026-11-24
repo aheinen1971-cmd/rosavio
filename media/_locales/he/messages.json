@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "מדיה"
+  },
+  "video": {
+    "message": "וידאו"
+  },
+  "scan": {
+    "message": "חיפוש חוזר"
+  },
+  "more": {
+    "message": "תוצאות נוספות"
+  },
+  "downloads": {
+    "message": "הורדות"
+  },
+  "folder": {
+    "message": "פתיחת תיקיית ההורדות"
+  },
+  "queue": {
+    "message": "תור ההורדות"
+  },
+  "quality": {
+    "message": "איכות"
+  },
+  "checking": {
+    "message": "רשימת הניגון נבדקת…"
+  },
+  "sections": {
+    "message": "מקטעים שהורדו"
+  },
+  "save": {
+    "message": "שמירת וידאו"
+  },
+  "cancel": {
+    "message": "ביטול"
+  },
+  "restart": {
+    "message": "הכנה מחדש"
+  },
+  "playlist": {
+    "message": "רשימת ניגון · {name}"
+  },
+  "details": {
+    "message": "הצגת משך ואיכות"
+  },
+  "videoAccess": {
+    "message": "הורדה זו דורשת גישה לשרת הווידאו."
+  },
+  "queueError": {
+    "message": "לא ניתן לפתוח את התור."
+  },
+  "directError": {
+    "message": "ההורדה בוטלה או שהקובץ אינו זמין."
+  },
+  "playing": {
+    "message": "מקור הווידאו המתנגן"
+  },
+  "noSingle": {
+    "message": "לא זוהה סרטון מתנגן יחיד."
+  },
+  "fragments": {
+    "message": "נמצאו רק חלקי וידאו. יש לפתוח מחדש את סרגל המדיה מעט אחרי תחילת הניגון כדי למצוא את רשימת הניגון."
+  },
+  "noVideo": {
+    "message": "לא נמצא קובץ וידאו ישיר."
+  },
+  "moreCount": {
+    "message": "תוצאות נוספות ({count})"
+  },
+  "searching": {
+    "message": "מתבצע חיפוש…"
+  },
+  "scanHelp": {
+    "message": "יש ללחוץ על מדיה בסרגל הכלים של הלשונית הנוכחית. יש לפתוח את סרגל הצד בדף עם וידאו."
+  },
+  "audioAccess": {
+    "message": "רצועת השמע דורשת גישה לשרת השמע."
+  },
+  "interrupted": {
+    "message": "השמירה הופסקה."
+  },
+  "cancelled": {
+    "message": "ההורדה בוטלה."
+  },
+  "failed": {
+    "message": "לא ניתן להוריד. {error}"
+  },
+  "durationLoading": {
+    "message": "המשך נבדק…"
+  },
+  "duration": {
+    "message": "משך הווידאו: {duration}"
+  },
+  "durationUnknown": {
+    "message": "משך הווידאו אינו ידוע."
+  },
+  "resolutionUnknown": {
+    "message": "רזולוציה לא ידועה"
+  },
+  "best": {
+    "message": "האיכות הטובה הזמינה · "
+  },
+  "waiting": {
+    "message": "בהמתנה להורדה…"
+  },
+  "progress": {
+    "message": "{percent} % · {done} מתוך {total} מקטעים · הורדו {size} מ״ב"
+  },
+  "merging": {
+    "message": "הווידאו והשמע ממוזגים."
+  },
+  "part": {
+    "message": "חלק"
+  },
+  "manual": {
+    "message": "שמירת {name} ידנית"
+  },
+  "saved": {
+    "message": "נשמר בתיקיית ההורדות."
+  },
+  "partsSaved": {
+    "message": "נשמרו {count} חלקים בתיקיית ההורדות."
+  },
+  "partialSaved": {
+    "message": "נשמרו {done} מתוך {total} קבצים. קישורי שמירה לקבצים הנותרים זמינים כאן."
+  },
+  "loaded": {
+    "message": "הורדו {size} מ״ב"
+  },
+  "unsupported": {
+    "message": "כתובת מדיה זו אינה נתמכת."
+  },
+  "playlistHttp": {
+    "message": "רשימת הניגון אינה זמינה (HTTP {status})."
+  },
+  "notHls": {
+    "message": "הכתובת אינה מספקת רשימת ניגון HLS."
+  },
+  "noTracks": {
+    "message": "לא נמצאו רצועות וידאו ושמע תואמות."
+  },
+  "nested": {
+    "message": "רשימות איכות מקוננות אינן נתמכות."
+  },
+  "live": {
+    "message": "לרשימת ניגון זו עדיין אין סוף מאושר."
+  },
+  "encrypted": {
+    "message": "רשימת ניגון מוצפנת."
+  },
+  "rangeInvalid": {
+    "message": "טווח בתים לא תקין ברשימה."
+  },
+  "rangeStart": {
+    "message": "לא ניתן לקבוע את תחילת טווח הבתים."
+  },
+  "preview": {
+    "message": "רשימה זו כוללת תצוגות מקדימות בלבד. יש לבחור ברשימת הווידאו הרגילה."
+  },
+  "gap": {
+    "message": "הספק מסמן לפחות מקטע אחד כחסר. הווידאו המלא אינו זמין ברשימה זו."
+  },
+  "noInit": {
+    "message": "קובץ האתחול של MP4 חסר."
+  },
+  "incomplete": {
+    "message": "רשימת ניגון לא שלמה."
+  },
+  "noTime": {
+    "message": "למקטע מדיה חסר משך."
+  },
+  "serverHttp": {
+    "message": "שרת הווידאו החזיר HTTP {status}."
+  },
+  "rangeIncomplete": {
+    "message": "השרת החזיר טווח בתים לא שלם."
+  },
+  "rangeMismatch": {
+    "message": "טווח הבתים שהתקבל אינו תואם לרשימה."
+  },
+  "format": {
+    "message": "השרת החזיר פורמט מדיה בלתי צפוי."
+  },
+  "trackFormat": {
+    "message": "הרצועות הנפרדות כוללות שינויי פורמט לא תואמים."
+  },
+  "trackMissing": {
+    "message": "בקבצים שנבחרו חסרה רצועת וידאו או שמע."
+  },
+  "trackEmpty": {
+    "message": "אחת משתי הרצועות ריקה."
+  },
+  "unexpected": {
+    "message": "לא ניתן לעבד את הקובץ. יש לבדוק את החיבור ולנסות שוב."
+  }
+}

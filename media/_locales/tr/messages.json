@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "Medya"
+  },
+  "video": {
+    "message": "Video"
+  },
+  "scan": {
+    "message": "Yeniden ara"
+  },
+  "more": {
+    "message": "Diğer sonuçlar"
+  },
+  "downloads": {
+    "message": "İndirilenler"
+  },
+  "folder": {
+    "message": "İndirme klasörünü aç"
+  },
+  "queue": {
+    "message": "İndirme kuyruğu"
+  },
+  "quality": {
+    "message": "Kalite"
+  },
+  "checking": {
+    "message": "Oynatma listesi denetleniyor …"
+  },
+  "sections": {
+    "message": "İndirilen bölümler"
+  },
+  "save": {
+    "message": "Videoyu kaydet"
+  },
+  "cancel": {
+    "message": "İptal"
+  },
+  "restart": {
+    "message": "Yeniden hazırla"
+  },
+  "playlist": {
+    "message": "Oynatma listesi · {name}"
+  },
+  "details": {
+    "message": "Süreyi ve kaliteyi göster"
+  },
+  "videoAccess": {
+    "message": "Bu indirme için video sunucusuna erişim gerekiyor."
+  },
+  "queueError": {
+    "message": "Kuyruk açılamadı."
+  },
+  "directError": {
+    "message": "İndirme iptal edildi veya dosyaya erişilemiyor."
+  },
+  "playing": {
+    "message": "Oynatılan videonun kaynağı"
+  },
+  "noSingle": {
+    "message": "Tek bir oynatılan video belirlenemedi."
+  },
+  "fragments": {
+    "message": "Yalnızca video parçaları bulundu. Oynatma listesini bulmak için video başladıktan kısa süre sonra medya kenar çubuğunu yeniden açın."
+  },
+  "noVideo": {
+    "message": "Doğrudan video dosyası bulunamadı."
+  },
+  "moreCount": {
+    "message": "Diğer sonuçlar ({count})"
+  },
+  "searching": {
+    "message": "Aranıyor …"
+  },
+  "scanHelp": {
+    "message": "Geçerli sekmenin araç çubuğunda Medya’ya tıklayın. Kenar çubuğunu video içeren bir sayfada açın."
+  },
+  "audioAccess": {
+    "message": "Ses parçası için ses sunucusuna erişim gerekiyor."
+  },
+  "interrupted": {
+    "message": "Kaydetme kesintiye uğradı."
+  },
+  "cancelled": {
+    "message": "İndirme iptal edildi."
+  },
+  "failed": {
+    "message": "İndirme yapılamıyor. {error}"
+  },
+  "durationLoading": {
+    "message": "Süre belirleniyor …"
+  },
+  "duration": {
+    "message": "Video süresi: {duration}"
+  },
+  "durationUnknown": {
+    "message": "Video süresi bilinmiyor."
+  },
+  "resolutionUnknown": {
+    "message": "Çözünürlük bilinmiyor"
+  },
+  "best": {
+    "message": "Mevcut en iyi · "
+  },
+  "waiting": {
+    "message": "İndirme bekleniyor …"
+  },
+  "progress": {
+    "message": "% {percent} · {done}/{total} bölüm · {size} MB indirildi"
+  },
+  "merging": {
+    "message": "Video ve ses birleştiriliyor."
+  },
+  "part": {
+    "message": "Bölüm"
+  },
+  "manual": {
+    "message": "{name} dosyasını elle kaydet"
+  },
+  "saved": {
+    "message": "İndirme klasörüne kaydedildi."
+  },
+  "partsSaved": {
+    "message": "{count} parça indirme klasörüne kaydedildi."
+  },
+  "partialSaved": {
+    "message": "{total} dosyadan {done} tanesi kaydedildi. Kalan dosyalar için kaydetme bağlantıları burada."
+  },
+  "loaded": {
+    "message": "{size} MB indirildi"
+  },
+  "unsupported": {
+    "message": "Bu medya adresi desteklenmiyor."
+  },
+  "playlistHttp": {
+    "message": "Oynatma listesine erişilemiyor (HTTP {status})."
+  },
+  "notHls": {
+    "message": "Bu adres bir HLS oynatma listesi sağlamıyor."
+  },
+  "noTracks": {
+    "message": "Eşleşen video ve ses parçaları bulunamadı."
+  },
+  "nested": {
+    "message": "İç içe kalite listeleri desteklenmiyor."
+  },
+  "live": {
+    "message": "Bu oynatma listesinin henüz doğrulanmış bir sonu yok."
+  },
+  "encrypted": {
+    "message": "Şifreli oynatma listesi."
+  },
+  "rangeInvalid": {
+    "message": "Oynatma listesinde geçersiz bayt aralığı."
+  },
+  "rangeStart": {
+    "message": "Bayt aralığının başlangıcı belirlenemedi."
+  },
+  "preview": {
+    "message": "Bu listede yalnızca önizlemeler var. Normal video oynatma listesini seçin."
+  },
+  "gap": {
+    "message": "Sağlayıcı en az bir bölümü eksik olarak işaretlemiş. Bu listede videonun tamamı yok."
+  },
+  "noInit": {
+    "message": "MP4 başlangıç dosyası eksik."
+  },
+  "incomplete": {
+    "message": "Eksik oynatma listesi."
+  },
+  "noTime": {
+    "message": "Bir medya bölümünün süre bilgisi yok."
+  },
+  "serverHttp": {
+    "message": "Video sunucusu HTTP {status} döndürdü."
+  },
+  "rangeIncomplete": {
+    "message": "Sunucu eksik bir bayt aralığı döndürdü."
+  },
+  "rangeMismatch": {
+    "message": "Alınan bayt aralığı listeyle eşleşmiyor."
+  },
+  "format": {
+    "message": "Sunucu beklenmeyen bir medya biçimi döndürdü."
+  },
+  "trackFormat": {
+    "message": "Ayrı parçalar uyumsuz biçim değişiklikleri içeriyor."
+  },
+  "trackMissing": {
+    "message": "Seçilen dosyalarda video veya ses parçası eksik."
+  },
+  "trackEmpty": {
+    "message": "İki parçadan biri boş."
+  },
+  "unexpected": {
+    "message": "Dosya işlenemedi. Bağlantıyı kontrol edip yeniden deneyin."
+  }
+}

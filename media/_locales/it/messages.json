@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "Media"
+  },
+  "video": {
+    "message": "Video"
+  },
+  "scan": {
+    "message": "Cerca di nuovo"
+  },
+  "more": {
+    "message": "Altri risultati"
+  },
+  "downloads": {
+    "message": "Download"
+  },
+  "folder": {
+    "message": "Apri cartella dei download"
+  },
+  "queue": {
+    "message": "Coda dei download"
+  },
+  "quality": {
+    "message": "Qualità"
+  },
+  "checking": {
+    "message": "Verifica della playlist …"
+  },
+  "sections": {
+    "message": "Segmenti scaricati"
+  },
+  "save": {
+    "message": "Salva video"
+  },
+  "cancel": {
+    "message": "Annulla"
+  },
+  "restart": {
+    "message": "Prepara di nuovo"
+  },
+  "playlist": {
+    "message": "Playlist · {name}"
+  },
+  "details": {
+    "message": "Visualizza durata e qualità"
+  },
+  "videoAccess": {
+    "message": "Questo download richiede l’accesso al server video."
+  },
+  "queueError": {
+    "message": "Impossibile aprire la coda."
+  },
+  "directError": {
+    "message": "Download annullato o file non disponibile."
+  },
+  "playing": {
+    "message": "Sorgente del video in riproduzione"
+  },
+  "noSingle": {
+    "message": "Nessun video in riproduzione identificato in modo univoco."
+  },
+  "fragments": {
+    "message": "Trovati solo frammenti video. Riapri la barra laterale dei media poco dopo l’avvio del video per trovare la playlist."
+  },
+  "noVideo": {
+    "message": "Nessun file video diretto trovato."
+  },
+  "moreCount": {
+    "message": "Altri risultati ({count})"
+  },
+  "searching": {
+    "message": "Ricerca in corso …"
+  },
+  "scanHelp": {
+    "message": "Fai clic su Media nella barra degli strumenti della scheda corrente. Apri la barra laterale su una pagina con video."
+  },
+  "audioAccess": {
+    "message": "La traccia audio richiede l’accesso al server audio."
+  },
+  "interrupted": {
+    "message": "Salvataggio interrotto."
+  },
+  "cancelled": {
+    "message": "Download annullato."
+  },
+  "failed": {
+    "message": "Download impossibile. {error}"
+  },
+  "durationLoading": {
+    "message": "Calcolo della durata …"
+  },
+  "duration": {
+    "message": "Durata del video: {duration}"
+  },
+  "durationUnknown": {
+    "message": "Durata del video sconosciuta."
+  },
+  "resolutionUnknown": {
+    "message": "Risoluzione sconosciuta"
+  },
+  "best": {
+    "message": "Migliore disponibile · "
+  },
+  "waiting": {
+    "message": "In attesa del download …"
+  },
+  "progress": {
+    "message": "{percent} % · {done} di {total} segmenti · {size} MB scaricati"
+  },
+  "merging": {
+    "message": "Unione di video e audio."
+  },
+  "part": {
+    "message": "Parte"
+  },
+  "manual": {
+    "message": "Salva {name} manualmente"
+  },
+  "saved": {
+    "message": "Salvato nella cartella dei download."
+  },
+  "partsSaved": {
+    "message": "{count} parti salvate nella cartella dei download."
+  },
+  "partialSaved": {
+    "message": "Salvati {done} file su {total}. Qui trovi un collegamento per salvare quelli rimanenti."
+  },
+  "loaded": {
+    "message": "{size} MB scaricati"
+  },
+  "unsupported": {
+    "message": "Questo indirizzo multimediale non è supportato."
+  },
+  "playlistHttp": {
+    "message": "Playlist non disponibile (HTTP {status})."
+  },
+  "notHls": {
+    "message": "L’indirizzo non fornisce una playlist HLS."
+  },
+  "noTracks": {
+    "message": "Nessuna traccia video e audio corrispondente trovata."
+  },
+  "nested": {
+    "message": "Le liste di qualità annidate non sono supportate."
+  },
+  "live": {
+    "message": "Questa playlist non ha ancora una fine confermata."
+  },
+  "encrypted": {
+    "message": "Playlist cifrata."
+  },
+  "rangeInvalid": {
+    "message": "Intervallo di byte non valido nella playlist."
+  },
+  "rangeStart": {
+    "message": "Impossibile determinare l’inizio di un intervallo di byte."
+  },
+  "preview": {
+    "message": "Questa lista contiene solo anteprime. Seleziona la playlist video normale."
+  },
+  "gap": {
+    "message": "Il fornitore segnala almeno un segmento mancante. Il video completo non è disponibile in questa lista."
+  },
+  "noInit": {
+    "message": "Manca il file di inizializzazione MP4."
+  },
+  "incomplete": {
+    "message": "Playlist incompleta."
+  },
+  "noTime": {
+    "message": "Un segmento multimediale non ha una durata."
+  },
+  "serverHttp": {
+    "message": "Il server video ha restituito HTTP {status}."
+  },
+  "rangeIncomplete": {
+    "message": "Il server ha restituito un intervallo di byte incompleto."
+  },
+  "rangeMismatch": {
+    "message": "L’intervallo di byte ricevuto non corrisponde alla lista."
+  },
+  "format": {
+    "message": "Il server ha restituito un formato multimediale inatteso."
+  },
+  "trackFormat": {
+    "message": "Le tracce separate contengono cambi di formato incompatibili."
+  },
+  "trackMissing": {
+    "message": "Nei file selezionati manca una traccia video o audio."
+  },
+  "trackEmpty": {
+    "message": "Una delle due tracce è vuota."
+  },
+  "unexpected": {
+    "message": "Impossibile elaborare il file. Controlla la connessione e riprova."
+  }
+}

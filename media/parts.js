@@ -2,37 +2,37 @@ function parsePart(line, rawRange, base, previous) {
   const url = httpUrl(line, base);
   if (rawRange === null) return {url};
   const match = /^(\d+)(?:@(\d+))?$/.exec(rawRange);
-  if (!match) throw Error('Ungültiger Bytebereich in der Wiedergabeliste.');
+  if (!match) throw mediaError('rangeInvalid');
   const length = Number(match[1]);
   const start = match[2] === undefined
     ? (previous?.url === url && previous.end !== undefined ? previous.end + 1 : NaN)
     : Number(match[2]);
   const end = start + length - 1;
   if (length < 1 || !Number.isSafeInteger(start) || start < 0 || !Number.isSafeInteger(end))
-    throw Error('Der Start eines Bytebereichs lässt sich nicht bestimmen.');
+    throw mediaError('rangeStart');
   return {url,start,end};
 }
 
 function parseMedia(lines, base) {
-  if (lines.includes('#EXT-X-I-FRAMES-ONLY')) throw Error('Diese Liste enthält nur Vorschaubilder. Wähle die normale Video-Wiedergabeliste.');
-  if (lines.includes('#EXT-X-GAP')) throw Error('Der Anbieter kennzeichnet mindestens einen Abschnitt als fehlend. Das vollständige Video ist in dieser Liste nicht verfügbar.');
+  if (lines.includes('#EXT-X-I-FRAMES-ONLY')) throw mediaError('preview');
+  if (lines.includes('#EXT-X-GAP')) throw mediaError('gap');
   const sections = [];
   let section, init = null, range = null, previous, previousMap, pending = false;
   for (const line of lines) {
     if (line === '#EXT-X-DISCONTINUITY') section = null;
     else if (line.startsWith('#EXT-X-MAP:')) {
       const uri = line.match(/[:,]URI="([^"]+)"/);
-      if (!uri) throw Error('Die MP4-Startdatei fehlt.');
+      if (!uri) throw mediaError('noInit');
       const spec = line.match(/,BYTERANGE="([^"]+)"/);
       const next = parsePart(uri[1], spec?.[1] ?? null, base, previousMap);
       if (JSON.stringify(next) !== JSON.stringify(init)) section = null;
       previousMap = init = next;
     } else if (line.startsWith('#EXT-X-BYTERANGE:')) range = line.slice(line.indexOf(':')+1);
     else if (line.startsWith('#EXTINF:')) {
-      if (pending) throw Error('Unvollständige Wiedergabeliste.');
+      if (pending) throw mediaError('incomplete');
       pending = true;
     } else if (!line.startsWith('#')) {
-      if (!pending) throw Error('Ein Medienabschnitt hat keine Zeitangabe.');
+      if (!pending) throw mediaError('noTime');
       if (!section) { section = {init,media:[]}; sections.push(section); }
       previous = parsePart(line,range,base,previous);
       section.media.push(previous);
@@ -40,7 +40,7 @@ function parseMedia(lines, base) {
       pending = false;
     }
   }
-  if (pending || range !== null || !sections.length) throw Error('Unvollständige Wiedergabeliste.');
+  if (pending || range !== null || !sections.length) throw mediaError('incomplete');
   return sections;
 }
 
@@ -48,7 +48,7 @@ async function readPartOnce(part, load) {
   const ranged = part.start !== undefined;
   const res = await load(part.url, ranged ? {headers:{Range:'bytes='+part.start+'-'+part.end}} : {});
   if (!res.ok) {
-    const error = Error('Der Videoserver antwortet mit HTTP '+res.status+'.');
+    const error = mediaError('serverHttp', {status:res.status});
     error.retryable = [408,429,500,502,503,504].includes(res.status);
     await res.body?.cancel();
     throw error;
@@ -56,13 +56,13 @@ async function readPartOnce(part, load) {
   let bytes = new Uint8Array(await res.arrayBuffer());
   if (ranged) {
     if (res.status === 200) {
-      if (bytes.length <= part.end) throw Error('Der Server liefert den angeforderten Bytebereich unvollständig.');
+      if (bytes.length <= part.end) throw mediaError('rangeIncomplete');
       bytes = bytes.slice(part.start,part.end+1);
     } else {
       const hdr = res.headers.get('content-range');
       const match = hdr?.match(/^bytes (\d+)-(\d+)\/(?:\d+|\*)$/i);
       if (res.status !== 206 || (hdr && (!match || Number(match[1]) !== part.start || Number(match[2]) !== part.end)) || bytes.length !== part.end-part.start+1)
-        throw Error('Der empfangene Bytebereich stimmt nicht mit der Liste überein.');
+        throw mediaError('rangeMismatch');
     }
   }
   return bytes;
@@ -108,7 +108,7 @@ async function assembleSections(sections, progress, load, signal) {
       const bytes = await readPart(part,load,signal);
       const tag = String.fromCharCode(...bytes.subarray(4,8));
       const valid = section.init ? (i === 0 ? ['ftyp','moov'] : ['moof','styp','sidx','emsg','prft','free']).includes(tag) : bytes[0] === 0x47;
-      if (!valid) throw Error('Der Server liefert ein unerwartetes Medienformat.');
+      if (!valid) throw mediaError('format');
       buffers.push(bytes);
       loadedBytes += bytes.byteLength;
       progress(++index,total,loadedBytes);

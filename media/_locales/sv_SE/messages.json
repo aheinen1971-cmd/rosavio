@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "Media"
+  },
+  "video": {
+    "message": "Video"
+  },
+  "scan": {
+    "message": "Sök igen"
+  },
+  "more": {
+    "message": "Fler resultat"
+  },
+  "downloads": {
+    "message": "Hämtningar"
+  },
+  "folder": {
+    "message": "Öppna hämtningsmappen"
+  },
+  "queue": {
+    "message": "Hämtningskö"
+  },
+  "quality": {
+    "message": "Kvalitet"
+  },
+  "checking": {
+    "message": "Kontrollerar spellista …"
+  },
+  "sections": {
+    "message": "Hämtade segment"
+  },
+  "save": {
+    "message": "Spara video"
+  },
+  "cancel": {
+    "message": "Avbryt"
+  },
+  "restart": {
+    "message": "Förbered igen"
+  },
+  "playlist": {
+    "message": "Spellista · {name}"
+  },
+  "details": {
+    "message": "Visa längd och kvalitet"
+  },
+  "videoAccess": {
+    "message": "Hämtningen kräver åtkomst till videoservern."
+  },
+  "queueError": {
+    "message": "Kön kunde inte öppnas."
+  },
+  "directError": {
+    "message": "Hämtningen avbröts eller filen är inte tillgänglig."
+  },
+  "playing": {
+    "message": "Källa för videon som spelas"
+  },
+  "noSingle": {
+    "message": "Ingen enskild video som spelas identifierades."
+  },
+  "fragments": {
+    "message": "Endast videofragment hittades. Öppna mediesidofältet igen strax efter att videon startat för att hitta spellistan."
+  },
+  "noVideo": {
+    "message": "Ingen direkt videofil hittades."
+  },
+  "moreCount": {
+    "message": "Fler resultat ({count})"
+  },
+  "searching": {
+    "message": "Söker …"
+  },
+  "scanHelp": {
+    "message": "Klicka på Media i verktygsfältet för den aktuella fliken. Öppna sidofältet på en webbsida med video."
+  },
+  "audioAccess": {
+    "message": "Ljudspåret kräver åtkomst till ljudservern."
+  },
+  "interrupted": {
+    "message": "Sparandet avbröts."
+  },
+  "cancelled": {
+    "message": "Hämtningen avbröts."
+  },
+  "failed": {
+    "message": "Hämtning är inte möjlig. {error}"
+  },
+  "durationLoading": {
+    "message": "Beräknar längd …"
+  },
+  "duration": {
+    "message": "Videolängd: {duration}"
+  },
+  "durationUnknown": {
+    "message": "Okänd videolängd."
+  },
+  "resolutionUnknown": {
+    "message": "Okänd upplösning"
+  },
+  "best": {
+    "message": "Bästa tillgängliga · "
+  },
+  "waiting": {
+    "message": "Väntar på hämtning …"
+  },
+  "progress": {
+    "message": "{percent} % · {done} av {total} segment · {size} MB hämtat"
+  },
+  "merging": {
+    "message": "Sammanfogar video och ljud."
+  },
+  "part": {
+    "message": "Del"
+  },
+  "manual": {
+    "message": "Spara {name} manuellt"
+  },
+  "saved": {
+    "message": "Sparat i hämtningsmappen."
+  },
+  "partsSaved": {
+    "message": "{count} delar sparade i hämtningsmappen."
+  },
+  "partialSaved": {
+    "message": "{done} av {total} filer sparade. Här finns en länk för att spara återstående filer."
+  },
+  "loaded": {
+    "message": "{size} MB hämtat"
+  },
+  "unsupported": {
+    "message": "Denna medieadress stöds inte."
+  },
+  "playlistHttp": {
+    "message": "Spellistan är inte tillgänglig (HTTP {status})."
+  },
+  "notHls": {
+    "message": "Adressen tillhandahåller ingen HLS-spellista."
+  },
+  "noTracks": {
+    "message": "Inget matchande video- och ljudspår hittades."
+  },
+  "nested": {
+    "message": "Nästlade kvalitetslistor stöds inte."
+  },
+  "live": {
+    "message": "Denna spellista har ännu inget bekräftat slut."
+  },
+  "encrypted": {
+    "message": "Krypterad spellista."
+  },
+  "rangeInvalid": {
+    "message": "Ogiltigt byteintervall i listan."
+  },
+  "rangeStart": {
+    "message": "Byteintervallets början kunde inte fastställas."
+  },
+  "preview": {
+    "message": "Listan innehåller endast förhandsvisningar. Välj den vanliga videospellistan."
+  },
+  "gap": {
+    "message": "Leverantören anger att minst ett segment saknas. Hela videon finns inte i denna lista."
+  },
+  "noInit": {
+    "message": "MP4-initieringsfilen saknas."
+  },
+  "incomplete": {
+    "message": "Ofullständig spellista."
+  },
+  "noTime": {
+    "message": "Ett mediesegment saknar längd."
+  },
+  "serverHttp": {
+    "message": "Videoservern returnerade HTTP {status}."
+  },
+  "rangeIncomplete": {
+    "message": "Servern returnerade ett ofullständigt byteintervall."
+  },
+  "rangeMismatch": {
+    "message": "Det mottagna byteintervallet stämmer inte med listan."
+  },
+  "format": {
+    "message": "Servern returnerade ett oväntat medieformat."
+  },
+  "trackFormat": {
+    "message": "De separata spåren innehåller inkompatibla formatbyten."
+  },
+  "trackMissing": {
+    "message": "De valda filerna saknar ett video- eller ljudspår."
+  },
+  "trackEmpty": {
+    "message": "Ett av de två spåren är tomt."
+  },
+  "unexpected": {
+    "message": "Filen kunde inte bearbetas. Kontrollera anslutningen och försök igen."
+  }
+}

@@ -53,12 +53,13 @@ function requestServer(origin) {
 
 function renderRow(video, container) {
   const row = document.createElement('li');
-  row.textContent = video.playlist ? 'Wiedergabeliste · ' + video.name : video.name;
+  const displayName = video.name === 'Video' ? mediaText('video') : video.name;
+  row.textContent = video.playlist ? mediaText('playlist', {name:displayName}) : displayName;
   if (video.seconds) row.append(' · ' + formatDuration(video.seconds));
   if (video.height) row.append(' · ' + video.height + 'p');
   const save = document.createElement('button');
-  save.textContent = 'Video speichern';
-  if (video.playlist) save.textContent = 'Dauer und Qualität ansehen';
+  save.textContent = mediaText('save');
+  if (video.playlist) save.textContent = mediaText('details');
   save.onclick = async () => {
     if (save.disabled) return;
 
@@ -67,9 +68,9 @@ function renderRow(video, container) {
       const origin = new URL(video.url).origin + '/*';
       try {
         const granted = await requestServer(origin);
-        if (!granted) { statusLine.textContent = 'Für diesen Download ist Zugriff auf den Videoserver erforderlich.'; return; }
+        if (!granted) { statusLine.textContent = mediaText('videoAccess'); return; }
         (await queueReady).addDownload(video.url, video.title);
-      } catch { statusLine.textContent = 'Die Warteschlange konnte nicht geöffnet werden.'; }
+      } catch { statusLine.textContent = mediaText('queueError'); }
       finally { save.disabled = false; }
       return;
     }
@@ -79,7 +80,7 @@ function renderRow(video, container) {
       const queue = await queueReady;
       const id = await browser.downloads.download({url:video.url, filename, saveAs:false, conflictAction:"uniquify"});
       queue.trackDirect(id, video.title || video.name);
-    } catch { statusLine.textContent = 'Download abgebrochen oder Datei nicht erreichbar.'; }
+    } catch { statusLine.textContent = mediaText('directError'); }
     finally { save.disabled = false; }
   };
   row.append(save);
@@ -99,14 +100,14 @@ function display(frames) {
   const playing = videos.filter(video => video.playing);
   const main = !unknownPlayer && playing.length === 1 ? playing[0] : null;
   if (main) {
-    statusLine.textContent = 'Quelle des laufenden Videos';
+    statusLine.textContent = mediaText('playing');
     renderRow(main, list);
   } else {
-    statusLine.textContent = videos.length ? 'Kein einzelnes laufendes Video zugeordnet.' : (all.length ? 'Nur einzelne Videostücke erkannt. Öffne den Finder kurz nach dem Start des Videos erneut, damit er die Wiedergabeliste finden kann.' : 'Keine direkte Videodatei gefunden.');
+    statusLine.textContent = videos.length ? mediaText('noSingle') : (all.length ? mediaText('fragments') : mediaText('noVideo'));
   }
   const rest = videos.filter(video => video !== main);
   if (rest.length) {
-    more.querySelector('summary').textContent = 'Weitere Treffer (' + rest.length + ')';
+    more.querySelector('summary').textContent = mediaText('moreCount', {count:mediaNumber(rest.length)});
     for (const video of rest) renderRow(video, main ? alternatives : list);
     more.hidden = !main;
   }
@@ -120,12 +121,12 @@ async function scan() {
   alternatives.replaceChildren();
   more.open = false;
   more.hidden = true;
-  statusLine.textContent = 'Suche läuft …';
+  statusLine.textContent = mediaText('searching');
   try {
     const [tab] = await browser.tabs.query({active:true, windowId:await windowId});
     const frames = await browser.scripting.executeScript({target:{tabId:tab.id, allFrames:true}, func:findVideos});
     if (request === scanNumber) display(frames);
-  } catch { if (request === scanNumber) statusLine.textContent = 'Klicke auf Medien in der Symbolleiste für den aktuellen Tab. Öffne den Finder auf einer Webseite mit Video.'; }
+  } catch { if (request === scanNumber) statusLine.textContent = mediaText('scanHelp'); }
   finally { if (request === scanNumber) scanButton.disabled = false; }
 }
 scanButton.onclick = scan;
@@ -160,7 +161,7 @@ async function attachQueue() {
         element.onclick = async () => {
           const origin = original.dataset.audioOrigin;
           if (origin && !await requestServer(origin+'/*')) {
-            statusLine.textContent = 'Für die Tonspur ist Zugriff auf den Audioserver erforderlich.';
+            statusLine.textContent = mediaText('audioAccess');
             return;
           }
           original.click();

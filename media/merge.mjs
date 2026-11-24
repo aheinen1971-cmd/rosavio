@@ -16,9 +16,9 @@ export async function mergeTracks(video, audio, signal) {
   }
   try {
     const v = await picture.getPrimaryVideoTrack(), a = await sound.getPrimaryAudioTrack();
-    if (!v || !a) throw Error('In den ausgewählten Dateien fehlt die Bild- oder Tonspur.');
+    if (!v || !a) throw mediaError('trackMissing');
     const starts = await Promise.all([v.getFirstTimestampOrNull(), a.getFirstTimestampOrNull()]);
-    if (starts.includes(null)) throw Error('Eine der beiden Spuren ist leer.');
+    if (starts.includes(null)) throw mediaError('trackEmpty');
     const start = Math.min(...starts);
     const vs = new EncodedVideoPacketSource(await v.getCodec());
     const as = new EncodedAudioPacketSource(await a.getCodec());

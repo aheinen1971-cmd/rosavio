@@ -1,0 +1,197 @@
+{
+  "media": {
+    "message": "Medios"
+  },
+  "video": {
+    "message": "Vídeo"
+  },
+  "scan": {
+    "message": "Buscar de nuevo"
+  },
+  "more": {
+    "message": "Más resultados"
+  },
+  "downloads": {
+    "message": "Descargas"
+  },
+  "folder": {
+    "message": "Abrir carpeta de descargas"
+  },
+  "queue": {
+    "message": "Cola de descargas"
+  },
+  "quality": {
+    "message": "Calidad"
+  },
+  "checking": {
+    "message": "Comprobando la lista de reproducción …"
+  },
+  "sections": {
+    "message": "Segmentos descargados"
+  },
+  "save": {
+    "message": "Guardar vídeo"
+  },
+  "cancel": {
+    "message": "Cancelar"
+  },
+  "restart": {
+    "message": "Preparar de nuevo"
+  },
+  "playlist": {
+    "message": "Lista de reproducción · {name}"
+  },
+  "details": {
+    "message": "Ver duración y calidad"
+  },
+  "videoAccess": {
+    "message": "Esta descarga requiere acceso al servidor de vídeo."
+  },
+  "queueError": {
+    "message": "No se pudo abrir la cola."
+  },
+  "directError": {
+    "message": "Descarga cancelada o archivo no disponible."
+  },
+  "playing": {
+    "message": "Origen del vídeo en reproducción"
+  },
+  "noSingle": {
+    "message": "No se identificó un único vídeo en reproducción."
+  },
+  "fragments": {
+    "message": "Solo se encontraron fragmentos. Vuelve a abrir la barra lateral de medios poco después de iniciar el vídeo para encontrar la lista de reproducción."
+  },
+  "noVideo": {
+    "message": "No se encontró ningún archivo de vídeo directo."
+  },
+  "moreCount": {
+    "message": "Más resultados ({count})"
+  },
+  "searching": {
+    "message": "Buscando …"
+  },
+  "scanHelp": {
+    "message": "Haz clic en Medios en la barra de herramientas de la pestaña actual. Abre la barra lateral en una página con vídeo."
+  },
+  "audioAccess": {
+    "message": "La pista de audio requiere acceso al servidor de audio."
+  },
+  "interrupted": {
+    "message": "Guardado interrumpido."
+  },
+  "cancelled": {
+    "message": "Descarga cancelada."
+  },
+  "failed": {
+    "message": "No se puede descargar. {error}"
+  },
+  "durationLoading": {
+    "message": "Calculando la duración …"
+  },
+  "duration": {
+    "message": "Duración del vídeo: {duration}"
+  },
+  "durationUnknown": {
+    "message": "Duración del vídeo desconocida."
+  },
+  "resolutionUnknown": {
+    "message": "Resolución desconocida"
+  },
+  "best": {
+    "message": "Mejor disponible · "
+  },
+  "waiting": {
+    "message": "Esperando para descargar …"
+  },
+  "progress": {
+    "message": "{percent} % · {done} de {total} segmentos · {size} MB descargados"
+  },
+  "merging": {
+    "message": "Combinando vídeo y audio."
+  },
+  "part": {
+    "message": "Parte"
+  },
+  "manual": {
+    "message": "Guardar {name} manualmente"
+  },
+  "saved": {
+    "message": "Guardado en la carpeta de descargas."
+  },
+  "partsSaved": {
+    "message": "{count} partes guardadas en la carpeta de descargas."
+  },
+  "partialSaved": {
+    "message": "Se guardaron {done} de {total} archivos. Aquí hay un enlace para guardar los restantes."
+  },
+  "loaded": {
+    "message": "{size} MB descargados"
+  },
+  "unsupported": {
+    "message": "Esta dirección multimedia no es compatible."
+  },
+  "playlistHttp": {
+    "message": "Lista de reproducción no disponible (HTTP {status})."
+  },
+  "notHls": {
+    "message": "La dirección no proporciona una lista de reproducción HLS."
+  },
+  "noTracks": {
+    "message": "No se encontraron pistas de vídeo y audio compatibles."
+  },
+  "nested": {
+    "message": "No se admiten listas de calidad anidadas."
+  },
+  "live": {
+    "message": "Esta lista de reproducción aún no tiene un final confirmado."
+  },
+  "encrypted": {
+    "message": "Lista de reproducción cifrada."
+  },
+  "rangeInvalid": {
+    "message": "Intervalo de bytes no válido en la lista."
+  },
+  "rangeStart": {
+    "message": "No se pudo determinar el inicio del intervalo de bytes."
+  },
+  "preview": {
+    "message": "Esta lista solo contiene vistas previas. Selecciona la lista de vídeo normal."
+  },
+  "gap": {
+    "message": "El proveedor indica que falta al menos un segmento. El vídeo completo no está disponible en esta lista."
+  },
+  "noInit": {
+    "message": "Falta el archivo de inicialización MP4."
+  },
+  "incomplete": {
+    "message": "Lista de reproducción incompleta."
+  },
+  "noTime": {
+    "message": "Un segmento multimedia no tiene duración."
+  },
+  "serverHttp": {
+    "message": "El servidor de vídeo devolvió HTTP {status}."
+  },
+  "rangeIncomplete": {
+    "message": "El servidor devolvió un intervalo de bytes incompleto."
+  },
+  "rangeMismatch": {
+    "message": "El intervalo recibido no coincide con la lista."
+  },
+  "format": {
+    "message": "El servidor devolvió un formato multimedia inesperado."
+  },
+  "trackFormat": {
+    "message": "Las pistas separadas contienen cambios de formato incompatibles."
+  },
+  "trackMissing": {
+    "message": "Falta una pista de vídeo o audio en los archivos seleccionados."
+  },
+  "trackEmpty": {
+    "message": "Una de las dos pistas está vacía."
+  },
+  "unexpected": {
+    "message": "No se pudo procesar el archivo. Comprueba la conexión e inténtalo de nuevo."
+  }
+}
