@@ -6,7 +6,7 @@ on:
     paths: ['scripts/build-status-dashboard.py', 'scripts/maintenance_http.py', '.github/workflows/rosavio-status.yml']
   schedule:
     # Refresh the existing schedule registration after missed schedule events.
-    # Keep two checks per hour; manual recovery must only dispatch this workflow.
+    # Existing clock also checks missing regular Windows/Linux version checks.
     - cron: '11,41 * * * *'
   workflow_run:
     workflows: ['Rosavio automatic Windows release', 'Rosavio automatic Linux release', 'Rosavio automatic Flatpak release', 'Rosavio verified website download links', 'Rosavio website and signed Flatpak repository']
@@ -65,3 +65,22 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 scripts/build-status-dashboard.py --publish
+  build-watchdog:
+    needs: status
+    if: always() && github.repository == 'aheinen1971-cmd/rosavio' && github.event.repository.private == false && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Verify recovery safeguards
+        run: python3 -m unittest discover -s tests -p test_build_watchdog.py
+      - name: Recover missing regular version checks once
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/build-watchdog.py --apply
