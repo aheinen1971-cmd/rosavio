@@ -1,22 +1,16 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-24T16:09:47.077821+00:00",
+  "checkedAt": "2026-11-24T16:17:25.613430+00:00",
   "rows": [
     {
       "label": "Windows",
       "state": "yellow",
       "version": "160.0.1 → 161.0",
       "detail": "Neue Version noch nicht vollständig veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/45337099596",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v160.0.1-rosavio.44126127051",
       "progress": {
-        "percent": 50,
-        "note": "2 von 4 Phasen abgeschlossen",
-        "steps": [
-          "success",
-          "success",
-          "skipped",
-          "skipped"
-        ]
+        "percent": 0,
+        "note": "Noch keine abgeschlossene Phase bestätigt"
       },
       "available": {
         "version": "160.0.1",
@@ -33,15 +27,10 @@
           "yellow",
           "Neue Version noch nicht vollständig veröffentlicht",
           null,
-          [
-            "success",
-            "success",
-            "skipped",
-            "skipped"
-          ],
+          null,
           "44126127051"
         ],
-        "at": "2026-11-24T14:09:42.544168+00:00"
+        "at": "2026-11-24T16:17:25.613430+00:00"
       }
     },
     {
