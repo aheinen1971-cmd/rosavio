@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-24T15:39:48.925632+00:00",
+  "checkedAt": "2026-11-24T16:09:47.077821+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -48,11 +48,20 @@
       "label": "Linux",
       "state": "yellow",
       "version": "160.0.1 → 161.0",
-      "detail": "Neue Version noch nicht vollständig veröffentlicht",
-      "url": "https://github.com/aheinen1971-cmd/rosavio/releases/tag/v160.0.1-rosavio-linux-x64.44126151505",
+      "detail": "Bau / Prüfungen laufen",
+      "url": "https://github.com/aheinen1971-cmd/rosavio/actions/runs/45430032503",
       "progress": {
-        "percent": 0,
-        "note": "Noch keine abgeschlossene Phase bestätigt"
+        "percent": 33,
+        "note": "2 von 6 Phasen abgeschlossen",
+        "steps": [
+          "success",
+          "success",
+          "in_progress",
+          "pending",
+          "pending",
+          "pending"
+        ],
+        "startedAt": "2026-11-24T15:52:01Z"
       },
       "available": {
         "version": "160.0.1",
@@ -67,12 +76,19 @@
         "key": [
           true,
           "yellow",
-          "Neue Version noch nicht vollständig veröffentlicht",
+          "Bau / Prüfungen laufen",
           null,
-          null,
+          [
+            "success",
+            "success",
+            "in_progress",
+            "pending",
+            "pending",
+            "pending"
+          ],
           "44126151505"
         ],
-        "at": "2026-11-24T14:09:42.544168+00:00"
+        "at": "2026-11-24T15:52:01Z"
       }
     },
     {
@@ -103,9 +119,16 @@
           "linux",
           null,
           "44126151505",
-          null
+          [
+            "success",
+            "success",
+            "in_progress",
+            "pending",
+            "pending",
+            "pending"
+          ]
         ],
-        "at": "2026-11-24T14:09:42.544168+00:00"
+        "at": "2026-11-24T15:52:01Z"
       }
     },
     {
