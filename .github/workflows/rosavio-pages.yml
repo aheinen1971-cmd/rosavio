@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['docs/**', '.github/workflows/rosavio-pages.yml']
+    paths: ['docs/**', '.github/workflows/rosavio-pages.yml', '.github/actions/wait-pages-artifact/**', 'tests/test_pages_artifact.cjs']
 permissions:
   contents: read
   pages: write
@@ -29,14 +29,24 @@ jobs:
         run: |
           node tests/test_status_languages.cjs
           node tests/test_status_refresh.cjs
+          node --test tests/test_pages_artifact.cjs
+      - name: Install pinned artifact metadata client
+        working-directory: .github/actions/wait-pages-artifact
+        run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Preserve all website languages and last verified signed Flatpak repository
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 scripts/prepare-flatpak-rollback.py site
       - uses: actions/upload-pages-artifact@v3
+        id: pages-upload
         with:
           name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
           path: site
+      - name: Wait briefly for the uploaded Pages artifact
+        uses: ./.github/actions/wait-pages-artifact
+        with:
+          artifact-name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
+          artifact-id: ${{ steps.pages-upload.outputs.artifact_id }}
       - uses: actions/deploy-pages@v4
         with:
           artifact_name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}

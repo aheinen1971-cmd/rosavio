@@ -1,0 +1,12 @@
+name: Wait for this Pages artifact
+description: Bounded read-only check through the same artifact service as deploy-pages
+inputs:
+  artifact-name:
+    description: Exact artifact name from this run and attempt
+    required: true
+  artifact-id:
+    description: Artifact ID returned by the successful upload
+    required: true
+runs:
+  using: node24
+  main: index.cjs

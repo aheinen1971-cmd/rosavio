@@ -1,0 +1,6 @@
+{
+  "name": "rosavio-pages-artifact-readiness",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {"@actions/artifact": "2.1.3"}
+}
