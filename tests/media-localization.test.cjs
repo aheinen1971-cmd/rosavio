@@ -43,7 +43,7 @@ for(const locale of locales)test('media locale '+locale,async()=>{
  assert.throws(()=>ctx.mediaPlan({base:'https://example.org/',lines:['#EXTM3U','#EXTINF:4,','x.ts']}),e=>e.mediaLocalized&&e.message===messages.live.message);
  await assert.rejects(ctx.readList('https://example.org/',async()=>({ok:false,status:404})),e=>e.message===ctx.mediaText('playlistHttp',{status:404}));
  assert.equal(ctx.mediaErrorText(new Error('foreign text')),messages.unexpected.message);
- for(const file of ['sidebar.js','queue.js','parts.js','hls.js','merge.mjs'])for(const [,key] of read(file).matchAll(/media(?:Text|Error)\('([^']+)'/g))assert.ok(messages[key],file+':'+key);
+ for(const file of ['sidebar.js','queue.js','parts.js','hls.js','merge.mjs','youtube-sidebar.js'])for(const [,key] of read(file).matchAll(/media(?:Text|Error)\('([^']+)'/g))assert.ok(messages[key],file+':'+key);
 });
 test('manifest locale contract',()=>{
  const manifest=JSON.parse(read('manifest.json'));

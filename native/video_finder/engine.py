@@ -34,6 +34,15 @@ def downloads_folder():
             return Path(ctypes.wstring_at(pointer.value)) / 'Video Finder'
         finally:
             ctypes.windll.ole32.CoTaskMemFree(pointer)
+    # XDG paths also match Flatpak's narrowly granted xdg-download directory.
+    config = Path(os.environ.get('XDG_CONFIG_HOME', str(Path.home()/'.config'))) / 'user-dirs.dirs'
+    if config.is_file():
+        for line in config.read_text(encoding='utf-8').splitlines():
+            match = re.fullmatch(r'XDG_DOWNLOAD_DIR="([^"\n]+)"', line.strip())
+            if match:
+                value = match[1].replace('$HOME', str(Path.home()))
+                if '$' not in value and Path(value).is_absolute():
+                    return Path(value) / 'Video Finder'
     return Path.home() / 'Downloads' / 'Video Finder'
 
 
@@ -179,7 +188,16 @@ class Operation:
                     output = self.output
                     output.mkdir(parents=True, exist_ok=True)
                     target = output / (files[0].stem + '-' + uuid.uuid4().hex + files[0].suffix)
-                    shutil.move(str(files[0]), str(target))
+                    # Copy beside the destination before the atomic rename, including across volumes.
+                    partial = target.with_suffix(target.suffix + '.part')
+                    try:
+                        with files[0].open('rb') as src, partial.open('xb') as dst:
+                            shutil.copyfileobj(src, dst)
+                            dst.flush()
+                            os.fsync(dst.fileno())
+                        partial.replace(target)
+                    finally:
+                        partial.unlink(missing_ok=True)
                     self.events.put({'type': 'saved', 'path': str(target)})
                 else:
                     if not metadata:

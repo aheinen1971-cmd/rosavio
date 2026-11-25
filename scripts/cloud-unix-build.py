@@ -60,6 +60,7 @@ archive.unlink();source=root/f'firefox-{version}'
 if not (source/'mach').is_file():raise SystemExit('Unexpected source archive')
 config_file=project/'rosavio.config.json';config=json.loads(config_file.read_text());config['upstreamVersion']=version;config_file.write_text(json.dumps(config))
 python=__import__('sys').executable
+run(python,project/'scripts/build-video-finder.py')
 run(python,project/'scripts/prepare-source.py',source,'--github-repo','aheinen1971-cmd/rosavio','--platform',a.platform)
 mozconfig=source/'mozconfig';s=mozconfig.read_text().replace('MOZ_MAKE_FLAGS=-j8',f'MOZ_MAKE_FLAGS=-j{build_jobs}').replace('ac_add_options --disable-maintenance-service\n','')
 s+='\nac_add_options --enable-bootstrap\nac_add_options --disable-debug-symbols\n'

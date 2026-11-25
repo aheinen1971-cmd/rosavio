@@ -86,6 +86,7 @@ $rosavioConfig.upstreamVersion = $rosavioVersion
 $rosavioConfig.hosting.repository = 'aheinen1971-cmd/rosavio'
 $rosavioConfig | ConvertTo-Json -Depth 8 | Set-Content "$rosavioProject/rosavio.config.json" -Encoding utf8NoBOM
 @{version=$rosavioVersion;url="$rosavioBase/$rosavioSourceName";sha512=$rosavioMatch.Groups[1].Value;verified=$true} | ConvertTo-Json | Set-Content "$rosavioProject/upstream.json" -Encoding utf8NoBOM
+Invoke-Checked { & $rosavioPython "$rosavioProject/scripts/build-video-finder.py" }
 Invoke-Checked { & $rosavioPython "$rosavioProject/scripts/prepare-source.py" $rosavioSource --github-repo aheinen1971-cmd/rosavio }
 $rosavioMozconfig = [IO.File]::ReadAllText("$rosavioSource/mozconfig").Replace('MOZ_MAKE_FLAGS=-j8','MOZ_MAKE_FLAGS=-j3')
 $rosavioMozconfig += "ac_add_options --disable-debug-symbols`nac_add_options --enable-bootstrap`n"

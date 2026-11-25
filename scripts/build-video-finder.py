@@ -59,13 +59,18 @@ def build(output):
     environment=os.environ.copy()
     if suffix:
         # Standard free Windows runner's MSYS2/MinGW. No administrator installation.
-        mingw=Path('C:/msys64/mingw64/bin')
+        compiler=shutil.which('gcc')
+        mingw=Path(compiler).parent if compiler else Path('C:/msys64/mingw64/bin')
         bash=Path('C:/msys64/usr/bin/bash.exe')
         if not (mingw/'gcc.exe').exists():
             raise ValueError('Free runner lacks the MinGW compiler; no browser build started')
+        make=Path('C:/msys64/usr/bin/make.exe')
+        if not make.exists():
+            # Install only the build tool on the disposable runner, retaining package signatures.
+            run('C:/msys64/usr/bin/pacman.exe','-S','--noconfirm','--needed','make')
         environment['PATH']=str(mingw)+os.pathsep+'C:/msys64/usr/bin'+os.pathsep+environment['PATH']
         run(bash,'./configure',*FFMPEG_FLAGS,'--target-os=mingw32','--extra-ldflags=-static',cwd=ff_source,env=environment)
-        run('C:/msys64/usr/bin/make.exe','-j2',cwd=ff_source,env=environment)
+        run(make,'-j2',cwd=ff_source,env=environment)
     else:
         run('bash','./configure',*FFMPEG_FLAGS,cwd=ff_source,env=environment)
         run('make','-j2',cwd=ff_source,env=environment)

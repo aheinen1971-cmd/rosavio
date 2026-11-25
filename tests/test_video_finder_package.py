@@ -14,6 +14,7 @@ class PackageTests(unittest.TestCase):
     def fixture(self, root):
         source, bundle = root/'source', root/'bundle'
         for name, value in {'toolkit/components/extensions/NativeManifests.sys.mjs':module.MARKER,
+                            'toolkit/components/extensions/NativeMessaging.sys.mjs':module.PORTAL_MARKER,
                             'browser/extensions/rosavio-media/moz.build':'# existing\n',
                             'browser/installer/package-manifest.in':'# existing\n'}.items():
             path=source/name; path.parent.mkdir(parents=True,exist_ok=True); path.write_text(value)

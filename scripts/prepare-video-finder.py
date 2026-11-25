@@ -7,6 +7,12 @@ import shutil
 
 ROOT=Path(__file__).resolve().parents[1]
 MARKER='  lookupManifest(type, name, context) {\n    return this.init().then(() => this._lookup(type, name, context));\n  },'
+PORTAL_MARKER='    if (this.portalImp) {\n      this.startupPromise = this._doInitPortalOrNMProxy()'
+PORTAL_REPLACEMENT='''    // The reserved bundled helper runs INSIDE this sandbox, never on the host.
+    // NativeManifests still checks the privileged built-in origin before launch.
+    if (application === "org.rosavio.video_finder") this.portalImp = null;
+    if (this.portalImp) {
+      this.startupPromise = this._doInitPortalOrNMProxy()'''
 REPLACEMENT='''  lookupManifest(type, name, context) {
     // Rosavio Video Finder: this reserved name never falls back to user/registry hosts.
     if (name === "org.rosavio.video_finder") {
@@ -45,10 +51,16 @@ def install(source,bundle):
                 raise ValueError('Video Finder bundle checksum mismatch: '+name)
     module=source/'toolkit/components/extensions/NativeManifests.sys.mjs'
     text=module.read_text(encoding='utf-8')
+    messaging=source/'toolkit/components/extensions/NativeMessaging.sys.mjs'
+    messaging_text=messaging.read_text(encoding='utf-8')
+    if PORTAL_REPLACEMENT not in messaging_text and messaging_text.count(PORTAL_MARKER)!=1:
+        raise ValueError('Upstream native portal routing changed; review required')
     if REPLACEMENT not in text:
         if text.count(MARKER)!=1:
             raise ValueError('Upstream native host lookup changed; review required')
         module.write_text(text.replace(MARKER,REPLACEMENT),encoding='utf-8',newline='\n')
+    if PORTAL_REPLACEMENT not in messaging_text:
+        messaging.write_text(messaging_text.replace(PORTAL_MARKER,PORTAL_REPLACEMENT),encoding='utf-8',newline='\n')
     target=source/'browser/extensions/rosavio-media/native'
     target.mkdir(parents=True,exist_ok=True)
     groups={}
