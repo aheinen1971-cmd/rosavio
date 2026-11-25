@@ -1,1 +1,1 @@
-{"request":1,"purpose":"Prove PyInstaller stripping failure and large MAR file-list roundtrip without a browser build"}
+{"request":2,"purpose":"Reproduce with LLVM strip used by Mozilla, not GNU strip; Windows repair tests already passed"}
