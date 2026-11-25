@@ -1,5 +1,5 @@
 {
-  "request": 2,
-  "purpose": "Video Finder final integration including Mozilla case-insensitive packaging order, activeTab refresh and corresponding sources",
+  "request": 3,
+  "purpose": "Qualify Video Finder helper installation at GreD while preserving the built-in extension browser JAR location",
   "publish": false
 }

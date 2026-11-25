@@ -74,13 +74,18 @@ def install(source,bundle):
     lines=[]
     for parent,names in groups.items():
         selector="FINAL_TARGET_FILES['video-finder']"+''.join('['+repr(part)+']' for part in Path(parent).parts if part!='.')
-        values=[('native/'+(parent+'/' if parent!='.' else '')+name) for name in names]
+        values=[((parent+'/' if parent!='.' else '')+name) for name in names]
         # mozbuild.StrictOrderingOnAppendList compares paths case-insensitively.
         values.sort(key=str.lower)
         lines.append(selector+' += '+repr(values))
     build=target.parent/'moz.build'
     text=build.read_text(encoding='utf-8').split('# Video Finder native bundle')[0].rstrip()
-    build.write_text(text+'\n# Video Finder native bundle\n'+'\n'.join(lines)+'\n',encoding='utf-8')
+    # browser/moz.build exports DIST_SUBDIR="browser". Keep that for the
+    # built-in extension's JAR, but install the executable next to GreD.
+    build.write_text(text+'\n# Video Finder native bundle\nDIRS += ["native"]\n',encoding='utf-8')
+    (target/'moz.build').write_text(
+        '# Native helper lives beside the browser executable, not in browser/.\n'
+        'DIST_SUBDIR = ""\n'+'\n'.join(lines)+'\n',encoding='utf-8')
     package=source/'browser/installer/package-manifest.in'
     text=package.read_text(encoding='utf-8')
     entry='\n[video-finder]\n@BINPATH@/video-finder/**\n'

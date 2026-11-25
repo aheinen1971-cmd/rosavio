@@ -12,6 +12,29 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 
 class PackageTests(unittest.TestCase):
+    def test_helper_target_matches_runtime_and_installer_without_moving_addon(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source,bundle=self.fixture(Path(tmp))
+            module.install(source,bundle); module.install(source,bundle)
+            addon=source/'browser/extensions/rosavio-media'
+            parent=(addon/'moz.build').read_text()
+            self.assertNotIn('DIST_SUBDIR =',parent)
+            self.assertEqual(parent.count('DIRS += ["native"]'),1)
+            native=(addon/'native/moz.build').read_text()
+            # The browser parent exports DIST_SUBDIR="browser". Only the helper
+            # child must reset it; changing the add-on would move its JAR too.
+            scope={'DIST_SUBDIR':'browser'}
+            tree=ast.parse(native)
+            for statement in tree.body:
+                if isinstance(statement,ast.Assign):
+                    scope[statement.targets[0].id]=ast.literal_eval(statement.value)
+            self.assertEqual(scope['DIST_SUBDIR'],'')
+            for statement in tree.body:
+                if isinstance(statement,ast.AugAssign):
+                    for relative in ast.literal_eval(statement.value):
+                        self.assertTrue((addon/'native'/relative).is_file())
+            self.assertIn('@BINPATH@/video-finder/**', (source/'browser/installer/package-manifest.in').read_text())
+
     def test_native_libraries_use_mozbuild_case_insensitive_order(self):
         with tempfile.TemporaryDirectory() as tmp:
             source,bundle=self.fixture(Path(tmp))
@@ -24,7 +47,7 @@ class PackageTests(unittest.TestCase):
                     inventory['files'][relative]=hashlib.sha256(b'fixture').hexdigest()
             (bundle/'bundle.json').write_text(json.dumps(inventory))
             module.install(source,bundle)
-            tree=ast.parse((source/'browser/extensions/rosavio-media/moz.build').read_text())
+            tree=ast.parse((source/'browser/extensions/rosavio-media/native/moz.build').read_text())
             for statement in tree.body:
                 if isinstance(statement,ast.AugAssign):
                     values=ast.literal_eval(statement.value)
