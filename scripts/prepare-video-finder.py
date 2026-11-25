@@ -75,6 +75,8 @@ def install(source,bundle):
     for parent,names in groups.items():
         selector="FINAL_TARGET_FILES['video-finder']"+''.join('['+repr(part)+']' for part in Path(parent).parts if part!='.')
         values=[('native/'+(parent+'/' if parent!='.' else '')+name) for name in names]
+        # mozbuild.StrictOrderingOnAppendList compares paths case-insensitively.
+        values.sort(key=str.lower)
         lines.append(selector+' += '+repr(values))
     build=target.parent/'moz.build'
     text=build.read_text(encoding='utf-8').split('# Video Finder native bundle')[0].rstrip()

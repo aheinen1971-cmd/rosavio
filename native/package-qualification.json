@@ -1,1 +1,5 @@
-{"request":1,"purpose":"Video Finder 2.2.0 Windows Linux Flatpak isolated package qualification","publish":false}
+{
+  "request": 2,
+  "purpose": "Video Finder final integration including Mozilla case-insensitive packaging order, activeTab refresh and corresponding sources",
+  "publish": false
+}

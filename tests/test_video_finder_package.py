@@ -1,4 +1,5 @@
 import hashlib
+import ast
 import importlib.util
 import json
 from pathlib import Path
@@ -11,6 +12,24 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 
 class PackageTests(unittest.TestCase):
+    def test_native_libraries_use_mozbuild_case_insensitive_order(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source,bundle=self.fixture(Path(tmp))
+            inventory=json.loads((bundle/'bundle.json').read_text())
+            for extension in ('.pyd','.abi3.so'):
+                for name in ('_ARC4','_Salsa20','_chacha20','_raw_aes'):
+                    relative='_internal/Cryptodome/Cipher/'+name+extension
+                    path=bundle/relative;path.parent.mkdir(parents=True,exist_ok=True)
+                    path.write_bytes(b'fixture')
+                    inventory['files'][relative]=hashlib.sha256(b'fixture').hexdigest()
+            (bundle/'bundle.json').write_text(json.dumps(inventory))
+            module.install(source,bundle)
+            tree=ast.parse((source/'browser/extensions/rosavio-media/moz.build').read_text())
+            for statement in tree.body:
+                if isinstance(statement,ast.AugAssign):
+                    values=ast.literal_eval(statement.value)
+                    self.assertEqual(values,sorted(values,key=str.lower))
+
     def fixture(self, root):
         source, bundle = root/'source', root/'bundle'
         for name, value in {'toolkit/components/extensions/NativeManifests.sys.mjs':module.MARKER,
