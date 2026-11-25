@@ -98,7 +98,16 @@ def build(output):
     shutil.copy2(node_license,licenses/'node-LICENSE.txt')
     python_license=Path(sys.base_prefix)/'LICENSE.txt'
     if not python_license.exists(): python_license=Path(sys.base_prefix)/'LICENSE'
-    if python_license.exists(): shutil.copy2(python_license,licenses/'Python-LICENSE.txt')
+    if python_license.exists():
+        shutil.copy2(python_license,licenses/'Python-LICENSE.txt')
+    else:
+        version='.'.join(str(x) for x in sys.version_info[:3])
+        url='https://raw.githubusercontent.com/python/cpython/v'+version+'/LICENSE'
+        with urllib.request.urlopen(url,timeout=60) as response:
+            license_text=response.read()
+        if b'PYTHON SOFTWARE FOUNDATION LICENSE' not in license_text:
+            raise ValueError('Python license missing')
+        (licenses/'Python-LICENSE.txt').write_bytes(license_text)
     for info in venv.rglob('*.dist-info'):
         for path in info.rglob('*'):
             if path.is_file() and any(x in path.name.lower() for x in ('license','copying','notice')):
@@ -113,6 +122,20 @@ def build(output):
     shutil.copy2(ROOT/'native/toolchain.json',source/'toolchain.json')
     (source/'ffmpeg-configure.json').write_text(json.dumps(FFMPEG_FLAGS,indent=2))
     shutil.copy2(work/'python-dependencies.json',source/'python-dependencies.json')
+    # Mutagen is optional for many downloads but included by yt-dlp[default].
+    # Redistribute its exact corresponding source alongside the bundled bytecode.
+    dependencies=json.loads((work/'python-dependencies.json').read_text(encoding='utf-8'))
+    mutagen=next(x['metadata']['version'] for x in dependencies['install'] if x['metadata']['name'].lower()=='mutagen')
+    with urllib.request.urlopen('https://pypi.org/pypi/mutagen/'+mutagen+'/json',timeout=60) as response:
+        metadata=json.load(response)
+    archives=[x for x in metadata['urls'] if x['packagetype']=='sdist']
+    if len(archives)!=1: raise ValueError('Ambiguous Mutagen corresponding source')
+    archive=archives[0]
+    if not archive['url'].startswith('https://files.pythonhosted.org/'):
+        raise ValueError('Unexpected source distribution host')
+    source_record={'url':archive['url'],'sha256':archive['digests']['sha256']}
+    fetch(source_record,source/('mutagen-'+mutagen+'.tar.gz'))
+    (source/'mutagen-source.json').write_text(json.dumps(source_record,indent=2))
     run(output/('node'+suffix),'--version')
     run(output/('ffmpeg'+suffix),'-version')
     run(sys.executable,ROOT/'tests/check_video_finder_bundle.py',output)

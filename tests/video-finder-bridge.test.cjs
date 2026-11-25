@@ -4,16 +4,17 @@ const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
 for(const locale of require('../scripts/requested-languages.json').locales)test('YouTube sidebar states in '+locale,async()=>{
  const messages=JSON.parse(fs.readFileSync(path.join(__dirname,'../media/_locales',locale.replaceAll('-','_'),'messages.json'),'utf8'));
  const nodes=new Map();
- const node=()=>({hidden:false,disabled:false,textContent:'',value:'',removeAttribute(k){delete this[k];},replaceChildren(...children){this.children=children;}});
+ const node=()=>({hidden:false,disabled:false,textContent:'',value:'',addEventListener(){},removeEventListener(){},removeAttribute(k){delete this[k];},replaceChildren(...children){this.children=children;}});
  const document={querySelector(id){if(!nodes.has(id))nodes.set(id,node());return nodes.get(id);},createElement:node};
- let update;const calls=[];
+ let update,toolbarClick;let canReadURL=false;const calls=[];
  const controller={subscribe(fn){update=fn;fn({phase:'idle',busy:false,choices:[]});return()=>{};},inspect(url){calls.push(url);},download(){},cancel(){}};
  const events={addListener(){},removeListener(){}};
- const browser={runtime:{async getBackgroundPage(){return {getYouTubeController:()=>controller,videoFinderYouTubeURL:()=> 'https://www.youtube.com/watch?v=aqz-KE-bpKQ'};}},windows:{async getCurrent(){return {id:1};}},tabs:{async query(){return [{url:'https://youtu.be/aqz-KE-bpKQ'}];},onActivated:events,onUpdated:events}};
+ const browser={browserAction:{onClicked:{addListener(fn){toolbarClick=fn;},removeListener(){}}},runtime:{async getBackgroundPage(){return {getYouTubeController:()=>controller,videoFinderYouTubeURL:value=> value ? 'https://www.youtube.com/watch?v=aqz-KE-bpKQ' : null};}},windows:{async getCurrent(){return {id:1};}},tabs:{async query(){return [{url:canReadURL ? 'https://youtu.be/aqz-KE-bpKQ' : undefined}];},onActivated:events,onUpdated:events}};
  const ctx=vm.createContext({browser,document,window:{addEventListener(){}},mediaNumber:v=>new Intl.NumberFormat(locale).format(v),mediaText:(key,args={})=>{
   assert.ok(messages[key],key);return messages[key].message.replace(/\{(\w+)\}/g,(_,k)=>args[k]||'');
  }});
  await vm.runInContext(fs.readFileSync(path.join(__dirname,'../media/youtube-sidebar.js'),'utf8'),ctx);
+ assert.equal(nodes.get('#youtube').hidden,true);canReadURL=true;await toolbarClick();assert.equal(nodes.get('#youtube').hidden,false);
  assert.equal(calls.length,0);nodes.get('#youtube-detect').onclick();assert.equal(calls.length,1);
  for(const [phase,key] of Object.entries({inspecting:'youtubeInspecting',detected:'youtubeDetected',processing:'youtubeProcessing',cancelled:'youtubeCancelled',cleanup:'youtubeCleanup'})){
   update({phase,busy:phase==='inspecting',choices:[]});assert.equal(nodes.get('#youtube-status').textContent,messages[key].message);

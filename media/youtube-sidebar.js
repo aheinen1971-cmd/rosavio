@@ -62,8 +62,13 @@
   const updated = (id, change, tab) => { if(tab.active && tab.windowId===currentWindow.id && (change.url || change.status==='complete')) tabChanged(); };
   browser.tabs.onActivated.addListener(activated);
   browser.tabs.onUpdated.addListener(updated);
+  // A toolbar click can newly grant activeTab while the sidebar is already open.
+  browser.browserAction.onClicked.addListener(tabChanged);
+  document.querySelector('#scan').addEventListener('click', tabChanged);
   window.addEventListener('pagehide', () => {
     unsubscribe(); browser.tabs.onActivated.removeListener(activated); browser.tabs.onUpdated.removeListener(updated);
+    browser.browserAction.onClicked.removeListener(tabChanged);
+    document.querySelector('#scan').removeEventListener('click', tabChanged);
   },{once:true});
   await tabChanged();
 })();
