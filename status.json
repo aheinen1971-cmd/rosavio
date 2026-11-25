@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-25T09:09:37.106849+00:00",
+  "checkedAt": "2026-11-25T09:39:41.410249+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -145,7 +145,7 @@
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "117",
+      "version": "118",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
