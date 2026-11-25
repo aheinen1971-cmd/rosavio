@@ -19,7 +19,9 @@ REPLACEMENT='''  lookupManifest(type, name, context) {
       return this.init().then(async () => {
         if (type !== "stdio" || context.extension.id !== "medien@rosavio.local" ||
             !context.extension.isPrivileged ||
-            context.extension.rootURI.spec !== "resource://builtin-addons/rosavio-media/") {
+            context.extension.rootURI.spec !== Services.io.getProtocolHandler("resource")
+              .QueryInterface(Ci.nsIResProtocolHandler)
+              .resolveURI(Services.io.newURI("resource://builtin-addons/rosavio-media/"))) {
           return null;
         }
         const directory = PathUtils.join(Services.dirsvc.get("GreD", Ci.nsIFile).path, "video-finder");

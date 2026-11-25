@@ -1,8 +1,5 @@
 name: Video Finder isolated helper qualification
 on:
-  push:
-    branches: [feature/video-finder-youtube-20261125]
-    paths: ['native/**', 'media/**', 'scripts/*video-finder*', 'tests/*video*', 'tests/fixtures/video-finder/**', '.github/workflows/video-finder-helper-tests.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -30,7 +27,7 @@ jobs:
           python tests/test_video_finder_native.py
           python tests/test_video_finder_package.py
           python tests/test_media_package.py
-          node --test tests/video-finder-bridge.test.cjs tests/media-localization.test.cjs tests/media-core.test.cjs tests/media-background.test.cjs
+          node --test tests/video-finder-*.test.cjs tests/media-localization.test.cjs tests/media-core.test.cjs tests/media-background.test.cjs
       - name: Build minimal LGPL FFmpeg and isolated helper
         run: python scripts/build-video-finder.py
       - name: Retain qualified helper

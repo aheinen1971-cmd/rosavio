@@ -1,34 +1,32 @@
-25.11.2026 – Video Finder: Prüfung des begonnenen Rosavio-Einbaus
+25.11.2026 – Video Finder 2.2.0 Integrationsstand
 
-NICHT einbaufertig, NICHT veröffentlicht, keine neuen Browserbauten ausgelöst.
-Firefox-Video-Finder 1.9 mit ID video-finder@local.invalid unverändert.
-Rosavio-Bestand hat weiterhin ID medien@rosavio.local, Medien 2.1.1.
+Entwicklungszweig feature/video-finder-youtube-20261125. Noch kein reguläres Release.
+Firefox-Video-Finder 1.9 bleibt unverändert. Rosavio behält medien@rosavio.local.
 
-Getrennter Entwicklungszweig: feature/video-finder-youtube-20261125.
-Nur lokale, noch nicht übertragene Arbeiten. Keine Änderung am regulären Build.
+Implementiert: YouTube-Bereich, ausdrückliche Erkennung, Qualitätsauswahl,
+Fortschritt, Abbruch, verständliche Fehler in 20 Sprachen. Bestehende direkte
+Datei-/HLS-Erkennung und Warteschlange erhalten. Kein Zugriff auf Cookies/Profile.
+Eigenständiger Helfer mit Python/yt-dlp/EJS, Node und minimalem LGPL-FFmpeg.
+Festgelegte Node-/FFmpeg-Archivhashes, Lizenzbeilagen und FFmpeg-Quellarchiv.
+Python-Abhängigkeiten mit Installationsbericht; nicht vollständig reproduzierbar behaupten.
 
-Native Helfer-Prüfung: 7 Tests bestanden.
-Reale lokale Arbeitsprozesse für Erkennung/Speicherablauf, ohne YouTube-Netzabruf.
-Verteilte native Nachrichten, Größenlimits, fremde Erweiterungskennung,
-unzulässige zusätzliche Anforderungsfelder, zweimaliges Speichern ohne
-Überschreiben, Fehler beim Anlegen temporärer Ordner geprüft.
+Native Hostsuche: reservierter Name, privilegierte eingebaute UUID UND exakt
+aufgelöste builtin-addons-Archivadresse erforderlich; kein Registry-Fallback.
+Flatpak startet nur diesen Helfer innerhalb der Sandbox, keine Hostfreigabe.
+Gecko-Patches gegen offiziellen Firefox-161-Quellstand/Syntax geprüft.
+Tatsächliche rootURI und Erweiterungs-API in isoliertem Rosavio-161-Profil geprüft.
 
-Gefunden/korrigiert: mkdtemp-Ordner versehentlich erneut angelegt;
-konstanter Präfix statt Zufallsteil im Zieldateinamen;
-fragmentierte Pipe-Nachrichten; temporäre Ordnerfehler außerhalb Fehlerbehandlung.
+GitHub-Helferprüfung 45626927769: Windows und Linux SUCCESS.
+Frühere Baufehler fehlender Compilerpfad und mehrdeutige Node-Dateisuche behoben.
+Lokale Windows-Prüfung des fertigen Helfers aus 45626095141: öffentliches
+Blender-Testvideo erkannt (40 Formate), 360p direkt und 144p zusammengefügtes
+Bild/Ton heruntergeladen, beide vollständig streng fehlerfrei dekodiert.
+Belege außerhalb Repo: work/video-finder-frozen-live-report.json und
+work/video-finder-frozen-merged-report.json. Kein persönliches Profil verändert.
 
-Bestand: 35 JS-Tests der Medienfunktionen/20-Sprachen-Kataloge bestanden.
-Diese belegen keine native YouTube-Integration und keine neue Übersetzung dafür.
-
-Noch erforderlich:
-- Browser-Seitenleiste an den Helfer anschließen; Herkunfts-/Berechtigungsprüfung
-  im Browser, Manifest und Hostsuche (die Prüfung einer übergebenen Kennung im
-  Helfer allein ist KEINE sichere Browser-Zugriffssperre).
-- Reproduzierbare eigenständige Helferpakete und vollständige Lizenz-/Quellbeilagen;
-  die Begleitprogramme werden bislang noch nicht im Rosavio-Paket mitgeliefert.
-- Neue Oberflächentexte in 20 Sprachen und echte Bedienprüfungen.
-- Prozessbeendigung/Fehlerweitergabe für alle Plattformen weiter qualifizieren.
-- Windows-, Linux- und Flatpak-Paket-, Signatur- und Updateprüfungen.
-
-Die erfolgreichen echten Downloads des separaten Windows-Prototyps gelten
-nicht als Nachweis für den noch unvollständigen Einbau in Rosavio.
+Noch offen: vollständige native Browserpakete Windows/Linux, integrierter
+NativeMessaging-Aufruf, Flatpak-Ausführung, signierte Update-/Profil-/Desktop-
+Prüfungen. Separate Paketqualifikation wird gezielt über Änderung von
+native/package-qualification.json angefordert, ohne Veröffentlichung.
+Nicht jede Quelländerung löst neue Browserbauten aus. Erst nach bestandenem
+Paketnachweis Veröffentlichung und Websitepflege. Kein YouTube-Langzeitnachweis.
