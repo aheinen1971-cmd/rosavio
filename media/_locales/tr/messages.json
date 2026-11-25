@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Medya"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Video"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "Dosya işlenemedi. Bağlantıyı kontrol edip yeniden deneyin."
+  },
+  "youtubeDetect": {
+    "message": "YouTube videosunu algıla"
+  },
+  "youtubeHint": {
+    "message": "Bir YouTube videosu açıp algılamayı başlatın."
+  },
+  "youtubeInspecting": {
+    "message": "Video algılanıyor …"
+  },
+  "youtubeDetected": {
+    "message": "Kaliteyi seçip indirin."
+  },
+  "youtubeDownloading": {
+    "message": "Geçerli parça indiriliyor:"
+  },
+  "youtubeProcessing": {
+    "message": "Görüntü ve ses işleniyor …"
+  },
+  "youtubeSaved": {
+    "message": "Kaydedildi: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "İptal edildi. Eksik dosyalar kaldırıldı."
+  },
+  "youtubeCleanup": {
+    "message": "İptal edildi. Bazı geçici dosyalar kaldırılamadı."
+  },
+  "youtubeMerge": {
+    "message": "MKV · görüntü ve sesi birleştir"
+  },
+  "youtubeCombined": {
+    "message": "Görüntü ve ses birlikte"
+  },
+  "youtubeLogin": {
+    "message": "YouTube oturum açılmasını istiyor veya isteği engelliyor. Tarayıcının giriş bilgileri kullanılmaz."
+  },
+  "youtubeQualityChanged": {
+    "message": "Kalite artık kullanılamıyor. Videoyu yeniden algılayın."
+  },
+  "youtubeUnavailable": {
+    "message": "Bu video kullanılamıyor."
+  },
+  "youtubeNetwork": {
+    "message": "Bağlantı başarısız. Daha sonra yeniden deneyin."
+  },
+  "youtubeFailed": {
+    "message": "İndirme başarısız. Videoyu yeniden algılayın."
+  },
+  "youtubeRequestRejected": {
+    "message": "İstek reddedildi. Tek bir YouTube videosu seçin."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "Birlikte gelen indirme yardımcısı kullanılamıyor."
+  },
+  "youtubeDisconnected": {
+    "message": "İndirme yardımcısıyla bağlantı kesildi."
   }
 }

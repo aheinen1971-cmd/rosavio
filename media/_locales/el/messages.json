@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Πολυμέσα"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Βίντεο"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "Δεν ήταν δυνατή η επεξεργασία του αρχείου. Ελέγξτε τη σύνδεση και δοκιμάστε ξανά."
+  },
+  "youtubeDetect": {
+    "message": "Αναγνώριση βίντεο YouTube"
+  },
+  "youtubeHint": {
+    "message": "Ανοίξτε ένα βίντεο YouTube και ξεκινήστε την αναγνώριση."
+  },
+  "youtubeInspecting": {
+    "message": "Αναγνώριση βίντεο …"
+  },
+  "youtubeDetected": {
+    "message": "Επιλέξτε ποιότητα και κατεβάστε."
+  },
+  "youtubeDownloading": {
+    "message": "Λήψη τρέχοντος κομματιού:"
+  },
+  "youtubeProcessing": {
+    "message": "Επεξεργασία εικόνας και ήχου …"
+  },
+  "youtubeSaved": {
+    "message": "Αποθηκεύτηκε: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Ακυρώθηκε. Τα ημιτελή αρχεία διαγράφηκαν."
+  },
+  "youtubeCleanup": {
+    "message": "Ακυρώθηκε. Ορισμένα προσωρινά αρχεία δεν διαγράφηκαν."
+  },
+  "youtubeMerge": {
+    "message": "MKV · συγχώνευση εικόνας και ήχου"
+  },
+  "youtubeCombined": {
+    "message": "Εικόνα και ήχος μαζί"
+  },
+  "youtubeLogin": {
+    "message": "Το YouTube απαιτεί σύνδεση ή αποκλείει το αίτημα. Δεν χρησιμοποιούνται στοιχεία σύνδεσης του προγράμματος περιήγησης."
+  },
+  "youtubeQualityChanged": {
+    "message": "Η ποιότητα δεν είναι πλέον διαθέσιμη. Αναγνωρίστε ξανά το βίντεο."
+  },
+  "youtubeUnavailable": {
+    "message": "Αυτό το βίντεο δεν είναι διαθέσιμο."
+  },
+  "youtubeNetwork": {
+    "message": "Αποτυχία σύνδεσης. Δοκιμάστε αργότερα."
+  },
+  "youtubeFailed": {
+    "message": "Αποτυχία λήψης. Αναγνωρίστε ξανά το βίντεο."
+  },
+  "youtubeRequestRejected": {
+    "message": "Το αίτημα απορρίφθηκε. Επιλέξτε ένα μόνο βίντεο YouTube."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "Ο ενσωματωμένος βοηθός λήψης δεν είναι διαθέσιμος."
+  },
+  "youtubeDisconnected": {
+    "message": "Η σύνδεση με τον βοηθό λήψης τερματίστηκε."
   }
 }

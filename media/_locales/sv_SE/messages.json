@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Media"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Video"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "Filen kunde inte bearbetas. Kontrollera anslutningen och försök igen."
+  },
+  "youtubeDetect": {
+    "message": "Identifiera YouTube-video"
+  },
+  "youtubeHint": {
+    "message": "Öppna en YouTube-video och starta identifieringen."
+  },
+  "youtubeInspecting": {
+    "message": "Identifierar video …"
+  },
+  "youtubeDetected": {
+    "message": "Välj kvalitet och ladda ned."
+  },
+  "youtubeDownloading": {
+    "message": "Laddar ned aktuellt spår:"
+  },
+  "youtubeProcessing": {
+    "message": "Bearbetar bild och ljud …"
+  },
+  "youtubeSaved": {
+    "message": "Sparat: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Avbrutet. Ofullständiga filer borttagna."
+  },
+  "youtubeCleanup": {
+    "message": "Avbrutet. Vissa tillfälliga filer kunde inte tas bort."
+  },
+  "youtubeMerge": {
+    "message": "MKV · sammanfoga bild och ljud"
+  },
+  "youtubeCombined": {
+    "message": "Bild och ljud tillsammans"
+  },
+  "youtubeLogin": {
+    "message": "YouTube kräver inloggning eller blockerar begäran. Webbläsarens inloggningsuppgifter används inte."
+  },
+  "youtubeQualityChanged": {
+    "message": "Kvaliteten är inte längre tillgänglig. Identifiera videon igen."
+  },
+  "youtubeUnavailable": {
+    "message": "Videon är inte tillgänglig."
+  },
+  "youtubeNetwork": {
+    "message": "Anslutningen misslyckades. Försök senare."
+  },
+  "youtubeFailed": {
+    "message": "Nedladdningen misslyckades. Identifiera videon igen."
+  },
+  "youtubeRequestRejected": {
+    "message": "Begäran avvisades. Välj en enda YouTube-video."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "Den medföljande nedladdningshjälparen är inte tillgänglig."
+  },
+  "youtubeDisconnected": {
+    "message": "Anslutningen till nedladdningshjälparen avslutades."
   }
 }

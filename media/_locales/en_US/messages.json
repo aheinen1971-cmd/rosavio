@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Media"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Video"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "The file could not be processed. Check your connection and try again."
+  },
+  "youtubeDetect": {
+    "message": "Detect YouTube video"
+  },
+  "youtubeHint": {
+    "message": "Open a YouTube video and start detection."
+  },
+  "youtubeInspecting": {
+    "message": "Detecting video …"
+  },
+  "youtubeDetected": {
+    "message": "Choose a quality and download."
+  },
+  "youtubeDownloading": {
+    "message": "Downloading current track:"
+  },
+  "youtubeProcessing": {
+    "message": "Processing video and audio …"
+  },
+  "youtubeSaved": {
+    "message": "Saved: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Cancelled. Incomplete files removed."
+  },
+  "youtubeCleanup": {
+    "message": "Cancelled. Some temporary files could not be removed."
+  },
+  "youtubeMerge": {
+    "message": "MKV · merge video and audio"
+  },
+  "youtubeCombined": {
+    "message": "Combined video and audio"
+  },
+  "youtubeLogin": {
+    "message": "YouTube requires sign-in or is blocking the request. Browser sign-in data is not used."
+  },
+  "youtubeQualityChanged": {
+    "message": "Quality no longer available. Detect the video again."
+  },
+  "youtubeUnavailable": {
+    "message": "This video is unavailable."
+  },
+  "youtubeNetwork": {
+    "message": "Connection failed. Try again later."
+  },
+  "youtubeFailed": {
+    "message": "Download failed. Detect the video again."
+  },
+  "youtubeRequestRejected": {
+    "message": "Request rejected. Select a single YouTube video."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "The bundled download helper is unavailable."
+  },
+  "youtubeDisconnected": {
+    "message": "The connection to the download helper ended."
   }
 }

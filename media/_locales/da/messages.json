@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Medier"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Video"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "Filen kunne ikke behandles. Kontrollér forbindelsen, og prøv igen."
+  },
+  "youtubeDetect": {
+    "message": "Find YouTube-video"
+  },
+  "youtubeHint": {
+    "message": "Åbn en YouTube-video, og start søgningen."
+  },
+  "youtubeInspecting": {
+    "message": "Finder video …"
+  },
+  "youtubeDetected": {
+    "message": "Vælg kvalitet og download."
+  },
+  "youtubeDownloading": {
+    "message": "Downloader aktuelt spor:"
+  },
+  "youtubeProcessing": {
+    "message": "Behandler billede og lyd …"
+  },
+  "youtubeSaved": {
+    "message": "Gemt: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Annulleret. Ufuldstændige filer fjernet."
+  },
+  "youtubeCleanup": {
+    "message": "Annulleret. Nogle midlertidige filer kunne ikke fjernes."
+  },
+  "youtubeMerge": {
+    "message": "MKV · saml billede og lyd"
+  },
+  "youtubeCombined": {
+    "message": "Billede og lyd samlet"
+  },
+  "youtubeLogin": {
+    "message": "YouTube kræver login eller blokerer anmodningen. Browserens loginoplysninger bruges ikke."
+  },
+  "youtubeQualityChanged": {
+    "message": "Kvaliteten er ikke længere tilgængelig. Find videoen igen."
+  },
+  "youtubeUnavailable": {
+    "message": "Videoen er ikke tilgængelig."
+  },
+  "youtubeNetwork": {
+    "message": "Forbindelsen mislykkedes. Prøv igen senere."
+  },
+  "youtubeFailed": {
+    "message": "Download mislykkedes. Find videoen igen."
+  },
+  "youtubeRequestRejected": {
+    "message": "Anmodning afvist. Vælg én YouTube-video."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "Den medfølgende downloadhjælper er ikke tilgængelig."
+  },
+  "youtubeDisconnected": {
+    "message": "Forbindelsen til downloadhjælperen blev afsluttet."
   }
 }

@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "メディア"
+    "message": "Video Finder"
   },
   "video": {
     "message": "動画"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "ファイルを処理できませんでした。接続を確認して再試行してください。"
+  },
+  "youtubeDetect": {
+    "message": "YouTube動画を検出"
+  },
+  "youtubeHint": {
+    "message": "YouTube動画を開いて検出を開始してください。"
+  },
+  "youtubeInspecting": {
+    "message": "動画を検出しています …"
+  },
+  "youtubeDetected": {
+    "message": "画質を選んでダウンロードしてください。"
+  },
+  "youtubeDownloading": {
+    "message": "現在のトラックをダウンロード中:"
+  },
+  "youtubeProcessing": {
+    "message": "映像と音声を処理しています …"
+  },
+  "youtubeSaved": {
+    "message": "保存先: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "キャンセルしました。未完成のファイルを削除しました。"
+  },
+  "youtubeCleanup": {
+    "message": "キャンセルしました。一部の一時ファイルを削除できませんでした。"
+  },
+  "youtubeMerge": {
+    "message": "MKV · 映像と音声を結合"
+  },
+  "youtubeCombined": {
+    "message": "映像と音声が一体"
+  },
+  "youtubeLogin": {
+    "message": "YouTubeがログインを要求しているか、リクエストをブロックしています。ブラウザーのログイン情報は使用しません。"
+  },
+  "youtubeQualityChanged": {
+    "message": "この画質は利用できません。動画を再検出してください。"
+  },
+  "youtubeUnavailable": {
+    "message": "この動画は利用できません。"
+  },
+  "youtubeNetwork": {
+    "message": "接続に失敗しました。後でもう一度お試しください。"
+  },
+  "youtubeFailed": {
+    "message": "ダウンロードに失敗しました。動画を再検出してください。"
+  },
+  "youtubeRequestRejected": {
+    "message": "リクエストが拒否されました。YouTube動画を1つ選んでください。"
+  },
+  "youtubeHelperUnavailable": {
+    "message": "同梱のダウンロードヘルパーを利用できません。"
+  },
+  "youtubeDisconnected": {
+    "message": "ダウンロードヘルパーとの接続が終了しました。"
   }
 }

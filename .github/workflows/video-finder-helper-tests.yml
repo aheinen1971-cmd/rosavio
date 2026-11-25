@@ -1,0 +1,40 @@
+name: Video Finder isolated helper qualification
+on:
+  push:
+    branches: [feature/video-finder-youtube-20261125]
+    paths: ['native/**', 'media/**', 'scripts/*video-finder*', 'tests/*video*', 'tests/fixtures/video-finder/**', '.github/workflows/video-finder-helper-tests.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: video-finder-helper-qualification
+  cancel-in-progress: false
+jobs:
+  helper:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source and protocol tests
+        run: |
+          python tests/test_video_finder_native.py
+          python tests/test_video_finder_package.py
+          python tests/test_media_package.py
+          node --test tests/video-finder-bridge.test.cjs tests/media-localization.test.cjs tests/media-core.test.cjs tests/media-background.test.cjs
+      - name: Build minimal LGPL FFmpeg and isolated helper
+        run: python scripts/build-video-finder.py
+      - name: Retain qualified helper
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: video-finder-helper-${{ matrix.os }}-${{ github.run_id }}
+          path: build/video-finder/
+          retention-days: 7

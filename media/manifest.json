@@ -1,11 +1,12 @@
 {
   "manifest_version": 2,
-  "name": "Rosavio __MSG_media__",
-  "version": "2.1.1",
+  "name": "Video Finder",
+  "version": "2.2.0",
   "permissions": [
     "activeTab",
     "scripting",
-    "downloads"
+    "downloads",
+    "nativeMessaging"
   ],
   "optional_permissions": [
     "https://*/*",

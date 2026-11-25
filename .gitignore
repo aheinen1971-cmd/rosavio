@@ -12,3 +12,5 @@ private/
 !certificates/*.der
 !certificates/*.json
 native-check/
+build/video-finder/
+build/video-finder-work/

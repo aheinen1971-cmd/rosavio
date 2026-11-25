@@ -28,9 +28,9 @@ class MediaPackageTests(unittest.TestCase):
 
     def test_permissions_and_entrypoints(self):
         manifest = json.loads((ROOT / 'media/manifest.json').read_text())
-        self.assertEqual(manifest['version'], '2.1.1')
+        self.assertEqual(manifest['version'], '2.2.0')
         self.assertEqual(manifest['browser_specific_settings']['gecko']['id'], 'medien@rosavio.local')
-        self.assertEqual(set(manifest['permissions']), {'activeTab', 'scripting', 'downloads'})
+        self.assertEqual(set(manifest['permissions']), {'activeTab', 'scripting', 'downloads', 'nativeMessaging'})
         for entry in [manifest['background']['page'], manifest['sidebar_action']['default_panel'], manifest['browser_action']['default_icon']]:
             self.assertTrue((ROOT / 'media' / entry).is_file())
         self.assertNotIn('update_url', manifest['browser_specific_settings']['gecko'])

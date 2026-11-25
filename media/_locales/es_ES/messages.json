@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Medios"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Vídeo"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "No se pudo procesar el archivo. Comprueba la conexión e inténtalo de nuevo."
+  },
+  "youtubeDetect": {
+    "message": "Detectar vídeo de YouTube"
+  },
+  "youtubeHint": {
+    "message": "Abre un vídeo de YouTube e inicia la detección."
+  },
+  "youtubeInspecting": {
+    "message": "Detectando vídeo …"
+  },
+  "youtubeDetected": {
+    "message": "Elige una calidad y descarga."
+  },
+  "youtubeDownloading": {
+    "message": "Descargando la pista actual:"
+  },
+  "youtubeProcessing": {
+    "message": "Procesando vídeo y audio …"
+  },
+  "youtubeSaved": {
+    "message": "Guardado: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Cancelado. Archivos incompletos eliminados."
+  },
+  "youtubeCleanup": {
+    "message": "Cancelado. No se pudieron eliminar algunos archivos temporales."
+  },
+  "youtubeMerge": {
+    "message": "MKV · combinar vídeo y audio"
+  },
+  "youtubeCombined": {
+    "message": "Vídeo y audio juntos"
+  },
+  "youtubeLogin": {
+    "message": "YouTube requiere iniciar sesión o bloquea la solicitud. No se usan los datos de acceso del navegador."
+  },
+  "youtubeQualityChanged": {
+    "message": "Calidad no disponible. Detecta el vídeo de nuevo."
+  },
+  "youtubeUnavailable": {
+    "message": "Este vídeo no está disponible."
+  },
+  "youtubeNetwork": {
+    "message": "Error de conexión. Inténtalo más tarde."
+  },
+  "youtubeFailed": {
+    "message": "Error de descarga. Detecta el vídeo de nuevo."
+  },
+  "youtubeRequestRejected": {
+    "message": "Solicitud rechazada. Selecciona un único vídeo de YouTube."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "El asistente de descarga incluido no está disponible."
+  },
+  "youtubeDisconnected": {
+    "message": "Se ha cerrado la conexión con el asistente de descarga."
   }
 }

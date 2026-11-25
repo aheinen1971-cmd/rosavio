@@ -1,0 +1,34 @@
+25.11.2026 – Video Finder: Prüfung des begonnenen Rosavio-Einbaus
+
+NICHT einbaufertig, NICHT veröffentlicht, keine neuen Browserbauten ausgelöst.
+Firefox-Video-Finder 1.9 mit ID video-finder@local.invalid unverändert.
+Rosavio-Bestand hat weiterhin ID medien@rosavio.local, Medien 2.1.1.
+
+Getrennter Entwicklungszweig: feature/video-finder-youtube-20261125.
+Nur lokale, noch nicht übertragene Arbeiten. Keine Änderung am regulären Build.
+
+Native Helfer-Prüfung: 7 Tests bestanden.
+Reale lokale Arbeitsprozesse für Erkennung/Speicherablauf, ohne YouTube-Netzabruf.
+Verteilte native Nachrichten, Größenlimits, fremde Erweiterungskennung,
+unzulässige zusätzliche Anforderungsfelder, zweimaliges Speichern ohne
+Überschreiben, Fehler beim Anlegen temporärer Ordner geprüft.
+
+Gefunden/korrigiert: mkdtemp-Ordner versehentlich erneut angelegt;
+konstanter Präfix statt Zufallsteil im Zieldateinamen;
+fragmentierte Pipe-Nachrichten; temporäre Ordnerfehler außerhalb Fehlerbehandlung.
+
+Bestand: 35 JS-Tests der Medienfunktionen/20-Sprachen-Kataloge bestanden.
+Diese belegen keine native YouTube-Integration und keine neue Übersetzung dafür.
+
+Noch erforderlich:
+- Browser-Seitenleiste an den Helfer anschließen; Herkunfts-/Berechtigungsprüfung
+  im Browser, Manifest und Hostsuche (die Prüfung einer übergebenen Kennung im
+  Helfer allein ist KEINE sichere Browser-Zugriffssperre).
+- Reproduzierbare eigenständige Helferpakete und vollständige Lizenz-/Quellbeilagen;
+  die Begleitprogramme werden bislang noch nicht im Rosavio-Paket mitgeliefert.
+- Neue Oberflächentexte in 20 Sprachen und echte Bedienprüfungen.
+- Prozessbeendigung/Fehlerweitergabe für alle Plattformen weiter qualifizieren.
+- Windows-, Linux- und Flatpak-Paket-, Signatur- und Updateprüfungen.
+
+Die erfolgreichen echten Downloads des separaten Windows-Prototyps gelten
+nicht als Nachweis für den noch unvollständigen Einbau in Rosavio.

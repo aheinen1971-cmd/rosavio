@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Médias"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Vidéo"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "Impossible de traiter le fichier. Vérifiez la connexion et réessayez."
+  },
+  "youtubeDetect": {
+    "message": "Détecter la vidéo YouTube"
+  },
+  "youtubeHint": {
+    "message": "Ouvrez une vidéo YouTube et lancez la détection."
+  },
+  "youtubeInspecting": {
+    "message": "Détection de la vidéo …"
+  },
+  "youtubeDetected": {
+    "message": "Choisissez une qualité et téléchargez."
+  },
+  "youtubeDownloading": {
+    "message": "Téléchargement de la piste actuelle :"
+  },
+  "youtubeProcessing": {
+    "message": "Traitement de la vidéo et du son …"
+  },
+  "youtubeSaved": {
+    "message": "Enregistré : {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Annulé. Fichiers incomplets supprimés."
+  },
+  "youtubeCleanup": {
+    "message": "Annulé. Certains fichiers temporaires n’ont pas pu être supprimés."
+  },
+  "youtubeMerge": {
+    "message": "MKV · fusionner vidéo et son"
+  },
+  "youtubeCombined": {
+    "message": "Vidéo et son réunis"
+  },
+  "youtubeLogin": {
+    "message": "YouTube exige une connexion ou bloque la demande. Les données de connexion du navigateur ne sont pas utilisées."
+  },
+  "youtubeQualityChanged": {
+    "message": "Qualité indisponible. Relancez la détection."
+  },
+  "youtubeUnavailable": {
+    "message": "Cette vidéo est indisponible."
+  },
+  "youtubeNetwork": {
+    "message": "Échec de connexion. Réessayez plus tard."
+  },
+  "youtubeFailed": {
+    "message": "Échec du téléchargement. Relancez la détection."
+  },
+  "youtubeRequestRejected": {
+    "message": "Demande refusée. Sélectionnez une seule vidéo YouTube."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "L’assistant de téléchargement intégré est indisponible."
+  },
+  "youtubeDisconnected": {
+    "message": "La connexion à l’assistant de téléchargement a été interrompue."
   }
 }

@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Media"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Video"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "Impossibile elaborare il file. Controlla la connessione e riprova."
+  },
+  "youtubeDetect": {
+    "message": "Rileva video YouTube"
+  },
+  "youtubeHint": {
+    "message": "Apri un video YouTube e avvia il rilevamento."
+  },
+  "youtubeInspecting": {
+    "message": "Rilevamento del video …"
+  },
+  "youtubeDetected": {
+    "message": "Scegli la qualità e scarica."
+  },
+  "youtubeDownloading": {
+    "message": "Download della traccia corrente:"
+  },
+  "youtubeProcessing": {
+    "message": "Elaborazione di video e audio …"
+  },
+  "youtubeSaved": {
+    "message": "Salvato: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Annullato. File incompleti rimossi."
+  },
+  "youtubeCleanup": {
+    "message": "Annullato. Alcuni file temporanei non sono stati rimossi."
+  },
+  "youtubeMerge": {
+    "message": "MKV · unisci video e audio"
+  },
+  "youtubeCombined": {
+    "message": "Video e audio insieme"
+  },
+  "youtubeLogin": {
+    "message": "YouTube richiede l’accesso o blocca la richiesta. I dati di accesso del browser non vengono usati."
+  },
+  "youtubeQualityChanged": {
+    "message": "Qualità non più disponibile. Rileva nuovamente il video."
+  },
+  "youtubeUnavailable": {
+    "message": "Questo video non è disponibile."
+  },
+  "youtubeNetwork": {
+    "message": "Connessione non riuscita. Riprova più tardi."
+  },
+  "youtubeFailed": {
+    "message": "Download non riuscito. Rileva nuovamente il video."
+  },
+  "youtubeRequestRejected": {
+    "message": "Richiesta rifiutata. Seleziona un solo video YouTube."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "L’assistente di download incluso non è disponibile."
+  },
+  "youtubeDisconnected": {
+    "message": "La connessione con l’assistente di download è terminata."
   }
 }

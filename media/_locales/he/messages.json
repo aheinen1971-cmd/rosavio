@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "מדיה"
+    "message": "Video Finder"
   },
   "video": {
     "message": "וידאו"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "לא ניתן לעבד את הקובץ. יש לבדוק את החיבור ולנסות שוב."
+  },
+  "youtubeDetect": {
+    "message": "זיהוי סרטון YouTube"
+  },
+  "youtubeHint": {
+    "message": "פתחו סרטון YouTube והתחילו בזיהוי."
+  },
+  "youtubeInspecting": {
+    "message": "מזהה סרטון …"
+  },
+  "youtubeDetected": {
+    "message": "בחרו איכות והורידו."
+  },
+  "youtubeDownloading": {
+    "message": "מוריד את הרצועה הנוכחית:"
+  },
+  "youtubeProcessing": {
+    "message": "מעבד תמונה וקול …"
+  },
+  "youtubeSaved": {
+    "message": "נשמר: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "בוטל. קבצים לא שלמים הוסרו."
+  },
+  "youtubeCleanup": {
+    "message": "בוטל. לא ניתן להסיר חלק מהקבצים הזמניים."
+  },
+  "youtubeMerge": {
+    "message": "MKV · מיזוג תמונה וקול"
+  },
+  "youtubeCombined": {
+    "message": "תמונה וקול יחד"
+  },
+  "youtubeLogin": {
+    "message": "YouTube דורש התחברות או חוסם את הבקשה. לא נעשה שימוש בפרטי ההתחברות של הדפדפן."
+  },
+  "youtubeQualityChanged": {
+    "message": "האיכות אינה זמינה עוד. זהו את הסרטון מחדש."
+  },
+  "youtubeUnavailable": {
+    "message": "הסרטון אינו זמין."
+  },
+  "youtubeNetwork": {
+    "message": "החיבור נכשל. נסו שוב מאוחר יותר."
+  },
+  "youtubeFailed": {
+    "message": "ההורדה נכשלה. זהו את הסרטון מחדש."
+  },
+  "youtubeRequestRejected": {
+    "message": "הבקשה נדחתה. בחרו סרטון YouTube יחיד."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "עוזר ההורדה המצורף אינו זמין."
+  },
+  "youtubeDisconnected": {
+    "message": "החיבור לעוזר ההורדה הסתיים."
   }
 }

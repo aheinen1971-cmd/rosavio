@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Multimedia"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Wideo"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "Nie można przetworzyć pliku. Sprawdź połączenie i spróbuj ponownie."
+  },
+  "youtubeDetect": {
+    "message": "Wykryj film YouTube"
+  },
+  "youtubeHint": {
+    "message": "Otwórz film YouTube i rozpocznij wykrywanie."
+  },
+  "youtubeInspecting": {
+    "message": "Wykrywanie filmu …"
+  },
+  "youtubeDetected": {
+    "message": "Wybierz jakość i pobierz."
+  },
+  "youtubeDownloading": {
+    "message": "Pobieranie bieżącej ścieżki:"
+  },
+  "youtubeProcessing": {
+    "message": "Przetwarzanie obrazu i dźwięku …"
+  },
+  "youtubeSaved": {
+    "message": "Zapisano: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Anulowano. Usunięto niekompletne pliki."
+  },
+  "youtubeCleanup": {
+    "message": "Anulowano. Nie udało się usunąć części plików tymczasowych."
+  },
+  "youtubeMerge": {
+    "message": "MKV · połącz obraz i dźwięk"
+  },
+  "youtubeCombined": {
+    "message": "Obraz i dźwięk razem"
+  },
+  "youtubeLogin": {
+    "message": "YouTube wymaga logowania lub blokuje żądanie. Dane logowania przeglądarki nie są używane."
+  },
+  "youtubeQualityChanged": {
+    "message": "Jakość niedostępna. Wykryj film ponownie."
+  },
+  "youtubeUnavailable": {
+    "message": "Ten film jest niedostępny."
+  },
+  "youtubeNetwork": {
+    "message": "Błąd połączenia. Spróbuj później."
+  },
+  "youtubeFailed": {
+    "message": "Pobieranie nie powiodło się. Wykryj film ponownie."
+  },
+  "youtubeRequestRejected": {
+    "message": "Odrzucono żądanie. Wybierz pojedynczy film YouTube."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "Dołączony pomocnik pobierania jest niedostępny."
+  },
+  "youtubeDisconnected": {
+    "message": "Połączenie z pomocnikiem pobierania zostało zakończone."
   }
 }

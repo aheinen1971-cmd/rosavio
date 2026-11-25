@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Multimédia"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Vídeo"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "Não foi possível processar o ficheiro. Verifique a ligação e tente novamente."
+  },
+  "youtubeDetect": {
+    "message": "Detetar vídeo do YouTube"
+  },
+  "youtubeHint": {
+    "message": "Abra um vídeo do YouTube e inicie a deteção."
+  },
+  "youtubeInspecting": {
+    "message": "A detetar o vídeo …"
+  },
+  "youtubeDetected": {
+    "message": "Escolha a qualidade e descarregue."
+  },
+  "youtubeDownloading": {
+    "message": "A descarregar a faixa atual:"
+  },
+  "youtubeProcessing": {
+    "message": "A processar vídeo e áudio …"
+  },
+  "youtubeSaved": {
+    "message": "Guardado: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Cancelado. Ficheiros incompletos removidos."
+  },
+  "youtubeCleanup": {
+    "message": "Cancelado. Não foi possível remover alguns ficheiros temporários."
+  },
+  "youtubeMerge": {
+    "message": "MKV · juntar vídeo e áudio"
+  },
+  "youtubeCombined": {
+    "message": "Vídeo e áudio juntos"
+  },
+  "youtubeLogin": {
+    "message": "O YouTube exige início de sessão ou bloqueia o pedido. Não são usados dados de acesso do navegador."
+  },
+  "youtubeQualityChanged": {
+    "message": "Qualidade indisponível. Detete novamente o vídeo."
+  },
+  "youtubeUnavailable": {
+    "message": "Este vídeo não está disponível."
+  },
+  "youtubeNetwork": {
+    "message": "Falha de ligação. Tente mais tarde."
+  },
+  "youtubeFailed": {
+    "message": "Falha na transferência. Detete novamente o vídeo."
+  },
+  "youtubeRequestRejected": {
+    "message": "Pedido rejeitado. Selecione um único vídeo do YouTube."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "O auxiliar de transferência incluído não está disponível."
+  },
+  "youtubeDisconnected": {
+    "message": "A ligação ao auxiliar de transferência terminou."
   }
 }

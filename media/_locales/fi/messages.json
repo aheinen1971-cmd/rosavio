@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Media"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Video"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "Tiedostoa ei voitu käsitellä. Tarkista yhteys ja yritä uudelleen."
+  },
+  "youtubeDetect": {
+    "message": "Tunnista YouTube-video"
+  },
+  "youtubeHint": {
+    "message": "Avaa YouTube-video ja aloita tunnistus."
+  },
+  "youtubeInspecting": {
+    "message": "Tunnistetaan videota …"
+  },
+  "youtubeDetected": {
+    "message": "Valitse laatu ja lataa."
+  },
+  "youtubeDownloading": {
+    "message": "Ladataan nykyistä raitaa:"
+  },
+  "youtubeProcessing": {
+    "message": "Käsitellään kuvaa ja ääntä …"
+  },
+  "youtubeSaved": {
+    "message": "Tallennettu: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Peruutettu. Keskeneräiset tiedostot poistettu."
+  },
+  "youtubeCleanup": {
+    "message": "Peruutettu. Joitakin väliaikaisia tiedostoja ei voitu poistaa."
+  },
+  "youtubeMerge": {
+    "message": "MKV · yhdistä kuva ja ääni"
+  },
+  "youtubeCombined": {
+    "message": "Kuva ja ääni yhdessä"
+  },
+  "youtubeLogin": {
+    "message": "YouTube vaatii kirjautumisen tai estää pyynnön. Selaimen kirjautumistietoja ei käytetä."
+  },
+  "youtubeQualityChanged": {
+    "message": "Laatu ei ole enää saatavilla. Tunnista video uudelleen."
+  },
+  "youtubeUnavailable": {
+    "message": "Tämä video ei ole saatavilla."
+  },
+  "youtubeNetwork": {
+    "message": "Yhteys epäonnistui. Yritä myöhemmin uudelleen."
+  },
+  "youtubeFailed": {
+    "message": "Lataus epäonnistui. Tunnista video uudelleen."
+  },
+  "youtubeRequestRejected": {
+    "message": "Pyyntö hylättiin. Valitse yksi YouTube-video."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "Mukana toimitettu latausapu ei ole käytettävissä."
+  },
+  "youtubeDisconnected": {
+    "message": "Yhteys latausapuun katkesi."
   }
 }

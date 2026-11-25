@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Média"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Video"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "Soubor nelze zpracovat. Zkontrolujte připojení a zkuste to znovu."
+  },
+  "youtubeDetect": {
+    "message": "Rozpoznat video YouTube"
+  },
+  "youtubeHint": {
+    "message": "Otevřete video YouTube a spusťte rozpoznání."
+  },
+  "youtubeInspecting": {
+    "message": "Rozpoznávání videa …"
+  },
+  "youtubeDetected": {
+    "message": "Vyberte kvalitu a stáhněte."
+  },
+  "youtubeDownloading": {
+    "message": "Stahování aktuální stopy:"
+  },
+  "youtubeProcessing": {
+    "message": "Zpracování obrazu a zvuku …"
+  },
+  "youtubeSaved": {
+    "message": "Uloženo: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Zrušeno. Neúplné soubory odstraněny."
+  },
+  "youtubeCleanup": {
+    "message": "Zrušeno. Některé dočasné soubory nelze odstranit."
+  },
+  "youtubeMerge": {
+    "message": "MKV · spojit obraz a zvuk"
+  },
+  "youtubeCombined": {
+    "message": "Obraz a zvuk společně"
+  },
+  "youtubeLogin": {
+    "message": "YouTube vyžaduje přihlášení nebo blokuje požadavek. Přihlašovací údaje prohlížeče se nepoužívají."
+  },
+  "youtubeQualityChanged": {
+    "message": "Kvalita již není dostupná. Rozpoznejte video znovu."
+  },
+  "youtubeUnavailable": {
+    "message": "Toto video není dostupné."
+  },
+  "youtubeNetwork": {
+    "message": "Připojení selhalo. Zkuste to později."
+  },
+  "youtubeFailed": {
+    "message": "Stahování selhalo. Rozpoznejte video znovu."
+  },
+  "youtubeRequestRejected": {
+    "message": "Požadavek odmítnut. Vyberte jedno video YouTube."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "Přibalený pomocník pro stahování není dostupný."
+  },
+  "youtubeDisconnected": {
+    "message": "Spojení s pomocníkem pro stahování bylo ukončeno."
   }
 }

@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "الوسائط"
+    "message": "Video Finder"
   },
   "video": {
     "message": "فيديو"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "تعذرت معالجة الملف. تحقق من الاتصال وحاول مجددًا."
+  },
+  "youtubeDetect": {
+    "message": "اكتشاف فيديو YouTube"
+  },
+  "youtubeHint": {
+    "message": "افتح فيديو YouTube وابدأ الاكتشاف."
+  },
+  "youtubeInspecting": {
+    "message": "جارٍ اكتشاف الفيديو …"
+  },
+  "youtubeDetected": {
+    "message": "اختر الجودة ثم نزّل الفيديو."
+  },
+  "youtubeDownloading": {
+    "message": "جارٍ تنزيل المسار الحالي:"
+  },
+  "youtubeProcessing": {
+    "message": "جارٍ معالجة الصورة والصوت …"
+  },
+  "youtubeSaved": {
+    "message": "تم الحفظ: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "تم الإلغاء وحذف الملفات غير المكتملة."
+  },
+  "youtubeCleanup": {
+    "message": "تم الإلغاء. تعذر حذف بعض الملفات المؤقتة."
+  },
+  "youtubeMerge": {
+    "message": "MKV · دمج الصورة والصوت"
+  },
+  "youtubeCombined": {
+    "message": "الصورة والصوت معًا"
+  },
+  "youtubeLogin": {
+    "message": "يطلب YouTube تسجيل الدخول أو يحظر الطلب. لا تُستخدم بيانات تسجيل دخول المتصفح."
+  },
+  "youtubeQualityChanged": {
+    "message": "الجودة لم تعد متاحة. أعد اكتشاف الفيديو."
+  },
+  "youtubeUnavailable": {
+    "message": "هذا الفيديو غير متاح."
+  },
+  "youtubeNetwork": {
+    "message": "فشل الاتصال. حاول مرة أخرى لاحقًا."
+  },
+  "youtubeFailed": {
+    "message": "فشل التنزيل. أعد اكتشاف الفيديو."
+  },
+  "youtubeRequestRejected": {
+    "message": "رُفض الطلب. اختر فيديو YouTube واحدًا."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "مساعد التنزيل المرفق غير متاح."
+  },
+  "youtubeDisconnected": {
+    "message": "انتهى الاتصال بمساعد التنزيل."
   }
 }

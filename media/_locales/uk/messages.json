@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Медіа"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Відео"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "Не вдалося обробити файл. Перевірте з’єднання та спробуйте знову."
+  },
+  "youtubeDetect": {
+    "message": "Розпізнати відео YouTube"
+  },
+  "youtubeHint": {
+    "message": "Відкрийте відео YouTube та почніть розпізнавання."
+  },
+  "youtubeInspecting": {
+    "message": "Розпізнавання відео …"
+  },
+  "youtubeDetected": {
+    "message": "Виберіть якість і завантажте."
+  },
+  "youtubeDownloading": {
+    "message": "Завантаження поточної доріжки:"
+  },
+  "youtubeProcessing": {
+    "message": "Обробка зображення та звуку …"
+  },
+  "youtubeSaved": {
+    "message": "Збережено: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Скасовано. Незавершені файли видалено."
+  },
+  "youtubeCleanup": {
+    "message": "Скасовано. Деякі тимчасові файли не вдалося видалити."
+  },
+  "youtubeMerge": {
+    "message": "MKV · об’єднати зображення та звук"
+  },
+  "youtubeCombined": {
+    "message": "Зображення та звук разом"
+  },
+  "youtubeLogin": {
+    "message": "YouTube вимагає входу або блокує запит. Дані входу браузера не використовуються."
+  },
+  "youtubeQualityChanged": {
+    "message": "Якість більше недоступна. Розпізнайте відео знову."
+  },
+  "youtubeUnavailable": {
+    "message": "Це відео недоступне."
+  },
+  "youtubeNetwork": {
+    "message": "Помилка з’єднання. Спробуйте пізніше."
+  },
+  "youtubeFailed": {
+    "message": "Завантаження не вдалося. Розпізнайте відео знову."
+  },
+  "youtubeRequestRejected": {
+    "message": "Запит відхилено. Виберіть одне відео YouTube."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "Вбудований помічник завантаження недоступний."
+  },
+  "youtubeDisconnected": {
+    "message": "З’єднання з помічником завантаження завершено."
   }
 }

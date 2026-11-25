@@ -1,0 +1,9 @@
+{
+  "nodeVersion":"22.23.5",
+  "node":{
+    "win64":{"url":"https://nodejs.org/dist/v22.23.5/node-v22.23.5-win-x64.zip","sha256":"4a191082e9706866830379d577d2cc8a50c776fcd9436a8d061b063ed0d9a0e3"},
+    "linux-x64":{"url":"https://nodejs.org/dist/v22.23.5/node-v22.23.5-linux-x64.tar.xz","sha256":"cdeb8670a0c81f51b4dc4ac61919f9b1ad917b304bf8221eb939570663d240f8"}
+  },
+  "ffmpeg":{"url":"https://ffmpeg.org/releases/ffmpeg-9.1.tar.xz","sha256":"1a4d394ae63d190a526cd052eb4415c156b5c5e2df37efab41a7de0b8fde2433"},
+  "ytDlp":"2026.11.23"
+}

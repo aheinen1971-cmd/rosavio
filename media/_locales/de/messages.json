@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Medien"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Video"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "Die Datei konnte nicht verarbeitet werden. Prüfe die Verbindung und versuche es erneut."
+  },
+  "youtubeDetect": {
+    "message": "YouTube-Video erkennen"
+  },
+  "youtubeHint": {
+    "message": "Ein YouTube-Video öffnen und die Erkennung starten."
+  },
+  "youtubeInspecting": {
+    "message": "Video wird erkannt …"
+  },
+  "youtubeDetected": {
+    "message": "Qualität auswählen und herunterladen."
+  },
+  "youtubeDownloading": {
+    "message": "Download der aktuellen Spur:"
+  },
+  "youtubeProcessing": {
+    "message": "Bild und Ton werden verarbeitet …"
+  },
+  "youtubeSaved": {
+    "message": "Gespeichert: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Abgebrochen. Unvollständige Dateien entfernt."
+  },
+  "youtubeCleanup": {
+    "message": "Abgebrochen. Temporäre Dateien konnten nicht vollständig entfernt werden."
+  },
+  "youtubeMerge": {
+    "message": "MKV · Bild und Ton zusammenführen"
+  },
+  "youtubeCombined": {
+    "message": "Bild und Ton gemeinsam"
+  },
+  "youtubeLogin": {
+    "message": "YouTube verlangt eine Anmeldung oder blockiert den Abruf. Browser-Anmeldedaten werden nicht verwendet."
+  },
+  "youtubeQualityChanged": {
+    "message": "Qualität nicht mehr verfügbar. Video erneut erkennen lassen."
+  },
+  "youtubeUnavailable": {
+    "message": "Dieses Video ist nicht verfügbar."
+  },
+  "youtubeNetwork": {
+    "message": "Verbindung fehlgeschlagen. Später erneut versuchen."
+  },
+  "youtubeFailed": {
+    "message": "Download fehlgeschlagen. Video erneut erkennen lassen."
+  },
+  "youtubeRequestRejected": {
+    "message": "Anforderung abgelehnt. Ein einzelnes YouTube-Video auswählen."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "Der mitgelieferte Download-Helfer ist nicht verfügbar."
+  },
+  "youtubeDisconnected": {
+    "message": "Die Verbindung zum Download-Helfer wurde beendet."
   }
 }

@@ -1,6 +1,6 @@
 {
   "media": {
-    "message": "Media"
+    "message": "Video Finder"
   },
   "video": {
     "message": "Video"
@@ -193,5 +193,62 @@
   },
   "unexpected": {
     "message": "Het bestand kon niet worden verwerkt. Controleer de verbinding en probeer het opnieuw."
+  },
+  "youtubeDetect": {
+    "message": "YouTube-video herkennen"
+  },
+  "youtubeHint": {
+    "message": "Open een YouTube-video en start de herkenning."
+  },
+  "youtubeInspecting": {
+    "message": "Video herkennen …"
+  },
+  "youtubeDetected": {
+    "message": "Kies een kwaliteit en download."
+  },
+  "youtubeDownloading": {
+    "message": "Huidige spoor downloaden:"
+  },
+  "youtubeProcessing": {
+    "message": "Beeld en geluid verwerken …"
+  },
+  "youtubeSaved": {
+    "message": "Opgeslagen: {path}"
+  },
+  "youtubeCancelled": {
+    "message": "Geannuleerd. Onvolledige bestanden verwijderd."
+  },
+  "youtubeCleanup": {
+    "message": "Geannuleerd. Sommige tijdelijke bestanden konden niet worden verwijderd."
+  },
+  "youtubeMerge": {
+    "message": "MKV · beeld en geluid samenvoegen"
+  },
+  "youtubeCombined": {
+    "message": "Beeld en geluid samen"
+  },
+  "youtubeLogin": {
+    "message": "YouTube vereist aanmelding of blokkeert het verzoek. Aanmeldgegevens uit de browser worden niet gebruikt."
+  },
+  "youtubeQualityChanged": {
+    "message": "Kwaliteit niet meer beschikbaar. Herken de video opnieuw."
+  },
+  "youtubeUnavailable": {
+    "message": "Deze video is niet beschikbaar."
+  },
+  "youtubeNetwork": {
+    "message": "Verbinding mislukt. Probeer het later opnieuw."
+  },
+  "youtubeFailed": {
+    "message": "Download mislukt. Herken de video opnieuw."
+  },
+  "youtubeRequestRejected": {
+    "message": "Verzoek geweigerd. Selecteer één YouTube-video."
+  },
+  "youtubeHelperUnavailable": {
+    "message": "De meegeleverde downloadhulp is niet beschikbaar."
+  },
+  "youtubeDisconnected": {
+    "message": "De verbinding met de downloadhulp is verbroken."
   }
 }
