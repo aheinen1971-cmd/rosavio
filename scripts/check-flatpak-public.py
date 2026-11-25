@@ -86,6 +86,7 @@ if os.environ.get('ROSAVIO_FLATPAK_EXTRA_CHECKS')=='1':
 run('node','scripts/check-flatpak.cjs',wrapper,DATA,mode,r['oldBuildID'] if mode=='seed' else r['newBuildID'],env={**os.environ,**extra})
 if mode=='verify':
  run('node','scripts/check-locales.cjs',wrapper,DATA/'locales',*(['--workspace'] if r.get('workspaceIncluded') else []))
+ run('node','scripts/check-extensions.cjs',wrapper,DATA/'video-finder')
  verified=json.loads((DATA/'verify-report.json').read_text())
  if r.get('workspaceIncluded') and not verified.get('workspaceTested'):raise SystemExit('All five workspace functions must pass after the public Flatpak update')
  if r.get('browserPagesIncluded') and not verified.get('browserPagesTested'):raise SystemExit('Bundled browser information pages must pass after the public Flatpak update')

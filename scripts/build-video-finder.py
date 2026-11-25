@@ -84,14 +84,17 @@ def build(output):
         '--paths',ROOT/'native/video_finder','--distpath',work/'dist','--workpath',work/'pyinstaller',
         '--specpath',work,ROOT/'native/video_finder/host.py')
     shutil.copytree(work/'dist/video-finder-host',output)
-    node_binary=next(node_dir.rglob('node'+suffix))
+    node_roots=[p for p in node_dir.iterdir() if p.is_dir() and p.name.startswith('node-v')]
+    if len(node_roots)!=1: raise ValueError('Ambiguous Node archive root')
+    node_binary=node_roots[0]/('node.exe' if suffix else 'bin/node')
+    if not node_binary.is_file(): raise ValueError('Node executable missing')
     shutil.copy2(node_binary,output/('node'+suffix))
     for name in ('ffmpeg','ffprobe'): shutil.copy2(ff_source/(name+suffix),output/(name+suffix))
     licenses=output/'licenses'
     licenses.mkdir()
     for name in ('COPYING.LGPLv2.1','LICENSE.md'):
         shutil.copy2(ff_source/name,licenses/('ffmpeg-'+name))
-    node_license=next(node_dir.rglob('LICENSE'))
+    node_license=node_roots[0]/'LICENSE'
     shutil.copy2(node_license,licenses/'node-LICENSE.txt')
     python_license=Path(sys.base_prefix)/'LICENSE.txt'
     if not python_license.exists(): python_license=Path(sys.base_prefix)/'LICENSE'

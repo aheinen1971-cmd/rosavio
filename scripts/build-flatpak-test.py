@@ -127,6 +127,7 @@ with tempfile.TemporaryDirectory(prefix='rosavio-flatpak-test-key-') as keydir:
     run('node','scripts/check-flatpak.cjs',wrapper,PROFILE,'verify',newid)
     verified_local=json.loads((PROFILE/'verify-report.json').read_text())
     run('node','scripts/check-locales.cjs',wrapper,PROFILE/'locales',*(['--workspace'] if verified_local.get('workspaceTested') else []))
+    run('node','scripts/check-extensions.cjs',wrapper,PROFILE/'video-finder')
     run('flatpak','build-bundle',REPO,OUT/'Rosavio-Linux-x64-Test.flatpak',APP,BRANCH)
     if PRODUCTION:
         run('tar','-cJf',OUT/'repository-candidate.tar.xz','-C',REPO,'.')

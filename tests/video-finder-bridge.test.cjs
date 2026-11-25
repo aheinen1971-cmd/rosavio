@@ -1,6 +1,28 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+for(const locale of require('../scripts/requested-languages.json').locales)test('YouTube sidebar states in '+locale,async()=>{
+ const messages=JSON.parse(fs.readFileSync(path.join(__dirname,'../media/_locales',locale.replaceAll('-','_'),'messages.json'),'utf8'));
+ const nodes=new Map();
+ const node=()=>({hidden:false,disabled:false,textContent:'',value:'',removeAttribute(k){delete this[k];},replaceChildren(...children){this.children=children;}});
+ const document={querySelector(id){if(!nodes.has(id))nodes.set(id,node());return nodes.get(id);},createElement:node};
+ let update;const calls=[];
+ const controller={subscribe(fn){update=fn;fn({phase:'idle',busy:false,choices:[]});return()=>{};},inspect(url){calls.push(url);},download(){},cancel(){}};
+ const events={addListener(){},removeListener(){}};
+ const browser={runtime:{async getBackgroundPage(){return {getYouTubeController:()=>controller,videoFinderYouTubeURL:()=> 'https://www.youtube.com/watch?v=aqz-KE-bpKQ'};}},windows:{async getCurrent(){return {id:1};}},tabs:{async query(){return [{url:'https://youtu.be/aqz-KE-bpKQ'}];},onActivated:events,onUpdated:events}};
+ const ctx=vm.createContext({browser,document,window:{addEventListener(){}},mediaNumber:v=>new Intl.NumberFormat(locale).format(v),mediaText:(key,args={})=>{
+  assert.ok(messages[key],key);return messages[key].message.replace(/\{(\w+)\}/g,(_,k)=>args[k]||'');
+ }});
+ await vm.runInContext(fs.readFileSync(path.join(__dirname,'../media/youtube-sidebar.js'),'utf8'),ctx);
+ assert.equal(calls.length,0);nodes.get('#youtube-detect').onclick();assert.equal(calls.length,1);
+ for(const [phase,key] of Object.entries({inspecting:'youtubeInspecting',detected:'youtubeDetected',processing:'youtubeProcessing',cancelled:'youtubeCancelled',cleanup:'youtubeCleanup'})){
+  update({phase,busy:phase==='inspecting',choices:[]});assert.equal(nodes.get('#youtube-status').textContent,messages[key].message);
+ }
+ update({phase:'saved',busy:false,choices:[],path:'<unsafe&name>.mkv'});
+ assert.ok(nodes.get('#youtube-status').textContent.includes('<unsafe&name>.mkv'));
+ update({phase:'error',busy:false,choices:[],code:'unknown'});
+ assert.equal(nodes.get('#youtube-status').textContent,messages.youtubeFailed.message);
+});
 function fixture(){
  const ports=[];let removed;
  const browser={windows:{onRemoved:{addListener(fn){removed=fn;}}},runtime:{connectNative(name){

@@ -15,6 +15,18 @@ import engine
 import host
 
 class NativeTests(unittest.TestCase):
+    def test_output_failure_leaves_no_partial_or_success(self):
+        def partial_write(src, dst):
+            dst.write(b'partial')
+            raise OSError('Disk full fixture')
+        with tempfile.TemporaryDirectory() as folder:
+            output=Path(folder)/'downloads'
+            with patch.object(engine.shutil,'copyfileobj',partial_write):
+                events=self.run_fixture(output,'download')
+            self.assertFalse(any(e['type']=='saved' for e in events))
+            self.assertTrue(any(e['type']=='failed' for e in events))
+            self.assertEqual(list(output.iterdir()),[])
+
     def run_fixture(self, output, mode='inspect'):
         with tempfile.TemporaryDirectory() as folder:
             script=Path(folder)/'worker.py'

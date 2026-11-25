@@ -25,6 +25,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Source and protocol tests
+        shell: bash
         run: |
           python tests/test_video_finder_native.py
           python tests/test_video_finder_package.py
