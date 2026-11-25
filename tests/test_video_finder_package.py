@@ -56,6 +56,7 @@ class PackageTests(unittest.TestCase):
     def fixture(self, root):
         source, bundle = root/'source', root/'bundle'
         for name, value in {'toolkit/components/extensions/NativeManifests.sys.mjs':module.MARKER,
+                            'python/mozbuild/mozpack/files.py':module.PACKAGER_MARKER,
                             'toolkit/components/extensions/NativeMessaging.sys.mjs':module.PORTAL_MARKER,
                             'browser/extensions/rosavio-media/moz.build':'# existing\n',
                             'browser/installer/package-manifest.in':'# existing\n'}.items():
@@ -64,6 +65,17 @@ class PackageTests(unittest.TestCase):
         (bundle/'bundle.json').write_text(json.dumps({'schema':1,'qualified':True,'files':{
             'video-finder-host':hashlib.sha256(b'fixture').hexdigest()}}))
         return source,bundle
+
+    def test_only_bundled_helper_bypasses_executable_transformation(self):
+        import textwrap
+        from types import SimpleNamespace
+        code='def choose(self,path,srcpath):\n'+textwrap.indent(textwrap.dedent(module.PACKAGER_REPLACEMENT),'    ')+'\n    return File(srcpath)\n'
+        scope={'File':lambda p:('copy',p),'ExecutableFile':lambda p:('transform',p),'is_executable':lambda p:True}
+        exec(code,scope)
+        for path in ['video-finder/video-finder-host','bin/video-finder/_internal/libpython.so','bin\\video-finder\\node']:
+            self.assertEqual(scope['choose'](SimpleNamespace(find_executables=True),path,path)[0],'copy')
+        for path in ['bin/rosavio','bin/libxul.so','bin/video-finder-other/host']:
+            self.assertEqual(scope['choose'](SimpleNamespace(find_executables=True),path,path)[0],'transform')
 
     def test_repeatable_package_and_reserved_origin(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -90,6 +90,7 @@ if a.platform.startswith('macos'):
     package=apps[0];binary=package/'Contents/MacOS/rosavio'
 else:package=dist/'rosavio';binary=package/'rosavio'
 if not binary.is_file():raise SystemExit(f'Native binary missing: {binary}')
+run(python,project/'scripts/verify-video-finder-package.py',package)
 run('node',project/'scripts/check-locales.cjs',binary,out/'locale-check','--rosavio-pages','--workspace')
 run('node',project/'scripts/check-unix-native.cjs',binary,out/'native-check',a.platform)
 run('node',project/'scripts/check-extensions.cjs',binary,out/'extensions-check')

@@ -1,0 +1,55 @@
+name: Video Finder packaging repair checks without browser rebuild
+on:
+  push:
+    branches: [feature/video-finder-youtube-20261125]
+    paths: [native/repair-qualification.json]
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: video-finder-repair-checks
+  cancel-in-progress: false
+jobs:
+  repair:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - name: Regression tests
+        run: |
+          python tests/test_large_mar.py
+          python tests/test_video_finder_package.py
+          python tests/test_video_finder_native.py
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          run-id: 45626927769
+          name: video-finder-helper-${{ matrix.os }}-45626927769
+          path: helper
+      - name: Reproduce Linux stripping failure and verify untouched helper
+        if: runner.os == 'Linux'
+        run: |
+          chmod +x helper/video-finder-host helper/node helper/ffmpeg helper/ffprobe
+          python tests/check_video_finder_bundle.py helper
+          cp helper/video-finder-host helper/stripped-host
+          strip --strip-debug helper/stripped-host
+          python - <<'PY'
+          import subprocess
+          result=subprocess.run(['helper/stripped-host','manifest.json','medien@rosavio.local'],input=b'',capture_output=True)
+          print(result.stderr.decode(errors='replace'))
+          assert result.returncode != 0, 'Expected stripped PyInstaller host to fail'
+          assert b'archive' in result.stderr.lower() or b'cookie' in result.stderr.lower(), result.stderr
+          PY
+      - name: Verify Windows helper still works
+        if: runner.os == 'Windows'
+        run: python tests/check_video_finder_bundle.py helper

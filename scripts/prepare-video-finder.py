@@ -6,6 +6,13 @@ from pathlib import Path
 import shutil
 
 ROOT=Path(__file__).resolve().parents[1]
+PACKAGER_MARKER='        if self.find_executables and is_executable(srcpath):\n            return ExecutableFile(srcpath)'
+PACKAGER_REPLACEMENT='''        # Prequalified PyInstaller helpers contain an appended Python archive.
+        # Stripping/elfhack can destroy it: copy these bundled files byte-for-byte.
+        if path.replace("\\\\", "/").startswith(("video-finder/", "bin/video-finder/")):
+            return File(srcpath)
+        if self.find_executables and is_executable(srcpath):
+            return ExecutableFile(srcpath)'''
 MARKER='  lookupManifest(type, name, context) {\n    return this.init().then(() => this._lookup(type, name, context));\n  },'
 PORTAL_MARKER='    if (this.portalImp) {\n      this.startupPromise = this._doInitPortalOrNMProxy()'
 PORTAL_REPLACEMENT='''    // The reserved bundled helper runs INSIDE this sandbox, never on the host.
@@ -51,6 +58,12 @@ def install(source,bundle):
         with path.open('rb') as stream:
             if hashlib.file_digest(stream,'sha256').hexdigest()!=digest:
                 raise ValueError('Video Finder bundle checksum mismatch: '+name)
+    packager=source/'python/mozbuild/mozpack/files.py'
+    packager_text=packager.read_text(encoding='utf-8')
+    if PACKAGER_REPLACEMENT not in packager_text:
+        if packager_text.count(PACKAGER_MARKER)!=1:
+            raise ValueError('Upstream executable packaging changed; review required')
+        packager.write_text(packager_text.replace(PACKAGER_MARKER,PACKAGER_REPLACEMENT),encoding='utf-8',newline='\n')
     module=source/'toolkit/components/extensions/NativeManifests.sys.mjs'
     text=module.read_text(encoding='utf-8')
     messaging=source/'toolkit/components/extensions/NativeMessaging.sys.mjs'
