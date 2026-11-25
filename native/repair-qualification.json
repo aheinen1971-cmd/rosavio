@@ -1,1 +1,1 @@
-{"request":2,"purpose":"Reproduce with LLVM strip used by Mozilla, not GNU strip; Windows repair tests already passed"}
+{"request":3,"purpose":"Reproduce full LLVM packaging strip, rather than debug-symbol-only stripping; no browser build"}

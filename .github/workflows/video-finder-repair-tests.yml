@@ -44,7 +44,7 @@ jobs:
           cp helper/video-finder-host helper/stripped-host
           sudo apt-get update -qq
           sudo apt-get install -y llvm
-          llvm-strip --strip-debug helper/stripped-host
+          llvm-strip helper/stripped-host
           python - <<'PY'
           import subprocess
           result=subprocess.run(['helper/stripped-host','manifest.json','medien@rosavio.local'],input=b'',capture_output=True)

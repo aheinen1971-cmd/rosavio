@@ -9,7 +9,11 @@ const [binary,root]=process.argv.slice(2),pause=ms=>new Promise(r=>setTimeout(r,
  await session.command('Marionette:SetContext',{value:'content'});
  await session.command('WebDriver:Navigate',{url:nativeGuard.url});
  const nativeBridge=await session.script(`const api=window.browser;return await new Promise((resolve,reject)=>{const port=api.runtime.connectNative('org.rosavio.video_finder');let ready=false;const timer=setTimeout(()=>{port.disconnect();reject(Error('Bundled helper handshake timed out'));},20000);port.onDisconnect.addListener(()=>{clearTimeout(timer);reject(Error(port.error?.message||'Helper disconnected before reply'));});port.onMessage.addListener(message=>{if(message.type==='ready'){ready=true;port.postMessage({action:'inspect',url:'https://example.org/rejected'});}if(message.code==='youtubeRequestRejected'){clearTimeout(timer);resolve({passed:ready,foreignURLRejected:true});port.disconnect();}});});`);
- if(!nativeBridge?.passed)throw Error('Video Finder native messaging failed: '+JSON.stringify(nativeBridge));
+ if(!nativeBridge?.passed){
+  await session.command('Marionette:SetContext',{value:'chrome'});
+  const diagnostics=await session.script(`return Services.console.getMessageArray().map(x=>x.message).filter(x=>/native app|native manifest|video.finder|PyInstaller|PYI-/i.test(x)).slice(-20);`);
+  throw Error('Video Finder native messaging failed: '+JSON.stringify({nativeBridge,diagnostics}));
+ }
  await session.command('Marionette:SetContext',{value:'chrome'});
  const menu=await session.script(`await PanelUI.ensureReady();return {present:!!PanelUI.mainView.querySelector('#appMenu-rosavio-extensions'),label:PanelUI.mainView.querySelector('#appMenu-rosavio-extensions')?.getAttribute('label')};`);
  if(!menu.present)throw Error('Rosavio catalogue menu is missing');
