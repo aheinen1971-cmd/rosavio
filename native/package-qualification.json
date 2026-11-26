@@ -1,5 +1,5 @@
 {
-  "request": 5,
-  "purpose": "Qualify isolated worker stdin after real integrated YouTube detection, download, decode and cancellation passed locally; never publish the prior blocked-worker candidate",
+  "request": 6,
+  "purpose": "Qualify MPEG-TS input for 1080p YouTube HLS downloads; helper run 45834402003 and fresh 1080p audio/video decode passed; require new complete package and signed update proofs before publication",
   "publish": false
 }
