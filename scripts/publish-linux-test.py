@@ -80,13 +80,15 @@ feed=release/feedname;feed.write_text('<?xml version="1.0"?><updates><update '+f
 try:
     gh('release','upload',stable,feed,'--repo',repo,'--clobber')
     run('node','scripts/test-unix-update.cjs',baseline,release,'linux-x64',env={**os.environ,'ROSAVIO_PUBLIC_TEST':'1','ROSAVIO_CHECK_WORKSPACE':'1' if has_workspace else '0','ROSAVIO_CHECK_BROWSER_PAGES':'1' if has_browser_pages else '0'})
+    run('node','scripts/check-extensions.cjs',release/'public-update/rosavio/rosavio',release/'public-extensions-check')
+    (release/'public-video-finder-test.json').write_bytes((release/'public-extensions-check/report.json').read_bytes())
     run(os.sys.executable,'scripts/check-linux-icons.py',release/'public-update/rosavio',root/'updated-icons')
     public=json.loads((release/'public-update-test.json').read_text())
     if not public.get('desktopLaunchTestPassed'):raise SystemExit('Real desktop launch before/after update is required')
     if not public.get('preservationAfter',{}).get('extension',{}).get('containerTabLoaded'):raise SystemExit('Real extension preservation/function test required')
     if has_workspace and not public.get('workspaceAfterUpdatePassed'):raise SystemExit('Workspace public update proof required')
     if has_browser_pages and not public.get('browserPagesAfterUpdatePassed'):raise SystemExit('Browser information pages must pass after the public update')
-    gh('release','upload',tag,release/'public-update-test.json',release/'linux-desktop-toolbar.png',root/'updated-icons/report.json','--repo',repo)
+    gh('release','upload',tag,release/'public-update-test.json',release/'public-video-finder-test.json',release/'linux-desktop-toolbar.png',root/'updated-icons/report.json','--repo',repo)
     # Promote only after public native update, actual desktop launch and icon checks.
     gh('release','edit',tag,'--repo',repo,'--latest=false','--prerelease=false','--notes','Linux x64 mit20Sprachen: signiertes oeffentliches Autoupdate, Installation und Neustart, echter Desktop-Teststart vor/nach Update, farbige Originalsymbole und erhaltene sichtbare Lesezeichenleiste geprueft. Eigene Testverknuepfung; keine Aussage ueber automatische Systeminstallation.')
 except BaseException:

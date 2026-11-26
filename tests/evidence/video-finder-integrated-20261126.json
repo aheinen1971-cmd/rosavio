@@ -1,0 +1,35 @@
+{
+  "qualifiedCommit": "48bd22cd2a8a13ce6c32821b950b55c4bdf80af0",
+  "qualificationRun": 45726358956,
+  "artifactID": 15084405796,
+  "packageSHA256": "969e4e00d0a32962833b74cc4492693c97ea7e1018b93d65e0fef2c5d3b20ae8",
+  "helperSHA256": "b9942496a194f41b851d720a3336e2e65b7cbd6ccbc66020194e9c97cc326ae2",
+  "buildID": "20261126001102",
+  "passed": true,
+  "diagnosticHelperReplacement": false,
+  "realSidebarDetection": true,
+  "realSidebarDownload": true,
+  "audioVideoStrictDecode": true,
+  "cancelCleaned": true,
+  "localizedRejection": true,
+  "qualityCount": 40,
+  "downloadedBytes": 63584527,
+  "decodes": [
+    {
+      "selector": "18",
+      "exitCode": 0,
+      "stderr": "",
+      "bytes": 28523658
+    },
+    {
+      "selector": "160+bestaudio",
+      "exitCode": 0,
+      "stderr": "",
+      "bytes": 35060869
+    }
+  ],
+  "completedAt": "2026-11-26T08:09:19.118Z",
+  "personalProfileUsed": false,
+  "isolatedUpdatePolicy": true,
+  "note": "Original signed candidate ZIP verified; only isolated copy disables automatic updates during this test. Public update tests run with updates enabled."
+}

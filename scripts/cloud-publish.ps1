@@ -18,7 +18,10 @@ $env:ROSAVIO_PUBLIC_TEST='1'
 try {
     node scripts/cloud-update-test.cjs
     if ($LASTEXITCODE -ne 0) { throw 'Public native update test failed' }
-    gh release upload $rosavioTag "$rosavioReleaseDir/public-update-test.json" --repo aheinen1971-cmd/rosavio
+    node scripts/check-extensions.cjs "$rosavioRoot/update-test/public-install/rosavio.exe" "$rosavioReleaseDir/public-extensions-check"
+    if ($LASTEXITCODE -ne 0) { throw 'Public updated Video Finder native bridge test failed' }
+    Copy-Item "$rosavioReleaseDir/public-extensions-check/report.json" "$rosavioReleaseDir/public-video-finder-test.json"
+    gh release upload $rosavioTag "$rosavioReleaseDir/public-update-test.json" "$rosavioReleaseDir/public-video-finder-test.json" --repo aheinen1971-cmd/rosavio
     if ($LASTEXITCODE -ne 0) { throw 'Public test report upload failed' }
 } catch {
     gh release edit $rosavioState.previous.tag_name --latest --repo aheinen1971-cmd/rosavio
