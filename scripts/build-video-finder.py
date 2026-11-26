@@ -16,7 +16,7 @@ ROOT=Path(__file__).resolve().parents[1]
 CONFIG=json.loads((ROOT/'native/toolchain.json').read_text())
 FFMPEG_FLAGS=['--disable-autodetect','--disable-network','--disable-x86asm',
  '--disable-debug','--disable-doc','--disable-everything','--enable-ffmpeg','--enable-ffprobe',
- '--enable-protocol=file,pipe','--enable-demuxer=mov,matroska,aac,mp3,ogg',
+ '--enable-protocol=file,pipe','--enable-demuxer=mov,matroska,mpegts,aac,mp3,ogg',
  '--enable-muxer=matroska,mp4','--enable-parser=aac,h264,hevc,av1,vp9,opus',
  '--enable-bsf=aac_adtstoasc,extract_extradata,h264_mp4toannexb,hevc_mp4toannexb',
  '--enable-static','--disable-shared']

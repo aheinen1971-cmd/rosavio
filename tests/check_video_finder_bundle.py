@@ -29,3 +29,13 @@ with tempfile.TemporaryDirectory() as folder:
     streams=json.loads(probe.stdout)['streams']
     assert {x['codec_type'] for x in streams}=={'video','audio'},streams
 print('Native framing, rejected foreign caller, remux and audio/video inspection passed.')
+
+# YouTube HLS video fragments are MPEG-TS even when yt-dlp names them .mp4.
+# Exercise the real container, not just the extension or capability listing.
+with tempfile.TemporaryDirectory() as folder:
+    output=Path(folder)/'hls-combined.mkv'
+    subprocess.run([bundle/('ffmpeg'+suffix),'-v','error','-i',fixtures/'video.ts','-i',fixtures/'audio.m4a','-map','0:v:0','-map','1:a:0','-c','copy',output],check=True,timeout=30)
+    probe=subprocess.run([bundle/('ffprobe'+suffix),'-v','error','-show_streams','-of','json',output],capture_output=True,text=True,check=True,timeout=30)
+    streams=json.loads(probe.stdout)['streams']
+    assert {x['codec_type'] for x in streams}=={'video','audio'},streams
+print('MPEG-TS/HLS video and separate audio remux passed.')
