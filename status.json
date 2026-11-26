@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "checkedAt": "2026-11-26T19:05:39.343674+00:00",
+  "checkedAt": "2026-11-26T19:39:48.571074+00:00",
   "rows": [
     {
       "label": "Windows",
@@ -97,9 +97,9 @@
     },
     {
       "label": "Webseite · 20 Sprachen",
-      "state": "gray",
-      "version": "—",
-      "detail": "Seiten oder aktuelle Downloadlinks nicht vollständig bestätigt",
+      "state": "green",
+      "version": "20 Seiten",
+      "detail": "Erreichbar; Links entsprechen den geprüften Unix-Releases",
       "url": "https://aheinen1971-cmd.github.io/rosavio/"
     },
     {
@@ -119,7 +119,7 @@
     {
       "label": "Paketdownloads",
       "state": "neutral",
-      "version": "128",
+      "version": "129",
       "detail": "GitHub-Abrufe inklusive Tests; keine Personen- oder Installationszahl. Ohne Flatpak und MAR-Updates.",
       "url": ""
     },
