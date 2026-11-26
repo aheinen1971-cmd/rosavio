@@ -157,7 +157,10 @@ class Operation:
                 if self.cancelled:
                     return
                 command = [sys.executable, '--worker', str(req)] if getattr(sys, 'frozen', False) else [sys.executable, str(ROOT / 'worker.py'), str(req)]
-                self.process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8', errors='replace', creationflags=CREATE_FLAGS, start_new_session=os.name != 'nt')
+                # The worker reads its request file, never the browser's open
+                # native-messaging input pipe. Inheriting that pipe can block
+                # Windows worker startup and also exposes unrelated messages.
+                self.process = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8', errors='replace', creationflags=CREATE_FLAGS, start_new_session=os.name != 'nt')
                 p = self.process
             for line in p.stdout:
                 try:

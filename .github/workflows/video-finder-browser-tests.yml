@@ -16,6 +16,8 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
+      - name: Check worker isolation before packaging
+        run: python tests/test_video_finder_native.py
       - name: Build isolated Windows candidate
         shell: pwsh
         env:
@@ -52,6 +54,8 @@ jobs:
           python-version: '3.12'
       - name: Install artwork dependencies
         run: python -m pip install -r requirements.txt
+      - name: Check worker isolation before packaging
+        run: python tests/test_video_finder_native.py
       - name: Build and test Linux candidate in twenty languages
         run: python scripts/cloud-unix-build.py --platform linux-x64
       - name: Verify signed Linux update and profile preservation

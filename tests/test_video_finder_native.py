@@ -15,6 +15,26 @@ import engine
 import host
 
 class NativeTests(unittest.TestCase):
+    def test_worker_cannot_read_browser_input(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            (root/'worker.py').write_text("import sys,json\nassert sys.stdin.read(1)=='', 'Worker inherited browser input'\nprint(json.dumps({'type':'info','title':'isolated','choices':[{'selector':'18','height':360}]}),flush=True)\n")
+            code=(f"import sys,json,pathlib;sys.path.insert(0,{str(Path(engine.__file__).parent)!r});import engine;"
+                  f"engine.ROOT=pathlib.Path({folder!r});o=engine.Operation({folder!r});o.busy=True;"
+                  "o._run('inspect','https://youtu.be/aqz-KE-bpKQ',None);events=[];"
+                  "\nwhile not o.events.empty():events.append(o.events.get())\nprint(json.dumps(events),flush=True)")
+            p=subprocess.Popen([sys.executable,'-c',code],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+            try:
+                # Keep a live native-message stream, with unrelated bytes pending.
+                p.stdin.write(b'private-browser-message');p.stdin.flush()
+                p.wait(timeout=10)
+                events=json.loads(p.stdout.read())
+                self.assertTrue(any(e['type']=='done' for e in events),events)
+                self.assertFalse(any(e['type']=='failed' for e in events),events)
+            finally:
+                if p.poll() is None:p.kill();p.wait()
+                p.stdin.close();p.stdout.close();p.stderr.close()
+
     def test_output_failure_leaves_no_partial_or_success(self):
         def partial_write(src, dst):
             dst.write(b'partial')
