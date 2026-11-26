@@ -1,10 +1,11 @@
 {
-  "qualifiedCommit": "48bd22cd2a8a13ce6c32821b950b55c4bdf80af0",
-  "qualificationRun": 45726358956,
-  "artifactID": 15084405796,
-  "packageSHA256": "969e4e00d0a32962833b74cc4492693c97ea7e1018b93d65e0fef2c5d3b20ae8",
-  "helperSHA256": "b9942496a194f41b851d720a3336e2e65b7cbd6ccbc66020194e9c97cc326ae2",
-  "buildID": "20261126001102",
+  "qualifiedCommit": "4955df9801b9cb9de578e68ee5afe9855ddd9d65",
+  "qualificationRun": 45843434377,
+  "artifactID": 15139450903,
+  "packageSHA256": "a636fa1bfd1c30fd75532cf64933abe30cad857d6b981984a6e7ae90e2d506d9",
+  "helperSHA256": "c880ac88337a9a1fa09994ef8e4659dfa73202f5221d78c63c1e27722fc89803",
+  "ffmpegSHA256": "22d77d0070464f4606325c6d443e506a4be05db3854d248756270d96829a7b20",
+  "buildID": "20261126145619",
   "passed": true,
   "diagnosticHelperReplacement": false,
   "realSidebarDetection": true,
@@ -13,23 +14,28 @@
   "cancelCleaned": true,
   "localizedRejection": true,
   "qualityCount": 40,
-  "downloadedBytes": 63584527,
+  "downloadedBytes": 312919967,
   "decodes": [
     {
       "selector": "18",
       "exitCode": 0,
       "stderr": "",
-      "bytes": 28523658
+      "bytes": 28523658,
+      "width": 640,
+      "height": 360
     },
     {
-      "selector": "160+bestaudio",
+      "selector": "312+bestaudio",
       "exitCode": 0,
       "stderr": "",
-      "bytes": 35060869
+      "bytes": 284396309,
+      "width": 1920,
+      "height": 1080
     }
   ],
-  "completedAt": "2026-11-26T08:09:19.118Z",
+  "completedAt": "2026-11-26T18:21:59.187Z",
   "personalProfileUsed": false,
   "isolatedUpdatePolicy": true,
-  "note": "Original signed candidate ZIP verified; only isolated copy disables automatic updates during this test. Public update tests run with updates enabled."
+  "originalFailedTracksRemuxAndDecode": true,
+  "note": "Original CI package SHA256 verified. Only isolated test copy disables updates; public update tests keep updates enabled. Test video offers 312 rather than 270 for HLS Full HD."
 }

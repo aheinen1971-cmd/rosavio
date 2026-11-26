@@ -18,7 +18,7 @@ local=json.loads((release/'local-update-test.json').read_text(encoding='utf-8-si
 for key in ['passed','workspaceAfterUpdatePassed']:require(local.get(key),key)
 require(r.get('signatureVerified'),'MAR signature')
 if platform!='windows':require(r.get('tamperNegativeTestPassed'),'tamper rejection')
-expected='20261126001102' if platform=='windows' else '20261126015716'
+expected='20261126145619' if platform=='windows' else '20261126162523'
 if r['appVersion']!='161.0' or r['buildID']!=expected:raise SystemExit('Wrong qualified build')
 if pathlib.Path(r['file']).name!=r['file']:raise SystemExit('Unsafe MAR filename')
 mar=release/r['file']
@@ -34,8 +34,14 @@ if platform=='windows':
   names=z.namelist()
   for suffix in ['/video-finder/source/ffmpeg-9.1.tar.xz','/video-finder/source/mutagen-source.json','/video-finder/licenses/Python-LICENSE.txt']:
    if not any(n.endswith(suffix) for n in names):raise SystemExit('Missing redistributed sources/license: '+suffix)
+  configs=[n for n in names if n.endswith('/video-finder/source/ffmpeg-configure.json')]
+  if len(configs)!=1:raise SystemExit('Missing exact FFmpeg build configuration')
+  flags=json.loads(z.read(configs[0]))
 else:
  package=release/'local-update/rosavio/video-finder'
  for name in ['source/ffmpeg-9.1.tar.xz','source/mutagen-source.json','licenses/Python-LICENSE.txt']:
   if not (package/name).is_file():raise SystemExit('Missing redistributed sources/license: '+name)
+ flags=json.loads((package/'source/ffmpeg-configure.json').read_text())
+if not any('mpegts' in flag.removeprefix('--enable-demuxer=').split(',') for flag in flags if flag.startswith('--enable-demuxer=')):
+ raise SystemExit('1080p MPEG-TS input support is missing')
 print('Exact Video Finder package, native bridge, twenty languages and signed update verified:',platform,expected)

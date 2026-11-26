@@ -9,10 +9,11 @@ class PromotionTests(unittest.TestCase):
   self.write('extensions-check/report.json',self.ext)
   self.write('local-update-test.json',{'passed':True,'workspaceAfterUpdatePassed':True})
   (self.root/'signed.mar').write_bytes(b'exact signed test fixture')
-  self.release={'signatureVerified':True,'appVersion':'161.0','buildID':'20261126001102','file':'signed.mar','hashValue':hashlib.sha512(b'exact signed test fixture').hexdigest(),'size':25}
+  self.release={'signatureVerified':True,'appVersion':'161.0','buildID':'20261126145619','file':'signed.mar','hashValue':hashlib.sha512(b'exact signed test fixture').hexdigest(),'size':25}
   self.write('release.json',self.release)
   with zipfile.ZipFile(self.root/'Rosavio-Deutsch-Windows.zip','w') as z:
    for name in ['source/ffmpeg-9.1.tar.xz','source/mutagen-source.json','licenses/Python-LICENSE.txt']:z.writestr('rosavio/video-finder/'+name,'fixture')
+   z.writestr('rosavio/video-finder/source/ffmpeg-configure.json',json.dumps(['--enable-demuxer=mov,matroska,mpegts']))
   digest=hashlib.sha256((self.root/'Rosavio-Deutsch-Windows.zip').read_bytes()).hexdigest()
   (self.root/'Rosavio-SHA256SUMS.txt').write_text(digest+'  Rosavio-Deutsch-Windows.zip\n')
  def tearDown(self):self.tmp.cleanup()
@@ -31,4 +32,15 @@ class PromotionTests(unittest.TestCase):
   self.assertNotEqual(self.check().returncode,0)
  def test_missing_language_rejected(self):
   self.write('locale-check/report.json',{'passed':True,'languages':list(range(19))});self.assertNotEqual(self.check().returncode,0)
+ def test_missing_ts_support_rejected_even_with_correct_package_hash(self):
+  target=self.root/'Rosavio-Deutsch-Windows.zip'
+  with zipfile.ZipFile(target) as z:entries={n:z.read(n) for n in z.namelist()}
+  entries['rosavio/video-finder/source/ffmpeg-configure.json']=json.dumps(['--enable-demuxer=mov,matroska']).encode()
+  with zipfile.ZipFile(target,'w') as z:
+   for name,data in entries.items():z.writestr(name,data)
+  digest=hashlib.sha256(target.read_bytes()).hexdigest()
+  (self.root/'Rosavio-SHA256SUMS.txt').write_text(digest+'  Rosavio-Deutsch-Windows.zip\n')
+  result=self.check()
+  self.assertNotEqual(result.returncode,0)
+  self.assertIn('MPEG-TS input support is missing',result.stderr)
 if __name__=='__main__':unittest.main()

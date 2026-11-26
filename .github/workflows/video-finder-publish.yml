@@ -24,14 +24,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $r=gh api repos/aheinen1971-cmd/rosavio/actions/runs/45726358956 | ConvertFrom-Json
-          if($LASTEXITCODE -ne 0 -or $r.conclusion -ne 'success' -or $r.head_sha -ne '48bd22cd2a8a13ce6c32821b950b55c4bdf80af0'){throw 'Wrong qualification'}
-          python scripts/verify-video-finder-source.py 48bd22cd2a8a13ce6c32821b950b55c4bdf80af0
+          $r=gh api repos/aheinen1971-cmd/rosavio/actions/runs/45843434377 | ConvertFrom-Json
+          if($LASTEXITCODE -ne 0 -or $r.conclusion -ne 'success' -or $r.head_sha -ne '4955df9801b9cb9de578e68ee5afe9855ddd9d65'){throw 'Wrong qualification'}
+          python scripts/verify-video-finder-source.py 4955df9801b9cb9de578e68ee5afe9855ddd9d65
           if($LASTEXITCODE -ne 0){throw 'Product differs from tested source'}
       - uses: actions/download-artifact@v4
         with:
-          name: rosavio-feature-windows-45726358956
-          run-id: 45726358956
+          name: rosavio-feature-windows-45843434377
+          run-id: 45843434377
           github-token: ${{ github.token }}
           path: D:/rv/release
       - uses: actions/setup-python@v5
@@ -59,7 +59,7 @@ jobs:
           if($ini -notmatch '(?m)^BuildID=(\d{14})\s*$' -or $Matches[1] -ge $r.buildID){throw 'An older public baseline is required'}
           @{version=$r.appVersion;source='';previous=$previous;buildID=$r.buildID} | ConvertTo-Json -Depth 30 | Set-Content D:/rv/build-state.json -Encoding utf8NoBOM
           $tag="v$($r.appVersion)-rosavio.$env:GITHUB_RUN_ID"
-          gh api repos/aheinen1971-cmd/rosavio/git/refs -f "ref=refs/tags/$tag" -f 'sha=48bd22cd2a8a13ce6c32821b950b55c4bdf80af0'
+          gh api repos/aheinen1971-cmd/rosavio/git/refs -f "ref=refs/tags/$tag" -f 'sha=4955df9801b9cb9de578e68ee5afe9855ddd9d65'
           if($LASTEXITCODE -ne 0){throw 'Release tag already exists or cannot be reserved'}
           node scripts/write-github-feed.mjs aheinen1971-cmd/rosavio $tag D:/rv/release
           if($LASTEXITCODE -ne 0){throw 'Feed generation failed'}
@@ -94,8 +94,8 @@ jobs:
           persist-credentials: false
       - uses: actions/download-artifact@v4
         with:
-          name: rosavio-feature-linux-flatpak-45726358956
-          run-id: 45726358956
+          name: rosavio-feature-linux-flatpak-45843434377
+          run-id: 45843434377
           github-token: ${{ github.token }}
           path: .
       - uses: actions/setup-python@v5
