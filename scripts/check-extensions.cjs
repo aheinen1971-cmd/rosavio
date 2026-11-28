@@ -8,7 +8,9 @@ const [binary,root]=process.argv.slice(2),pause=ms=>new Promise(r=>setTimeout(r,
  if(!nativeGuard?.passed)throw Error('Video Finder native origin guard failed: '+JSON.stringify(nativeGuard));
  await session.command('Marionette:SetContext',{value:'content'});
  await session.command('WebDriver:Navigate',{url:nativeGuard.url});
- const nativeBridge=await session.script(`const api=window.browser;return await new Promise((resolve,reject)=>{const port=api.runtime.connectNative('org.rosavio.video_finder');let ready=false;const timer=setTimeout(()=>{port.disconnect();reject(Error('Bundled helper handshake timed out'));},20000);port.onDisconnect.addListener(()=>{clearTimeout(timer);reject(Error(port.error?.message||'Helper disconnected before reply'));});port.onMessage.addListener(message=>{if(message.type==='ready'){ready=true;port.postMessage({action:'inspect',url:'https://example.org/rejected'});}if(message.code==='youtubeRequestRejected'){clearTimeout(timer);resolve({passed:ready,foreignURLRejected:true});port.disconnect();}});});`);
+ const filenameUI=await session.script(`const name=document.getElementById('youtube-filename');const label=document.querySelector('label[for=youtube-filename]');if(!name||name.type!=='text'||!label?.textContent.trim())throw Error('Editable video title UI missing');const bg=await browser.runtime.getBackgroundPage();const c=bg.getYouTubeController((await browser.windows.getCurrent()).id);if(typeof c.setFilenameTitle!=='function')throw Error('Filename controller missing');return {passed:true,label:label.textContent};`);
+ if(!filenameUI?.passed)throw Error(JSON.stringify(filenameUI));
+ const nativeBridge=await session.script(`const api=window.browser;return await new Promise((resolve,reject)=>{const port=api.runtime.connectNative('org.rosavio.video_finder');let ready=false;const timer=setTimeout(()=>{port.disconnect();reject(Error('Bundled helper handshake timed out'));},20000);port.onDisconnect.addListener(()=>{clearTimeout(timer);reject(Error(port.error?.message||'Helper disconnected before reply'));});port.onMessage.addListener(message=>{if(message.type==='ready'){ready=message.editableFilename===true;port.postMessage({action:'inspect',url:'https://example.org/rejected'});}if(message.code==='youtubeRequestRejected'){clearTimeout(timer);resolve({passed:ready,foreignURLRejected:true,editableFilename:ready});port.disconnect();}});});`);
  if(!nativeBridge?.passed){
   await session.command('Marionette:SetContext',{value:'chrome'});
   const diagnostics=await session.script(`return Services.console.getMessageArray().map(x=>x.message).filter(x=>/native app|native manifest|video.finder|PyInstaller|PYI-/i.test(x)).slice(-20);`);
@@ -31,6 +33,7 @@ const [binary,root]=process.argv.slice(2),pause=ms=>new Promise(r=>setTimeout(r,
  await session.command('Marionette:SetContext',{value:'chrome'});
  const principal=await session.script(`return {system:gBrowser.selectedBrowser.contentPrincipal.isSystemPrincipal};`);
  if(principal.system)throw Error('Catalogue must not run with browser system privileges');
- fs.mkdirSync(root,{recursive:true});fs.writeFileSync(path.join(root,'report.json'),JSON.stringify({passed:true,media,nativeGuard,nativeBridge,menu,initial,results,unprivileged:true,installationMethod:'official Mozilla page and normal browser permission prompt',installationPromptManuallyTested:false},null,2));
+ fs.mkdirSync(root,{recursive:true});fs.writeFileSync(path.join(root,'report.json'),JSON.stringify({passed:true,media,nativeGuard,nativeBridge,filenameUI,menu,initial,results,unprivileged:true,installationMethod:'official Mozilla page and normal browser permission prompt',installationPromptManuallyTested:false},null,2));
  console.log('Native Rosavio catalogue, official search and unprivileged content passed; installation prompt requires separate verification.');
 }finally{if(session)await session.close();}})().catch(e=>{console.error(e);process.exitCode=1});
+

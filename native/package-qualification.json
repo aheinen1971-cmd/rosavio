@@ -1,5 +1,5 @@
 {
-  "request": 6,
-  "purpose": "Qualify MPEG-TS input for 1080p YouTube HLS downloads; helper run 45834402003 and fresh 1080p audio/video decode passed; require new complete package and signed update proofs before publication",
+  "request": 7,
+  "purpose": "Qualify editable video-title filenames in Windows, Linux and Flatpak with all 20 languages, actual bundled helper capability, signed update and profile preservation; fresh original-package YouTube title/custom-name proof required before publication",
   "publish": false
 }

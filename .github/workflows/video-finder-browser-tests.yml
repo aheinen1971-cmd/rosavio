@@ -1,7 +1,7 @@
 name: Video Finder browser package qualification
 on:
   push:
-    branches: [feature/video-finder-youtube-20261125]
+    branches: [feature/video-finder-youtube-20261125, feature/video-finder-names-20261128]
     paths: [native/package-qualification.json]
 permissions:
   contents: read
@@ -17,7 +17,10 @@ jobs:
         with:
           persist-credentials: false
       - name: Check worker isolation before packaging
-        run: python tests/test_video_finder_native.py
+        run: |
+          python tests/test_video_finder_native.py
+          python tests/test_video_finder_names.py
+          node --test tests/video-finder-*.test.cjs tests/media-localization.test.cjs tests/media-core.test.cjs tests/media-background.test.cjs
       - name: Build isolated Windows candidate
         shell: pwsh
         env:
@@ -55,7 +58,10 @@ jobs:
       - name: Install artwork dependencies
         run: python -m pip install -r requirements.txt
       - name: Check worker isolation before packaging
-        run: python tests/test_video_finder_native.py
+        run: |
+          python tests/test_video_finder_native.py
+          python tests/test_video_finder_names.py
+          node --test tests/video-finder-*.test.cjs tests/media-localization.test.cjs tests/media-core.test.cjs tests/media-background.test.cjs
       - name: Build and test Linux candidate in twenty languages
         run: python scripts/cloud-unix-build.py --platform linux-x64
       - name: Verify signed Linux update and profile preservation

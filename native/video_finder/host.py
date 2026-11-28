@@ -89,7 +89,7 @@ def serve(input_stream, output_stream, operation=None):
     thread = threading.Thread(target=pump, daemon=True)
     thread.start()
     try:
-        send({'type':'ready', 'version':1})
+        send({'type':'ready', 'version':1, 'editableFilename':True})
         while active.is_set():
             message = read_message(input_stream)
             if message is None:
