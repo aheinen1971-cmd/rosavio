@@ -35,6 +35,7 @@ class WorkerTests(unittest.TestCase):
             def download(self, urls):
                 if logged_error: self.options['logger'].error('Incomplete fragment')
                 if exception: raise OSError('Connection interrupted')
+                Path(self.options['outtmpl']).parent.joinpath('fixture.mkv').write_bytes(b'fixture')
                 return result
         with tempfile.TemporaryDirectory() as directory:
             request = Path(directory) / 'request.json'
@@ -56,5 +57,45 @@ class WorkerTests(unittest.TestCase):
     def test_logged_error_with_zero_exit_is_failure(self): self.run_download(logged_error=True)
     def test_interrupted_transfer_is_failure(self): self.run_download(exception=True)
     def test_complete_transfer_succeeds(self): self.run_download()
+
+    def test_equivalent_format_never_downgrades_or_changes_fps_or_hdr(self):
+        base = dict(width=1920,height=1080,fps=60,dynamic_range='SDR',vcodec='avc1.64002a',acodec='none',protocol='m3u8_native')
+        formats = [dict(base,format_id='312'),dict(base,format_id='299',protocol='https'),
+                   dict(base,format_id='low',height=720),dict(base,format_id='slow',fps=30),
+                   dict(base,format_id='hdr',dynamic_range='HDR'),dict(base,format_id='drm',has_drm=True),
+                   dict(format_id='audio',vcodec='none',acodec='aac')]
+        self.assertEqual(worker.equivalent_selectors({'formats':formats},'312+bestaudio'),['299+bestaudio'])
+        self.assertEqual(worker.equivalent_selectors({'formats':[]},'312+bestaudio'),[])
+
+    def test_fallback_clean_output_and_bounded_failure(self):
+        for errors in [('Incomplete read',None),('Incomplete read','Incomplete read'),('Sign in required',None)]:
+            calls=[];events=[]
+            class Downloader:
+                def __init__(self,opts): self.opts=opts
+                def __enter__(self): return self
+                def __exit__(self,*args): return False
+                def download(self,urls):
+                    folder=Path(self.opts['outtmpl']).parent
+                    self_test.assertEqual(list(folder.iterdir()),[])
+                    failure=errors[len(calls)];calls.append(self.opts['format'])
+                    (folder/'fixture.mkv').write_bytes(b'bad' if failure else b'complete')
+                    if failure: raise RuntimeError(failure)
+                    return 0
+            self_test=self
+            with tempfile.TemporaryDirectory() as directory, \
+                 patch.object(Path,'is_file',return_value=True), \
+                 patch.object(worker.yt_dlp,'YoutubeDL',Downloader), \
+                 patch.object(worker,'equivalent_selectors',return_value=['299+bestaudio']), \
+                 patch.object(worker,'emit',side_effect=lambda kind,**data:events.append(kind)):
+                req=dict(folder=directory,selector='312+bestaudio',url='https://www.youtube.com/watch?v=aqz-KE-bpKQ')
+                if errors==('Incomplete read',None):
+                    worker.download_complete(req,{})
+                    self.assertEqual((Path(directory)/'fixture.mkv').read_bytes(),b'complete')
+                    self.assertEqual(events.count('complete'),1)
+                else:
+                    with self.assertRaises(RuntimeError):worker.download_complete(req,{})
+                    self.assertNotIn('complete',events)
+                    self.assertEqual(list(Path(directory).iterdir()),[])
+                self.assertEqual(len(calls),1 if errors[0]=='Sign in required' else 2)
 
 if __name__ == '__main__': unittest.main()

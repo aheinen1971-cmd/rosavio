@@ -1,5 +1,5 @@
 {
-  "request": 9,
-  "purpose": "Qualify editable video-title filenames plus bounded complete-fragment retries and fail-closed downloads in Windows, Linux and Flatpak; all 20 languages, bundled helper, signed updates and profiles; fresh unchanged-package 1080p proof required before publication",
+  "request": 10,
+  "purpose": "Qualify bounded same-resolution/frame-rate fallback for interrupted YouTube transfers, edited filenames, all 20 languages, signed Windows/Linux/Flatpak updates and profile preservation; five complete original-package 1080p and 4K rounds required before publication",
   "publish": false
 }
