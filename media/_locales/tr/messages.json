@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "İndirme yardımcısıyla bağlantı kesildi."
+  },
+  "filenameTitle": {
+    "message": "Dosya adı (uzantısız)"
   }
 }

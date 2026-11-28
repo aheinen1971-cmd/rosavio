@@ -63,3 +63,19 @@ test('lost helper clears busy, late success is not replaced by cancel-request st
  c.inspect('https://youtu.be/aqz-KE-bpKQ');ports[0].receive({type:'saved',path:'fixture'});c.cancel();assert.equal(state.phase,'saved');
  ports[0].error={message:'missing'};ports[0].disconnected();assert.equal(state.busy,false);assert.equal(state.code,'youtubeHelperUnavailable');
 });
+
+test('editable title survives reopen, freezes during download and resets on new detection',()=>{
+ const {ctx,ports}=fixture();const c=ctx.getYouTubeController(1);let state;c.subscribe(s=>state=s);
+ c.inspect('https://youtu.be/aqz-KE-bpKQ');
+ ports[0].receive({type:'info',title:'Original title',choices:[{selector:'18',height:360,merged:false}]});
+ ports[0].receive({type:'idle'});
+ c.setFilenameTitle('Mein Titel 🌹');
+ c.subscribe(s=>state=s)();assert.equal(state.filenameTitle,'Mein Titel 🌹');
+ c.download('18');assert.equal(ports[0].sent.at(-1).filenameTitle,'Mein Titel 🌹');
+ assert.equal(c.setFilenameTitle('late change'),false);
+ ports[0].receive({type:'idle'});c.inspect('https://youtu.be/aqz-KE-bpKQ');
+ assert.equal(state.filenameTitle,undefined);
+ ports[0].receive({type:'info',title:'Next title',choices:[{selector:'18',height:360,merged:false}]});
+ ports[0].receive({type:'idle'});c.setFilenameTitle('  ');c.download('18');
+ assert.equal(ports[0].sent.at(-1).filenameTitle,'Next title');
+});

@@ -33,7 +33,9 @@ function findVideos() {
       && Math.min(rect.bottom, innerHeight) > Math.max(rect.top, 0);
     const active = visible && !video.paused && !video.ended && video.readyState >= 2;
     if (active && !/^https?:/i.test(video.currentSrc)) playingWithoutSource = true;
-    add(video.currentSrc, true, active, video.duration, video.title, video.videoHeight);
+    const title = video.title || video.getAttribute('aria-label') ||
+      document.querySelector('meta[property="og:title"]')?.content || document.title;
+    add(video.currentSrc, true, active, video.duration, title, video.videoHeight);
     add(video.src, true);
     for (const source of video.querySelectorAll('source[src]')) {
       if (!/dash\+xml/i.test(source.type)) add(source.src, true);
@@ -57,6 +59,12 @@ function renderRow(video, container) {
   row.textContent = video.playlist ? mediaText('playlist', {name:displayName}) : displayName;
   if (video.seconds) row.append(' · ' + formatDuration(video.seconds));
   if (video.height) row.append(' · ' + video.height + 'p');
+  const label = document.createElement('label');
+  label.textContent = mediaText('filenameTitle');
+  const name = document.createElement('input');
+  name.type = 'text'; name.maxLength = 180; name.dir = 'auto';
+  name.value = video.title || mediaText('video');
+  label.append(name); row.append(label);
   const save = document.createElement('button');
   save.textContent = mediaText('save');
   if (video.playlist) save.textContent = mediaText('details');
@@ -69,17 +77,17 @@ function renderRow(video, container) {
       try {
         const granted = await requestServer(origin);
         if (!granted) { statusLine.textContent = mediaText('videoAccess'); return; }
-        (await queueReady).addDownload(video.url, video.title);
+        (await queueReady).addDownload(video.url, name.value.trim() || video.title);
       } catch { statusLine.textContent = mediaText('queueError'); }
       finally { save.disabled = false; }
       return;
     }
     try {
       const ext = /\.(mp4|m4v|mov|ogv|webm)$/i.exec(video.name)?.[1];
-      const filename = ext && video.title ? videoFilename(video.title, video.height, "", ext) : undefined;
+      const filename = ext ? videoFilename(name.value.trim() || video.title, video.height, "", ext) : undefined;
       const queue = await queueReady;
       const id = await browser.downloads.download({url:video.url, filename, saveAs:false, conflictAction:"uniquify"});
-      queue.trackDirect(id, video.title || video.name);
+      queue.trackDirect(id, name.value.trim() || video.title || video.name);
     } catch { statusLine.textContent = mediaText('directError'); }
     finally { save.disabled = false; }
   };
@@ -146,12 +154,15 @@ async function attachQueue() {
     const active = document.activeElement;
     const focused = controls.get(active);
     const copy = document.importNode(source, true);
-    const selectors = 'button, select, progress, a';
+    const selectors = 'button, select, input, progress, a';
     const originals = source.querySelectorAll(selectors);
     copy.querySelectorAll(selectors).forEach((element, i) => {
       const original = originals[i];
       controls.set(element, original);
-      if (element.tagName === 'SELECT') {
+      if (element.tagName === 'INPUT') {
+        element.value = original.value;
+        element.oninput = () => { original.value = element.value; };
+      } else if (element.tagName === 'SELECT') {
         element.selectedIndex = original.selectedIndex;
         element.onchange = () => {
           original.selectedIndex = element.selectedIndex;

@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "ダウンロードヘルパーとの接続が終了しました。"
+  },
+  "filenameTitle": {
+    "message": "ファイル名（拡張子なし）"
   }
 }

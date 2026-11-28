@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "החיבור לעוזר ההורדה הסתיים."
+  },
+  "filenameTitle": {
+    "message": "שם הקובץ (ללא סיומת)"
   }
 }

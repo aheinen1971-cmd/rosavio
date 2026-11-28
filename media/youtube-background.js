@@ -68,10 +68,16 @@ function getYouTubeController(windowId) {
       try { connect().postMessage({action:'inspect',url}); } catch { fail('youtubeHelperUnavailable'); }
       return true;
     },
+    setFilenameTitle(value) {
+      if (state.busy || typeof value !== 'string') return false;
+      state = {...state,filenameTitle:value.slice(0,180)};
+      return true;
+    },
     download(selector) {
       if (state.busy || !state.choices.some(c => c.selector === selector)) return false;
       state = {...state,busy:true,phase:'downloading',percent:null,path:''}; notify();
-      try { connect().postMessage({action:'download',url:state.url,selector}); } catch { fail('youtubeHelperUnavailable'); }
+      const filenameTitle = (state.filenameTitle || '').trim() || state.title;
+      try { connect().postMessage({action:'download',url:state.url,selector,filenameTitle}); } catch { fail('youtubeHelperUnavailable'); }
       return true;
     },
     cancel() {

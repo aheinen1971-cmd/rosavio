@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "Η σύνδεση με τον βοηθό λήψης τερματίστηκε."
+  },
+  "filenameTitle": {
+    "message": "Όνομα αρχείου (χωρίς επέκταση)"
   }
 }

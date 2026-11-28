@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "La connessione con l’assistente di download è terminata."
+  },
+  "filenameTitle": {
+    "message": "Nome del file (senza estensione)"
   }
 }

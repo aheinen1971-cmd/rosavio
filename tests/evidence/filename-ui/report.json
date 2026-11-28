@@ -1,0 +1,167 @@
+{
+  "passed": true,
+  "browser": "Chromium local UI fixture; browser APIs simulated",
+  "personalProfileUsed": false,
+  "tests": [
+    {
+      "locale": "de",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "en-US",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "fr",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "es-ES",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "nl",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "it",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "pt-PT",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "pl",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "cs",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "da",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "sv-SE",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "nb-NO",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "fi",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "tr",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "uk",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "el",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "ja",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "ko",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "ar",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    },
+    {
+      "locale": "he",
+      "passed": true,
+      "youtube": true,
+      "direct": true,
+      "hls": true,
+      "narrowLayout": true
+    }
+  ]
+}

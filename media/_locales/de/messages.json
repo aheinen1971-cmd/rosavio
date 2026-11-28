@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "Die Verbindung zum Download-Helfer wurde beendet."
+  },
+  "filenameTitle": {
+    "message": "Dateiname (ohne Dateiendung)"
   }
 }

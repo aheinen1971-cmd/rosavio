@@ -1,0 +1,126 @@
+{
+  "passed": true,
+  "browser": "Rosavio 161.0, isolated local UI with simulated extension APIs",
+  "results": [
+    {
+      "locale": "de",
+      "dir": "ltr",
+      "label": "Dateiname (ohne Dateiendung)",
+      "passed": true
+    },
+    {
+      "locale": "en-US",
+      "dir": "ltr",
+      "label": "File name (without extension)",
+      "passed": true
+    },
+    {
+      "locale": "fr",
+      "dir": "ltr",
+      "label": "Nom du fichier (sans extension)",
+      "passed": true
+    },
+    {
+      "locale": "es-ES",
+      "dir": "ltr",
+      "label": "Nombre de archivo (sin extensión)",
+      "passed": true
+    },
+    {
+      "locale": "nl",
+      "dir": "ltr",
+      "label": "Bestandsnaam (zonder extensie)",
+      "passed": true
+    },
+    {
+      "locale": "it",
+      "dir": "ltr",
+      "label": "Nome del file (senza estensione)",
+      "passed": true
+    },
+    {
+      "locale": "pt-PT",
+      "dir": "ltr",
+      "label": "Nome do ficheiro (sem extensão)",
+      "passed": true
+    },
+    {
+      "locale": "pl",
+      "dir": "ltr",
+      "label": "Nazwa pliku (bez rozszerzenia)",
+      "passed": true
+    },
+    {
+      "locale": "cs",
+      "dir": "ltr",
+      "label": "Název souboru (bez přípony)",
+      "passed": true
+    },
+    {
+      "locale": "da",
+      "dir": "ltr",
+      "label": "Filnavn (uden filtypenavn)",
+      "passed": true
+    },
+    {
+      "locale": "sv-SE",
+      "dir": "ltr",
+      "label": "Filnamn (utan filändelse)",
+      "passed": true
+    },
+    {
+      "locale": "nb-NO",
+      "dir": "ltr",
+      "label": "Filnavn (uten filtype)",
+      "passed": true
+    },
+    {
+      "locale": "fi",
+      "dir": "ltr",
+      "label": "Tiedostonimi (ilman tiedostopäätettä)",
+      "passed": true
+    },
+    {
+      "locale": "tr",
+      "dir": "ltr",
+      "label": "Dosya adı (uzantısız)",
+      "passed": true
+    },
+    {
+      "locale": "uk",
+      "dir": "ltr",
+      "label": "Назва файлу (без розширення)",
+      "passed": true
+    },
+    {
+      "locale": "el",
+      "dir": "ltr",
+      "label": "Όνομα αρχείου (χωρίς επέκταση)",
+      "passed": true
+    },
+    {
+      "locale": "ja",
+      "dir": "ltr",
+      "label": "ファイル名（拡張子なし）",
+      "passed": true
+    },
+    {
+      "locale": "ko",
+      "dir": "ltr",
+      "label": "파일 이름(확장자 제외)",
+      "passed": true
+    },
+    {
+      "locale": "ar",
+      "dir": "rtl",
+      "label": "اسم الملف (بدون الامتداد)",
+      "passed": true
+    },
+    {
+      "locale": "he",
+      "dir": "rtl",
+      "label": "שם הקובץ (ללא סיומת)",
+      "passed": true
+    }
+  ]
+}

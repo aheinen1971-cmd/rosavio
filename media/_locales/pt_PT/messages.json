@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "A ligação ao auxiliar de transferência terminou."
+  },
+  "filenameTitle": {
+    "message": "Nome do ficheiro (sem extensão)"
   }
 }

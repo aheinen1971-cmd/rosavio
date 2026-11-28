@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "다운로드 도우미와의 연결이 종료되었습니다."
+  },
+  "filenameTitle": {
+    "message": "파일 이름(확장자 제외)"
   }
 }

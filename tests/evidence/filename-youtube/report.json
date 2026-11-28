@@ -1,0 +1,471 @@
+{
+  "passed": true,
+  "personalProfileUsed": false,
+  "sourceHost": true,
+  "worker": "unchanged installed Rosavio worker",
+  "downloads": [
+    {
+      "requestedTitle": "Big Buck Bunny 60fps 4K - Official Blender Foundation Short Film",
+      "file": "Big Buck Bunny 60fps 4K - Official Blender Foundation Short Film.mp4",
+      "bytes": 28523658,
+      "audioVideo": true,
+      "fullDecodePassed": true
+    },
+    {
+      "requestedTitle": "Rosavio – mein Testvideo 🌹",
+      "file": "Rosavio – mein Testvideo 🌹.mp4",
+      "bytes": 28523658,
+      "audioVideo": true,
+      "fullDecodePassed": true
+    }
+  ],
+  "title": "Big Buck Bunny 60fps 4K - Official Blender Foundation Short Film",
+  "events": [
+    {
+      "type": "ready",
+      "version": 1
+    },
+    {
+      "type": "info",
+      "title": "Big Buck Bunny 60fps 4K - Official Blender Foundation Short Film",
+      "choices": [
+        {
+          "selector": "628+bestaudio",
+          "height": 2160,
+          "merged": true
+        },
+        {
+          "selector": "315+bestaudio",
+          "height": 2160,
+          "merged": true
+        },
+        {
+          "selector": "401+bestaudio",
+          "height": 2160,
+          "merged": true
+        },
+        {
+          "selector": "623+bestaudio",
+          "height": 1440,
+          "merged": true
+        },
+        {
+          "selector": "308+bestaudio",
+          "height": 1440,
+          "merged": true
+        },
+        {
+          "selector": "400+bestaudio",
+          "height": 1440,
+          "merged": true
+        },
+        {
+          "selector": "312+bestaudio",
+          "height": 1080,
+          "merged": true
+        },
+        {
+          "selector": "299+bestaudio",
+          "height": 1080,
+          "merged": true
+        },
+        {
+          "selector": "617+bestaudio",
+          "height": 1080,
+          "merged": true
+        },
+        {
+          "selector": "303+bestaudio",
+          "height": 1080,
+          "merged": true
+        },
+        {
+          "selector": "399+bestaudio",
+          "height": 1080,
+          "merged": true
+        },
+        {
+          "selector": "136+bestaudio",
+          "height": 720,
+          "merged": true
+        },
+        {
+          "selector": "247+bestaudio",
+          "height": 720,
+          "merged": true
+        },
+        {
+          "selector": "311+bestaudio",
+          "height": 720,
+          "merged": true
+        },
+        {
+          "selector": "298+bestaudio",
+          "height": 720,
+          "merged": true
+        },
+        {
+          "selector": "612+bestaudio",
+          "height": 720,
+          "merged": true
+        },
+        {
+          "selector": "302+bestaudio",
+          "height": 720,
+          "merged": true
+        },
+        {
+          "selector": "398+bestaudio",
+          "height": 720,
+          "merged": true
+        },
+        {
+          "selector": "231+bestaudio",
+          "height": 480,
+          "merged": true
+        },
+        {
+          "selector": "135+bestaudio",
+          "height": 480,
+          "merged": true
+        },
+        {
+          "selector": "606+bestaudio",
+          "height": 480,
+          "merged": true
+        },
+        {
+          "selector": "244+bestaudio",
+          "height": 480,
+          "merged": true
+        },
+        {
+          "selector": "397+bestaudio",
+          "height": 480,
+          "merged": true
+        },
+        {
+          "selector": "230+bestaudio",
+          "height": 360,
+          "merged": true
+        },
+        {
+          "selector": "134+bestaudio",
+          "height": 360,
+          "merged": true
+        },
+        {
+          "selector": "18",
+          "height": 360,
+          "merged": false
+        },
+        {
+          "selector": "605+bestaudio",
+          "height": 360,
+          "merged": true
+        },
+        {
+          "selector": "243+bestaudio",
+          "height": 360,
+          "merged": true
+        },
+        {
+          "selector": "396+bestaudio",
+          "height": 360,
+          "merged": true
+        },
+        {
+          "selector": "229+bestaudio",
+          "height": 240,
+          "merged": true
+        },
+        {
+          "selector": "133+bestaudio",
+          "height": 240,
+          "merged": true
+        },
+        {
+          "selector": "604+bestaudio",
+          "height": 240,
+          "merged": true
+        },
+        {
+          "selector": "242+bestaudio",
+          "height": 240,
+          "merged": true
+        },
+        {
+          "selector": "395+bestaudio",
+          "height": 240,
+          "merged": true
+        },
+        {
+          "selector": "602+bestaudio",
+          "height": 144,
+          "merged": true
+        },
+        {
+          "selector": "269+bestaudio",
+          "height": 144,
+          "merged": true
+        },
+        {
+          "selector": "160+bestaudio",
+          "height": 144,
+          "merged": true
+        },
+        {
+          "selector": "603+bestaudio",
+          "height": 144,
+          "merged": true
+        },
+        {
+          "selector": "278+bestaudio",
+          "height": 144,
+          "merged": true
+        },
+        {
+          "selector": "394+bestaudio",
+          "height": 144,
+          "merged": true
+        }
+      ]
+    },
+    {
+      "type": "done"
+    },
+    {
+      "type": "idle"
+    },
+    {
+      "type": "progress",
+      "percent": 0.003590002376273057,
+      "phase": "downloading",
+      "bytes": 1024
+    },
+    {
+      "type": "progress",
+      "percent": 1.8344912142755323,
+      "phase": "downloading",
+      "bytes": 523264
+    },
+    {
+      "type": "progress",
+      "percent": 7.348734864230948,
+      "phase": "downloading",
+      "bytes": 2096128
+    },
+    {
+      "type": "progress",
+      "percent": 14.70105973083817,
+      "phase": "downloading",
+      "bytes": 4193280
+    },
+    {
+      "type": "progress",
+      "percent": 29.40570946405261,
+      "phase": "downloading",
+      "bytes": 8387584
+    },
+    {
+      "type": "progress",
+      "percent": 35.0866708610796,
+      "phase": "downloading",
+      "bytes": 10008002
+    },
+    {
+      "type": "progress",
+      "percent": 35.11180087771351,
+      "phase": "downloading",
+      "bytes": 10015170
+    },
+    {
+      "type": "progress",
+      "percent": 36.92116207535513,
+      "phase": "downloading",
+      "bytes": 10531266
+    },
+    {
+      "type": "progress",
+      "percent": 38.759243292006936,
+      "phase": "downloading",
+      "bytes": 11055554
+    },
+    {
+      "type": "progress",
+      "percent": 44.76137667896593,
+      "phase": "downloading",
+      "bytes": 12767582
+    },
+    {
+      "type": "progress",
+      "percent": 52.76422119491125,
+      "phase": "downloading",
+      "bytes": 15050286
+    },
+    {
+      "type": "progress",
+      "percent": 63.64851941500631,
+      "phase": "downloading",
+      "bytes": 18154886
+    },
+    {
+      "type": "progress",
+      "percent": 71.24475058563667,
+      "phase": "downloading",
+      "bytes": 20321609
+    },
+    {
+      "type": "progress",
+      "percent": 71.26988060227058,
+      "phase": "downloading",
+      "bytes": 20328777
+    },
+    {
+      "type": "progress",
+      "percent": 73.0792417999122,
+      "phase": "downloading",
+      "bytes": 20844873
+    },
+    {
+      "type": "progress",
+      "percent": 85.94581031647483,
+      "phase": "downloading",
+      "bytes": 24514889
+    },
+    {
+      "type": "progress",
+      "percent": 96.61942728383576,
+      "phase": "downloading",
+      "bytes": 27559395
+    },
+    {
+      "type": "progress",
+      "percent": 100,
+      "phase": "finished",
+      "bytes": 28523658
+    },
+    {
+      "type": "saved",
+      "path": "C:\\Users\\armin\\Documents\\Codex\\2026-10-06\\k\\work\\video-finder-names-20261128\\tests\\evidence\\filename-youtube\\downloads\\Big Buck Bunny 60fps 4K - Official Blender Foundation Short Film.mp4"
+    },
+    {
+      "type": "idle"
+    },
+    {
+      "type": "progress",
+      "percent": 0.003590002376273057,
+      "phase": "downloading",
+      "bytes": 1024
+    },
+    {
+      "type": "progress",
+      "percent": 1.8344912142755323,
+      "phase": "downloading",
+      "bytes": 523264
+    },
+    {
+      "type": "progress",
+      "percent": 7.348734864230948,
+      "phase": "downloading",
+      "bytes": 2096128
+    },
+    {
+      "type": "progress",
+      "percent": 14.70105973083817,
+      "phase": "downloading",
+      "bytes": 4193280
+    },
+    {
+      "type": "progress",
+      "percent": 26.014797961748105,
+      "phase": "downloading",
+      "bytes": 7420372
+    },
+    {
+      "type": "progress",
+      "percent": 35.79483038255472,
+      "phase": "downloading",
+      "bytes": 10209995
+    },
+    {
+      "type": "progress",
+      "percent": 35.79842038493099,
+      "phase": "downloading",
+      "bytes": 10211019
+    },
+    {
+      "type": "progress",
+      "percent": 36.71028098850435,
+      "phase": "downloading",
+      "bytes": 10471115
+    },
+    {
+      "type": "progress",
+      "percent": 43.14356524678567,
+      "phase": "downloading",
+      "bytes": 12306123
+    },
+    {
+      "type": "progress",
+      "percent": 50.495890113392896,
+      "phase": "downloading",
+      "bytes": 14403275
+    },
+    {
+      "type": "progress",
+      "percent": 61.622457400099236,
+      "phase": "downloading",
+      "bytes": 17576979
+    },
+    {
+      "type": "progress",
+      "percent": 71.04064983530513,
+      "phase": "downloading",
+      "bytes": 20263392
+    },
+    {
+      "type": "progress",
+      "percent": 71.04423983768142,
+      "phase": "downloading",
+      "bytes": 20264416
+    },
+    {
+      "type": "progress",
+      "percent": 71.95610044125476,
+      "phase": "downloading",
+      "bytes": 20524512
+    },
+    {
+      "type": "progress",
+      "percent": 78.38938469953608,
+      "phase": "downloading",
+      "bytes": 22359520
+    },
+    {
+      "type": "progress",
+      "percent": 85.74170956614331,
+      "phase": "downloading",
+      "bytes": 24456672
+    },
+    {
+      "type": "progress",
+      "percent": 100,
+      "phase": "downloading",
+      "bytes": 28523658
+    },
+    {
+      "type": "progress",
+      "percent": 100,
+      "phase": "finished",
+      "bytes": 28523658
+    },
+    {
+      "type": "saved",
+      "path": "C:\\Users\\armin\\Documents\\Codex\\2026-10-06\\k\\work\\video-finder-names-20261128\\tests\\evidence\\filename-youtube\\downloads\\Rosavio – mein Testvideo 🌹.mp4"
+    },
+    {
+      "type": "idle"
+    }
+  ]
+}

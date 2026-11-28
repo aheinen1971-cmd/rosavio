@@ -12,11 +12,68 @@ import time
 import uuid
 import signal
 import tempfile
+import unicodedata
+import errno
 from urllib.parse import urlsplit, parse_qs
 
 ROOT = Path(__file__).resolve().parent
 BIN_ROOT = Path(sys.executable).resolve().parent if getattr(sys, 'frozen', False) else ROOT
 CREATE_FLAGS = subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0
+
+
+def safe_title(value):
+    if not isinstance(value, str) or len(value) > 500:
+        raise ValueError('Invalid filename title')
+    name = unicodedata.normalize('NFC', value)
+    name = re.sub(r'[<>:"/\\|?*\x00-\x1f\x7f\u202a-\u202e\u2066-\u2069]', ' ', name)
+    name = re.sub(r'\s+', ' ', name).strip()[:90].strip('. ')
+    # Keep each filename below the common 255-byte filesystem component limit.
+    while len(name.encode('utf-8')) > 200:
+        name = name[:-1]
+    if re.match(r'^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\.|$)', name, re.I):
+        name = '_' + name
+    return name or 'Video'
+
+
+def publish_video(source, output, title):
+    output.mkdir(parents=True, exist_ok=True)
+    base = safe_title(title)
+    partial = output / ('.video-finder-' + uuid.uuid4().hex + '.part')
+    try:
+        with source.open('rb') as src, partial.open('xb') as dst:
+            shutil.copyfileobj(src, dst)
+            dst.flush()
+            os.fsync(dst.fileno())
+        for number in range(10000):
+            suffix = '' if number == 0 else f' ({number})'
+            target = output / (base + suffix + source.suffix)
+            try:
+                # Atomic, same-volume publication; never replace an existing file.
+                os.link(partial, target)
+                return target
+            except FileExistsError:
+                continue
+            except OSError as exc:
+                if exc.errno not in (errno.EPERM, errno.EACCES, errno.ENOSYS, errno.EOPNOTSUPP):
+                    raise
+                # FAT/exFAT destinations may not support hard links. Exclusive
+                # creation still guarantees that existing user files are safe.
+                try:
+                    destination = target.open('xb')
+                except FileExistsError:
+                    continue
+                try:
+                    with partial.open('rb') as src, destination as dst:
+                        shutil.copyfileobj(src, dst)
+                        dst.flush()
+                        os.fsync(dst.fileno())
+                    return target
+                except BaseException:
+                    target.unlink(missing_ok=True)
+                    raise
+        raise OSError('No free filename')
+    finally:
+        partial.unlink(missing_ok=True)
 
 
 def downloads_folder():
@@ -120,18 +177,20 @@ class Operation:
         self.settled = False
         self.output = Path(output) if output else downloads_folder()
 
-    def start(self, mode, url, selector=None):
+    def start(self, mode, url, selector=None, filename_title=None):
         url = normalize_url(url)
         if mode not in ('inspect', 'download'):
             raise ValueError('Unbekannter Vorgang.')
         if mode == 'download' and not re.fullmatch(r'[A-Za-z0-9_-]+(?:\+bestaudio)?', selector or ''):
             raise ValueError('Bitte zuerst eine verfügbare Qualität auswählen.')
+        if filename_title is not None:
+            filename_title = safe_title(filename_title)
         with self.lock:
             if self.busy:
                 raise ValueError('Es läuft bereits ein Vorgang.')
             self.busy, self.cancelled = True, False
             self.settled = False
-        threading.Thread(target=self._run, args=(mode, url, selector), daemon=True).start()
+        threading.Thread(target=self._run, args=(mode, url, selector, filename_title), daemon=True).start()
 
     def cancel(self):
         with self.lock:
@@ -144,7 +203,7 @@ class Operation:
                 stop_process(p)
             return True
 
-    def _run(self, mode, url, selector):
+    def _run(self, mode, url, selector, filename_title=None):
         staging = None
         complete = False
         metadata = False
@@ -189,18 +248,7 @@ class Operation:
                     if len(files) != 1 or not files[0].stat().st_size:
                         raise ValueError('Kein vollständiges Video erzeugt.')
                     output = self.output
-                    output.mkdir(parents=True, exist_ok=True)
-                    target = output / (files[0].stem + '-' + uuid.uuid4().hex + files[0].suffix)
-                    # Copy beside the destination before the atomic rename, including across volumes.
-                    partial = target.with_suffix(target.suffix + '.part')
-                    try:
-                        with files[0].open('rb') as src, partial.open('xb') as dst:
-                            shutil.copyfileobj(src, dst)
-                            dst.flush()
-                            os.fsync(dst.fileno())
-                        partial.replace(target)
-                    finally:
-                        partial.unlink(missing_ok=True)
+                    target = publish_video(files[0], output, filename_title or files[0].stem)
                     self.events.put({'type': 'saved', 'path': str(target)})
                 else:
                     if not metadata:

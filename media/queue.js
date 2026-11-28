@@ -39,6 +39,9 @@ function waitForFile(id) {
 }
 
 function setupDownload(row, mediaURL, videoTitle) {
+  const name = row.querySelector('.filename-title');
+  name.value = videoTitle || mediaText('video');
+  let downloadTitle = name.value;
   const statusLine=row.querySelector('.status');
   const bar=row.querySelector('progress');
   const files=row.querySelector('.files');
@@ -58,7 +61,7 @@ function setupDownload(row, mediaURL, videoTitle) {
     for (const url of manualURLs) URL.revokeObjectURL(url);
     jobs.delete(mediaURL);
     row.remove();
-    addDownload(mediaURL, videoTitle);
+    addDownload(mediaURL, name.value.trim() || videoTitle);
   };
   let plan, selection = 0;
   const heights = new Map();
@@ -116,6 +119,8 @@ function setupDownload(row, mediaURL, videoTitle) {
   save.onclick = async () => {
     if (!plan || save.disabled || controller.signal.aborted) return;
     save.disabled = save.hidden = true;
+    downloadTitle = name.value.trim() || videoTitle || mediaText('video');
+    name.disabled = true;
     quality.disabled = true;
     statusLine.textContent = mediaText('waiting');
     return enqueue(controller.signal, download);
@@ -145,7 +150,7 @@ function setupDownload(row, mediaURL, videoTitle) {
       for (const [index,file] of result.entries()) {
         const url = URL.createObjectURL(file.blob);
         const suffix = result.length > 1 ? '-'+mediaText('part')+'-'+String(index+1).padStart(2,'0') : '';
-        const filename = videoFilename(videoTitle, heights.get(quality.value), suffix, file.ext);
+        const filename = videoFilename(downloadTitle, heights.get(quality.value), suffix, file.ext);
         try {
           const id = await browser.downloads.download({url,filename,saveAs:false,conflictAction:'uniquify'});
           await waitForFile(id);

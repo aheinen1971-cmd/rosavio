@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "انتهى الاتصال بمساعد التنزيل."
+  },
+  "filenameTitle": {
+    "message": "اسم الملف (بدون الامتداد)"
   }
 }

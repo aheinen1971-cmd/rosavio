@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "De verbinding met de downloadhulp is verbroken."
+  },
+  "filenameTitle": {
+    "message": "Bestandsnaam (zonder extensie)"
   }
 }

@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "Anslutningen till nedladdningshjälparen avslutades."
+  },
+  "filenameTitle": {
+    "message": "Filnamn (utan filändelse)"
   }
 }

@@ -11,6 +11,7 @@
   const status = document.querySelector('#youtube-status');
   const progress = document.querySelector('#youtube-progress');
   const title = document.querySelector('#youtube-title');
+  const name = document.querySelector('#youtube-filename');
   let currentURL = null;
   let state = {phase:'idle',busy:false,choices:[]};
   let choicesKey = '';
@@ -23,6 +24,8 @@
     cancel.disabled = !state.busy;
     select.disabled = state.busy || !state.choices.length;
     title.textContent = state.title || '';
+    name.value = state.filenameTitle ?? state.title ?? '';
+    name.disabled = state.busy || !state.choices.length;
     const key = JSON.stringify(state.choices);
     if (key !== choicesKey) {
       choicesKey = key;
@@ -55,6 +58,7 @@
     render();
   }
   detect.onclick = () => currentURL && controller.inspect(currentURL);
+  name.oninput = () => controller.setFilenameTitle(name.value);
   save.onclick = () => controller.download(select.value);
   cancel.onclick = () => controller.cancel();
   const unsubscribe = controller.subscribe(value => { state=value; render(); });

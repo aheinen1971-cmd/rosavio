@@ -95,14 +95,19 @@ def serve(input_stream, output_stream, operation=None):
             if message is None:
                 break
             action = message.get('action')
-            if action not in ('inspect','download','cancel') or set(message)-{'action','url','selector'}:
+            if action not in ('inspect','download','cancel') or set(message)-{'action','url','selector','filenameTitle'}:
                 send({'type':'error','code':'youtubeRequestRejected'})
                 continue
             try:
                 if action == 'cancel':
                     operation.cancel()
                 else:
-                    operation.start(action, message.get('url',''), message.get('selector'))
+                    if 'filenameTitle' in message:
+                        if action != 'download' or not isinstance(message['filenameTitle'], str):
+                            raise ValueError('Invalid filename title')
+                        operation.start(action, message.get('url',''), message.get('selector'), message['filenameTitle'])
+                    else:
+                        operation.start(action, message.get('url',''), message.get('selector'))
             except (ValueError, OSError, TypeError, AttributeError):
                 send({'type':'error','code':'youtubeRequestRejected'})
                 if not operation.busy:

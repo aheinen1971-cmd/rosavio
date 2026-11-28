@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "Yhteys latausapuun katkesi."
+  },
+  "filenameTitle": {
+    "message": "Tiedostonimi (ilman tiedostopäätettä)"
   }
 }

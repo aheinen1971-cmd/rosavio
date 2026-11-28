@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "Połączenie z pomocnikiem pobierania zostało zakończone."
+  },
+  "filenameTitle": {
+    "message": "Nazwa pliku (bez rozszerzenia)"
   }
 }

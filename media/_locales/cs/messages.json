@@ -250,5 +250,8 @@
   },
   "youtubeDisconnected": {
     "message": "Spojení s pomocníkem pro stahování bylo ukončeno."
+  },
+  "filenameTitle": {
+    "message": "Název souboru (bez přípony)"
   }
 }
