@@ -29,7 +29,7 @@ const server=http.createServer((req,res)=>{
    document.querySelector('#youtube-detect').click();
    receive({type:'info',title:'Neutraler Film 🌹',choices:[{selector:'18',height:360,merged:false}]});receive({type:'idle'});
    const name=document.querySelector('#youtube-filename');if(name.value!=='Neutraler Film 🌹')throw Error('Title suggestion');
-   name.value='Mein eigener Film';name.dispatchEvent(new Event('input'));document.querySelector('#youtube-save').click();
+   name.value='Mein eigener Film';name.dispatchEvent(new Event('input'));document.querySelector('#scan').click();await pause();if(name.value!=='Mein eigener Film')throw Error('Edited title lost after scan');document.querySelector('#youtube-save').click();
    if(sent.at(-1).filenameTitle!=='Mein eigener Film'||!name.disabled)throw Error('Edited title');
    receive({type:'saved',path:'fixture.mp4'});receive({type:'idle'});
    renderRow({url:'https://example.org/abc.mp4',name:'abc.mp4',title:'Neutraler Film',height:720},document.querySelector('#list'));

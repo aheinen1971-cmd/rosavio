@@ -38,7 +38,11 @@ const server=http.createServer((req,res)=>{
   await page.evaluate(()=>{receive({type:'info',title:'Neutraler Film 🌹',choices:[{selector:'18',height:360,merged:false}]});receive({type:'idle'});});
   assert.equal(await page.locator('#youtube-filename').inputValue(),'Neutraler Film 🌹');
   assert.equal(await page.locator('label[for=youtube-filename]').textContent(),messages.filenameTitle.message);
-  await page.locator('#youtube-filename').fill('Mein eigener Film');await page.locator('#youtube-save').click();
+  await page.locator('#youtube-filename').fill('Mein eigener Film');
+  await page.locator('#scan').click();
+  await page.waitForTimeout(50);
+  assert.equal(await page.locator('#youtube-filename').inputValue(),'Mein eigener Film');
+  await page.locator('#youtube-save').click();
   assert.equal(await page.evaluate(()=>sent.at(-1).filenameTitle),'Mein eigener Film');
   assert.ok(await page.locator('#youtube-filename').isDisabled());
   await page.evaluate(()=>{receive({type:'saved',path:'test.mp4'});receive({type:'idle'});renderRow({url:'https://example.org/abc.mp4',name:'abc.mp4',title:'Neutraler Film',height:720},document.querySelector('#list'));});

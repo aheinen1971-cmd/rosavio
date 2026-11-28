@@ -70,6 +70,7 @@ test('editable title survives reopen, freezes during download and resets on new 
  ports[0].receive({type:'info',title:'Original title',choices:[{selector:'18',height:360,merged:false}]});
  ports[0].receive({type:'idle'});
  c.setFilenameTitle('Mein Titel 🌹');
+ assert.equal(state.filenameTitle,'Mein Titel 🌹');
  c.subscribe(s=>state=s)();assert.equal(state.filenameTitle,'Mein Titel 🌹');
  c.download('18');assert.equal(ports[0].sent.at(-1).filenameTitle,'Mein Titel 🌹');
  assert.equal(c.setFilenameTitle('late change'),false);

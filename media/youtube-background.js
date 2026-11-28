@@ -71,6 +71,7 @@ function getYouTubeController(windowId) {
     setFilenameTitle(value) {
       if (state.busy || typeof value !== 'string') return false;
       state = {...state,filenameTitle:value.slice(0,180)};
+      notify();
       return true;
     },
     download(selector) {
