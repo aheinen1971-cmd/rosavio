@@ -47,10 +47,20 @@ class NativeTests(unittest.TestCase):
             self.assertTrue(any(e['type']=='failed' for e in events))
             self.assertEqual(list(output.iterdir()),[])
 
-    def run_fixture(self, output, mode='inspect'):
+    def test_worker_error_with_complete_and_zero_exit_cannot_publish(self):
+        with tempfile.TemporaryDirectory() as folder:
+            output=Path(folder)/'downloads'
+            events=self.run_fixture(output, 'download', worker_error=True)
+            self.assertTrue(any(e['type']=='failed' for e in events),events)
+            self.assertFalse(any(e['type']=='saved' for e in events),events)
+            self.assertFalse(output.exists())
+
+    def run_fixture(self, output, mode='inspect', worker_error=False):
         with tempfile.TemporaryDirectory() as folder:
             script=Path(folder)/'worker.py'
             script.write_text("import sys,json,pathlib\nr=json.loads(pathlib.Path(sys.argv[1]).read_text())\nif r['mode']=='inspect':\n print(json.dumps({'type':'info','title':'fixture','choices':[{'selector':'18','height':360}]}),flush=True)\nelse:\n (pathlib.Path(r['folder'])/'fixture.mp4').write_bytes(b'fixture video')\n print(json.dumps({'type':'complete'}),flush=True)\n",encoding='utf-8')
+            if worker_error:
+                script.write_text(script.read_text(encoding='utf-8').replace(" print(json.dumps({'type':'complete'})", " print(json.dumps({'type':'error','message':'Incomplete fragment'}),flush=True)\n print(json.dumps({'type':'complete'})"),encoding='utf-8')
             o=engine.Operation(output)
             with patch.object(engine,'ROOT',Path(folder)):
                 o.start(mode,'https://youtu.be/aqz-KE-bpKQ','18' if mode=='download' else None)

@@ -206,6 +206,7 @@ class Operation:
     def _run(self, mode, url, selector, filename_title=None):
         staging = None
         complete = False
+        worker_error = False
         metadata = False
         try:
             staging = Path(tempfile.mkdtemp(prefix='rosavio-video-finder-'))
@@ -230,6 +231,8 @@ class Operation:
                     raise ValueError('Ungültige Antwort des Download-Helfers.')
                 if event['type'] == 'complete':
                     complete = True
+                if event['type'] == 'error':
+                    worker_error = True
                 if event['type'] == 'info':
                     metadata = bool(event.get('title') and event.get('choices'))
                 if event.get('type') != 'complete':
@@ -239,7 +242,7 @@ class Operation:
                 if self.cancelled:
                     return
                 self.settled = True
-                if code:
+                if code or worker_error:
                     self.events.put({'type': 'failed'})
                 elif mode == 'download':
                     if not complete:

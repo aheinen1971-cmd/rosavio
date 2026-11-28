@@ -20,6 +20,7 @@ jobs:
         run: |
           python tests/test_video_finder_native.py
           python tests/test_video_finder_names.py
+          python tests/test_video_finder_worker.py
           node --test tests/video-finder-*.test.cjs tests/media-localization.test.cjs tests/media-core.test.cjs tests/media-background.test.cjs
       - name: Build isolated Windows candidate
         shell: pwsh
@@ -61,6 +62,7 @@ jobs:
         run: |
           python tests/test_video_finder_native.py
           python tests/test_video_finder_names.py
+          python tests/test_video_finder_worker.py
           node --test tests/video-finder-*.test.cjs tests/media-localization.test.cjs tests/media-core.test.cjs tests/media-background.test.cjs
       - name: Build and test Linux candidate in twenty languages
         run: python scripts/cloud-unix-build.py --platform linux-x64

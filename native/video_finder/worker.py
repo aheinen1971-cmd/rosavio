@@ -11,11 +11,14 @@ def emit(kind, **data):
     print(json.dumps({'type': kind, **data}, ensure_ascii=True), flush=True)
 
 class Logger:
+    def __init__(self):
+        self.failed = False
     def debug(self, message):
         pass
     def warning(self, message):
         emit('log', message=message)
     def error(self, message):
+        self.failed = True
         emit('error', message=message)
 
 def options(folder):
@@ -25,7 +28,10 @@ def options(folder):
     if not node.is_file() or not ffmpeg.is_file():
         raise FileNotFoundError('Bundled video tools are missing')
     return {'logger': Logger(), 'noplaylist': True, 'cachedir': False,
-            'socket_timeout': 20, 'retries': 1, 'fragment_retries': 1,
+            'socket_timeout': 20, 'retries': 3, 'fragment_retries': 3,
+            # Restart interrupted fragments rather than reusing partial bytes.
+            # A missing fragment must never become a successful, damaged video.
+            'continuedl': False, 'skip_unavailable_fragments': False,
             'js_runtimes': {'node': {'path': str(node)}},
             'remote_components': set(), 'ffmpeg_location': str(ffmpeg),
             'outtmpl': str(Path(folder) / '%(id)s.%(ext)s'),
@@ -52,7 +58,9 @@ def main():
                 raise ValueError('Requested format is no longer available')
             opts['format'] = req['selector']
             with yt_dlp.YoutubeDL(opts) as download:
-                download.download([req['url']])
+                result = download.download([req['url']])
+            if result or opts['logger'].failed:
+                raise RuntimeError('Video download did not finish completely')
             emit('complete')
 
 if __name__ == '__main__':
